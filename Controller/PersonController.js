@@ -68,6 +68,7 @@ const PersonRegister = async (req, res) => {
 /** Controller to Upload Profile Image */
 const UploadProfile = async (req,res)=>{
     const {loginid} = req.query;
+    console.log(req.file.buffer) 
     try{
        
         /** Uploading Profile Image In S3 Bucket */
