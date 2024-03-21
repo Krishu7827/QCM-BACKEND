@@ -6,98 +6,98 @@ const util = require('util')
 /** Making Sync To Query to Loop */
 const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 
-// const s = [
-//   '{"name":"krish","email":true}',
-//   '{"name":"kkk","email":true}'
-// ];
+const s = [
+  '{"name":"krish","email":true}',
+  '{"name":"kkk","email":true}'
+];
 
-// let data = {
-//   "CurrentUser": "jfidj923923923423k",
-//   "SolarCellDetails": {
-//     "LotNo": '',
-//     "SupplierName": "supplierNameController.text",
-//     "InvoiceNo": "invoiceNoController.text",
-//     "InvoiceDate": "invoiceDate",
-//     "RawMaterialSpecs": "rawMaterialSpecsController.text",
-//     "DateOfQualityCheck": "dateOfQualityCheck",
-//     "SupplierRMBatchNo": "rMBatchNoController.text",
-//     "RecieptDate": "receiptDate",
-//     "DocumentNo": "GSPL/SC(I QC)/001",
-//     "RevNo": "Ver2.0/13-03-2024"
-//   },
-//   "SolarCell": {
-//     "Packaging": {
-//       "Characterstics": "packagingCharactersticsController.text",
-//       "MeasuringMethod": "packagingMeasuringMethodController.text",
-//       "Sampling": "packagingSamplingController.text",
-//       "SmapleSize": "packagingSampleSizeController.text",
-//       "Reference": "packagingReferenceDocController.text",
-//       "AcceptanceCriteria": "packagingAcceptanceCriteriaController.text",
-//       "Samples": s
-//     },
-//     "Visual": {
-//       "Characterstics": "visualCharactersticsController.text",
-//       "MeasuringMethod": "visualMeasuringMethodController.text",
-//       "Sampling": "visualSamplingController.text",
-//       "Reference": "visualReferenceDocController.text",
-//       "AcceptanceCriteria": "visualAcceptanceCriteriaController.text",
-//       "Samples": s
-//     },
-//     "Physical": {
-//       "Characterstics": "physicalCharactersticsController.text",
-//       "MeasuringMethod": "physicalMeasuringMethodController.text",
-//       "Sampling": "physicalSamplingController.text",
-//       "Reference": "physicalReferenceDocController.text",
-//       "AcceptanceCriteria": "physicalAcceptanceCriteriaController.text",
-//       "Samples": s
-//     },
-//     "FrontBus": {
-//       "Characterstics": "frontbusCharactersticsController.text",
-//       "MeasuringMethod": "frontbusMeasuringMethodController.text",
-//       "Sampling": "frontbusSamplingController.text",
-//       "Reference": "frontbusReferenceDocController.text",
-//       "AcceptanceCriteria": "frontbusAcceptanceCriteriaController.text",
-//       "Samples": s
-//     },
-//     "Verification": {
-//       "Characterstics": "verificationCharactersticsController.text",
-//       "MeasuringMethod": "verificationMeasuringMethodController.text",
-//       "Sampling": "verificationSamplingController.text",
-//       "Reference": "verificationReferenceDocController.text",
-//       "AcceptanceCriteria": "verificationAcceptanceCriteriaController.text",
-//       "Samples": s
-//     },
-//     "Electrical": {
-//       "Characterstics": "electricalCharactersticsController.text",
-//       "MeasuringMethod": "electricalMeasuringMethodController.text",
-//       "Sampling": "electricalSamplingController.text",
-//       "Reference": "electricalReferenceDocController.text",
-//       "AcceptanceCriteria": "electricalAcceptanceCriteriaController.text",
-//       "Samples": s
-//     },
-//     "Performance": {
-//       "Characterstics": "performanceCharactersticsController.text",
-//       "MeasuringMethod": "performanceMeasuringMethodController.text",
-//       "Sampling": "performanceSamplingController.text",
-//       "Reference": "performanceReferenceDocController.text",
-//       "AcceptanceCriteria": "performanceAcceptanceCriteriaController.text",
-//       "Samples":s
-//     }
-//   },
-//   "Rejected": {
-//     "Result": "result",
-//     "CheckTypes": [
-//       { "Packaging": "packagingRejection" },
-//       { "Visual": "visualRejection" },
-//       { "Physical": "physicalRejection" },
-//       { "FrontBus": "frontbusRejection" },
-//       { "Verification": "verificationRejection" },
-//       { "Electrical": "electricalRejection" },
-//       { "Performance": "performanceRejection" },
-//     ],
-//     "Reason": "rejectionReasonController.text"
-//   }
-// };
+let data = {
+  "CurrentUser": "jfidj923923923423k",
+  "SolarCellDetails": {
+    "LotNo": '',
+    "SupplierName": "supplierNameController.text",
+    "InvoiceNo": "invoiceNoController.text",
+    "InvoiceDate": "invoiceDate",
+    "RawMaterialSpecs": "rawMaterialSpecsController.text",
+    "DateOfQualityCheck": "dateOfQualityCheck",
+    "SupplierRMBatchNo": "rMBatchNoController.text",
+    "RecieptDate": "receiptDate",
+    "DocumentNo": "GSPL/SC(I QC)/001",
+    "RevNo": "Ver2.0/13-03-2024"
+  },
+  "SolarCell": {
+    "Packaging": {
+      "Characterstics": "packagingCharactersticsController.text",
+      "MeasuringMethod": "packagingMeasuringMethodController.text",
+      "Sampling": "packagingSamplingController.text",
+      "SmapleSize": "packagingSampleSizeController.text",
+      "Reference": "packagingReferenceDocController.text",
+      "AcceptanceCriteria": "packagingAcceptanceCriteriaController.text",
+      "Samples": s
+    },
+    "Visual": {
+      "Characterstics": "visualCharactersticsController.text",
+      "MeasuringMethod": "visualMeasuringMethodController.text",
+      "Sampling": "visualSamplingController.text",
+      "Reference": "visualReferenceDocController.text",
+      "AcceptanceCriteria": "visualAcceptanceCriteriaController.text",
+      "Samples": s
+    },
+    "Physical": {
+      "Characterstics": "physicalCharactersticsController.text",
+      "MeasuringMethod": "physicalMeasuringMethodController.text",
+      "Sampling": "physicalSamplingController.text",
+      "Reference": "physicalReferenceDocController.text",
+      "AcceptanceCriteria": "physicalAcceptanceCriteriaController.text",
+      "Samples": s
+    },
+    "FrontBus": {
+      "Characterstics": "frontbusCharactersticsController.text",
+      "MeasuringMethod": "frontbusMeasuringMethodController.text",
+      "Sampling": "frontbusSamplingController.text",
+      "Reference": "frontbusReferenceDocController.text",
+      "AcceptanceCriteria": "frontbusAcceptanceCriteriaController.text",
+      "Samples": s
+    },
+    "Verification": {
+      "Characterstics": "verificationCharactersticsController.text",
+      "MeasuringMethod": "verificationMeasuringMethodController.text",
+      "Sampling": "verificationSamplingController.text",
+      "Reference": "verificationReferenceDocController.text",
+      "AcceptanceCriteria": "verificationAcceptanceCriteriaController.text",
+      "Samples": s
+    },
+    "Electrical": {
+      "Characterstics": "electricalCharactersticsController.text",
+      "MeasuringMethod": "electricalMeasuringMethodController.text",
+      "Sampling": "electricalSamplingController.text",
+      "Reference": "electricalReferenceDocController.text",
+      "AcceptanceCriteria": "electricalAcceptanceCriteriaController.text",
+      "Samples": s
+    },
+    "Performance": {
+      "Characterstics": "performanceCharactersticsController.text",
+      "MeasuringMethod": "performanceMeasuringMethodController.text",
+      "Sampling": "performanceSamplingController.text",
+      "Reference": "performanceReferenceDocController.text",
+      "AcceptanceCriteria": "performanceAcceptanceCriteriaController.text",
+      "Samples":s
+    }
+  },
+  "Rejected": {
+    "Result": "result",
+    "CheckTypes": [
+      { "Packaging": "packagingRejection" },
+      { "Visual": "visualRejection" },
+      { "Physical": "physicalRejection" },
+      { "FrontBus": "frontbusRejection" },
+      { "Verification": "verificationRejection" },
+      { "Electrical": "electricalRejection" },
+      { "Performance": "performanceRejection" },
+    ],
+    "Reason": "rejectionReasonController.text"
+  }
+};
 
 /**to Add Solar Cell In IQC */
 const AddIQCSolarCell = async (req, res) => {
@@ -131,7 +131,6 @@ const AddIQCSolarCell = async (req, res) => {
   for (let key in SolarCel) {
     const Samples = SolarCel[key]['Samples'];
     for (let i = 0; i < Samples.length; i++) {
-      Samples[i] = JSON.parse(Samples[i]);
       Samples[i] = JSON.stringify(Samples[i]);
     }
 
