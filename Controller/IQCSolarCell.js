@@ -14,7 +14,7 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 // let data = {
 //   "CurrentUser": "jfidj923923923423k",
 //   "SolarCellDetails": {
-//     "LotNo": 3,
+//     "LotNo": '',
 //     "SupplierName": "supplierNameController.text",
 //     "InvoiceNo": "invoiceNoController.text",
 //     "InvoiceDate": "invoiceDate",
@@ -102,9 +102,8 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 /**to Add Solar Cell In IQC */
 const AddIQCSolarCell = async (req, res) => {
    const data = req.body
-  let temp;
+ console.log(data)
   const UUID = v4();
-  const currentDate = new Date();
   const SolarCellDetail = data['SolarCellDetails']
   const SolarCel = data['SolarCell']
   const Rejected = data['Rejected']
