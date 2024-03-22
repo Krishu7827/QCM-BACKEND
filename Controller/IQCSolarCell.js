@@ -188,9 +188,9 @@ const GetIQCSolarCellTests = async(req,res)=>{
    data.forEach(test => {
       test['MaterialName'] = 'Solar Cell';
    });
-    res.send(data)
+    res.send({status:true,data})
   }catch(err){
-    res.send({err})
+    res.send({status:false,err})
   }
 
 }
