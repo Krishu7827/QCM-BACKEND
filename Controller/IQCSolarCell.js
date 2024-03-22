@@ -1,7 +1,9 @@
 const { v4: uuidv4, v4 } = require('uuid');
 const { dbConn } = require('../db.config/db.config')
 const util = require('util')
-const {getCurrentDateTime} = require('../Utilis/IQCSolarCellUtilis')
+const {getCurrentDateTime} = require('../Utilis/IQCSolarCellUtilis');
+const { resolve } = require('path');
+const { rejects } = require('assert');
 /**Rename to column RMD Details */
 
 /** Making Sync To Query to Loop */
@@ -103,7 +105,7 @@ let data = {
 /**to Add Solar Cell In IQC */
 const AddIQCSolarCell = async (req, res) => {
    const data = req.body
- console.log(data)
+ console.log(data) 
   const UUID = v4();
   const SolarCellDetail = data['SolarCellDetails']
   const SolarCel = data['SolarCell']
@@ -163,9 +165,37 @@ console.log(Reject,result);
   }
 }
 
+/** To all test of IQC Solar Cell with Who's Checked */
 
+const GetIQCSolarCellTests = async(req,res)=>{
+
+  /** Query */
+  try{
+
+  const getTests = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,id.SolarDetailID,id.InvoiceNo FROM Person p
+  JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
+  JOIN IQCSolarDetails id ON p.PersonID = id.CheckedBy;`
+  
+  let data = await new Promise((resolve,rejects)=>{
+    dbConn.query(getTests,(err,result)=>{
+      if(err){
+        rejects(err)
+      }else{
+        resolve(result)
+      }
+    })
+  })
+   data.forEach(test => {
+      test['MaterialName'] = 'Solar Cell';
+   });
+    res.send(data)
+  }catch(err){
+    res.send({err})
+  }
+
+}
 
 /** Export Controllers */
-module.exports = { AddIQCSolarCell }
+module.exports = { AddIQCSolarCell,GetIQCSolarCellTests }
 
 
