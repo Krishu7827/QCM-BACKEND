@@ -143,7 +143,7 @@ console.log(hashedPassword[0].Password)
            })
       })
     const token = JWT.sign({},process.env.SecretKey)
-    res.send({msg:'Login Successfull',token,PersonData})
+    res.send({status:true, msg:'Login Successfull', token, PersonData})
     }else{
 
      res.status(401).send({msg:'Wrong Password'})

@@ -140,8 +140,8 @@ const AddIQCSolarCell = async (req, res) => {
 
     const Solar = await queryAsync(SolarCellQuery);
     temp = Solar;
-    console.log("nn", Solar);
-    console.log(key);
+    // console.log("nn", Solar);
+    // console.log(key);
   }
 
 
