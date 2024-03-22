@@ -54,18 +54,8 @@ const PersonRegister = async (req, res) => {
         </div>
       </div>`
       })
-    const getPersonIDQuery = `SELECT PersonID FROM Person Where LoginID = '${loginid}'`
-
-  const PersonID = new Promise((resolve,reject)=>{
-        dbConn.query(getPersonIDQuery,(err,result)=>{
-          if(err){
-            reject(err)
-          }else{
-            resolve(result)
-          }
-        })
-  })
-    res.send({msg:'Employee Registered Succesfully',PersonID})
+    
+    res.send({msg:'Employee Registered Succesfully',data})
     } catch (err) {
         console.log(err)
         res.status(500).send({ err })
