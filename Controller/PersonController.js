@@ -127,9 +127,23 @@ console.log(hashedPassword[0].Password)
   // const match = await bcrypt.compare(password,hashedPassword[0].Password)
    //console.log(match)
     if(hashedPassword[0].Password == password){
+  
+      const getdata = `SELECT p.PersonID,p.ProfileImg,p.Name,d1.Designation,d.Department FROM Person p
+      JOIN Department d ON p.Department = d.DepartmentID
+      JOIN Designation d1 ON p.Desgination = d1.DesignationID
+      WHERE p.LoginID = '${loginid}'`
 
+      const PersonData = new Promise((resolve,reject)=>{
+           dbConn.query(getdata,(err,result)=>{
+            if(err){
+              reject(err)
+            }else{
+              resolve(result)
+            }
+           })
+      })
     const token = JWT.sign({},process.env.SecretKey)
-    res.send({msg:'Login Successfull',token})
+    res.send({msg:'Login Successfull',token,PersonData})
     }else{
 
      res.status(401).send({msg:'Wrong Password'})
