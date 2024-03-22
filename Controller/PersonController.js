@@ -133,7 +133,7 @@ console.log(hashedPassword[0].Password)
       JOIN Designation d1 ON p.Desgination = d1.DesignationID
       WHERE p.LoginID = '${loginid}'`
 
-      const PersonData = new Promise((resolve,reject)=>{
+      const PersonData = await new Promise((resolve,reject)=>{
            dbConn.query(getdata,(err,result)=>{
             if(err){
               reject(err)
