@@ -1,6 +1,7 @@
 const { v4: uuidv4, v4 } = require('uuid');
 const { dbConn } = require('../db.config/db.config')
 const util = require('util')
+const {getCurrentDateTime} = require('../Utilis/IQCSolarCellUtilis')
 /**Rename to column RMD Details */
 
 /** Making Sync To Query to Loop */
@@ -109,9 +110,9 @@ const AddIQCSolarCell = async (req, res) => {
   const Rejected = data['Rejected']
   try {
 
-    /** Inserting Data in IQCSolarDetails Table */
+    /*************** Inserting Data in IQCSolarDetails Table **************/
     const SolarDetailQuery = `INSERT INTO IQCSolarDetails(SolarDetailID,LotSize,SupplierName,QuantityRecd,InvoiceDate,RMDetails,QualityCheckDate,SampleQuantityCheck,InvoiceNo,ReceiptDate,DocumentNo,RevisionNo,CheckedBy,ApprovedBy,Status,CreatedDate,UpdatedDate) 
-    VALUES ('${UUID}','${SolarCellDetail['LotNo']}','${SolarCellDetail['SupplierName']}','','${SolarCellDetail['InvoiceDate']}','${SolarCellDetail['RawMaterialSpecs']}','${SolarCellDetail['DateOfQualityCheck']}','','${SolarCellDetail['InvoiceNo']}','${SolarCellDetail['RecieptDate']}','${SolarCellDetail['DocumentNo']}','${SolarCellDetail['RevNo']}','${data['CurrentUser']}','','Pending','${getCurrentDate()}','');`
+    VALUES ('${UUID}','${SolarCellDetail['LotNo']}','${SolarCellDetail['SupplierName']}','','${SolarCellDetail['InvoiceDate']}','${SolarCellDetail['RawMaterialSpecs']}','${SolarCellDetail['DateOfQualityCheck']}','','${SolarCellDetail['InvoiceNo']}','${SolarCellDetail['RecieptDate']}','${SolarCellDetail['DocumentNo']}','${SolarCellDetail['RevNo']}','${data['CurrentUser']}','','Pending','${getCurrentDateTime()}','');`
    
     const result = await new Promise((resolve, reject) => {
       dbConn.query(SolarDetailQuery, (err, result) => {
@@ -127,7 +128,7 @@ const AddIQCSolarCell = async (req, res) => {
 
 
 
-   /** Inserting Data in IQC Solar Table */
+   /************ Inserting Data in IQC Solar Table ******************/
   for (let key in SolarCel) {
     const Samples = SolarCel[key]['Samples'];
     for (let i = 0; i < Samples.length; i++) {
@@ -135,7 +136,7 @@ const AddIQCSolarCell = async (req, res) => {
     }
 
     const SolarCellQuery = `INSERT INTO IQCSolar(IQCSolarID,SolarDetailID,CheckType,Characterstics,MeasuringMethod,Sampling,Reference,AcceptanceCriteria,Samples,CreatedDate,UpdatedDate)
-     VALUES ('${uuidv4()}','${UUID}','${key}','${SolarCel[key]['Characterstics']}','${SolarCel[key]['MeasuringMethod']}','${SolarCel[key]['Sampling']}','${SolarCel[key]['Reference']}','${SolarCel[key]['AcceptanceCriteria']}','[${Samples}]','${getCurrentDate()}','');`;
+     VALUES ('${uuidv4()}','${UUID}','${key}','${SolarCel[key]['Characterstics']}','${SolarCel[key]['MeasuringMethod']}','${SolarCel[key]['Sampling']}','${SolarCel[key]['Reference']}','${SolarCel[key]['AcceptanceCriteria']}','[${Samples}]','${getCurrentDateTime()}','');`;
 
     const Solar = await queryAsync(SolarCellQuery);
     temp = Solar;
@@ -144,14 +145,14 @@ const AddIQCSolarCell = async (req, res) => {
   }
 
 
-    /** Inserting Data in Rejected Table */
+    /************** Inserting Data in Rejected Table *******************/
     let checkTypes = []
     for(let i = 0; i<Rejected['CheckTypes'].length; i++){
         checkTypes.push(JSON.stringify(Rejected['CheckTypes'][i]))
     }
     console.log(checkTypes)
     const RejectedQuery = `INSERT INTO Rejected(RejectedID,SolarDetailID,CheckTypes,Reason,Result,CreatedDate,UpdatedDate)
- VALUES ('${v4()}','${UUID}','[${checkTypes}]','${Rejected['Reason']}','${Rejected['Result']}','${getCurrentDate()}','');`
+ VALUES ('${v4()}','${UUID}','[${checkTypes}]','${Rejected['Reason']}','${Rejected['Result']}','${getCurrentDateTime()}','');`
     const Reject = await queryAsync(RejectedQuery);
 console.log(Reject,result);
     res.send({msg:'Data Inserted SuccesFully !'})
@@ -162,40 +163,9 @@ console.log(Reject,result);
   }
 }
 
-/** to Get current Date */
-function getCurrentDate() {
-  const date = new Date();
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${day}-${month}-${year}`;
-}
 
 
 /** Export Controllers */
 module.exports = { AddIQCSolarCell }
 
 
-// {
-//   "result": {
-//       "fieldCount": 0,
-//       "affectedRows": 1,
-//       "insertId": 0,
-//       "serverStatus": 2,
-//       "warningCount": 0,
-//       "message": "",
-//       "protocol41": true,
-//       "changedRows": 0
-//   }
-// }
-
-// {
-//   "fieldCount": 0,
-//   "affectedRows": 1,
-//   "insertId": 0,
-//   "serverStatus": 2,
-//   "warningCount": 0,
-//   "message": "",
-//   "protocol41": true,
-//   "changedRows": 0
-// }
