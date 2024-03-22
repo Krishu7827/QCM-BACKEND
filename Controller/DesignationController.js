@@ -2,7 +2,7 @@ const {dbConn} = require('../db.config/db.config')
 
 /** Controller To Get Designation List */
 const getDesignationList = async(req,res)=>{
-    const query = `SELECT Designation FROM Designation`
+    const query = `SELECT *FROM Designation`
 try{
     const data = await new Promise((resolve,reject)=>{
         
@@ -24,7 +24,7 @@ try{
 /**Controller to get Department List */
 
 const getDepartmentList = async(req,res)=>{
-  const query = `SELECT Department FROM Department`
+  const query = `SELECT *FROM Department`
 try{
   const data = await new Promise((resolve,reject)=>{
       
@@ -44,7 +44,7 @@ try{
 
  /** Get Work Location List */
  const getWorkLocationList = async(req,res)=>{
-  const query = `SELECT Location FROM WorkLocation`
+  const query = `SELECT *FROM WorkLocation`
 try{
   const data = await new Promise((resolve,reject)=>{
       
