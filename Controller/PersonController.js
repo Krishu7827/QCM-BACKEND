@@ -54,7 +54,7 @@ const PersonRegister = async (req, res) => {
         </div>
       </div>`
       })
-    const getPersonIDQuery = `SELECT PersonID FROM Person Where LoginID = ${loginid}`
+    const getPersonIDQuery = `SELECT PersonID FROM Person Where LoginID = '${loginid}'`
 
   const PersonID = new Promise((resolve,reject)=>{
         dbConn.query(getPersonIDQuery,(err,result)=>{
