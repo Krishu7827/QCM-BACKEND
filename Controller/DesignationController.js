@@ -20,4 +20,45 @@ try{
    }
 }
 
-module.exports = {getDesignationList}
+
+/**Controller to get Department List */
+
+const getDepartmentList = async(req,res)=>{
+  const query = `SELECT Department FROM Department`
+try{
+  const data = await new Promise((resolve,reject)=>{
+      
+     dbConn.query(query,(err,result)=>{
+       if(err){
+         reject(err)
+       }else{
+         resolve(result)
+       }
+     })
+  })
+ res.send({data:data})
+ }catch(err){
+   res.status(500).send({err})
+ }
+}
+
+ /** Get Work Location List */
+ const getWorkLocationList = async(req,res)=>{
+  const query = `SELECT Location FROM WorkLocation`
+try{
+  const data = await new Promise((resolve,reject)=>{
+      
+     dbConn.query(query,(err,result)=>{
+       if(err){
+         reject(err)
+       }else{
+         resolve(result)
+       }
+     })
+  })
+ res.send({data:data})
+ }catch(err){
+   res.status(500).send({err})
+ }
+}
+module.exports = {getDesignationList,getDepartmentList,getWorkLocationList}

@@ -19,7 +19,7 @@ app.use(cors())
 app.use('/Employee',PersonRouter)
 
 /** to Department and Designation */
-app.use('/Department',designationRouter)
+app.use('/QCM',designationRouter)
 
 /** to IQC Solar Cell */
 app.use('/IQCSolarCell',IQCSolarCellRoute)
