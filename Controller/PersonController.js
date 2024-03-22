@@ -67,7 +67,7 @@ const PersonRegister = async (req, res) => {
 
 /** Controller to Upload Profile Image */
 const UploadProfile = async (req,res)=>{
-    const {loginid} = req.query;
+    const {personid} = req.body;
     console.log(req.file.buffer) 
     try{
        
@@ -75,7 +75,7 @@ const UploadProfile = async (req,res)=>{
         const data = await new Promise((resolve, reject) => {
             s3.upload({
                 Bucket: process.env.AWS_BUCKET_1,
-                Key: loginid,
+                Key: personid,
                 Body: req.file.buffer,
                 ACL: "public-read-write",
                 ContentType: req.body.FileFormat
@@ -87,7 +87,7 @@ const UploadProfile = async (req,res)=>{
                }
             })
         });
-    const query = `UPDATE Person SET ProfileImg = '${data.Location}' WHERE LoginID = '${loginid}'`
+    const query = `UPDATE Person SET ProfileImg = '${data.Location}' WHERE PersonID = '${personid}'`
     
     const SqlData = await new Promise((resolve,reject)=>{
        dbConn.query(query,(err,result)=>{
