@@ -190,7 +190,7 @@ const GetIQCSolarCellTests = async(req,res)=>{
    });
     res.send({status:true,data})
   }catch(err){
-    res.send({status:false,err})
+    res.status(400).send({status:false,err})
   }
 
 }
