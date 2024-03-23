@@ -179,11 +179,12 @@ const GetIQCSolarCellTests = async(req,res)=>{
   JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
   JOIN IQCSolarDetails id ON p.PersonID = id.CheckedBy;`
  }else{
-  query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,id.SolarDetailID,id.InvoiceNo FROM Person p
+  query = `SELECT p.PersonID,id.CheckedBy, p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,id.SolarDetailID,id.InvoiceNo FROM Person p
   JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
-  JOIN IQCSolarDetails id ON p.PersonID = '${PersonID}';`
+  JOIN IQCSolarDetails id ON p.PersonID = id.CheckedBy
+   WHERE p.PersonID = '${PersonID}';`
  }
-
+ 
   let data = await new Promise((resolve,rejects)=>{
     dbConn.query(query,(err,result)=>{
       if(err){
@@ -193,9 +194,10 @@ const GetIQCSolarCellTests = async(req,res)=>{
       }
     })
   })
-   data.forEach(test => {
-      test['MaterialName'] = 'Solar Cell';
-   });
+  console.log(data)
+  //  data.forEach(test => {
+  //     test['MaterialName'] = 'Solar Cell';
+  //  });
     res.send({status:true,data})
   }catch(err){
     res.status(400).send({status:false,err})
