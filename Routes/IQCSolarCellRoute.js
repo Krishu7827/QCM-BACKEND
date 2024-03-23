@@ -10,7 +10,7 @@ IQCSolarCellRoute.post('/AddIQCSolarCell',AddIQCSolarCell)
 
 IQCSolarCellRoute.use(RoleAuthentication)
 /** to Get All tests with checked Person*/
-IQCSolarCellRoute.get('/GetIQCTests',GetIQCSolarCellTests)
+IQCSolarCellRoute.post('/GetIQCTests',GetIQCSolarCellTests)
 
 
 
