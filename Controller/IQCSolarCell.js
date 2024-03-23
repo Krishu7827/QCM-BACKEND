@@ -168,16 +168,24 @@ console.log(Reject,result);
 /** To all test of IQC Solar Cell with Who's Checked */
 
 const GetIQCSolarCellTests = async(req,res)=>{
+  const {PersonID,Designation,Department} = req.body
+  console.log(Designation)
+  let query;
 
   /** Query */
   try{
-
-  const getTests = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,id.SolarDetailID,id.InvoiceNo FROM Person p
+ if(Designation == 'Admin' || Designation == 'Super Admin' ){
+   query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,id.SolarDetailID,id.InvoiceNo FROM Person p
   JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
   JOIN IQCSolarDetails id ON p.PersonID = id.CheckedBy;`
-  
+ }else{
+  query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,id.SolarDetailID,id.InvoiceNo FROM Person p
+  JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
+  JOIN IQCSolarDetails id ON p.PersonID = '${PersonID}';`
+ }
+
   let data = await new Promise((resolve,rejects)=>{
-    dbConn.query(getTests,(err,result)=>{
+    dbConn.query(query,(err,result)=>{
       if(err){
         rejects(err)
       }else{
