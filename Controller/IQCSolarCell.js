@@ -146,8 +146,6 @@ const AddIQCSolarCell = async (req, res) => {
 
     const Solar = await queryAsync(SolarCellQuery);
     temp = Solar;
-    // console.log("nn", Solar);
-    // console.log(key);
   }
 
 
@@ -213,11 +211,9 @@ const GetSpecificSolarCellTest = async(req,res)=>{
     const {SolarDetailID} = req.body
 
     try{
-    const query = `SELECT id.SolarDetailID,id.LotSize,id.SupplierName,id.InvoiceNo,id.InvoiceDate,id.RMDetails,id.QualityCheckDate,id.RMDetails,id.ReceiptDate,i.IQCSolarID,i.CheckType,i.Characterstics,i.MeasuringMethod,
-    i.Sampling,i.Reference,i.AcceptanceCriteria,i.Samples,r.RejectedID,r.CheckTypes,r.Reason,r.Result FROM IQCSolarDetails id
+    const query = `SELECT id.SolarDetailID,id.LotSize,id.SupplierName,id.InvoiceNo,id.InvoiceDate,id.RMDetails,id.QualityCheckDate,id.RMDetails,id.ReceiptDate,i.IQCSolarID,i.CheckType,i.Samples,r.RejectedID,r.CheckTypes,r.Reason,r.Result FROM IQCSolarDetails id
     JOIN IQCSolar i ON id.SolarDetailID = i.SolarDetailID
-    JOIN Rejected r ON id.SolarDetailID = r.SolarDetailID
-    WHERE id.SolarDetailID = '721876d6-ceb7-4e9b-b958-d5f8cad87c57';`
+    JOIN Rejected r ON id.SolarDetailID = r.SolarDetailID;`
     let data = await new Promise((resolve,rejects)=>{
       dbConn.query(query,(err,result)=>{
         if(err){
@@ -227,11 +223,59 @@ const GetSpecificSolarCellTest = async(req,res)=>{
         }
       })
     })
-    let temp = '[{"Packaging":false},{"Visual":true},{"Physical":false},{"FrontBus":true},{"Verification":false},{"Electrical":false},{"Performance":false}]'
+ 
+    let responseData = []
+    let obj ={}
+    data.forEach((data,i)=>{
+        if(i === 0){
+          let index = 0
+          
+        
+         for(let key in data){
+            if(index == 8){
+              break;
+            }
+            obj[key] = data[key];
+            index++;
+         }
+        index = 0;
+         for(let key in data){
+          if(index == 15){
+            break;
+          }
+          if(index>=11){
+             if(key == 'CheckTypes'){
+              let temp = JSON.parse(data[key]);
+              temp.forEach((type,i)=>{
+                for(let key in type){
+                  obj[`Reject${key}`] = type[key];
+                }
+              })
+             }else{
+             obj[key] = data[key];
+             }
+          }
+          
+          index++;
+       }
 
-    const arr = data[0]['Samples']
-    console.log(JSON.parse(temp))
-    res.send(data)
+      
+        
+        }
+
+        for(let key in data){
+              if(key == 'CheckType'){
+                let temp = JSON.parse(data['Samples'])
+                obj[`SampleSize${data[key]}`] = temp.length
+                obj[data[key]] = temp
+              }
+        }
+       
+
+    })
+    responseData.push(obj);
+    console.log(responseData)
+    res.send(responseData)
   }catch(err){
     console.log(err)
     res.status(404).send(err)
