@@ -233,7 +233,7 @@ const GetSpecificSolarCellTest = async(req,res)=>{
           
         
          for(let key in data){
-            if(index == 8){
+            if(index == 9){
               break;
             }
             obj[key] = data[key];
@@ -241,10 +241,10 @@ const GetSpecificSolarCellTest = async(req,res)=>{
          }
         index = 0;
          for(let key in data){
-          if(index == 15){
+          if(index == 16){
             break;
           }
-          if(index>=11){
+          if(index>=12){
              if(key == 'CheckTypes'){
               let temp = JSON.parse(data[key]);
               temp.forEach((type,i)=>{
