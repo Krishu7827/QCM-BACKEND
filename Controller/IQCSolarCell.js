@@ -111,7 +111,7 @@ const AddIQCSolarCell = async (req, res) => {
   const SolarCellDetail = data['SolarCellDetails']
   const SolarCel = data['SolarCell']
   const Rejected = data['Rejected']
-  const Samples = SolarCel[key]['Samples'];
+  const Samples = SolarCel['Packaging']['Samples'];
  console.log(Samples)
   try {
 
