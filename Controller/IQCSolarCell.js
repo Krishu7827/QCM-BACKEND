@@ -211,7 +211,7 @@ const GetSpecificSolarCellTest = async(req,res)=>{
     const {SolarDetailID} = req.body
 
     try{
-    const query = `SELECT id.SolarDetailID,id.LotSize,id.SupplierName,id.InvoiceNo,id.InvoiceDate,id.SupplierRMBatchNo,id.RawMaterialSpecs,id.QualityCheckDate,id.ReceiptDate,i.IQCSolarID,i.CheckType,i.Samples,r.RejectedID,r.CheckTypes,r.Reason,r.Result FROM IQCSolarDetails id
+    const query = `SELECT id.SolarDetailID,id.LotSize,id.SupplierName,id.InvoiceNo,id.InvoiceDate,id.SupplierRMBatchNo,id.RawMaterialSpecs,id.QualityCheckDate,id.ReceiptDate,id.Status,i.IQCSolarID,i.CheckType,i.Samples,r.RejectedID,r.CheckTypes,r.Reason,r.Result FROM IQCSolarDetails id
     JOIN IQCSolar i ON id.SolarDetailID = i.SolarDetailID
     JOIN Rejected r ON id.SolarDetailID = r.SolarDetailID
     WHERE id.SolarDetailID = '${SolarDetailID}';`
@@ -233,7 +233,7 @@ const GetSpecificSolarCellTest = async(req,res)=>{
           
         
          for(let key in data){
-            if(index == 9){
+            if(index == 10){
               break;
             }
             obj[key] = data[key];
@@ -241,10 +241,10 @@ const GetSpecificSolarCellTest = async(req,res)=>{
          }
         index = 0;
          for(let key in data){
-          if(index == 16){
+          if(index == 17){
             break;
           }
-          if(index>=12){
+          if(index>=13){
              if(key == 'CheckTypes'){
               let temp = JSON.parse(data[key]);
               temp.forEach((type,i)=>{
