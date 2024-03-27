@@ -156,7 +156,7 @@ const AddIQCSolarCell = async (req, res) => {
     for(let i = 0; i<Rejected['CheckTypes'].length; i++){
         checkTypes.push(JSON.stringify(Rejected['CheckTypes'][i]))
     }
-    console.log(checkTypes)
+    //console.log(checkTypes)
     const RejectedQuery = `INSERT INTO Rejected(RejectedID,SolarDetailID,CheckTypes,Reason,Result,CreatedDate,UpdatedDate)
  VALUES ('${v4()}','${UUID}','[${checkTypes}]','${Rejected['Reason']}','${Rejected['Result']}','${getCurrentDateTime()}','');`
     const Reject = await queryAsync(RejectedQuery);
