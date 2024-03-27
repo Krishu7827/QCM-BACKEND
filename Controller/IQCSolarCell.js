@@ -116,7 +116,7 @@ const AddIQCSolarCell = async (req, res) => {
   try {
 
     /*************** Inserting Data in IQCSolarDetails Table **************/
-    const SolarDetailQuery = `INSERT INTO IQCSolarDetails(SolarDetailID,LotSize,SupplierName,QuantityRecd,InvoiceDate,SupplierRMBatchNo,RawMaterialSpecs,QualityCheckDate,SampleQuantityCheck,InvoiceNo,ReceiptDate,DocumentNo,RevisionNo,CheckedBy,ApprovedBy,Status,CreatedDate,UpdatedDate) 
+    const SolarDetailQuery = `INSERT INTO IQCSolarDetails(SolarDetailID,LotSize,SupplierName,QuantityRecd,InvoiceDate,SupplierRMBatchNo,RawMaterialSpecs,QualityCheckDate,SampleQuantityCheck,InvoiceNo,ReceiptDate,DocumentNo,RevisionNo,CheckedBy,UpdatedBy,Status,CreatedDate,UpdatedDate) 
     VALUES ('${UUID}','${SolarCellDetail['LotNo']}','${SolarCellDetail['SupplierName']}','','${SolarCellDetail['InvoiceDate']}','${SolarCellDetail['SupplierRMBatchNo']}','${SolarCellDetail['RawMaterialSpecs']}','${SolarCellDetail['DateOfQualityCheck']}','','${SolarCellDetail['InvoiceNo']}','${SolarCellDetail['RecieptDate']}','${SolarCellDetail['DocumentNo']}','${SolarCellDetail['RevNo']}','${data['CurrentUser']}','','Pending','${getCurrentDateTime()}','');`
    
     const result = await new Promise((resolve, reject) => {
