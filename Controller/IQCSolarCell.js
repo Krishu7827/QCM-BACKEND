@@ -115,7 +115,7 @@ const AddIQCSolarCell = async (req, res) => {
  console.log(Samples)
   try {
 
-    /*************** Inserting Data in IQCSolarDetails Table **************/l
+    /*************** Inserting Data in IQCSolarDetails Table **************/
     const SolarDetailQuery = `INSERT INTO IQCSolarDetails(SolarDetailID,LotSize,SupplierName,QuantityRecd,InvoiceDate,RMDetails,QualityCheckDate,SampleQuantityCheck,InvoiceNo,ReceiptDate,DocumentNo,RevisionNo,CheckedBy,ApprovedBy,Status,CreatedDate,UpdatedDate) 
     VALUES ('${UUID}','${SolarCellDetail['LotNo']}','${SolarCellDetail['SupplierName']}','','${SolarCellDetail['InvoiceDate']}','${SolarCellDetail['RawMaterialSpecs']}','${SolarCellDetail['DateOfQualityCheck']}','','${SolarCellDetail['InvoiceNo']}','${SolarCellDetail['RecieptDate']}','${SolarCellDetail['DocumentNo']}','${SolarCellDetail['RevNo']}','${data['CurrentUser']}','','Pending','${getCurrentDateTime()}','');`
    
