@@ -164,7 +164,7 @@ console.log(Reject,result);
     res.send({msg:'Data Inserted SuccesFully !'})
   } catch (err) {
    
-  
+  console.log(err)
   res.status(401).send(err)
   }
 }
