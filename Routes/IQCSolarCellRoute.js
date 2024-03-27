@@ -1,6 +1,6 @@
 const express = require('express');
 const IQCSolarCellRoute = express.Router()
-const {AddIQCSolarCell, GetIQCSolarCellTests} = require('../Controller/IQCSolarCell')
+const {AddIQCSolarCell, GetIQCSolarCellTests,GetSpecificSolarCellTest} = require('../Controller/IQCSolarCell')
 const {RoleAuthentication} = require('../Middleware/IQCSolarCell.Middleware')
 
 
@@ -12,7 +12,8 @@ IQCSolarCellRoute.use(RoleAuthentication)
 /** to Get All tests with checked Person*/
 IQCSolarCellRoute.post('/GetIQCTests',GetIQCSolarCellTests)
 
-
+/** to Get Specific Test */
+IQCSolarCellRoute.post('/GetSpecificTest',GetSpecificSolarCellTest)
 
 
 /** Exporting Routes */

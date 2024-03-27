@@ -9,98 +9,98 @@ const { rejects } = require('assert');
 /** Making Sync To Query to Loop */
 const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 
-const s = [
-  '{"name":"krish","email":true}',
-  '{"name":"kkk","email":true}'
-];
+// const s = [
+//   '{"name":"krish","email":true}',
+//   '{"name":"kkk","email":true}'
+// ];
 
-let data = {
-  "CurrentUser": "jfidj923923923423k",
-  "SolarCellDetails": {
-    "LotNo": '',
-    "SupplierName": "supplierNameController.text",
-    "InvoiceNo": "invoiceNoController.text",
-    "InvoiceDate": "invoiceDate",
-    "RawMaterialSpecs": "rawMaterialSpecsController.text",
-    "DateOfQualityCheck": "dateOfQualityCheck",
-    "SupplierRMBatchNo": "rMBatchNoController.text",
-    "RecieptDate": "receiptDate",
-    "DocumentNo": "GSPL/SC(I QC)/001",
-    "RevNo": "Ver2.0/13-03-2024"
-  },
-  "SolarCell": {
-    "Packaging": {
-      "Characterstics": "packagingCharactersticsController.text",
-      "MeasuringMethod": "packagingMeasuringMethodController.text",
-      "Sampling": "packagingSamplingController.text",
-      "SmapleSize": "packagingSampleSizeController.text",
-      "Reference": "packagingReferenceDocController.text",
-      "AcceptanceCriteria": "packagingAcceptanceCriteriaController.text",
-      "Samples": s
-    },
-    "Visual": {
-      "Characterstics": "visualCharactersticsController.text",
-      "MeasuringMethod": "visualMeasuringMethodController.text",
-      "Sampling": "visualSamplingController.text",
-      "Reference": "visualReferenceDocController.text",
-      "AcceptanceCriteria": "visualAcceptanceCriteriaController.text",
-      "Samples": s
-    },
-    "Physical": {
-      "Characterstics": "physicalCharactersticsController.text",
-      "MeasuringMethod": "physicalMeasuringMethodController.text",
-      "Sampling": "physicalSamplingController.text",
-      "Reference": "physicalReferenceDocController.text",
-      "AcceptanceCriteria": "physicalAcceptanceCriteriaController.text",
-      "Samples": s
-    },
-    "FrontBus": {
-      "Characterstics": "frontbusCharactersticsController.text",
-      "MeasuringMethod": "frontbusMeasuringMethodController.text",
-      "Sampling": "frontbusSamplingController.text",
-      "Reference": "frontbusReferenceDocController.text",
-      "AcceptanceCriteria": "frontbusAcceptanceCriteriaController.text",
-      "Samples": s
-    },
-    "Verification": {
-      "Characterstics": "verificationCharactersticsController.text",
-      "MeasuringMethod": "verificationMeasuringMethodController.text",
-      "Sampling": "verificationSamplingController.text",
-      "Reference": "verificationReferenceDocController.text",
-      "AcceptanceCriteria": "verificationAcceptanceCriteriaController.text",
-      "Samples": s
-    },
-    "Electrical": {
-      "Characterstics": "electricalCharactersticsController.text",
-      "MeasuringMethod": "electricalMeasuringMethodController.text",
-      "Sampling": "electricalSamplingController.text",
-      "Reference": "electricalReferenceDocController.text",
-      "AcceptanceCriteria": "electricalAcceptanceCriteriaController.text",
-      "Samples": s
-    },
-    "Performance": {
-      "Characterstics": "performanceCharactersticsController.text",
-      "MeasuringMethod": "performanceMeasuringMethodController.text",
-      "Sampling": "performanceSamplingController.text",
-      "Reference": "performanceReferenceDocController.text",
-      "AcceptanceCriteria": "performanceAcceptanceCriteriaController.text",
-      "Samples":s
-    }
-  },
-  "Rejected": {
-    "Result": "result",
-    "CheckTypes": [
-      { "Packaging": "packagingRejection" },
-      { "Visual": "visualRejection" },
-      { "Physical": "physicalRejection" },
-      { "FrontBus": "frontbusRejection" },
-      { "Verification": "verificationRejection" },
-      { "Electrical": "electricalRejection" },
-      { "Performance": "performanceRejection" },
-    ],
-    "Reason": "rejectionReasonController.text"
-  }
-};
+// let data = {
+//   "CurrentUser": "jfidj923923923423k",
+//   "SolarCellDetails": {
+//     "LotNo": '',
+//     "SupplierName": "supplierNameController.text",
+//     "InvoiceNo": "invoiceNoController.text",
+//     "InvoiceDate": "invoiceDate",
+//     "RawMaterialSpecs": "rawMaterialSpecsController.text",
+//     "DateOfQualityCheck": "dateOfQualityCheck",
+//     "SupplierRMBatchNo": "rMBatchNoController.text",
+//     "RecieptDate": "receiptDate",
+//     "DocumentNo": "GSPL/SC(I QC)/001",
+//     "RevNo": "Ver2.0/13-03-2024"
+//   },
+//   "SolarCell": {
+//     "Packaging": {
+//       "Characterstics": "packagingCharactersticsController.text",
+//       "MeasuringMethod": "packagingMeasuringMethodController.text",
+//       "Sampling": "packagingSamplingController.text",
+//       "SmapleSize": "packagingSampleSizeController.text",
+//       "Reference": "packagingReferenceDocController.text",
+//       "AcceptanceCriteria": "packagingAcceptanceCriteriaController.text",
+//       "Samples": s
+//     },
+//     "Visual": {
+//       "Characterstics": "visualCharactersticsController.text",
+//       "MeasuringMethod": "visualMeasuringMethodController.text",
+//       "Sampling": "visualSamplingController.text",
+//       "Reference": "visualReferenceDocController.text",
+//       "AcceptanceCriteria": "visualAcceptanceCriteriaController.text",
+//       "Samples": s
+//     },
+//     "Physical": {
+//       "Characterstics": "physicalCharactersticsController.text",
+//       "MeasuringMethod": "physicalMeasuringMethodController.text",
+//       "Sampling": "physicalSamplingController.text",
+//       "Reference": "physicalReferenceDocController.text",
+//       "AcceptanceCriteria": "physicalAcceptanceCriteriaController.text",
+//       "Samples": s
+//     },
+//     "FrontBus": {
+//       "Characterstics": "frontbusCharactersticsController.text",
+//       "MeasuringMethod": "frontbusMeasuringMethodController.text",
+//       "Sampling": "frontbusSamplingController.text",
+//       "Reference": "frontbusReferenceDocController.text",
+//       "AcceptanceCriteria": "frontbusAcceptanceCriteriaController.text",
+//       "Samples": s
+//     },
+//     "Verification": {
+//       "Characterstics": "verificationCharactersticsController.text",
+//       "MeasuringMethod": "verificationMeasuringMethodController.text",
+//       "Sampling": "verificationSamplingController.text",
+//       "Reference": "verificationReferenceDocController.text",
+//       "AcceptanceCriteria": "verificationAcceptanceCriteriaController.text",
+//       "Samples": s
+//     },
+//     "Electrical": {
+//       "Characterstics": "electricalCharactersticsController.text",
+//       "MeasuringMethod": "electricalMeasuringMethodController.text",
+//       "Sampling": "electricalSamplingController.text",
+//       "Reference": "electricalReferenceDocController.text",
+//       "AcceptanceCriteria": "electricalAcceptanceCriteriaController.text",
+//       "Samples": s
+//     },
+//     "Performance": {
+//       "Characterstics": "performanceCharactersticsController.text",
+//       "MeasuringMethod": "performanceMeasuringMethodController.text",
+//       "Sampling": "performanceSamplingController.text",
+//       "Reference": "performanceReferenceDocController.text",
+//       "AcceptanceCriteria": "performanceAcceptanceCriteriaController.text",
+//       "Samples":s
+//     }
+//   },
+//   "Rejected": {
+//     "Result": "result",
+//     "CheckTypes": [
+//       { "Packaging": "packagingRejection" },
+//       { "Visual": "visualRejection" },
+//       { "Physical": "physicalRejection" },
+//       { "FrontBus": "frontbusRejection" },
+//       { "Verification": "verificationRejection" },
+//       { "Electrical": "electricalRejection" },
+//       { "Performance": "performanceRejection" },
+//     ],
+//     "Reason": "rejectionReasonController.text"
+//   }
+// };
 
 /**to Add Solar Cell In IQC */
 const AddIQCSolarCell = async (req, res) => {
@@ -112,7 +112,7 @@ const AddIQCSolarCell = async (req, res) => {
   const Rejected = data['Rejected']
   try {
 
-    /*************** Inserting Data in IQCSolarDetails Table **************/
+    /*************** Inserting Data in IQCSolarDetails Table **************/l
     const SolarDetailQuery = `INSERT INTO IQCSolarDetails(SolarDetailID,LotSize,SupplierName,QuantityRecd,InvoiceDate,RMDetails,QualityCheckDate,SampleQuantityCheck,InvoiceNo,ReceiptDate,DocumentNo,RevisionNo,CheckedBy,ApprovedBy,Status,CreatedDate,UpdatedDate) 
     VALUES ('${UUID}','${SolarCellDetail['LotNo']}','${SolarCellDetail['SupplierName']}','','${SolarCellDetail['InvoiceDate']}','${SolarCellDetail['RawMaterialSpecs']}','${SolarCellDetail['DateOfQualityCheck']}','','${SolarCellDetail['InvoiceNo']}','${SolarCellDetail['RecieptDate']}','${SolarCellDetail['DocumentNo']}','${SolarCellDetail['RevNo']}','${data['CurrentUser']}','','Pending','${getCurrentDateTime()}','');`
    
@@ -133,6 +133,7 @@ const AddIQCSolarCell = async (req, res) => {
    /************ Inserting Data in IQC Solar Table ******************/
   for (let key in SolarCel) {
     const Samples = SolarCel[key]['Samples'];
+    console.log(Samples)
     for (let i = 0; i < Samples.length; i++) {
       Samples[i] = JSON.stringify(Samples[i]);
     }
@@ -205,7 +206,37 @@ const GetIQCSolarCellTests = async(req,res)=>{
 
 }
 
+const GetSpecificSolarCellTest = async(req,res)=>{
+    const {SolarDetailID} = req.body
+
+    try{
+    const query = `SELECT id.SolarDetailID,id.LotSize,id.SupplierName,id.InvoiceNo,id.InvoiceDate,id.RMDetails,id.QualityCheckDate,id.RMDetails,id.ReceiptDate,i.IQCSolarID,i.CheckType,i.Characterstics,i.MeasuringMethod,
+    i.Sampling,i.Reference,i.AcceptanceCriteria,i.Samples,r.RejectedID,r.CheckTypes,r.Reason,r.Result FROM IQCSolarDetails id
+    JOIN IQCSolar i ON id.SolarDetailID = i.SolarDetailID
+    JOIN Rejected r ON id.SolarDetailID = r.SolarDetailID
+    WHERE id.SolarDetailID = '721876d6-ceb7-4e9b-b958-d5f8cad87c57';`
+    let data = await new Promise((resolve,rejects)=>{
+      dbConn.query(query,(err,result)=>{
+        if(err){
+          rejects(err)
+        }else{
+          resolve(result)
+        }
+      })
+    })
+    let temp = '[{"Packaging":false},{"Visual":true},{"Physical":false},{"FrontBus":true},{"Verification":false},{"Electrical":false},{"Performance":false}]'
+
+    const arr = data[0]['Samples']
+    console.log(JSON.parse(temp))
+    res.send(data)
+  }catch(err){
+    console.log(err)
+    res.status(404).send(err)
+  }
+
+}
+
 /** Export Controllers */
-module.exports = { AddIQCSolarCell,GetIQCSolarCellTests }
+module.exports = { AddIQCSolarCell,GetIQCSolarCellTests,GetSpecificSolarCellTest }
 
 

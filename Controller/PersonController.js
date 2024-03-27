@@ -144,7 +144,7 @@ console.log(hashedPassword[0].Password)
       })
       let EnCodeData = PersonData[0]
     const token = JWT.sign({PersonID:EnCodeData['PersonID'],Designation:EnCodeData['Designation'],Department:EnCodeData['Department']},process.env.SecretKey)
-    
+
     res.send({status:true, msg:'Login Successfull', token, PersonData})
     }else{
 
@@ -162,6 +162,8 @@ console.log(hashedPassword[0].Password)
   
 }
 
+
+/** UpdatedOn, Created on column  */
 
 
 module.exports = {PersonRegister,UploadProfile,Login}
