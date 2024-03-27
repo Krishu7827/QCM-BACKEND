@@ -106,12 +106,13 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 const AddIQCSolarCell = async (req, res) => {
    const data = req.body
  console.log(data) 
- const Samples = SolarCel[key]['Samples'];
- console.log(Samples)
+ 
   const UUID = v4();
   const SolarCellDetail = data['SolarCellDetails']
   const SolarCel = data['SolarCell']
   const Rejected = data['Rejected']
+  const Samples = SolarCel[key]['Samples'];
+ console.log(Samples)
   try {
 
     /*************** Inserting Data in IQCSolarDetails Table **************/l
