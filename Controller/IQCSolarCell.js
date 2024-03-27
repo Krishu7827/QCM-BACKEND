@@ -167,7 +167,7 @@ console.log(Reject,result);
   }
 }
 
-/** To all test of IQC Solar Cell with Who's Checked */
+/** To all test of IQC Solar Cell by employee */
 
 const GetIQCSolarCellTests = async(req,res)=>{
   const {PersonID,Designation,Department} = req.body
@@ -211,7 +211,7 @@ const GetSpecificSolarCellTest = async(req,res)=>{
     const {SolarDetailID} = req.body
 
     try{
-    const query = `SELECT id.SolarDetailID,id.LotSize,id.SupplierName,id.InvoiceNo,id.InvoiceDate,id.RMDetails,id.QualityCheckDate,id.RMDetails,id.ReceiptDate,i.IQCSolarID,i.CheckType,i.Samples,r.RejectedID,r.CheckTypes,r.Reason,r.Result FROM IQCSolarDetails id
+    const query = `SELECT id.SolarDetailID,id.LotSize,id.SupplierName,id.InvoiceNo,id.InvoiceDate,id.SupplierRMBatchNo,id.QualityCheckDate,id.RMDetails,id.ReceiptDate,i.IQCSolarID,i.CheckType,i.Samples,r.RejectedID,r.CheckTypes,r.Reason,r.Result FROM IQCSolarDetails id
     JOIN IQCSolar i ON id.SolarDetailID = i.SolarDetailID
     JOIN Rejected r ON id.SolarDetailID = r.SolarDetailID
     WHERE id.SolarDetailID = '${SolarDetailID}';`
