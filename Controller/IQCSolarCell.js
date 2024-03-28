@@ -179,12 +179,14 @@ const GetIQCSolarCellTests = async (req, res) => {
       query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,id.SolarDetailID,id.InvoiceNo FROM Person p
   JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
   JOIN IQCSolarDetails id ON p.PersonID = id.CheckedBy
-  WHERE id.Status = '${Status}';`
+  WHERE id.Status = '${Status}'
+  ORDER BY STR_TO_DATE(id.CreatedDate, '%d-%m-%Y %H:%i:%s') ASC;`
     } else {
       query = `SELECT p.PersonID,id.CheckedBy, p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,id.SolarDetailID,id.InvoiceNo FROM Person p
   JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
   JOIN IQCSolarDetails id ON p.PersonID = id.CheckedBy
-   WHERE p.PersonID = '${PersonID}' AND id.Status = '${Status}' ;`
+   WHERE p.PersonID = '${PersonID}' AND id.Status = '${Status}' 
+   ORDER BY STR_TO_DATE(id.CreatedDate, '%d-%m-%Y %H:%i:%s') ASC;`
     }
 
     let data = await new Promise((resolve, rejects) => {
