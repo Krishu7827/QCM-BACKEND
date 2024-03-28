@@ -27,7 +27,34 @@ const PersonRegister = async (req, res) => {
                 }
              })
         })
+    //    /** to Find Designation */
+    //     const DesignationQuery = `SELECT Designation FROM Designation WHERE DesignationID = '${designation}'`
+    //     const DesignationName = await new Promise((resolve,reject)=>{
+    //       dbConn.query(DesignationQuery,(err,result)=>{
+    //          if(err){
+    //             reject(err)
+    //          }else{
 
+    //            resolve(result)
+    //          }
+    //       })
+    //  })
+
+    
+     /** to Find Department */
+     const DepartmentQuery = `SELECT Department FROM Department WHERE DepartmentID = '${department}'`
+     const DepartmentName = await new Promise((resolve,reject)=>{
+       dbConn.query(DepartmentQuery,(err,result)=>{
+          if(err){
+             reject(err)
+          }else{
+
+            resolve(result)
+          }
+       })
+  })
+
+console.log(DepartmentName[0]['Department'])
         /** Sending A Email to Admin */
         await transport.sendMail({
         from: 'bhanu.galo@gmail.com',
@@ -38,8 +65,8 @@ const PersonRegister = async (req, res) => {
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://galo.co.in/wp-content/uploads/2024/01/Galo-Energy-Logo-06.png'); background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0.3; z-index: -1;"></div>
         <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px;">
           <h3 style="color: #2f4f4f;">Welcome to Gautam Solar Private Limited!</h3>
-          <p style="font-size: 16px;">Dear ${designation},</p>      
-          <p style="font-size: 16px; margin-bottom: 0px;">Congratulations, ${fullname} is now officially enrolled in ${department}.</p>      
+          <p style="font-size: 16px;">Dear Admin,</p>      
+          <p style="font-size: 16px; margin-bottom: 0px;">Congratulations, ${fullname} is now officially enrolled in ${DepartmentName[0]['Department']} department.</p>      
           <p style="font-size: 16px;">Below are your enrollment details:</p>
           <ul style="font-size: 16px;">
             <li><strong>Employee ID:</strong> ${loginid}</li>
