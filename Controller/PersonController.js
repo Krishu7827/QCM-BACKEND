@@ -32,25 +32,25 @@ const PersonRegister = async (req, res) => {
         await transport.sendMail({
         from: 'bhanu.galo@gmail.com',
         cc: 'bhanu.galo@gmail.com',
-        to:'krishukumar7827@gmail.com' ,
-        subject: 'Enrollment in Galo Energy Private Limited',
+        to:'quality@gautamsolar.com' ,
+        subject: 'Enrollment in Gautam Solar Private Limited',
         html: `<div style="position: relative; padding: 5px;">
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://galo.co.in/wp-content/uploads/2024/01/Galo-Energy-Logo-06.png'); background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0.3; z-index: -1;"></div>
         <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px;">
-          <h3 style="color: #2f4f4f;">Welcome to Galo Energy Private Limited!</h3>
-          <p style="font-size: 16px;">Dear ${fullname},</p>      
-          <p style="font-size: 16px; margin-bottom: 0px;">Congratulations, you are now officially enrolled in Galo Energy Private Limited.</p>      
+          <h3 style="color: #2f4f4f;">Welcome to Gautam Solar Private Limited!</h3>
+          <p style="font-size: 16px;">Dear ${designation},</p>      
+          <p style="font-size: 16px; margin-bottom: 0px;">Congratulations, ${fullname} is now officially enrolled in ${department}.</p>      
           <p style="font-size: 16px;">Below are your enrollment details:</p>
           <ul style="font-size: 16px;">
             <li><strong>Employee ID:</strong> ${loginid}</li>
             <li><strong>Password:</strong> ${PlainPassword}</li>
           </ul>
-          <p style="font-size: 16px; margin-bottom: 0px;">Please keep your Employee ID and Password confidential for security reasons.</p>        
-          <p style="font-size: 16px; margin-bottom: 0px;">If you have any questions or need assistance, feel free to contact us at <a href="mailto:info@galoenergy.com" style="color: #007bff;">info@galoenergy.com</a>.</p>
+          <p style="font-size: 16px; margin-bottom: 0px;">Please keep his Employee ID and Password confidential for security reasons.</p>        
+          <p style="font-size: 16px; margin-bottom: 0px;">If you have any questions or need assistance, feel free to contact us at <a href="mailto:quality@gautamsolar.com" style="color: #007bff;">quality@gautamsolar.com</a>.</p>
           <p style="font-size: 16px;">We look forward to working with you!</p>
           <br>
           <p style="font-size: 16px;"><em>Sincerely,</em></p>
-          <p style="font-size: 16px;"><strong>Galo Energy HR Team</strong></p>
+          <p style="font-size: 16px;"><strong>Gautam Solar QCM Team</strong></p>
         </div>
       </div>`
       })
@@ -124,8 +124,6 @@ try{
 console.log(hashedPassword[0].Password)
   try{
 
-  // const match = await bcrypt.compare(password,hashedPassword[0].Password)
-   //console.log(match)
     if(hashedPassword[0].Password == password){
   
       const getdata = `SELECT p.PersonID,p.ProfileImg,p.Name,d1.Designation,d.Department FROM Person p
@@ -152,12 +150,12 @@ console.log(hashedPassword[0].Password)
     }
   }catch(err){
 
-    res.status(400).send({err})
+    res.status(400).send({msg:'Internal Error'})
   }
 
 }catch(err){
 
-  res.status(400).send({err})
+  res.status(400).send({msg:'Wrong EmployeeId'})
 }
   
 }
