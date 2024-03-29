@@ -339,7 +339,7 @@ const UploadPdf = async (req, res) => {
     const Invoice = await new Promise((resolve, reject) => {
       s3.upload({
         Bucket: process.env.AWS_BUCKET_2,
-        Key: `${UUID}_${req.files['InvoicePdf'][0].originalname}`,
+        Key: `${SolarDetailId}_${req.files['InvoicePdf'][0].originalname}`,
         Body: req.files['InvoicePdf'][0].buffer,
         ACL: "public-read-write",
         ContentType: req.files['InvoicePdf'][0].mimetype
@@ -356,7 +356,7 @@ const UploadPdf = async (req, res) => {
     const COC = await new Promise((resolve, reject) => {
       s3.upload({
         Bucket: process.env.AWS_BUCKET_2,
-        Key: `${UUID}_${req.files['COCPdf'][0].originalname}`,
+        Key: `${SolarDetailId}_${req.files['COCPdf'][0].originalname}`,
         Body: req.files['COCPdf'][0].buffer,
         ACL: "public-read-write",
         ContentType: req.files['COCPdf'][0].mimetype
