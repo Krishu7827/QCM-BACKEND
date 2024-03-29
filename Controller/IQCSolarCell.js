@@ -118,7 +118,7 @@ const AddIQCSolarCell = async (req, res) => {
    
   
   try{
-     const Invoice = new Promise((resolve,reject)=>{
+     const Invoice = await new Promise((resolve,reject)=>{
       s3.upload({
         Bucket: process.env.AWS_BUCKET_2,
         Key: `${UUID}_${req.files['InvoicePdf'][0].originalname}`,
@@ -135,7 +135,7 @@ const AddIQCSolarCell = async (req, res) => {
     })
      })
 
-     const COC = new Promise((resolve,reject)=>{
+     const COC = await new Promise((resolve,reject)=>{
       s3.upload({
         Bucket: process.env.AWS_BUCKET_2,
         Key: `${UUID}_${req.files['InvoicePdf'][0].originalname}`,
