@@ -45,8 +45,7 @@ const filefilter = (req, file, cb) => {
 
 const upload = multer({ storage: storage, fileFilter: filefilter }).fields([
   {name:'InvoicePdf',maxCount:1},
-  {name:'UnknownPdf',maxCount:1},
-  {name:'personid',maxCount:1}
+  {name:'COCPdf',maxCount:1}
 ]);
 
 
