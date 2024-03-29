@@ -106,7 +106,7 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 const AddIQCSolarCell = async (req, res) => {
   const data = req.body
   console.log(data)
-  
+  console.log(req.files)
 // console.log(req.files['InvoicePdf'][0])
 
   const UUID = v4();

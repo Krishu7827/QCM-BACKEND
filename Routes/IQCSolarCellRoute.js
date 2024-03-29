@@ -5,7 +5,7 @@ const {RoleAuthentication,upload} = require('../Middleware/IQCSolarCell.Middlewa
 
 
 /** to add IQC Solar Cell  */
-IQCSolarCellRoute.post('/AddIQCSolarCell',AddIQCSolarCell)
+IQCSolarCellRoute.post('/AddIQCSolarCell',upload,AddIQCSolarCell)
 
 
 IQCSolarCellRoute.use(RoleAuthentication)
