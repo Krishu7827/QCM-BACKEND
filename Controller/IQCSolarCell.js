@@ -116,7 +116,7 @@ const AddIQCSolarCell = async (req, res) => {
   let InvoicePdfURL;
   let COCPdfURL;
    
-  
+  console.log(SolarCel['Packaging']['Samples'])
   try{
      const Invoice = await new Promise((resolve,reject)=>{
       s3.upload({
