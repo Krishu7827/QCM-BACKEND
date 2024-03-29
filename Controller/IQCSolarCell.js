@@ -291,7 +291,7 @@ const GetSpecificSolarCellTest = async (req, res) => {
           if (index == 19) {
             break;
           }
-          if (index >= 13) {
+          if (index >= 15) {
             if (key == 'CheckTypes') {
               let temp = JSON.parse(data[key]);
               temp.forEach((type, i) => {
