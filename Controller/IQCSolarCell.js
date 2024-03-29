@@ -151,7 +151,7 @@ const AddIQCSolarCell = async (req, res) => {
        }
     })
      })
-     
+     console.log(Invoice,COC)
      InvoicePdfURL = Invoice.Location;
      COCPdfURL = COC.Location;
   }catch(err){
