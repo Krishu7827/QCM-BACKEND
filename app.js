@@ -5,7 +5,8 @@ const {designationRouter} = require('./Routes/DesignationRoute')
 const {IQCSolarCellRoute} = require('./Routes/IQCSolarCellRoute')
 const app = express()
 const cors = require('cors')
-
+const PORT = process.env.PORT || 8080
+require('dotenv').config()
 app.use(express.json())
 app.use(cors())
 
@@ -24,7 +25,7 @@ app.use('/QCM',designationRouter)
 /** to IQC Solar Cell */
 app.use('/IQCSolarCell',IQCSolarCellRoute)
 
-app.listen(5000,async()=>{
+app.listen(PORT,async()=>{
   try{
  dbConn
   console.log('server is running')
