@@ -1,7 +1,7 @@
 const express = require('express');
 const IQCSolarCellRoute = express.Router()
 const {AddIQCSolarCell, GetIQCSolarCellTests,GetSpecificSolarCellTest,UpdateStatus} = require('../Controller/IQCSolarCell')
-const {RoleAuthentication} = require('../Middleware/IQCSolarCell.Middleware')
+const {RoleAuthentication,upload} = require('../Middleware/IQCSolarCell.Middleware')
 
 
 /** to add IQC Solar Cell  */

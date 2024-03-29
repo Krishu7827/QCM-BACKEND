@@ -1,10 +1,10 @@
 const { v4: uuidv4, v4 } = require('uuid');
 const { dbConn } = require('../db.config/db.config')
 const util = require('util')
-const { getCurrentDateTime } = require('../Utilis/IQCSolarCellUtilis');
-const { resolve } = require('path');
-const { rejects } = require('assert');
-/**Rename to column RMD Details */
+const { getCurrentDateTime,s3 } = require('../Utilis/IQCSolarCellUtilis');
+
+require('dotenv').config()
+
 
 /** Making Sync To Query to Loop */
 const queryAsync = util.promisify(dbConn.query).bind(dbConn);
@@ -106,65 +106,93 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 const AddIQCSolarCell = async (req, res) => {
   const data = req.body
   console.log(data)
+  
+// console.log(req.files['InvoicePdf'][0])
 
   const UUID = v4();
   const SolarCellDetail = data['SolarCellDetails']
   const SolarCel = data['SolarCell']
   const Rejected = data['Rejected']
-  const Samples = SolarCel['Packaging']['Samples'];
-  console.log(Samples)
-  try {
+  let InvoicePdfURL;
+  let UnknownPdfURL;
+   
 
-    /*************** Inserting Data in IQCSolarDetails Table **************/
-    const SolarDetailQuery = `INSERT INTO IQCSolarDetails(SolarDetailID,LotSize,SupplierName,QuantityRecd,InvoiceDate,SupplierRMBatchNo,RawMaterialSpecs,QualityCheckDate,SampleQuantityCheck,InvoiceNo,ReceiptDate,DocumentNo,RevisionNo,CheckedBy,UpdatedBy,Status,CreatedDate,UpdatedDate) 
-    VALUES ('${UUID}','${SolarCellDetail['LotNo']}','${SolarCellDetail['SupplierName']}','','${SolarCellDetail['InvoiceDate']}','${SolarCellDetail['SupplierRMBatchNo']}','${SolarCellDetail['RawMaterialSpecs']}','${SolarCellDetail['DateOfQualityCheck']}','','${SolarCellDetail['InvoiceNo']}','${SolarCellDetail['RecieptDate']}','${SolarCellDetail['DocumentNo']}','${SolarCellDetail['RevNo']}','${data['CurrentUser']}','','Pending','${getCurrentDateTime()}','');`
+  try{
+     const Invoice = new Promise((resolve,reject)=>{
+      s3.upload({
+        Bucket: process.env.AWS_BUCKET_2,
+        Key: UUID,
+        Body: req.body['InvoicePdf'],
+        ACL: "public-read-write",
+        ContentType: 'application/pdf'
+    },(err,result)=>{
+       if(err){
+        reject(err)
+       }else{
 
-    const result = await new Promise((resolve, reject) => {
-      dbConn.query(SolarDetailQuery, (err, result) => {
-        if (err) {
-          console.log(err)
-          return reject(err);
-        } else {
+        resolve(result)
+       }
+    })
+     })
+     console.log(Invoice)
 
-          return resolve(result);
-        }
-      });
-    });
-
-
-
-    /************ Inserting Data in IQC Solar Table ******************/
-    for (let key in SolarCel) {
-      const Samples = SolarCel[key]['Samples'];
-      console.log(Samples)
-      for (let i = 0; i < Samples.length; i++) {
-        Samples[i] = JSON.stringify(Samples[i]);
-      }
-
-      const SolarCellQuery = `INSERT INTO IQCSolar(IQCSolarID,SolarDetailID,CheckType,Characterstics,MeasuringMethod,Sampling,Reference,AcceptanceCriteria,Samples,CreatedDate,UpdatedDate)
-     VALUES ('${uuidv4()}','${UUID}','${key}','${SolarCel[key]['Characterstics']}','${SolarCel[key]['MeasuringMethod']}','${SolarCel[key]['Sampling']}','${SolarCel[key]['Reference']}','${SolarCel[key]['AcceptanceCriteria']}','[${Samples}]','${getCurrentDateTime()}','');`;
-
-      const Solar = await queryAsync(SolarCellQuery);
-      temp = Solar;
-    }
-
-
-    /************** Inserting Data in Rejected Table *******************/
-    let checkTypes = []
-    for (let i = 0; i < Rejected['CheckTypes'].length; i++) {
-      checkTypes.push(JSON.stringify(Rejected['CheckTypes'][i]))
-    }
-    //console.log(checkTypes)
-    const RejectedQuery = `INSERT INTO Rejected(RejectedID,SolarDetailID,CheckTypes,Reason,Result,CreatedDate,UpdatedDate)
- VALUES ('${v4()}','${UUID}','[${checkTypes}]','${Rejected['Reason']}','${Rejected['Result']}','${getCurrentDateTime()}','');`
-    const Reject = await queryAsync(RejectedQuery);
-    console.log(Reject, result);
-    res.send({ msg: 'Data Inserted SuccesFully !' })
-  } catch (err) {
-
+     res.send(Invoice)
+  }catch(err){
     console.log(err)
-    res.status(401).send(err)
+res.send(err)
   }
+//   try {
+
+//     /*************** Inserting Data in IQCSolarDetails Table **************/
+//     const SolarDetailQuery = `INSERT INTO IQCSolarDetails(SolarDetailID,LotSize,SupplierName,QuantityRecd,InvoiceDate,SupplierRMBatchNo,RawMaterialSpecs,QualityCheckDate,SampleQuantityCheck,InvoiceNo,ReceiptDate,DocumentNo,RevisionNo,CheckedBy,UpdatedBy,Status,CreatedDate,UpdatedDate) 
+//     VALUES ('${UUID}','${SolarCellDetail['LotNo']}','${SolarCellDetail['SupplierName']}','','${SolarCellDetail['InvoiceDate']}','${SolarCellDetail['SupplierRMBatchNo']}','${SolarCellDetail['RawMaterialSpecs']}','${SolarCellDetail['DateOfQualityCheck']}','','${SolarCellDetail['InvoiceNo']}','${SolarCellDetail['RecieptDate']}','${SolarCellDetail['DocumentNo']}','${SolarCellDetail['RevNo']}','${data['CurrentUser']}','','Pending','${getCurrentDateTime()}','');`
+
+//     const result = await new Promise((resolve, reject) => {
+//       dbConn.query(SolarDetailQuery, (err, result) => {
+//         if (err) {
+//           console.log(err)
+//           return reject(err);
+//         } else {
+
+//           return resolve(result);
+//         }
+//       });
+//     });
+
+
+
+//     /************ Inserting Data in IQC Solar Table ******************/
+//     for (let key in SolarCel) {
+//       const Samples = SolarCel[key]['Samples'];
+//       console.log(Samples)
+//       for (let i = 0; i < Samples.length; i++) {
+//         Samples[i] = JSON.stringify(Samples[i]);
+//       }
+
+//       const SolarCellQuery = `INSERT INTO IQCSolar(IQCSolarID,SolarDetailID,CheckType,Characterstics,MeasuringMethod,Sampling,Reference,AcceptanceCriteria,Samples,CreatedDate,UpdatedDate)
+//      VALUES ('${uuidv4()}','${UUID}','${key}','${SolarCel[key]['Characterstics']}','${SolarCel[key]['MeasuringMethod']}','${SolarCel[key]['Sampling']}','${SolarCel[key]['Reference']}','${SolarCel[key]['AcceptanceCriteria']}','[${Samples}]','${getCurrentDateTime()}','');`;
+
+//       const Solar = await queryAsync(SolarCellQuery);
+//       temp = Solar;
+//     }
+
+
+//     /************** Inserting Data in Rejected Table *******************/
+//     let checkTypes = []
+//     for (let i = 0; i < Rejected['CheckTypes'].length; i++) {
+//       checkTypes.push(JSON.stringify(Rejected['CheckTypes'][i]))
+//     }
+//     //console.log(checkTypes)
+//     const RejectedQuery = `INSERT INTO Rejected(RejectedID,SolarDetailID,CheckTypes,Reason,Result,CreatedDate,UpdatedDate)
+//  VALUES ('${v4()}','${UUID}','[${checkTypes}]','${Rejected['Reason']}','${Rejected['Result']}','${getCurrentDateTime()}','');`
+//     const Reject = await queryAsync(RejectedQuery);
+//     console.log(Reject, result);
+//     res.send({ msg: 'Data Inserted SuccesFully !' })
+//   } catch (err) {
+
+//     console.log(err)
+//     res.status(401).send(err)
+//   }
 }
 
 /** To all test of IQC Solar Cell by employee */
