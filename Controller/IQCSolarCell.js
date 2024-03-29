@@ -311,12 +311,19 @@ const GetSpecificSolarCellTest = async (req, res) => {
 
       }
 
-      for (let key in data) {
-        if (key == 'CheckType') {
+      for (let akey in data) {
+        if (bkey == 'CheckType') {
           console.log(data['Samples'])
           let temp = JSON.parse(data['Samples'])
-          obj[`SampleSize${data[key]}`] = temp.length
-          obj[data[key]] = temp
+
+         temp.forEach((el)=>{
+
+            for(ckey in el){
+              el[ckey]=="true"?el[ckey] = true:el[ckey] = false;
+            }
+         })
+          obj[`SampleSize${data[akey]}`] = temp.length
+          obj[data[akey]] = temp
         }
       }
 
