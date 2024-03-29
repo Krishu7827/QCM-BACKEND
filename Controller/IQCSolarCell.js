@@ -270,8 +270,9 @@ const GetSpecificSolarCellTest = async (req, res) => {
 
       for (let key in data) {
         if (key == 'CheckType') {
-          console.log(data['Samples'])
+         // console.log(data['Samples'])
           let temp = JSON.parse(data['Samples'])
+          console.log(temp)
           console.log(temp.length)
           obj[`SampleSize${data[key]}`] = temp.length
           obj[data[key]] = temp
@@ -281,7 +282,7 @@ const GetSpecificSolarCellTest = async (req, res) => {
 
     })
     responseData.push(obj);
-    console.log(responseData)
+    //console.log(responseData)
     res.send(responseData)
   } catch (err) {
     console.log(err)
