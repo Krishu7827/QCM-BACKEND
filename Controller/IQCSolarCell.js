@@ -1,7 +1,7 @@
 const { v4: uuidv4, v4 } = require('uuid');
 const { dbConn } = require('../db.config/db.config')
 const util = require('util')
-const { getCurrentDateTime,s3 } = require('../Utilis/IQCSolarCellUtilis');
+const { getCurrentDateTime, s3 } = require('../Utilis/IQCSolarCellUtilis');
 
 require('dotenv').config()
 
@@ -106,63 +106,20 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 const AddIQCSolarCell = async (req, res) => {
   const data = req.body
   console.log(data)
-  console.log(req.files)
 
 
   const UUID = v4();
   const SolarCellDetail = data['SolarCellDetails']
   const SolarCel = data['SolarCell']
   const Rejected = data['Rejected']
-  let InvoicePdfURL;
-  let COCPdfURL;
-   
+
   console.log(SolarCel['Packaging']['Samples'])
-  try{
-     const Invoice = await new Promise((resolve,reject)=>{
-      s3.upload({
-        Bucket: process.env.AWS_BUCKET_2,
-        Key: `${UUID}_${req.files['InvoicePdf'][0].originalname}`,
-        Body: req.files['InvoicePdf'][0].buffer,
-        ACL: "public-read-write",
-        ContentType: req.files['InvoicePdf'][0].mimetype
-    },(err,result)=>{
-       if(err){
-        reject(err)
-       }else{
 
-        resolve(result)
-       }
-    })
-     })
-
-     const COC = await new Promise((resolve,reject)=>{
-      s3.upload({
-        Bucket: process.env.AWS_BUCKET_2,
-        Key: `${UUID}_${req.files['COCPdf'][0].originalname}`,
-        Body: req.files['COCPdf'][0].buffer,
-        ACL: "public-read-write",
-        ContentType: req.files['COCPdf'][0].mimetype
-    },(err,result)=>{
-       if(err){
-        reject(err)
-       }else{
-
-        resolve(result)
-       }
-    })
-     })
-     console.log(Invoice,COC)
-     InvoicePdfURL = Invoice.Location;
-     COCPdfURL = COC.Location;
-  }catch(err){
-    console.log(err);
-res.status(401).send(err);
-  }
   try {
 
     /*************** Inserting Data in IQCSolarDetails Table **************/
-    const SolarDetailQuery = `INSERT INTO IQCSolarDetails(SolarDetailID,LotSize,SupplierName,QuantityRecd,InvoiceDate,SupplierRMBatchNo,RawMaterialSpecs,QualityCheckDate,SampleQuantityCheck,InvoiceNo,ReceiptDate,DocumentNo,RevisionNo,CheckedBy,UpdatedBy,Status,COCPdf,InvoicePdf,CreatedDate,UpdatedDate) 
-    VALUES ('${UUID}','${SolarCellDetail['LotNo']}','${SolarCellDetail['SupplierName']}','','${SolarCellDetail['InvoiceDate']}','${SolarCellDetail['SupplierRMBatchNo']}','${SolarCellDetail['RawMaterialSpecs']}','${SolarCellDetail['DateOfQualityCheck']}','','${SolarCellDetail['InvoiceNo']}','${SolarCellDetail['RecieptDate']}','${SolarCellDetail['DocumentNo']}','${SolarCellDetail['RevNo']}','${data['CurrentUser']}','','Pending','${COCPdfURL}','${InvoicePdfURL}','${getCurrentDateTime()}','');`
+    const SolarDetailQuery = `INSERT INTO IQCSolarDetails(SolarDetailID,LotSize,SupplierName,QuantityRecd,InvoiceDate,SupplierRMBatchNo,RawMaterialSpecs,QualityCheckDate,SampleQuantityCheck,InvoiceNo,ReceiptDate,DocumentNo,RevisionNo,CheckedBy,UpdatedBy,Status,CreatedDate,UpdatedDate) 
+    VALUES ('${UUID}','${SolarCellDetail['LotNo']}','${SolarCellDetail['SupplierName']}','','${SolarCellDetail['InvoiceDate']}','${SolarCellDetail['SupplierRMBatchNo']}','${SolarCellDetail['RawMaterialSpecs']}','${SolarCellDetail['DateOfQualityCheck']}','','${SolarCellDetail['InvoiceNo']}','${SolarCellDetail['RecieptDate']}','${SolarCellDetail['DocumentNo']}','${SolarCellDetail['RevNo']}','${data['CurrentUser']}','','Pending','${getCurrentDateTime()}','');`
 
     const result = await new Promise((resolve, reject) => {
       dbConn.query(SolarDetailQuery, (err, result) => {
@@ -204,7 +161,7 @@ res.status(401).send(err);
  VALUES ('${v4()}','${UUID}','[${checkTypes}]','${Rejected['Reason']}','${Rejected['Result']}','${getCurrentDateTime()}','');`
     const Reject = await queryAsync(RejectedQuery);
     console.log(Reject, result);
-    res.send({ msg: 'Data Inserted SuccesFully !' })
+    res.send({ msg: 'Data Inserted SuccesFully !', 'SolarDetailID': UUID })
   } catch (err) {
 
     console.log(err)
@@ -311,19 +268,12 @@ const GetSpecificSolarCellTest = async (req, res) => {
 
       }
 
-      for (let akey in data) {
-        if (bkey == 'CheckType') {
+      for (let key in data) {
+        if (key == 'CheckType') {
           console.log(data['Samples'])
           let temp = JSON.parse(data['Samples'])
-
-         temp.forEach((el)=>{
-
-            for(ckey in el){
-              el[ckey]=="true"?el[ckey] = true:el[ckey] = false;
-            }
-         })
-          obj[`SampleSize${data[akey]}`] = temp.length
-          obj[data[akey]] = temp
+          obj[`SampleSize${data[key]}`] = temp.length
+          obj[data[key]] = temp
         }
       }
 
@@ -379,8 +329,70 @@ const UpdateStatus = async (req, res) => {
 }
 
 
+/** Controller to Upload PDF Test */
+const UploadPdf = async (req, res) => {
+
+  const { SolarDetailId } = req.body;
+
+  /** Uploading PDF in S3 Bucket */
+  try {
+    const Invoice = await new Promise((resolve, reject) => {
+      s3.upload({
+        Bucket: process.env.AWS_BUCKET_2,
+        Key: `${UUID}_${req.files['InvoicePdf'][0].originalname}`,
+        Body: req.files['InvoicePdf'][0].buffer,
+        ACL: "public-read-write",
+        ContentType: req.files['InvoicePdf'][0].mimetype
+      }, (err, result) => {
+        if (err) {
+          reject(err)
+        } else {
+
+          resolve(result)
+        }
+      })
+    })
+
+    const COC = await new Promise((resolve, reject) => {
+      s3.upload({
+        Bucket: process.env.AWS_BUCKET_2,
+        Key: `${UUID}_${req.files['COCPdf'][0].originalname}`,
+        Body: req.files['COCPdf'][0].buffer,
+        ACL: "public-read-write",
+        ContentType: req.files['COCPdf'][0].mimetype
+      }, (err, result) => {
+        if (err) {
+          reject(err)
+        } else {
+
+          resolve(result)
+        }
+      })
+    })
+
+    const query = `UPDATE IQCSolarDetails id
+                  set id.COCPdf = '${COC.Location}',
+                   id.InvoicePdf = '${Invoice.Location}'
+                 WHERE id.SolarDetailID = '${SolarDetailId}';`
+
+    let data = await new Promise((resolve, rejects) => {
+      dbConn.query(query, (err, result) => {
+        if (err) {
+          rejects(err)
+        } else {
+          resolve(result)
+        }
+      })
+    })
+    res.send({msg:'Data Inserted SuccesFully !'})
+  } catch (err) {
+    console.log(err);
+    res.status(401).send(err);
+  }
+}
+
 
 /** Export Controllers */
-module.exports = { AddIQCSolarCell, GetIQCSolarCellTests, GetSpecificSolarCellTest, UpdateStatus };
+module.exports = { AddIQCSolarCell, GetIQCSolarCellTests, GetSpecificSolarCellTest, UpdateStatus,UploadPdf };
 
 
