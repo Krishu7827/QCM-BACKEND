@@ -124,7 +124,7 @@ const AddIQCSolarCell = async (req, res) => {
         Key: `${UUID}_${req.files['InvoicePdf'][0].originalname}`,
         Body: req.files['InvoicePdf'][0].buffer,
         ACL: "public-read-write",
-        ContentType: 'application/pdf'
+        ContentType: req.files['InvoicePdf'][0].mimetype
     },(err,result)=>{
        if(err){
         reject(err)
@@ -138,10 +138,10 @@ const AddIQCSolarCell = async (req, res) => {
      const COC = await new Promise((resolve,reject)=>{
       s3.upload({
         Bucket: process.env.AWS_BUCKET_2,
-        Key: `${UUID}_${req.files['InvoicePdf'][0].originalname}`,
-        Body: req.files['InvoicePdf'][0].buffer,
+        Key: `${UUID}_${req.files['COCPdf'][0].originalname}`,
+        Body: req.files['COCPdf'][0].buffer,
         ACL: "public-read-write",
-        ContentType: 'application/pdf'
+        ContentType: req.files['COCPdf'][0].mimetype
     },(err,result)=>{
        if(err){
         reject(err)
