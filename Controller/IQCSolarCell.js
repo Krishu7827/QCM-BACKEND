@@ -104,7 +104,7 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 
 /**to Add Solar Cell In IQC */
 const AddIQCSolarCell = async (req, res) => {
-  const data = req.body
+  const data = req
   console.log(data)
   
 // console.log(req.files['InvoicePdf'][0])
