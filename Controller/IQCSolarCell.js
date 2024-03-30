@@ -205,8 +205,10 @@ try{
 
      /************ Inserting Data in IQC Solar Table ******************/
      for (let key in SolarCel) {
+      console.log('IQC solarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr')
+      console.log(key)
       const Samples = SolarCel[key]['Samples'];
-      console.log(Samples)
+     // console.log(Samples)
       for (let i = 0; i < Samples.length; i++) {
         Samples[i] = JSON.stringify(Samples[i]);
       }
