@@ -160,7 +160,8 @@ const AddIQCSolarCell = async (req, res) => {
     const RejectedQuery = `INSERT INTO Rejected(RejectedID,SolarDetailID,CheckTypes,Reason,Result,CreatedDate,UpdatedDate)
  VALUES ('${v4()}','${UUID}','[${checkTypes}]','${Rejected['Reason']}','${Rejected['Result']}','${getCurrentDateTime()}','');`
     const Reject = await queryAsync(RejectedQuery);
-    console.log(Reject, result);
+    console.log('iddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd')
+    console.log(Reject, result,UUID);
     res.send({ msg: 'Data Inserted SuccesFully !', 'SolarDetailID': UUID })
   } catch (err) {
 
@@ -206,9 +207,9 @@ try{
      /************ Inserting Data in IQC Solar Table ******************/
      for (let key in SolarCel) {
       console.log('IQC solarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr')
-      console.log(key)
+     // console.log(key)
       const Samples = SolarCel[key]['Samples'];
-     // console.log(Samples)
+     console.log(Samples)
       for (let i = 0; i < Samples.length; i++) {
         Samples[i] = JSON.stringify(Samples[i]);
       }
