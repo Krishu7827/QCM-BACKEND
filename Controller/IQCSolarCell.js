@@ -295,6 +295,7 @@ const GetIQCSolarCellTests = async (req, res) => {
 
 }
 
+/** Controller to Get Specific Test by SolarDetailId */
 const GetSpecificSolarCellTest = async (req, res) => {
   const { SolarDetailID } = req.body
 
@@ -366,7 +367,7 @@ const GetSpecificSolarCellTest = async (req, res) => {
 
     })
     responseData.push(obj);
-    //console.log(responseData)
+    console.log(responseData)
     res.send(responseData)
   } catch (err) {
     console.log(err)
