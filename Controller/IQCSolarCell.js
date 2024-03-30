@@ -220,7 +220,7 @@ try{
          i.Samples = '[${Samples}]',
          i.CreatedDate = '${getCurrentDateTime()}',
          i.UpdatedDate = ''
-     WHERE id.SolarDetailID = '${SolarDetailId}' AND i.CheckType = '${key}';`;
+     WHERE i.SolarDetailID = '${SolarDetailId}' AND i.CheckType = '${key}';`;
       const Solar = await queryAsync(SolarCellQuery);
       temp = Solar;
     }
