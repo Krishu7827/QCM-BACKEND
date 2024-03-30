@@ -221,6 +221,7 @@ try{
          i.CreatedDate = '${getCurrentDateTime()}',
          i.UpdatedDate = ''
      WHERE i.SolarDetailID = '${SolarDetailId}' AND i.CheckType = '${key}';`;
+     console.log(SolarCellQuery)
       const Solar = await queryAsync(SolarCellQuery);
       temp = Solar;
     }
