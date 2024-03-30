@@ -246,7 +246,7 @@ try{
    
      const Reject = await queryAsync(RejectedQuery);
      console.log(Reject, result);
-     res.send({ msg: 'Data Inserted SuccesFully !', 'SolarDetailID': UUID,'Status':Status });
+     res.send({ msg: 'Data Inserted SuccesFully !', 'SolarDetailID': SolarDetailId,'Status':Status });
 
 }catch(err){
 
