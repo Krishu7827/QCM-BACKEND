@@ -6,7 +6,7 @@ const IPQCJobCardRouter = express.Router();
 
 
 
-
+/** Route To Add Job Card */
 IPQCJobCardRouter.post('/AddJobCard',AddIPQCJobCard);
 
 

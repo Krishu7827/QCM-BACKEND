@@ -128,9 +128,9 @@ const AddIPQCJobCard = async (req, res) => {
 
     JobCard.forEach(async (Card) => {
 
-      //JSON.stringify(Card['Description']);
+      let description = JSON.stringify(Card['Description']);
       const QuerytToJobCard = `INSERT INTO JobCard(JobCardID,JobCardDetailsID,Process,EmployeeId,Description,Comments,CreatedOn,UpdatedOn)
-    VALUE ('${v4()}','${UUID}','${Card['Process']}','${Card['EmployeeID']}','${Card['Description']}','${Card['Comment']}','${getCurrentDateTime()}','');`
+    VALUE ('${v4()}','${UUID}','${Card['Process']}','${Card['EmployeeID']}','${description}','${Card['Comment']}','${getCurrentDateTime()}','');`
 
       const JobCardQuery = await queryAsync(QuerytToJobCard)
 
