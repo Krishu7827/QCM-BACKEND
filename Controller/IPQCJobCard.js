@@ -126,7 +126,7 @@ const AddIPQCJobCard = async (req, res) => {
 
     /** Inserting Data in Job Card Table */
 
-    JobCard.forEach(async () => {
+    JobCard.forEach(async (Card) => {
 
       //JSON.stringify(Card['Description']);
       const QuerytToJobCard = `INSERT INTO JobCard(JobCardID,JobCardDetailsID,Process,EmployeeId,Description,Comments,CreatedOn,UpdatedOn)
