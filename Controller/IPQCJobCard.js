@@ -114,7 +114,7 @@ const AddIPQCJobCard = async (req, res) => {
  // console.log(IPQCJobCard)
   const JobCardDetails = IPQCJobCard[0]['JobCardDetails'];
   const JobCard = IPQCJobCard[1]['JobCard']
-  console.log(JobCardDetails,JobCard)
+  console.log(JobCardDetails)
   const UUID = v4();
 
 
@@ -128,7 +128,7 @@ const AddIPQCJobCard = async (req, res) => {
     /** Inserting Data in Job Card Table */
 
     JobCard.forEach(async (Card) => {
-
+     console.log(Card)
       let description = JSON.stringify(Card['Description']);
       const QuerytToJobCard = `INSERT INTO JobCard(JobCardID,JobCardDetailsID,Process,EmployeeId,Description,Comments,CreatedOn,UpdatedOn)
     VALUE ('${v4()}','${UUID}','${Card['Process']}','${Card['EmployeeID']}','${description}','${Card['Comment']}','${getCurrentDateTime()}','');`
