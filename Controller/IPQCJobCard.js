@@ -1,11 +1,11 @@
 const { v4: uuidv4, v4 } = require('uuid');
 const { getCurrentDateTime } = require('../Utilis/IPQCJobCardUtilis')
 const util = require('util')
-const { dbConn } = require('../db.config/db.config')
+const { db } = require('../db.config/db.config')
 
 
 /** Making Sync To Query */
-const queryAsync = util.promisify(dbConn.query).bind(dbConn);
+const queryAsync = util.promisify(db.query).bind(db);
 
 // var d = [
 //   {
