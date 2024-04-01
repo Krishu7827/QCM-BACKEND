@@ -111,9 +111,10 @@ const queryAsync = util.promisify(db.query).bind(db);
 
 const AddIPQCJobCard = async (req, res) => {
   const IPQCJobCard = req.body;
-  console.log(IPQCJobCard)
+ // console.log(IPQCJobCard)
   const JobCardDetails = IPQCJobCard[0]['JobCardDetails'];
   const JobCard = IPQCJobCard[1]['JobCard']
+  console.log(JobCardDetails,JobCard)
   const UUID = v4();
 
 
