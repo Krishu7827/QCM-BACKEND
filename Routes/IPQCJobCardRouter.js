@@ -16,7 +16,7 @@ IPQCJobCardRouter.post('/AddJobCard',AddIPQCJobCard);
 IPQCJobCardRouter.use(RoleAuthentication)
 
 /**Router To Get List Of Job Card Data */
-IPQCJobCardRouter.get('/GetJobCardList',JobCardList)
+IPQCJobCardRouter.post('/GetJobCardList',JobCardList)
 
 
 /** Router to Upload Reference Pdf in S3 and Get The Location and Set into dbs */
