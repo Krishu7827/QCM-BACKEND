@@ -15,7 +15,7 @@ IPQCJobCardRouter.post('/UploadPdf',upload.single('Reference'),UploadPdf)
 
 
 /** Middleware to check Role Authentication */
-//IPQCJobCardRouter.use(RoleAuthentication)
+IPQCJobCardRouter.use(RoleAuthentication)
 
 /**Router To Get List Of Job Card Data */
 IPQCJobCardRouter.post('/GetJobCardList',JobCardList)
