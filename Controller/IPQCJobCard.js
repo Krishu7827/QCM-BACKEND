@@ -168,6 +168,9 @@ ORDER BY STR_TO_DATE(jcd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
     ORDER BY STR_TO_DATE(jcd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
   }
    const JobCardList = await queryAsync(query);
+   JobCardList.forEach(test => {
+    test['MaterialName'] = 'Job Card';
+  });
    res.send({JobCardList})
 }catch(err){
   console.log(err)
