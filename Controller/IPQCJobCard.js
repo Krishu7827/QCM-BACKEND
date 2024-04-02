@@ -1,5 +1,5 @@
 const { v4: uuidv4, v4 } = require('uuid');
-const { getCurrentDateTime } = require('../Utilis/IPQCJobCardUtilis')
+const { getCurrentDateTime,s3 } = require('../Utilis/IPQCJobCardUtilis')
 const util = require('util')
 const { dbConn } = require('../db.config/db.config')
 
@@ -184,13 +184,13 @@ res.status(400).send(err)
 const UploadPdf = async (req, res) => {
 
   const { JobCardDetailId } = req.body;
-  console.log(req.file)
+  console.log(req.file);
   /** Uploading PDF in S3 Bucket */
   try {
     const ReferencePdf = await new Promise((resolve, reject) => {
       s3.upload({
         Bucket: process.env.AWS_BUCKET_2,
-        Key: `${SolarDetailId}_${req.file.originalname}`,
+        Key: `${JobCardDetailId}_${req.file.originalname}`,
         Body: req.file.buffer,
         ACL: "public-read-write",
         ContentType: req.file.mimetype
@@ -202,25 +202,16 @@ const UploadPdf = async (req, res) => {
           resolve(result)
         }
       })
-    })
+    });
 
   
 
-    const query = `UPDATE IQCSolarDetails id
-                  set id.COCPdf = '${COC.Location}',
-                   id.InvoicePdf = '${Invoice.Location}'
-                 WHERE id.SolarDetailID = '${SolarDetailId}';`
+    const query = `UPDATE JobCardDetails jcd
+    set jcd.ReferencePdf = '${ReferencePdf.Location}'
+   WHERE jcd.JobCardDetailID = '${JobCardDetailId}';`;
 
-    let data = await new Promise((resolve, rejects) => {
-      dbConn.query(query, (err, result) => {
-        if (err) {
-          rejects(err)
-        } else {
-          resolve(result)
-        }
-      })
-    })
-    res.send({msg:'Data Inserted SuccesFully !'})
+    const update = await queryAsync(query);
+    res.send({msg:'Data Inserted SuccesFully !',URL:ReferencePdf.Location});
   } catch (err) {
     console.log(err);
     res.status(401).send(err);
@@ -229,4 +220,4 @@ const UploadPdf = async (req, res) => {
 
 
 
-module.exports ={ AddIPQCJobCard,JobCardList};
+module.exports ={ AddIPQCJobCard,JobCardList,UploadPdf};

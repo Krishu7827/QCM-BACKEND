@@ -1,6 +1,6 @@
 const express = require('express')
-const {AddIPQCJobCard,JobCardList} = require('../Controller/IPQCJobCard')
-const {RoleAuthentication} = require('../Middleware/IPQC.Middleware')
+const {AddIPQCJobCard,JobCardList,UploadPdf} = require('../Controller/IPQCJobCard')
+const {RoleAuthentication,upload} = require('../Middleware/IPQC.Middleware')
 const IPQCJobCardRouter = express.Router();
 
 
@@ -19,8 +19,8 @@ IPQCJobCardRouter.use(RoleAuthentication)
 IPQCJobCardRouter.get('/GetJobCardList',JobCardList)
 
 
-
-
+/** Router to Upload Reference Pdf in S3 and Get The Location and Set into dbs */
+IPQCJobCardRouter.post('/UploadPdf',upload.single('Reference'),UploadPdf)
 
 
 
