@@ -114,11 +114,13 @@ const AddIPQCJobCard = async (req, res) => {
  // console.log(IPQCJobCard)
   const JobCardDetails = IPQCJobCard[0]['JobCardDetails'];
   const JobCard = IPQCJobCard[1]['JobCard']
+  const {JobCardDetailId} = IPQCJobCard
   console.log(JobCardDetails)
   const UUID = v4();
 
 
   try {
+    if(!JobCardDetailId){
     const QueryToJobCardDetails = `INSERT INTO JobCardDetails(JobCardDetailID,DocNo,RevisionNo,RevisonDate,ModuleType,ModuleNo,Date,MatrixSize,Status,CreatedBy,UpdatedBy,CreatedOn,UpdatedOn)
   VALUE ('${UUID}','${JobCardDetails['DocNo']}','${JobCardDetails['RevisionNo']}','${JobCardDetails['RevisionDate']}','${JobCardDetails['moduleType']}','${JobCardDetails['moduleNo']}','${JobCardDetails['date']}','${JobCardDetails['matrixSize']}','${JobCardDetails['Status']}','${JobCardDetails['CreatedBy']}','','${getCurrentDateTime()}','');`
 
@@ -130,7 +132,7 @@ const AddIPQCJobCard = async (req, res) => {
     JobCard.forEach(async (Card) => {
      console.log(Card)
       let description = JSON.stringify(Card['Description']);
-      const QuerytToJobCard = `INSERT INTO JobCard(JobCardID,JobCardDetailsID,Process,EmployeeId,Description,Comments,CreatedOn,UpdatedOn)
+      const QuerytToJobCard = `INSERT INTO JobCard(JobCardID,JobCardDetailID,Process,EmployeeId,Description,Comments,CreatedOn,UpdatedOn)
     VALUE ('${v4()}','${UUID}','${Card['Process']}','${Card['EmployeeID']}','${description}','${Card['Comment']}','${getCurrentDateTime()}','');`
 
       const JobCardQuery = await queryAsync(QuerytToJobCard)
@@ -138,6 +140,20 @@ const AddIPQCJobCard = async (req, res) => {
     });
 
     res.send({msg:'Data Inserted Succesfully !',UUID})
+  }else{
+    const QueryToJobCardDetails = `UPDATE JobCardDetails jcd
+    set jcd.DocNo = '',
+        jcd.RevisionNo = '',
+        jcd.RevisonDate = '',
+        jcd.ModuleType = '',
+        jcd.ModuleNo = '',
+        jcd.Date = '',
+        jcd.MatrixSize = '',
+        jcd.ReferencePdf = '',
+        jcd.Status = '',
+        jcd.CreatedBy = ''
+    WHERE jcd.JobCardDetailID = '';`
+  }
   } catch (err) {
      console.log(err)
 
@@ -219,5 +235,20 @@ const UploadPdf = async (req, res) => {
 }
 
 
+const GetSpecificJobCard = async(req,res)=>{
+  const {JobCardDetailId} = req.body
+try{
+  const query = `SELECT *FROM JobCardDetails jcd
+  JOIN JobCard jc ON jcd.JobCardDetailID = jc.JobCardDetailID
+  WHERE jcd.JobCardDetailID = '${JobCardDetailId}';`
+  
+  const JobCard = await queryAsync(query)
+  res.send(JobCard)
+}catch(err){
+  console.log(err)
+  res.status(400).send(err)
+}
+}
 
-module.exports ={ AddIPQCJobCard,JobCardList,UploadPdf};
+
+module.exports ={ AddIPQCJobCard,JobCardList,UploadPdf,GetSpecificJobCard};
