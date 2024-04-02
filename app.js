@@ -6,7 +6,7 @@ const {IQCSolarCellRoute} = require('./Routes/IQCSolarCellRoute')
 const {IPQCJobCardRouter} = require('./Routes/IPQCJobCardRouter')
 const app = express()
 const cors = require('cors')
-const PORT = process.env.PORT || 9090
+const PORT = process.env.PORT || 8080
 require('dotenv').config()
 app.use(express.json())
 app.use(cors())
