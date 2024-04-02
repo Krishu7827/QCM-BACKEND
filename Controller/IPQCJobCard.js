@@ -151,19 +151,26 @@ const AddIPQCJobCard = async (req, res) => {
 
 /** Controller to listing Job Card Data */
 const JobCardList = async(req,res)=>{
-   const {JobCardDetailId} = req.body
-   
+   const {PersonID,Status} = req.body
 try{
-   const query = JobCardDetailId?`SELECT *FROM JobCard jc
-   JOIN JobCardDetails jcd ON jc.JobCardDetailsID = jcd.JobCardDetailID
-   WHERE jcd.JobCardDetailID = '${JobCardDetailId}'
-   ORDER BY STR_TO_DATE(jc.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`:`SELECT *FROM JobCard jc
-   JOIN JobCardDetails jcd ON jc.JobCardDetailsID = jcd.JobCardDetailID
-   ORDER BY STR_TO_DATE(jc.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
-
+   
+   if (Designation == 'Admin' || Designation == 'Super Admin') {
+    query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,jcd.JobCardDetailID,jcd.ModuleNo FROM Person p
+JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
+JOIN JobCardDetails jcd ON p.PersonID = jcd.CreatedBy
+WHERE jcd.Status = '${Status}'
+ORDER BY STR_TO_DATE(jcd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
+  } else {
+    query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,jcd.JobCardDetailID,jcd.ModuleNo FROM Person p
+    JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
+    JOIN JobCardDetails jcd ON p.PersonID = jcd.CreatedBy
+    WHERE jcd.Status = '${Status}' AND p.PersonID = '${PersonID}'
+    ORDER BY STR_TO_DATE(jcd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
+  }
    const JobCardList = await queryAsync(query);
    res.send({JobCardList})
 }catch(err){
+  console.log(err)
 res.status(400).send(err)
 }
 
