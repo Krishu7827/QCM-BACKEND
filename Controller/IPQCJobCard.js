@@ -1,11 +1,11 @@
 const { v4: uuidv4, v4 } = require('uuid');
 const { getCurrentDateTime } = require('../Utilis/IPQCJobCardUtilis')
 const util = require('util')
-const { db } = require('../db.config/db.config')
+const { dbConn } = require('../db.config/db.config')
 
 
 /** Making Sync To Query */
-const queryAsync = util.promisify(db.query).bind(db);
+const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 
 // var d = [
 //   {
@@ -149,6 +149,29 @@ const AddIPQCJobCard = async (req, res) => {
 }
 
 
+/** Controller to listing Job Card Data */
+const JobCardList = async(req,res)=>{
+   const {JobCardDetailId} = req.body
+   
+try{
+   const query = JobCardDetailId?`SELECT *FROM JobCard jc
+   JOIN JobCardDetails jcd ON jc.JobCardDetailsID = jcd.JobCardDetailID
+   WHERE jcd.JobCardDetailID = '${JobCardDetailId}'
+   ORDER BY STR_TO_DATE(jc.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`:`SELECT *FROM JobCard jc
+   JOIN JobCardDetails jcd ON jc.JobCardDetailsID = jcd.JobCardDetailID
+   ORDER BY STR_TO_DATE(jc.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
+
+   const JobCardList = await queryAsync(query);
+   res.send({JobCardList})
+}catch(err){
+res.status(400).send(err)
+}
 
 
-module.exports ={ AddIPQCJobCard};
+
+}
+
+
+
+
+module.exports ={ AddIPQCJobCard,JobCardList};
