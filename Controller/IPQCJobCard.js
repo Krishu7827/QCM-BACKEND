@@ -151,7 +151,7 @@ const AddIPQCJobCard = async (req, res) => {
 
 /** Controller to listing Job Card Data */
 const JobCardList = async(req,res)=>{
-   const {PersonID,Status} = req.body
+   const {PersonID,Status,Designation} = req.body
 try{
    
    if (Designation == 'Admin' || Designation == 'Super Admin') {
@@ -178,6 +178,51 @@ res.status(400).send(err)
 
 }
 
+const UploadPdf = async (req, res) => {
+
+  const { JobCardDetailId } = req.body;
+  console.log(req.file)
+  /** Uploading PDF in S3 Bucket */
+  try {
+    const ReferencePdf = await new Promise((resolve, reject) => {
+      s3.upload({
+        Bucket: process.env.AWS_BUCKET_2,
+        Key: `${SolarDetailId}_${req.file.originalname}`,
+        Body: req.file.buffer,
+        ACL: "public-read-write",
+        ContentType: req.file.mimetype
+      }, (err, result) => {
+        if (err) {
+          reject(err)
+        } else {
+
+          resolve(result)
+        }
+      })
+    })
+
+  
+
+    const query = `UPDATE IQCSolarDetails id
+                  set id.COCPdf = '${COC.Location}',
+                   id.InvoicePdf = '${Invoice.Location}'
+                 WHERE id.SolarDetailID = '${SolarDetailId}';`
+
+    let data = await new Promise((resolve, rejects) => {
+      dbConn.query(query, (err, result) => {
+        if (err) {
+          rejects(err)
+        } else {
+          resolve(result)
+        }
+      })
+    })
+    res.send({msg:'Data Inserted SuccesFully !'})
+  } catch (err) {
+    console.log(err);
+    res.status(401).send(err);
+  }
+}
 
 
 
