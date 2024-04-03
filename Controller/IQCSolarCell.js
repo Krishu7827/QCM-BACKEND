@@ -106,7 +106,7 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 const AddIQCSolarCell = async (req, res) => {
   const data = req.body;
   const {SolarDetailId,Status,MaterialName} = data;
- console.log(data);
+ //console.log(data);
   const UUID = v4();
   const SolarCellDetail = data['SolarCellDetails']
   const SolarCel = data['SolarCell']
@@ -362,9 +362,7 @@ const GetSpecificSolarCellTest = async (req, res) => {
         if (key == 'CheckType') {
          // console.log(data['Samples'])
           let temp = JSON.parse(data['Samples'])
-          console.log(temp)
-          console.log(temp.length)
-          obj[`SampleSize${data[key]}`] = temp.length
+          obj[`SampleSize${data[key]}`] = data['SampleSize']
           obj[data[key]] = temp
         }
       }
@@ -372,7 +370,7 @@ const GetSpecificSolarCellTest = async (req, res) => {
 
     })
     responseData.push(obj);
-    console.log(responseData)
+   // console.log(responseData)
     res.send(responseData)
   } catch (err) {
     console.log(err)
