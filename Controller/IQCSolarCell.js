@@ -105,7 +105,7 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 /**to Add Solar Cell In IQC */
 const AddIQCSolarCell = async (req, res) => {
   const data = req.body;
-  const {SolarDetailId,Status} = data;
+  const {SolarDetailId,Status,MaterialName} = data;
   console.log(data);
   const UUID = v4();
   const SolarCellDetail = data['SolarCellDetails']
@@ -119,8 +119,8 @@ const AddIQCSolarCell = async (req, res) => {
   try {
 
     /*************** Inserting Data in IQCSolarDetails Table **************/
-    const SolarDetailQuery = `INSERT INTO IQCSolarDetails(SolarDetailID,LotSize,SupplierName,QuantityRecd,InvoiceDate,SupplierRMBatchNo,RawMaterialSpecs,QualityCheckDate,SampleQuantityCheck,InvoiceNo,ReceiptDate,DocumentNo,RevisionNo,CheckedBy,UpdatedBy,Status,CreatedDate,UpdatedDate) 
-    VALUES ('${UUID}','${SolarCellDetail['LotNo']}','${SolarCellDetail['SupplierName']}','','${SolarCellDetail['InvoiceDate']}','${SolarCellDetail['SupplierRMBatchNo']}','${SolarCellDetail['RawMaterialSpecs']}','${SolarCellDetail['DateOfQualityCheck']}','','${SolarCellDetail['InvoiceNo']}','${SolarCellDetail['RecieptDate']}','${SolarCellDetail['DocumentNo']}','${SolarCellDetail['RevNo']}','${data['CurrentUser']}','','${Status}','${getCurrentDateTime()}','');`
+    const SolarDetailQuery = `INSERT INTO IQCSolarDetails(SolarDetailID,LotSize,MaterialName,SupplierName,QuantityRecd,InvoiceDate,SupplierRMBatchNo,RawMaterialSpecs,QualityCheckDate,SampleQuantityCheck,InvoiceNo,ReceiptDate,DocumentNo,RevisionNo,CheckedBy,UpdatedBy,Status,CreatedDate,UpdatedDate) 
+    VALUES ('${UUID}','${SolarCellDetail['LotNo']}','${MaterialName}','${SolarCellDetail['SupplierName']}','','${SolarCellDetail['InvoiceDate']}','${SolarCellDetail['SupplierRMBatchNo']}','${SolarCellDetail['RawMaterialSpecs']}','${SolarCellDetail['DateOfQualityCheck']}','','${SolarCellDetail['InvoiceNo']}','${SolarCellDetail['RecieptDate']}','${SolarCellDetail['DocumentNo']}','${SolarCellDetail['RevNo']}','${data['CurrentUser']}','','${Status}','${getCurrentDateTime()}','');`
 
     const result = await new Promise((resolve, reject) => {
       dbConn.query(SolarDetailQuery, (err, result) => {
@@ -143,8 +143,8 @@ const AddIQCSolarCell = async (req, res) => {
         Samples[i] = JSON.stringify(Samples[i]);
       }
 
-      const SolarCellQuery = `INSERT INTO IQCSolar(IQCSolarID,SolarDetailID,CheckType,Characterstics,MeasuringMethod,Sampling,Reference,AcceptanceCriteria,Samples,CreatedDate,UpdatedDate)
-     VALUES ('${uuidv4()}','${UUID}','${key}','${SolarCel[key]['Characterstics']}','${SolarCel[key]['MeasuringMethod']}','${SolarCel[key]['Sampling']}','${SolarCel[key]['Reference']}','${SolarCel[key]['AcceptanceCriteria']}','[${Samples}]','${getCurrentDateTime()}','');`;
+      const SolarCellQuery = `INSERT INTO IQCSolar(IQCSolarID,SolarDetailID,CheckType,Characterstics,MeasuringMethod,Sampling,Reference,AcceptanceCriteria,SampleSize,Samples,CreatedDate,UpdatedDate)
+     VALUES ('${uuidv4()}','${UUID}','${key}','${SolarCel[key]['Characterstics']}','${SolarCel[key]['MeasuringMethod']}','${SolarCel[key]['Sampling']}','${SolarCel[key]['Reference']}','${SolarCel[key]['AcceptanceCriteria']}','${SolarCel[key]['SampleSize']}','[${Samples}]','${getCurrentDateTime()}','');`;
 
       const Solar = await queryAsync(SolarCellQuery);
       temp = Solar;
@@ -160,7 +160,7 @@ const AddIQCSolarCell = async (req, res) => {
     const RejectedQuery = `INSERT INTO Rejected(RejectedID,SolarDetailID,CheckTypes,Reason,Result,CreatedDate,UpdatedDate)
  VALUES ('${v4()}','${UUID}','[${checkTypes}]','${Rejected['Reason']}','${Rejected['Result']}','${getCurrentDateTime()}','');`
     const Reject = await queryAsync(RejectedQuery);
-    console.log('iddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd')
+   
     console.log(Reject, result,UUID);
     res.send({ msg: 'Data Inserted SuccesFully !', 'SolarDetailID': UUID })
   } catch (err) {
@@ -174,6 +174,7 @@ try{
     /*************** Update Data in IQCSolarDetails Table **************/
     let SolarDetailQuery = `UPDATE IQCSolarDetails id
     set id.LotSize = '${SolarCellDetail['LotNo']}',
+        id.MaterialName = '${MaterialName}'
         id.SupplierName ='${SolarCellDetail['SupplierName']}',
         id.QuantityRecd = '',
         id.InvoiceDate = '${SolarCellDetail['InvoiceDate']}',
@@ -206,7 +207,6 @@ try{
 
      /************ Inserting Data in IQC Solar Table ******************/
      for (let key in SolarCel) {
-      console.log('IQC solarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr')
      // console.log(key)
       const Samples = SolarCel[key]['Samples'];
      console.log(Samples)
@@ -220,6 +220,7 @@ try{
          i.Sampling = '${SolarCel[key]['Sampling']}',
          i.Reference = '${SolarCel[key]['Reference']}',
          i.AcceptanceCriteria = '${SolarCel[key]['AcceptanceCriteria']}',
+         i.SampleSize = '${SolarCel[key]['SampleSize']}'
          i.Samples = '[${Samples}]',
          i.CreatedDate = '${getCurrentDateTime()}',
          i.UpdatedDate = ''
@@ -317,7 +318,7 @@ const GetSpecificSolarCellTest = async (req, res) => {
         }
       })
     })
-
+    console.log(data)
     let responseData = []
     let obj = {}
     data.forEach((data, i) => {
