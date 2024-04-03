@@ -174,7 +174,7 @@ try{
     /*************** Update Data in IQCSolarDetails Table **************/
     let SolarDetailQuery = `UPDATE IQCSolarDetails id
     set id.LotSize = '${SolarCellDetail['LotNo']}',
-        id.MaterialName = '${MaterialName}'
+        id.MaterialName = '${MaterialName}',
         id.SupplierName ='${SolarCellDetail['SupplierName']}',
         id.QuantityRecd = '',
         id.InvoiceDate = '${SolarCellDetail['InvoiceDate']}',
