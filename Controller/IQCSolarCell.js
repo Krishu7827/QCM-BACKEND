@@ -289,7 +289,7 @@ const GetIQCSolarCellTests = async (req, res) => {
         }
       })
     })
-
+console.log(data)
     data.forEach(test => {
       test['MaterialName'] = 'Solar Cell';
     });
