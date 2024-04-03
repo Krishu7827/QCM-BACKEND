@@ -262,7 +262,7 @@ try{
 
 const GetIQCSolarCellTests = async (req, res) => {
   const { PersonID, Designation, Department, Status } = req.body
-  console.log(Status)
+ 
   let query;
 
   /** Query */
@@ -290,7 +290,7 @@ const GetIQCSolarCellTests = async (req, res) => {
         }
       })
     })
-console.log(data)
+
     data.forEach(test => {
       test['MaterialName'] = 'Solar Cell';
     });

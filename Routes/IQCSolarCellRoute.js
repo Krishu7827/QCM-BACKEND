@@ -10,7 +10,7 @@ IQCSolarCellRoute.post('/AddIQCSolarCell',AddIQCSolarCell)
 /**to Upload PDF */
 IQCSolarCellRoute.post('/UploadPdf',upload,UploadPdf)
 
-//IQCSolarCellRoute.use(RoleAuthentication)
+IQCSolarCellRoute.use(RoleAuthentication)
 /** to Get All tests with checked Person*/
 IQCSolarCellRoute.post('/GetIQCTests',GetIQCSolarCellTests)
 
