@@ -262,6 +262,7 @@ try{
 
 const GetIQCSolarCellTests = async (req, res) => {
   const { PersonID, Designation, Department, Status } = req.body
+  console.log(Status)
   let query;
 
   /** Query */
