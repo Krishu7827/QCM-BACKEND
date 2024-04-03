@@ -305,7 +305,7 @@ const GetSpecificSolarCellTest = async (req, res) => {
   const { SolarDetailID } = req.body
 
   try {
-    const query = `SELECT id.SolarDetailID,id.LotSize,id.SupplierName,id.InvoiceNo,id.InvoiceDate,id.SupplierRMBatchNo,id.RawMaterialSpecs,id.QualityCheckDate,id.ReceiptDate,id.Status,id.COCPdf,id.InvoicePdf,i.IQCSolarID,i.CheckType,i.Samples,r.RejectedID,r.CheckTypes,r.Reason,r.Result FROM IQCSolarDetails id
+    const query = `SELECT id.SolarDetailID,id.LotSize,id.SupplierName,id.InvoiceNo,id.InvoiceDate,id.SupplierRMBatchNo,id.RawMaterialSpecs,id.QualityCheckDate,id.ReceiptDate,id.Status,id.COCPdf,id.InvoicePdf,i.IQCSolarID,i.CheckType,i.SampleSize,i.Samples,r.RejectedID,r.CheckTypes,r.Reason,r.Result FROM IQCSolarDetails id
     JOIN IQCSolar i ON id.SolarDetailID = i.SolarDetailID
     JOIN Rejected r ON id.SolarDetailID = r.SolarDetailID
     WHERE id.SolarDetailID = '${SolarDetailID}';`
