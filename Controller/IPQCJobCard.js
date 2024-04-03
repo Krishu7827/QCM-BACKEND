@@ -248,8 +248,21 @@ let  response = {}
   JobCard.forEach((Card,i)=>{
    
      let index = 0;
-     
+     if(i == 0){
+      response['JobCardDetailID'] = Card['JobCardDetailID']
+      for(let key in Card){
+      if(index>=4){
+          response[key] = Card[key]
+      }
 
+      if(index == 11){
+        break;
+      }
+      index++;
+    }
+     }
+     index = 0;
+   
      for(let key in Card){
 
          if(index>=17){
@@ -262,7 +275,7 @@ let  response = {}
   console.log(response)
 
 
-  res.send({response,JobCard})
+  res.send({response})
 }catch(err){
   console.log(err)
   res.status(400).send(err)
