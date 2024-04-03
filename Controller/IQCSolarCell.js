@@ -220,7 +220,7 @@ try{
          i.Sampling = '${SolarCel[key]['Sampling']}',
          i.Reference = '${SolarCel[key]['Reference']}',
          i.AcceptanceCriteria = '${SolarCel[key]['AcceptanceCriteria']}',
-         i.SampleSize = '${SolarCel[key]['SampleSize']}'
+         i.SampleSize = '${SolarCel[key]['SampleSize']}',
          i.Samples = '[${Samples}]',
          i.CreatedDate = '${getCurrentDateTime()}',
          i.UpdatedDate = ''
