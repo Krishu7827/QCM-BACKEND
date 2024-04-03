@@ -106,13 +106,13 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 const AddIQCSolarCell = async (req, res) => {
   const data = req.body;
   const {SolarDetailId,Status,MaterialName} = data;
- // console.log(data);
+ console.log(data);
   const UUID = v4();
   const SolarCellDetail = data['SolarCellDetails']
   const SolarCel = data['SolarCell']
   const Rejected = data['Rejected']
 
-  console.log(SolarCel['Packaging']['Samples'])
+
 
   if(!SolarDetailId){
 
