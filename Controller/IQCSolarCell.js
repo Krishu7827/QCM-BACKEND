@@ -169,7 +169,7 @@ const AddIQCSolarCell = async (req, res) => {
     res.status(401).send(err)
   }
 }else{
-  console.log(SolarCel['Packaging']['SampleSize'])
+  console.log(SolarCel['Packaging'])
 try{
     /*************** Update Data in IQCSolarDetails Table **************/
     let SolarDetailQuery = `UPDATE IQCSolarDetails id
