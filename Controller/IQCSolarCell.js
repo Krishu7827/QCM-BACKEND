@@ -106,7 +106,7 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 const AddIQCSolarCell = async (req, res) => {
   const data = req.body;
   const {SolarDetailId,Status,MaterialName} = data;
-  console.log(data);
+ // console.log(data);
   const UUID = v4();
   const SolarCellDetail = data['SolarCellDetails']
   const SolarCel = data['SolarCell']
@@ -169,7 +169,7 @@ const AddIQCSolarCell = async (req, res) => {
     res.status(401).send(err)
   }
 }else{
-
+  console.log(SolarCel['Packaging']['SampleSize'])
 try{
     /*************** Update Data in IQCSolarDetails Table **************/
     let SolarDetailQuery = `UPDATE IQCSolarDetails id
