@@ -244,59 +244,25 @@ try{
   
   const JobCard = await queryAsync(query)
   let arr = [];
-// let  response = {}
-//   JobCard.forEach((Card,i)=>{
-//     let response
-//      let index = 0;
-//      if(i == 0 ){
-//       console.log(Card)
-//     for(let key in Card){
-//          if(index >=4){
-//              response[key] = Card[key]
-//          }
+let  response = {}
+  JobCard.forEach((Card,i)=>{
+   
+     let index = 0;
+     
 
-//          if(index == 14){
-//           break;
-//          }
+     for(let key in Card){
 
+         if(index>=17){
+          response[`${Card['Process']} ${key}`] = key == 'Description'?JSON.parse(Card[key]):Card[key]
+         }
+      index++;
+     }
+  })
 
-//          index++;
-//     }
-//     let process;
-//     index = 0;
-//     for(let key in Card){
-//      if(index>=15){
-//       if(key == 'Process'){
-//         process = key;
-//         response['Process'] = Card[key];
-//       }else{
-//         response[`${process.split(' ')[0]}${process.split(' ')[1]}`] = Card[key]
-//       }
-//      }
-//      index++;
-//     }
-//   }else{
-//     let process;
-//     index = 0;
-//     for(let key in Card){
-//      if(index>=15){
-//       if(key == 'Process'){
-//         process = key;
-//         response['Process'] = Card[key];
-//       }else{
-//         response[`${process.split(' ')[0]}${process.split(' ')[1]}`] = Card[key]
-//       }
-//      }
-//      index++;
-//     }
-//   }
-//   arr.push(response)
-//   })
-
-  console.log(arr)
+  console.log(response)
 
 
-  res.send(JobCard)
+  res.send({response,JobCard})
 }catch(err){
   console.log(err)
   res.status(400).send(err)

@@ -333,7 +333,7 @@ const GetSpecificSolarCellTest = async (req, res) => {
         }
         index = 0;
         for (let key in data) {
-          if (index == 19) {
+          if (index == 20) {
             break;
           }
           if (index >= 16) {
