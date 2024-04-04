@@ -12,9 +12,9 @@ const dbConn = mysql.createPool({
   dbConn.getConnection(function (error) {
     if (error) {
       console.log(error, "ERROR");
-      throw error;
-    }
+    }else{
     console.log("Database Connected Successfully!!!");
+    }
   });
   
 

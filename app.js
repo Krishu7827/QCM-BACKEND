@@ -16,7 +16,6 @@ app.use(cors())
 
 
 
-
 /** to Employee */
 app.use('/Employee',PersonRouter)
 
@@ -31,8 +30,10 @@ app.use('/IPQC',IPQCJobCardRouter);
 
 app.listen(PORT,async()=>{
   try{
+    console.log('server is running')
+    console.log('Database is connecting....')
  dbConn
-  console.log('server is running')
+ 
   
   }catch(err){
 console.log(err)
