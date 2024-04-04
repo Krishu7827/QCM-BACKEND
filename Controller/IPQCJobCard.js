@@ -168,6 +168,7 @@ const AddIPQCJobCard = async (req, res) => {
 /** Controller to listing Job Card Data */
 const JobCardList = async(req,res)=>{
    const {PersonID,Status,Designation} = req.body
+   
 try{
    
    if (Designation == 'Admin' || Designation == 'Super Admin') {
