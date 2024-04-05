@@ -307,13 +307,14 @@ const UpdateJobCardStatus = async(req,res)=>{
 
   try{
        let query = `UPDATE JobCardDetails jd
-                    set jd.Status = '${ApprovalStatus}'
-                        jd.UpdatedBy ='${CurrentUser}'
+                    set jd.Status = '${ApprovalStatus}',
+                        jd.UpdatedBy ='${CurrentUser}',
                         jd.UpdatedOn = '${getCurrentDateTime()}'
                     WHERE jd.JobCardDetailID = '${JobCardDetailId}'`
       let JobCardDetail = await queryAsync(query)
       res.send({ApprovalStatus,JobCardDetail})
   }catch(err){
+    console.log(err)
       res.status(400).send(err)
   }
 }

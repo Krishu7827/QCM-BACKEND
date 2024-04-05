@@ -1,32 +1,34 @@
 const express = require('express')
 const {AddIPQCJobCard,JobCardList,UploadPdf,GetSpecificJobCard,UpdateJobCardStatus} = require('../Controller/IPQCJobCard')
+const {AddBomVerification} = require('../Controller/BOMVerification')
 const {RoleAuthentication,upload} = require('../Middleware/IPQC.Middleware')
-const IPQCJobCardRouter = express.Router();
+const IPQC = express.Router();
 
 
 
 
 
 /** Route To Add Job Card */
-IPQCJobCardRouter.post('/AddJobCard',AddIPQCJobCard);
+IPQC.post('/AddJobCard',AddIPQCJobCard);
 
 /** Router to Upload Reference Pdf in S3 and Get The Location and Set into dbs */
-IPQCJobCardRouter.post('/UploadPdf',upload.single('Reference'),UploadPdf)
+IPQC.post('/UploadPdf',upload.single('Reference'),UploadPdf)
 
 
 /** Middleware to check Role Authentication */
-IPQCJobCardRouter.use(RoleAuthentication)
+IPQC.use(RoleAuthentication)
 
 /**Router To Get List Of Job Card Data */
-IPQCJobCardRouter.post('/GetJobCardList',JobCardList)
+IPQC.post('/GetJobCardList',JobCardList)
 
 
 /** Router to Get Specific Job Card */
-IPQCJobCardRouter.post('/GetSpecificeJobCard',GetSpecificJobCard)
+IPQC.post('/GetSpecificeJobCard',GetSpecificJobCard)
 
 
 /**Router To Update Status Of Job Card  */
-IPQCJobCardRouter.post('/UpdateJobCardStatus',UpdateJobCardStatus)
+IPQC.post('/UpdateJobCardStatus',UpdateJobCardStatus)
 
-
-module.exports = {IPQCJobCardRouter}
+/**Router To Add BOM Verification Data*/
+IPQC.post('/AddBOMVerification',AddBomVerification)
+module.exports = {IPQC}
