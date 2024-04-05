@@ -1,5 +1,5 @@
 const express = require('express')
-const {AddIPQCJobCard,JobCardList,UploadPdf,GetSpecificJobCard} = require('../Controller/IPQCJobCard')
+const {AddIPQCJobCard,JobCardList,UploadPdf,GetSpecificJobCard,UpdateJobCardStatus} = require('../Controller/IPQCJobCard')
 const {RoleAuthentication,upload} = require('../Middleware/IPQC.Middleware')
 const IPQCJobCardRouter = express.Router();
 
@@ -23,6 +23,10 @@ IPQCJobCardRouter.post('/GetJobCardList',JobCardList)
 
 /** Router to Get Specific Job Card */
 IPQCJobCardRouter.post('/GetSpecificeJobCard',GetSpecificJobCard)
+
+
+/**Router To Update Status Of Job Card  */
+IPQCJobCardRouter.post('/UpdateJobCardStatus',UpdateJobCardStatus)
 
 
 module.exports = {IPQCJobCardRouter}

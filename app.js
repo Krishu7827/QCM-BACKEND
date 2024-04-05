@@ -32,9 +32,7 @@ app.listen(PORT,async()=>{
   try{
     console.log('server is running')
     console.log('Database is connecting....')
- dbConn
- 
-  
+      dbConn
   }catch(err){
 console.log(err)
   }

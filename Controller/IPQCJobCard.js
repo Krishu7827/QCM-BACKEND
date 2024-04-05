@@ -1,7 +1,8 @@
 const { v4: uuidv4, v4 } = require('uuid');
 const { getCurrentDateTime, s3 } = require('../Utilis/IPQCJobCardUtilis')
 const util = require('util')
-const { dbConn } = require('../db.config/db.config')
+const { dbConn } = require('../db.config/db.config');
+const { AppRunner } = require('aws-sdk');
 
 
 /** Making Sync To Query */
@@ -301,4 +302,20 @@ const GetSpecificJobCard = async (req, res) => {
 }
 
 
-module.exports = { AddIPQCJobCard, JobCardList, UploadPdf, GetSpecificJobCard };
+const UpdateJobCardStatus = async(req,res)=>{
+  const {CurrentUser,ApprovalStatus,JobCardDetailId} = req.body
+
+  try{
+       let query = `UPDATE JobCardDetails jd
+                    set jd.Status = '${ApprovalStatus}'
+                        jd.UpdatedBy ='${CurrentUser}'
+                        jd.UpdatedOn = '${getCurrentDateTime()}'
+                    WHERE jd.JobCardDetailID = '${JobCardDetailId}'`
+      let JobCardDetail = await queryAsync(query)
+      res.send({ApprovalStatus,JobCardDetail})
+  }catch(err){
+      res.status(400).send(err)
+  }
+}
+
+module.exports = { AddIPQCJobCard, JobCardList, UploadPdf, GetSpecificJobCard,UpdateJobCardStatus };
