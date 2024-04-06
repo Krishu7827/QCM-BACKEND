@@ -2,7 +2,7 @@ const { v4: uuidv4, v4 } = require('uuid');
 const { getCurrentDateTime, s3 } = require('../Utilis/IPQCJobCardUtilis')
 const util = require('util')
 const { dbConn } = require('../db.config/db.config');
-const { AppRunner } = require('aws-sdk');
+
 
 
 /** Making Sync To Query */
@@ -114,7 +114,7 @@ const AddIPQCJobCard = async (req, res) => {
   const IPQCJobCard = req.body;
   const JobCardDetails = IPQCJobCard[0]['JobCardDetails'];
   const JobCard = IPQCJobCard[1]['JobCard'];
-  const { JobCardDetailId } = IPQCJobCard;
+  const { JobCardDetailId } = JobCardDetails;
   console.log(JobCardDetails);
   const UUID = v4();
 
