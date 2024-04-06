@@ -12,6 +12,7 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 // let Bom = [
 //     {
 //         "CurrenUser": "",
+//            "Status":"",
 //         "DocNo": "GSPL/IPQC/BM/002",
 //         "RevNo": "1.0 & 12.08.2023",
 //         "PONo": "poController.text",
@@ -131,8 +132,8 @@ const AddBomVerification = async (req, res) => {
     const UUID = v4();
     try {
         /** Insert Bom Data in BomVerficationDetail Table */
-        const BomVerificationDetailsQuery = `INSERT INTO BOMVerificationDetails(BOMDetailId,RevNo,Date,Shift,Line,PONo,CheckedBy,CreatedBy,CreatedOn)
-    VALUES ('${UUID}','${BomVerificationDetails['RevNo']}','${BomVerificationDetails['Date']}','${BomVerificationDetails['Shift']}','${BomVerificationDetails['Line']}','${BomVerificationDetails['PONo']}','${BomVerificationDetails['CurrenUser']}','${BomVerificationDetails['CurrenUser']}','${getCurrentDateTime()}');`
+        const BomVerificationDetailsQuery = `INSERT INTO BOMVerificationDetails(BOMDetailId,Type,RevNo,Date,Shift,Line,PONo,Status,CheckedBy,CreatedBy,CreatedOn)
+    VALUES ('${UUID}','BOM Verfication','${BomVerificationDetails['RevNo']}','${BomVerificationDetails['Date']}','${BomVerificationDetails['Shift']}','${BomVerificationDetails['Line']}','${BomVerificationDetails['PONo']}','${BomVerificationDetails['Status']}','${BomVerificationDetails['CurrenUser']}','${BomVerificationDetails['CurrenUser']}','${getCurrentDateTime()}');`
 
         await queryAsync(BomVerificationDetailsQuery)
 

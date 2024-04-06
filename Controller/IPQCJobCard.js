@@ -121,8 +121,8 @@ const AddIPQCJobCard = async (req, res) => {
 
   try {
     if (!JobCardDetailId) {
-      const QueryToJobCardDetails = `INSERT INTO JobCardDetails(JobCardDetailID,DocNo,RevisionNo,RevisonDate,ModuleType,ModuleNo,Date,MatrixSize,Status,CreatedBy,UpdatedBy,CreatedOn,UpdatedOn)
-  VALUE ('${UUID}','${JobCardDetails['DocNo']}','${JobCardDetails['RevisionNo']}','${JobCardDetails['RevisionDate']}','${JobCardDetails['moduleType']}','${JobCardDetails['moduleNo']}','${JobCardDetails['date']}','${JobCardDetails['matrixSize']}','${JobCardDetails['Status']}','${JobCardDetails['CreatedBy']}','','${getCurrentDateTime()}','');`
+      const QueryToJobCardDetails = `INSERT INTO JobCardDetails(JobCardDetailID,Type,DocNo,RevisionNo,RevisonDate,ModuleType,ModuleNo,Date,MatrixSize,Status,CreatedBy,UpdatedBy,CreatedOn,UpdatedOn)
+  VALUE ('${UUID}','Job Card','${JobCardDetails['DocNo']}','${JobCardDetails['RevisionNo']}','${JobCardDetails['RevisionDate']}','${JobCardDetails['moduleType']}','${JobCardDetails['moduleNo']}','${JobCardDetails['date']}','${JobCardDetails['matrixSize']}','${JobCardDetails['Status']}','${JobCardDetails['CreatedBy']}','','${getCurrentDateTime()}','');`
 
       /** Inserting Data in Job Card Details Table  */
       const JobCardDetailsQuery = await queryAsync(QueryToJobCardDetails)
@@ -141,7 +141,7 @@ const AddIPQCJobCard = async (req, res) => {
       res.send({ msg: 'Data Inserted Succesfully !', UUID })
     } else {
 
-       /** Updating Data in Job Card Details Table  */
+      /** Updating Data in Job Card Details Table  */
       const QueryToJobCardDetails = `UPDATE JobCardDetails jcd
     set jcd.DocNo = '${JobCardDetails['DocNo']}',
         jcd.RevisionNo = '${JobCardDetails['RevisionNo']}',
@@ -170,7 +170,7 @@ const AddIPQCJobCard = async (req, res) => {
 
         await queryAsync(QuerytToJobCard)
       });
-      res.send({ msg: 'Data Inserted Succesfully !', 'UUID':JobCardDetailId})
+      res.send({ msg: 'Data Inserted Succesfully !', 'UUID': JobCardDetailId })
     }
   } catch (err) {
     console.log(err)
@@ -186,27 +186,45 @@ const AddIPQCJobCard = async (req, res) => {
 /** Controller to listing Job Card Data */
 const JobCardList = async (req, res) => {
   const { PersonID, Status, Designation } = req.body
-
+  let query;
+  let BomQuery;
   try {
 
     if (Designation == 'Admin' || Designation == 'Super Admin') {
-      query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,jcd.JobCardDetailID,jcd.ModuleNo FROM Person p
+      query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,jcd.JobCardDetailID,jcd.ModuleNo,jcd.Type FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN JobCardDetails jcd ON p.PersonID = jcd.CreatedBy
 WHERE jcd.Status = '${Status}'
 ORDER BY STR_TO_DATE(jcd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
+
+      BomQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,bd.BOMDetailId,bd.PONo,bd.Type FROM Person p
+JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
+JOIN BOMVerificationDetails bd ON p.PersonID = bd.CheckedBy
+WHERE bd.Status = '${Status}'
+ORDER BY STR_TO_DATE(bd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
+
     } else {
-      query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,jcd.JobCardDetailID,jcd.ModuleNo FROM Person p
+      query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,jcd.JobCardDetailID,jcd.ModuleNo,jcd.Type FROM Person p
     JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
     JOIN JobCardDetails jcd ON p.PersonID = jcd.CreatedBy
     WHERE jcd.Status = '${Status}' AND p.PersonID = '${PersonID}'
     ORDER BY STR_TO_DATE(jcd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
+
+      BomQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,bd.BOMDetailId,bd.PONo,bd.Type FROM Person p
+JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
+JOIN BOMVerificationDetails bd ON p.PersonID = bd.CheckedBy
+WHERE bd.Status = '${Status}' AND p.PersonID = '${PersonID}'
+ORDER BY STR_TO_DATE(bd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
+
     }
+
     const JobCardList = await queryAsync(query);
-    JobCardList.forEach(test => {
-      test['MaterialName'] = 'Job Card';
-    });
-    res.send({ JobCardList })
+    const BomList = await queryAsync(BomQuery);
+    //console.log(BomList);
+BomList.forEach((BOM)=>{
+  JobCardList.push(BOM)
+})
+    res.send(JobCardList)
   } catch (err) {
     console.log(err)
     res.status(400).send(err)
@@ -302,21 +320,21 @@ const GetSpecificJobCard = async (req, res) => {
 }
 
 
-const UpdateJobCardStatus = async(req,res)=>{
-  const {CurrentUser,ApprovalStatus,JobCardDetailId} = req.body
+const UpdateJobCardStatus = async (req, res) => {
+  const { CurrentUser, ApprovalStatus, JobCardDetailId } = req.body
 
-  try{
-       let query = `UPDATE JobCardDetails jd
+  try {
+    let query = `UPDATE JobCardDetails jd
                     set jd.Status = '${ApprovalStatus}',
                         jd.UpdatedBy ='${CurrentUser}',
                         jd.UpdatedOn = '${getCurrentDateTime()}'
                     WHERE jd.JobCardDetailID = '${JobCardDetailId}'`
-      let JobCardDetail = await queryAsync(query)
-      res.send({ApprovalStatus,JobCardDetail})
-  }catch(err){
+    let JobCardDetail = await queryAsync(query)
+    res.send({ ApprovalStatus, JobCardDetail })
+  } catch (err) {
     console.log(err)
-      res.status(400).send(err)
+    res.status(400).send(err)
   }
 }
 
-module.exports = { AddIPQCJobCard, JobCardList, UploadPdf, GetSpecificJobCard,UpdateJobCardStatus };
+module.exports = { AddIPQCJobCard, JobCardList, UploadPdf, GetSpecificJobCard, UpdateJobCardStatus };

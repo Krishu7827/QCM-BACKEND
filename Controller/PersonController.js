@@ -189,7 +189,31 @@ console.log(hashedPassword[0].Password)
 }
 
 
+const EmployeeList = async(req,res)=>{
+    
+  const query = `SELECT p.LoginID,p.EmployeeID,p.Name,p.ProfileImg,wl.Location,d.Designation,d1.Department,p.Status  FROM Person p
+  JOIN Designation d ON p.Desgination = d.DesignationID
+  JOIN Department d1 ON p.Department = d1.DepartmentID
+  JOIN WorkLocation wl ON p.WorkLocation = wl.LocationID;`
+
+  try{
+    const EmployeeList = await new Promise((resolve,reject)=>{
+      dbConn.query(query,(err,result)=>{
+       if(err){
+         reject(err)
+       }else{
+         resolve(result)
+       }
+      });
+ });
+
+ res.send(EmployeeList)
+  }catch(err){
+res.status(400).send(err)
+  }
+}
+
 /** UpdatedOn, Created on column  */
 
 
-module.exports = {PersonRegister,UploadProfile,Login}
+module.exports = {PersonRegister,UploadProfile,Login,EmployeeList}

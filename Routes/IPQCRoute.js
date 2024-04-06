@@ -14,6 +14,8 @@ IPQC.post('/AddJobCard',AddIPQCJobCard);
 /** Router to Upload Reference Pdf in S3 and Get The Location and Set into dbs */
 IPQC.post('/UploadPdf',upload.single('Reference'),UploadPdf)
 
+/**Router To Add BOM Verification Data*/
+IPQC.post('/AddBOMVerification',AddBomVerification)
 
 /** Middleware to check Role Authentication */
 IPQC.use(RoleAuthentication)
@@ -29,6 +31,4 @@ IPQC.post('/GetSpecificeJobCard',GetSpecificJobCard)
 /**Router To Update Status Of Job Card  */
 IPQC.post('/UpdateJobCardStatus',UpdateJobCardStatus)
 
-/**Router To Add BOM Verification Data*/
-IPQC.post('/AddBOMVerification',AddBomVerification)
 module.exports = {IPQC}
