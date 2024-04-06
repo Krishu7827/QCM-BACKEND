@@ -170,7 +170,7 @@ const AddIPQCJobCard = async (req, res) => {
 
         await queryAsync(QuerytToJobCard)
       });
-      res.send({ msg: 'Data Inserted Succesfully !', JobCardDetailId})
+      res.send({ msg: 'Data Inserted Succesfully !', 'UUID':JobCardDetailId})
     }
   } catch (err) {
     console.log(err)
