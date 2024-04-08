@@ -133,7 +133,7 @@ const AddBomVerification = async (req, res) => {
     try {
         /** Insert Bom Data in BomVerficationDetail Table */
         const BomVerificationDetailsQuery = `INSERT INTO BOMVerificationDetails(BOMDetailId,Type,RevNo,Date,Shift,Line,PONo,Status,CheckedBy,CreatedBy,CreatedOn)
-    VALUES ('${UUID}','BOM Verfication','${BomVerificationDetails['RevNo']}','${BomVerificationDetails['Date']}','${BomVerificationDetails['Shift']}','${BomVerificationDetails['Line']}','${BomVerificationDetails['PONo']}','${BomVerificationDetails['Status']}','${BomVerificationDetails['CurrentUser']}','${BomVerificationDetails['CurrentUser']}','${getCurrentDateTime()}');`
+    VALUES ('${UUID}','BOM Verification','${BomVerificationDetails['RevNo']}','${BomVerificationDetails['Date']}','${BomVerificationDetails['Shift']}','${BomVerificationDetails['Line']}','${BomVerificationDetails['PONo']}','${BomVerificationDetails['Status']}','${BomVerificationDetails['CurrentUser']}','${BomVerificationDetails['CurrentUser']}','${getCurrentDateTime()}');`
 
         await queryAsync(BomVerificationDetailsQuery)
 
