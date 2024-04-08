@@ -191,7 +191,7 @@ console.log(hashedPassword[0].Password)
 
 const EmployeeList = async(req,res)=>{
     
-  const query = `SELECT p.LoginID,p.EmployeeID,p.Name,p.ProfileImg,wl.Location,d.Designation,d1.Department,p.Status  FROM Person p
+  const query = `SELECT p.PersonID, p.LoginID,p.EmployeeID,p.Name,p.ProfileImg,wl.Location,d.Designation,d1.Department,p.Status  FROM Person p
   JOIN Designation d ON p.Desgination = d.DesignationID
   JOIN Department d1 ON p.Department = d1.DepartmentID
   JOIN WorkLocation wl ON p.WorkLocation = wl.LocationID;`
