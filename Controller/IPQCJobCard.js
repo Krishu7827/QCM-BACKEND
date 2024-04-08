@@ -222,8 +222,15 @@ ORDER BY STR_TO_DATE(bd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
     const BomList = await queryAsync(BomQuery);
    
 BomList.forEach((BOM)=>{
-  BOM['BOMDetailId']?BOM['JobCardDetailID'] = BOM['BOMDetailId']:null
-  BOM['PONo']?BOM['ModuleNo'] = BOM['PONo']:null
+  for(let key in BOM){
+    if(key == 'BOMDetailId'){
+      BOM['JobCardDetailID'] = BOM[key]
+      delete BOM[key]
+    }else if(key == 'PONo'){
+      BOM['ModuleNo'] = BOM[key]
+      delete BOM[key]
+    }
+  }
   JobCardList.push(BOM)
 })
     res.send({status:true,data:JobCardList})
