@@ -70,7 +70,7 @@ console.log(DepartmentName[0]['Department'])
           <p style="font-size: 16px; margin-bottom: 0px;">Congratulations, ${fullname} is now officially enrolled in ${DepartmentName[0]['Department']} department.</p>      
           <p style="font-size: 16px;">Below are your enrollment details:</p>
           <ul style="font-size: 16px;">
-            <li><strong>Employee ID:</strong> ${loginid}</li>
+            <li><strong>Login ID:</strong> ${loginid}</li>
             <li><strong>Password:</strong> ${PlainPassword}</li>
           </ul>
           <p style="font-size: 16px; margin-bottom: 0px;">Please keep his Employee ID and Password confidential for security reasons.</p>        
