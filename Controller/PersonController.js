@@ -7,9 +7,10 @@ require('dotenv').config()
 
 /** Controller to Register Employee */
 const PersonRegister = async (req, res) => {
-    const { personid, employeeid, loginid, joblocation, fullname, department, designation } = req.body
+    const { personid, currentuser,employeeid, loginid, joblocation, fullname, department, designation } = req.body
     const PlainPassword = `${fullname.split(' ')[0]}@${generatePassword()}`
     console.log(PlainPassword)
+    if(!personid){
     try {
         /** Hashed the Password */
         //const HashedPassword = await bcrypt.hash(PlainPassword,8)
@@ -87,6 +88,39 @@ console.log(DepartmentName[0]['Department'])
         console.log(err)
         res.status(500).send({ err })
     }
+  }else{
+    
+    
+    let query =  `UPDATE Person p
+    set p.EmployeeID = '${employeeid}',
+        p.Name = '${fullname}',
+        p.LoginID = '${loginid}',
+        p.WorkLocation = '${joblocation}',
+        p.Department = '${department}',
+        p.Desgination = '${designation}',
+        p.Status ='Active',
+        p.UpdatedBy = '${currentuser}',
+        p.UpdateOn = '${getCurrentDateTime()}'
+    WHERE p.PersonID = '${personid}';`
+
+    try{
+      const UpdateEmployeeDetail = await new Promise((resolve,reject)=>{
+        dbConn.query(query,(err,result)=>{
+         if(err){
+           reject(err)
+         }else{
+           resolve(result)
+         }
+        });
+   });
+  
+   res.send({msg:'Update Employee Detail',UpdateEmployeeDetail})
+    }catch(err){
+  res.status(400).send(err)
+    }
+
+
+  }
 
 
 }
@@ -138,7 +172,7 @@ const UploadProfile = async (req,res)=>{
 const Login = async(req,res)=>{
   const {loginid,password} = req.body
 
-  const query = `SELECT Password FROM Person Where LoginID = '${loginid}'`
+  const query = `SELECT Password FROM Person Where LoginID = '${loginid}' AND Status = 'Active'`
 try{
   const hashedPassword = await new Promise((resolve,reject)=>{
     dbConn.query(query,(err,result)=>{
@@ -236,38 +270,7 @@ res.status(400).send(err)
   }
 }
 
-const UpdateEmployeeDetail = async(req,res)=>{
-    const {personid,currentuser,employeeid,loginid,joblocation,fullname,department,designation} = req.body;
-
-    let query =  `UPDATE Person p
-    set p.EmployeeID = '${employeeid}',
-        p.Name = '${fullname}',
-        p.LoginID = '${loginid}',
-        p.WorkLocation = '${joblocation}',
-        p.Department = '${department}',
-        p.Desgination = '${designation}',
-        p.Status ='Active',
-        p.UpdatedBy = '${currentuser}',
-        p.UpdateOn = '${getCurrentDateTime()}'
-    WHERE p.PersonID = '${personid}';`
-
-    try{
-      const UpdateEmployeeDetail = await new Promise((resolve,reject)=>{
-        dbConn.query(query,(err,result)=>{
-         if(err){
-           reject(err)
-         }else{
-           resolve(result)
-         }
-        });
-   });
-  
-   res.send({status:true,data:UpdateEmployeeDetail})
-    }catch(err){
-  res.status(400).send(err)
-    }
-
-}
 
 
-module.exports = {PersonRegister, UploadProfile, Login, EmployeeList, GetSpecificEmployee, UpdateEmployeeDetail}
+
+module.exports = {PersonRegister, UploadProfile, Login, EmployeeList, GetSpecificEmployee}
