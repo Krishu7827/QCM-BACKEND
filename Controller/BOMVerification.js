@@ -128,6 +128,7 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 const AddBomVerification = async (req, res) => {
     const Bom = req.body;
     let BomVerificationDetails = Bom[0];
+    console.log(BomVerificationDetails)
     let BOM = Bom[1];
     const UUID = v4();
     try {
