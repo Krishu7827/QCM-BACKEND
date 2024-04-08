@@ -222,6 +222,8 @@ ORDER BY STR_TO_DATE(bd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
     const BomList = await queryAsync(BomQuery);
    
 BomList.forEach((BOM)=>{
+  BOM['BOMDetailId']?BOM['JobCardDetailID'] = BOM['BOMDetailId']:null
+  BOM['PONo']?BOM['ModuleNo'] = BOM['PONo']:null
   JobCardList.push(BOM)
 })
     res.send({status:true,data:JobCardList})
