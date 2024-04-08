@@ -1,5 +1,5 @@
 const { dbConn } = require('../db.config/db.config')
-const { generatePassword,s3,AWS,transport } = require('../Utilis/Person.utilis')
+const { generatePassword,s3,AWS,transport,getCurrentDateTime } = require('../Utilis/Person.utilis')
 const bcrypt = require('bcrypt')
 const JWT = require('jsonwebtoken')
 require('dotenv').config()
@@ -236,7 +236,38 @@ res.status(400).send(err)
   }
 }
 
-/** UpdatedOn, Created on column  */
+const UpdateEmployeeDetail = async(req,res)=>{
+    const {personid,currentuser,employeeid,loginid,joblocation,fullname,department,designation} = req.body;
+
+    let query =  `UPDATE Person p
+    set p.EmployeeID = '${employeeid}',
+        p.Name = '${fullname}',
+        p.LoginID = '${loginid}',
+        p.WorkLocation = '${joblocation}',
+        p.Department = '${department}',
+        p.Desgination = '${designation}',
+        p.Status ='Active',
+        p.UpdatedBy = '${currentuser}',
+        p.UpdateOn = '${getCurrentDateTime()}'
+    WHERE p.PersonID = '${personid}';`
+
+    try{
+      const UpdateEmployeeDetail = await new Promise((resolve,reject)=>{
+        dbConn.query(query,(err,result)=>{
+         if(err){
+           reject(err)
+         }else{
+           resolve(result)
+         }
+        });
+   });
+  
+   res.send({status:true,data:UpdateEmployeeDetail})
+    }catch(err){
+  res.status(400).send(err)
+    }
+
+}
 
 
-module.exports = {PersonRegister, UploadProfile, Login, EmployeeList, GetSpecificEmployee}
+module.exports = {PersonRegister, UploadProfile, Login, EmployeeList, GetSpecificEmployee, UpdateEmployeeDetail}

@@ -1,7 +1,7 @@
 const express = require('express');
 const PersonRouter = express.Router();
 const {upload} = require('../Middleware/Person.middleware');
-const {PersonRegister,UploadProfile,Login,EmployeeList,GetSpecificEmployee} = require('../Controller/PersonController.js');
+const {PersonRegister,UploadProfile,Login,EmployeeList,GetSpecificEmployee,UpdateEmployeeDetail} = require('../Controller/PersonController.js');
 
 
 
@@ -22,8 +22,8 @@ PersonRouter.get('/GetList',EmployeeList)
 PersonRouter.post('/GetSpecificEmployee',GetSpecificEmployee)
 
 
-
-
+/**Router to Update Employee Details */
+PersonRouter.post('/UpdateEmployeeDetail',UpdateEmployeeDetail)
 
 
 
