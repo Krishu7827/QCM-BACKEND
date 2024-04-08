@@ -213,7 +213,30 @@ res.status(400).send(err)
   }
 }
 
+const GetSpecificEmployee = async(req,res)=>{
+
+  const {PersonID} = req.body
+
+  const query = `SELECT *FROM Person p WHERE p.PersonID = '${PersonID}'`
+
+  try{
+    const GetSpecificEmployee = await new Promise((resolve,reject)=>{
+      dbConn.query(query,(err,result)=>{
+       if(err){
+         reject(err)
+       }else{
+         resolve(result)
+       }
+      });
+ });
+
+ res.send({status:true,data:GetSpecificEmployee})
+  }catch(err){
+res.status(400).send(err)
+  }
+}
+
 /** UpdatedOn, Created on column  */
 
 
-module.exports = {PersonRegister,UploadProfile,Login,EmployeeList}
+module.exports = {PersonRegister, UploadProfile, Login, EmployeeList, GetSpecificEmployee}
