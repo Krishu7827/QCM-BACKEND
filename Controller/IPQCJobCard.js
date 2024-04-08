@@ -220,11 +220,11 @@ ORDER BY STR_TO_DATE(bd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
 
     const JobCardList = await queryAsync(query);
     const BomList = await queryAsync(BomQuery);
-    //console.log(BomList);
+   
 BomList.forEach((BOM)=>{
   JobCardList.push(BOM)
 })
-    res.send(JobCardList)
+    res.send({status:true,data:JobCardList})
   } catch (err) {
     console.log(err)
     res.status(400).send(err)

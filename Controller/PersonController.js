@@ -207,7 +207,7 @@ const EmployeeList = async(req,res)=>{
       });
  });
 
- res.send(EmployeeList)
+ res.send({status:true,data:EmployeeList})
   }catch(err){
 res.status(400).send(err)
   }
