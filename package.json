@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/GautamEnergy/QCM-BACKEND#readme",
   "dependencies": {
+    "aspose.cells": "^24.3.0",
     "aws-sdk": "^2.1578.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",

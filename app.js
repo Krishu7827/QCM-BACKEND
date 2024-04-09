@@ -142,17 +142,17 @@ app.use('/IPQC',IPQC);
 // // Merge cells for the header and set text
 // worksheet.mergeCells('A1:N2');
 // worksheet.mergeCells('A3:G6');
-// worksheet.mergeCells('H3:K4');
-// worksheet.mergeCells('L3:N4');
-// worksheet.mergeCells('H5:K4');
-// worksheet.mergeCells('H5:I6');
+// // worksheet.mergeCells('H3:K4');
+// // worksheet.mergeCells('L3:N4');
+// // worksheet.mergeCells('H5:K4');
+// //worksheet.mergeCells('H5:I6');
 // //worksheet.mergeCells('A7:B7');  /** Day Lot No. */
 // worksheet.getCell('A3').value = 'Gautam Solar Pvt Ltd.';
 // worksheet.getCell('A1').value = 'Incoming Quality Control Plan (Solar Glass)';
-// worksheet.getCell('H3').value = 'Document No';
-// worksheet.getCell('L3').value = 'Rev. No./Rev. Date'
-// worksheet.getCell('H5').value = 'GSPL/BS(IQC)/000';
-// worksheet.getCell('H5').value = 'Ver. 2.0 /13-03-2024'
+// // worksheet.getCell('H3').value = 'Document No';
+// // worksheet.getCell('L3').value = 'Rev. No./Rev. Date'
+// // worksheet.getCell('H5').value = 'GSPL/BS(IQC)/000';
+// // worksheet.getCell('H5').value = 'Ver. 2.0 /13-03-2024'
 
 // // Apply header styling
 // worksheet.getCell('A1').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:16,bold:true}, fill: {
@@ -162,24 +162,24 @@ app.use('/IPQC',IPQC);
 // }}
 
 // worksheet.getCell('A3').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:15,bold:true}};
-// worksheet.getCell('H3').style ={alignment:{horizontal:'center',vertical:'middle'},font:{size:12,bold:true}};
-// worksheet.getCell('L3').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:12,bold:true}};
-// worksheet.getCell('H5').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:9,bold:true}};;
-// worksheet.getCell('H5').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:9,bold:true}};
+// // worksheet.getCell('H3').style ={alignment:{horizontal:'center',vertical:'middle'},font:{size:12,bold:true}};
+// // worksheet.getCell('L3').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:12,bold:true}};
+// // worksheet.getCell('H5').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:9,bold:true}};;
+// // worksheet.getCell('H5').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:9,bold:true}};
 
 // /** Border */
 // worksheet.getCell('A1').border = Border
-// worksheet.getCell('E2').border = Border
+// // worksheet.getCell('E2').border = Border
 // worksheet.getCell('A3').border = Border;
-// worksheet.getCell('D5').border = Border
-// worksheet.getCell('H3').border = Border;
-// worksheet.getCell('L3').border = Border
-// worksheet.getCell('H5').border = Border;
-// worksheet.getCell('H5').border = Border
-// worksheet.getCell('G4').border = Border;
-// worksheet.getCell('G6').border = Border
-// worksheet.getCell('K4').border = Border;
-// worksheet.getCell('I6').border = Border;
+// // worksheet.getCell('D5').border = Border
+// // worksheet.getCell('H3').border = Border;
+// // worksheet.getCell('L3').border = Border
+// // worksheet.getCell('H5').border = Border;
+// // worksheet.getCell('H5').border = Border
+// // worksheet.getCell('G4').border = Border;
+// // worksheet.getCell('G6').border = Border
+// // worksheet.getCell('K4').border = Border;
+// // worksheet.getCell('I6').border = Border;
 
 // // Save the workbook to a file
 // const excelFileName = 'quality_control_plan_junction_box.xlsx';
@@ -191,7 +191,29 @@ app.use('/IPQC',IPQC);
 //         console.error('Error generating Excel file:', error);
 //     });
 
+//     var aspose = aspose || {};
+//     aspose.cells = require("aspose.cells");
+ 
+//     // Initialize an instance of the workbook class and load the source file. 
+// var wb = new aspose.cells.Workbook('quality_control_plan_junction_box.xlsx')
 
+// // Create an object of the ImageOrPrintOptions class to access specific image creation options. 
+// var imageOptions = new aspose.cells.ImageOrPrintOptions();
+
+// // Call the setImageType method to set the image type. 
+// imageOptions.setImageType(aspose.cells.ImageType.JPEG);
+
+// // The get(index) method will access the first worksheet in the workbook.
+// var Worksheet = wb.getWorksheets().get(0);
+
+// // Initialize the constructor of the SheetRender class for the target sheet.
+// var sheetRender = new aspose.cells.SheetRender(Worksheet, imageOptions);
+
+// console.log(sheetRender)
+// // Loop through the pages and invoke the toImage method to create image for the sheet.
+// for (var j = 0; j < sheetRender.getPageCount(); j++) {
+//     sheetRender.toImage(j,  "ExcelToJPEG" + j + ".jpeg");
+// }
 
 app.listen(PORT,async()=>{
   try{

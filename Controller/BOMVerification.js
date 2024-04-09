@@ -132,8 +132,8 @@ const AddBomVerification = async (req, res) => {
     const UUID = v4();
     try {
         /** Insert Bom Data in BomVerficationDetail Table */
-        const BomVerificationDetailsQuery = `INSERT INTO BOMVerificationDetails(BOMDetailId,Type,RevNo,Date,Shift,Line,PONo,Status,CheckedBy,CreatedBy,CreatedOn)
-    VALUES ('${UUID}','BOM Verification','${BomVerificationDetails['RevNo']}','${BomVerificationDetails['Date']}','${BomVerificationDetails['Shift']}','${BomVerificationDetails['Line']}','${BomVerificationDetails['PONo']}','${BomVerificationDetails['Status']}','${BomVerificationDetails['CurrentUser']}','${BomVerificationDetails['CurrentUser']}','${getCurrentDateTime()}');`
+        const BomVerificationDetailsQuery = `INSERT INTO BOMVerificationDetails(BOMDetailId,Type,RevNo,DocNo,Date,Shift,Line,PONo,Status,CheckedBy,CreatedBy,CreatedOn)
+    VALUES ('${UUID}','BOM Verification','${BomVerificationDetails['RevNo']}','${BomVerificationDetails['DocNo']}','${BomVerificationDetails['Date']}','${BomVerificationDetails['Shift']}','${BomVerificationDetails['Line']}','${BomVerificationDetails['PONo']}','${BomVerificationDetails['Status']}','${BomVerificationDetails['CurrentUser']}','${BomVerificationDetails['CurrentUser']}','${getCurrentDateTime()}');`
 
         await queryAsync(BomVerificationDetailsQuery)
 
@@ -190,12 +190,23 @@ const BOMUploadPdf = async (req, res) => {
 
 
 
-const GetSpecificBOMVerification = (req,res)=>{
+const GetSpecificBOMVerification = async(req,res)=>{
  
-    const {JobCardDetailId} = req.body;
+    try{
+        const {JobCardDetailId} = req.body;
 
+        const query = `select *FROM BOM b
+        JOIn BOMVerificationDetails BM on b.BOMDetailId = BM.BOMDetailId
+        WHERE b.BOMDetailId = '${JobCardDetailId}';`
     
+        const data = await queryAsync(query);
+
+        res.send({status:true,data});
+    }catch(err){
+        res.send({status:false,err});
+    }
+  
 
 }
 
-module.exports = {AddBomVerification,BOMUploadPdf}
+module.exports = {AddBomVerification,BOMUploadPdf,GetSpecificBOMVerification}
