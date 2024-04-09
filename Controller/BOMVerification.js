@@ -131,6 +131,7 @@ const AddBomVerification = async (req, res) => {
     let BOM = Bom[1];
     const UUID = v4();
     console.log(req.body)
+    console.log(BomVerificationDetails['CurrentUser'])
     try {
         /** Insert Bom Data in BomVerficationDetail Table */
         const BomVerificationDetailsQuery = `INSERT INTO BOMVerificationDetails(BOMDetailId,Type,RevNo,Date,Shift,Line,PONo,Status,CheckedBy,CreatedBy,CreatedOn)
