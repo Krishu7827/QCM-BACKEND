@@ -151,7 +151,7 @@ const AddBomVerification = async (req, res) => {
 }
 
 
-const UploadPdf = async (req, res) => {
+const BOMUploadPdf = async (req, res) => {
 
     const { JobCardDetailId } = req.body;
     console.log(req.file);
@@ -198,4 +198,4 @@ const GetSpecificBOMVerification = (req,res)=>{
 
 }
 
-module.exports = {AddBomVerification,UploadPdf}
+module.exports = {AddBomVerification,BOMUploadPdf}
