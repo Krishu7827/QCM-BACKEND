@@ -130,8 +130,6 @@ const AddBomVerification = async (req, res) => {
     let BomVerificationDetails = Bom[0];
     let BOM = Bom[1];
     const UUID = v4();
-    console.log(req.body)
-    console.log(BomVerificationDetails['CurrentUser'])
     try {
         /** Insert Bom Data in BomVerficationDetail Table */
         const BomVerificationDetailsQuery = `INSERT INTO BOMVerificationDetails(BOMDetailId,Type,RevNo,Date,Shift,Line,PONo,Status,CheckedBy,CreatedBy,CreatedOn)
@@ -141,7 +139,7 @@ const AddBomVerification = async (req, res) => {
 
         BOM.forEach(async (item) => {
             const BOMQuery = `INSERT INTO BOM(BOMId,BOMDetailId,BOMItem,Supplier,ModelNo,BatchNo,Remarks,CreatedBy,CreatedOn)
-                         VALUES('${v4()}','${UUID}','${item['BOMitem']}','${item['Supplier']}','${item['ModelNo']}','${item['BatchNo']}','${item['Remarks']}','${BomVerificationDetails['CurrenUser']}','${getCurrentDateTime()}');`
+                         VALUES('${v4()}','${UUID}','${item['BOMitem']}','${item['Supplier']}','${item['ModelNo']}','${item['BatchNo']}','${item['Remarks']}','${BomVerificationDetails['CurrentUser']}','${getCurrentDateTime()}');`
             await queryAsync(BOMQuery)
         })
         res.send({ msg: 'Data Inserted Succesfully !', UUID});
