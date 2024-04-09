@@ -130,6 +130,7 @@ const AddBomVerification = async (req, res) => {
     let BomVerificationDetails = Bom[0];
     let BOM = Bom[1];
     const UUID = v4();
+    console.log(req.body)
     try {
         /** Insert Bom Data in BomVerficationDetail Table */
         const BomVerificationDetailsQuery = `INSERT INTO BOMVerificationDetails(BOMDetailId,Type,RevNo,Date,Shift,Line,PONo,Status,CheckedBy,CreatedBy,CreatedOn)
@@ -150,5 +151,15 @@ const AddBomVerification = async (req, res) => {
 
 }
 
+
+
+
+const GetSpecificBOMVerification = (req,res)=>{
+ 
+    const {JobCardDetailId} = req.body;
+
+    
+
+}
 
 module.exports = {AddBomVerification}
