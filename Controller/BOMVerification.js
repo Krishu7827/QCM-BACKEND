@@ -266,4 +266,20 @@ const GetSpecificBOMVerification = async(req,res)=>{
 
 }
 
-module.exports = {AddBomVerification,BOMUploadPdf,GetSpecificBOMVerification}
+
+const UpdateStatusBOM = async(req,res)=>{
+    const {JobCardDetailId,Status} = req.body
+
+    try{
+    const query = `UPDATE BOMVerificationDetails
+                   SET
+                      Status = '${Status}'
+                    WHERE BOMDetailId = '${JobCardDetailId}';`
+        const Update = await queryAsync(query)
+        res.send({status:true,data:{JobCardDetailId}})
+    }catch(err){
+       res.status(400).send({status:false,err})
+    }
+  
+}
+module.exports = {AddBomVerification,BOMUploadPdf,GetSpecificBOMVerification,UpdateStatusBOM}
