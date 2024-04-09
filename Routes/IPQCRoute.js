@@ -15,7 +15,7 @@ IPQC.post('/AddJobCard',AddIPQCJobCard);
 IPQC.post('/UploadPdf',upload.single('Reference'),UploadPdf)
 
 /** Router to Upload Reference Pdf in S3 and Get The Location and Set into dbs(BOM Verification Table) */
-IPQC.post('/BOMUploadPdf',upload.single('ReferencePdf'),UploadPdf)
+IPQC.post('/BOMUploadPdf',upload.single('ReferencePdf'),UploadPdf);
 
 /**Router To Add BOM Verification Data*/
 IPQC.post('/AddBOMVerification',AddBomVerification)
