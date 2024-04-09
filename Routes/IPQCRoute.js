@@ -31,4 +31,8 @@ IPQC.post('/GetSpecificeJobCard',GetSpecificJobCard)
 /**Router To Update Status Of Job Card  */
 IPQC.post('/UpdateJobCardStatus',UpdateJobCardStatus)
 
+
+/** Router to Upload Reference Pdf in S3 and Get The Location and Set into dbs(BOM Verification Table) */
+IPQC.post('/BOMUploadPdf',upload.single('ReferencePdf'),UploadPdf)
+
 module.exports = {IPQC}

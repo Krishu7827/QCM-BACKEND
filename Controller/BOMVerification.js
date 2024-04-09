@@ -151,6 +151,43 @@ const AddBomVerification = async (req, res) => {
 }
 
 
+const UploadPdf = async (req, res) => {
+
+    const { JobCardDetailId } = req.body;
+    console.log(req.file);
+    /** Uploading PDF in S3 Bucket */
+    try {
+      const ReferencePdf = await new Promise((resolve, reject) => {
+        s3.upload({
+          Bucket: process.env.AWS_BUCKET_2,
+          Key: `${JobCardDetailId}_${req.file.originalname}`,
+          Body: req.file.buffer,
+          ACL: "public-read-write",
+          ContentType: req.file.mimetype
+        }, (err, result) => {
+          if (err) {
+            reject(err)
+          } else {
+  
+            resolve(result)
+          }
+        })
+      });
+  
+  
+  
+      const query = `UPDATE BOMVerificationDetails
+      set ReferencePdf = '${ReferencePdf.Location}'
+     WHERE BOMDetailId = '${JobCardDetailId}';`;
+  
+      const update = await queryAsync(query);
+      res.send({ msg: 'Data Inserted SuccesFully !', URL: ReferencePdf.Location });
+    } catch (err) {
+      console.log(err);
+      res.status(401).send(err);
+    }
+  }
+
 
 
 const GetSpecificBOMVerification = (req,res)=>{
@@ -161,4 +198,4 @@ const GetSpecificBOMVerification = (req,res)=>{
 
 }
 
-module.exports = {AddBomVerification}
+module.exports = {AddBomVerification,UploadPdf}
