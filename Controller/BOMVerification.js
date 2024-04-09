@@ -167,13 +167,12 @@ const AddBomVerification = async (req, res) => {
         BOM.forEach(async (item) => {
             const BOMQuery = `UPDATE BOM
              SET
-                BOMItem = '${item['BOMitem']}',
                 Supplier = '${item['Supplier']}',
                 ModelNo = '${item['ModelNo']}',
                 BatchNo = '${item['BatchNo']}',
                 Remarks = '${item['Remarks']}'
             WHERE
-               BOMDetailId = '${BOMDetailId}';`;
+               BOMDetailId = '${BOMDetailId}' AND BOMItem = '${item['BOMitem']}';`;
             await queryAsync(BOMQuery)
         })
 
