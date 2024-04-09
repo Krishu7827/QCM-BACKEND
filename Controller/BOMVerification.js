@@ -257,7 +257,7 @@ const GetSpecificBOMVerification = async(req,res)=>{
         response[`${BOMItem} BatchNo`] = item['BatchNo'];
         response[`${BOMItem} Remarks`] = item['Remarks']
         })
-        res.send({status:true,response});
+        res.send({status:true,data:response});
     }catch(err){
         res.send({status:false,err});
     }
