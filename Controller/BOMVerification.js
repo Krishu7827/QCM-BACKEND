@@ -251,6 +251,7 @@ const GetSpecificBOMVerification = async(req,res)=>{
                 response['PONo'] = item['PONo'];
                 response['DocNo'] = item['DocNo'];
                 response['ReferencePdf'] = item['ReferencePdf'];
+                response['Status'] = item['Status']
                }
         response[`${BOMItem} Supplier`] = item['Supplier'];
         response[`${BOMItem} ModelNo`] = item['ModelNo'];
