@@ -124,7 +124,7 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 
 
 /** Controller To Add BOM Verification */
-
+console.log('')
 const AddBomVerification = async (req, res) => {
     const Bom = req.body;
     let BomVerificationDetails = Bom[0];
