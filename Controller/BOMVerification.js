@@ -268,12 +268,14 @@ const GetSpecificBOMVerification = async(req,res)=>{
 
 
 const UpdateStatusBOM = async(req,res)=>{
-    const {JobCardDetailId,Status} = req.body
+    const {JobCardDetailId,Status,CurrentUser} = req.body
 
     try{
     const query = `UPDATE BOMVerificationDetails
                    SET
-                      Status = '${Status}'
+                      Status = '${Status}',
+                      UpdatedBy = '${CurrentUser}',
+                      UpdatedOn = '${getCurrentDateTime()}'
                     WHERE BOMDetailId = '${JobCardDetailId}';`
         const Update = await queryAsync(query)
         res.send({status:true,data:{JobCardDetailId}})
