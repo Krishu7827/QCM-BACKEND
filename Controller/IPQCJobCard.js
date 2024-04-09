@@ -289,6 +289,7 @@ const GetSpecificJobCard = async (req, res) => {
   WHERE jcd.JobCardDetailID = '${JobCardDetailId}';`
 
     const JobCard = await queryAsync(query)
+    console.log(JobCard)
     let arr = [];
     let response = {}
     JobCard.forEach((Card, i) => {

@@ -127,9 +127,11 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 console.log('')
 const AddBomVerification = async (req, res) => {
     const Bom = req.body;
-    let BomVerificationDetails = Bom[0];
-    let BOM = Bom[1];
+    const BomVerificationDetails = Bom[0];
+    const BOM = Bom[1];
     const UUID = v4();
+    const {BOMDetailId} = BomVerificationDetails
+    if(!BOMDetailId){
     try {
         /** Insert Bom Data in BomVerficationDetail Table */
         const BomVerificationDetailsQuery = `INSERT INTO BOMVerificationDetails(BOMDetailId,Type,RevNo,DocNo,Date,Shift,Line,PONo,Status,CheckedBy,CreatedBy,CreatedOn)
@@ -147,7 +149,42 @@ const AddBomVerification = async (req, res) => {
        console.log(err);
        res.status(400).send({err});
     }
+    }else{
+        try{
+        const BomVerificationDetailsQuery = `UPDATE BOMVerificationDetails
+        SET 
+            RevNo = '${BomVerificationDetails['RevNo']}',
+            DocNo = '${BomVerificationDetails['DocNo']}',
+            Date = '${BomVerificationDetails['Date']}',
+            Shift = '${BomVerificationDetails['Shift']}',
+            Line = '${BomVerificationDetails['Line']}',
+            PONo = '${BomVerificationDetails['PONo']}',
+            Status = '${BomVerificationDetails['Status']}'
+        WHERE
+            BOMDetailId = '${BOMDetailId}';`
+        await queryAsync(BomVerificationDetailsQuery)
 
+        BOM.forEach(async (item) => {
+            const BOMQuery = `UPDATE BOM
+             SET
+                BOMItem = '${item['BOMitem']}',
+                Supplier = '${item['Supplier']}',
+                ModelNo = '${item['ModelNo']}',
+                BatchNo = '${item['BatchNo']}',
+                Remarks = '${item['Remarks']}'
+            WHERE
+               BOMDetailId = '${BOMDetailId}';`;
+            await queryAsync(BOMQuery)
+        })
+
+        res.send({ msg: 'Data Inserted Succesfully !',BOMDetailId });
+    }catch(err){
+        console.log(err);
+       res.status(400).send({err});
+    }
+
+    }
+    
 }
 
 
@@ -200,8 +237,27 @@ const GetSpecificBOMVerification = async(req,res)=>{
         WHERE b.BOMDetailId = '${JobCardDetailId}';`
     
         const data = await queryAsync(query);
+        
+        let response = {}
 
-        res.send({status:true,data});
+        data.forEach((item,i)=>{
+            const BOMItem = item['BOMItem'];
+               if(i === 0){
+                response['BOMDetailId'] = item['BOMDetailId'];
+                response['RevNo'] = item['RevNo'];
+                response['Date'] = item['Date'];
+                response['Shift'] = item['Shift'];
+                response['Line'] = item['Line'];
+                response['PONo'] = item['PONo'];
+                response['DocNo'] = item['DocNo'];
+                response['ReferencePdf'] = item['ReferencePdf'];
+               }
+        response[`${BOMItem} Supplier`] = item['Supplier'];
+        response[`${BOMItem} ModelNo`] = item['ModelNo'];
+        response[`${BOMItem} BatchNo`] = item['BatchNo'];
+        response[`${BOMItem} Remarks`] = item['Remarks']
+        })
+        res.send({status:true,response});
     }catch(err){
         res.send({status:false,err});
     }
