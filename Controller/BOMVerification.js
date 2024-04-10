@@ -190,6 +190,7 @@ const AddBomVerification = async (req, res) => {
 const BOMUploadPdf = async (req, res) => {
 
     const { JobCardDetailId } = req.body;
+    console.log(req.file)
     if(req.file.size){
     /** Uploading PDF in S3 Bucket */
     try {
