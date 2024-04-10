@@ -124,13 +124,14 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 
 
 /** Controller To Add BOM Verification */
-console.log('')
+
 const AddBomVerification = async (req, res) => {
     const Bom = req.body;
     const BomVerificationDetails = Bom[0];
     const BOM = Bom[1];
     const UUID = v4();
     const {BOMDetailId} = BomVerificationDetails
+    console.log(Bom)
     if(!BOMDetailId){
     try {
         /** Insert Bom Data in BomVerficationDetail Table */
