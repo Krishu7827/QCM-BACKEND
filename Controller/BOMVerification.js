@@ -223,7 +223,7 @@ const BOMUploadPdf = async (req, res) => {
       res.status(401).send(err);
     }
 }else{
-    res.send(401).send({status:false,'err':'file is empty'})
+    res.status(401).send({status:false,'err':'file is empty'})
 }
   }
 
@@ -287,7 +287,7 @@ const UpdateStatusBOM = async(req,res)=>{
     }catch(err){
 
        res.status(400).send({status:false,err})
-       
+
     }
   
 }
