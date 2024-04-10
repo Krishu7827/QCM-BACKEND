@@ -131,7 +131,6 @@ const AddBomVerification = async (req, res) => {
     const BOM = Bom[1];
     const UUID = v4();
     const {BOMDetailId} = BomVerificationDetails
-    console.log(Bom)
     if(!BOMDetailId){
     try {
         /** Insert Bom Data in BomVerficationDetail Table */
@@ -197,7 +196,7 @@ const BOMUploadPdf = async (req, res) => {
       const ReferencePdf = await new Promise((resolve, reject) => {
         s3.upload({
           Bucket: process.env.AWS_BUCKET_2,
-          Key: `${JobCardDetailId}_${req.file.originalname}`,
+          Key: `IPQC/${JobCardDetailId}_${req.file.originalname}`,
           Body: req.file.buffer,
           ACL: "public-read-write",
           ContentType: req.file.mimetype
@@ -256,8 +255,9 @@ const GetSpecificBOMVerification = async(req,res)=>{
         response[`${BOMItem} Supplier`] = item['Supplier'];
         response[`${BOMItem} ModelNo`] = item['ModelNo'];
         response[`${BOMItem} BatchNo`] = item['BatchNo'];
-        response[`${BOMItem} Remarks`] = item['Remarks']
+        response[`${BOMItem} Remarks`] = item['Remarks'];
         })
+        console.log(data);
         res.send({status:true,data:response});
     }catch(err){
         res.send({status:false,err});
