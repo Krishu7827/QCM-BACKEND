@@ -190,7 +190,7 @@ const AddBomVerification = async (req, res) => {
 const BOMUploadPdf = async (req, res) => {
 
     const { JobCardDetailId } = req.body;
-    console.log(req.file);
+    if(req.file.size){
     /** Uploading PDF in S3 Bucket */
     try {
       const ReferencePdf = await new Promise((resolve, reject) => {
@@ -222,6 +222,9 @@ const BOMUploadPdf = async (req, res) => {
       console.log(err);
       res.status(401).send(err);
     }
+}else{
+    res.send(401).send({'err':'file is empty'})
+}
   }
 
 
