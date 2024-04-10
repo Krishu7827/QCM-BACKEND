@@ -260,9 +260,10 @@ const GetSpecificBOMVerification = async(req,res)=>{
         response[`${BOMItem} BatchNo`] = item['BatchNo'];
         response[`${BOMItem} Remarks`] = item['Remarks'];
         })
-        console.log(data);
+        
         res.send({status:true,data:response});
     }catch(err){
+        console.log(err)
         res.send({status:false,err});
     }
   
@@ -285,7 +286,7 @@ const UpdateStatusBOM = async(req,res)=>{
         res.send({status:true,data:{JobCardDetailId}})
 
     }catch(err){
-
+     console.log(err)
        res.status(400).send({status:false,err})
 
     }

@@ -115,7 +115,6 @@ const AddIPQCJobCard = async (req, res) => {
   const JobCardDetails = IPQCJobCard[0]['JobCardDetails'];
   const JobCard = IPQCJobCard[1]['JobCard'];
   const { JobCardDetailId } = JobCardDetails;
-  console.log(JobCardDetails);
   const UUID = v4();
 
 
@@ -246,7 +245,6 @@ BomList.forEach((BOM)=>{
 const UploadPdf = async (req, res) => {
 
   const { JobCardDetailId } = req.body;
-  console.log(req.file);
   /** Uploading PDF in S3 Bucket */
   try {
     const ReferencePdf = await new Promise((resolve, reject) => {
@@ -289,7 +287,6 @@ const GetSpecificJobCard = async (req, res) => {
   WHERE jcd.JobCardDetailID = '${JobCardDetailId}';`
 
     const JobCard = await queryAsync(query)
-    console.log(JobCard)
     let arr = [];
     let response = {}
     JobCard.forEach((Card, i) => {
@@ -318,9 +315,6 @@ const GetSpecificJobCard = async (req, res) => {
         index++;
       }
     })
-
-    console.log(response)
-
 
     res.send({ response })
   } catch (err) {
