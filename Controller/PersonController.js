@@ -201,7 +201,6 @@ try{
 
     res.send({status:true, msg:'Login Successfull', token, PersonData})
     }else{
-   console.log(err)
      res.status(400).send({msg:'Wrong Password'})
     }
   }catch(err){
