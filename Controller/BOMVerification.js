@@ -175,8 +175,8 @@ const AddBomVerification = async (req, res) => {
                BOMDetailId = '${BOMDetailId}' AND BOMItem = '${item['BOMItem']}';`;
             await queryAsync(BOMQuery)
         })
-  console.log(BomVerificationDetailsQuery)
-        res.send({ msg: 'Data Inserted Succesfully !',BOMDetailId });
+  
+        res.send({ msg: 'Data Inserted Succesfully !',UUID:BOMDetailId });
     }catch(err){
         console.log(err);
        res.status(400).send({err});
