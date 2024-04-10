@@ -173,7 +173,7 @@ const AddBomVerification = async (req, res) => {
                 BatchNo = '${item['BatchNo']}',
                 Remarks = '${item['Remarks']}'
             WHERE
-               BOMDetailId = '${BOMDetailId}' AND BOMItem = '${item['BOMItem']}';`;
+               BOMDetailId = '${BOMDetailId}' AND BOMItem = '${item['BOMitem']}';`;
             await queryAsync(BOMQuery)
         })
   
