@@ -131,7 +131,6 @@ const AddBomVerification = async (req, res) => {
     const BOM = Bom[1];
     const UUID = v4();
     const {BOMDetailId} = BomVerificationDetails
-    console.log(Bom)
     if(!BOMDetailId){
     try {
         /** Insert Bom Data in BomVerficationDetail Table */
@@ -282,9 +281,13 @@ const UpdateStatusBOM = async(req,res)=>{
                       UpdatedOn = '${getCurrentDateTime()}'
                     WHERE BOMDetailId = '${JobCardDetailId}';`
         const Update = await queryAsync(query)
+
         res.send({status:true,data:{JobCardDetailId}})
+
     }catch(err){
+
        res.status(400).send({status:false,err})
+       
     }
   
 }
