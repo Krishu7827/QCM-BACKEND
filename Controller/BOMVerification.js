@@ -223,7 +223,7 @@ const BOMUploadPdf = async (req, res) => {
       res.status(401).send(err);
     }
 }else{
-    res.send(401).send({'err':'file is empty'})
+    res.send(401).send({status:false,'err':'file is empty'})
 }
   }
 
