@@ -1,6 +1,7 @@
 const express = require('express')
 const {AddIPQCJobCard,JobCardList,UploadPdf,GetSpecificJobCard,UpdateJobCardStatus} = require('../Controller/IPQCJobCard')
 const {AddBomVerification,BOMUploadPdf,GetSpecificBOMVerification, UpdateStatusBOM} = require('../Controller/BOMVerification')
+const {AddPreLam} = require('../Controller/PreLamController')
 const {RoleAuthentication,upload} = require('../Middleware/IPQC.Middleware')
 const IPQC = express.Router();
 
@@ -19,6 +20,10 @@ IPQC.post('/BOMUploadPdf',upload.single('ReferencePdf'),BOMUploadPdf);
 
 /**Router To Add BOM Verification Data*/
 IPQC.post('/AddBOMVerification',AddBomVerification)
+
+
+/**Router To Add PreLam Data **/
+IPQC.post("/AddPreLam",AddPreLam);
 
 /** Middleware to check Role Authentication */
 IPQC.use(RoleAuthentication)

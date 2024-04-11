@@ -97,7 +97,7 @@ const PersonRegister = async (req, res) => {
         p.Desgination = '${designation}',
         p.Status ='Active',
         p.UpdatedBy = '${currentuser}',
-        p.UpdateOn = '${getCurrentDateTime()}'
+        p.UpdatedOn = '${getCurrentDateTime()}'
     WHERE p.PersonID = '${personid}';`
 
     try{
@@ -221,7 +221,8 @@ const EmployeeList = async(req,res)=>{
   const query = `SELECT p.PersonID, p.LoginID,p.EmployeeID,p.Name,p.ProfileImg,wl.Location,d.Designation,d1.Department,p.Status  FROM Person p
   JOIN Designation d ON p.Desgination = d.DesignationID
   JOIN Department d1 ON p.Department = d1.DepartmentID
-  JOIN WorkLocation wl ON p.WorkLocation = wl.LocationID;`
+  JOIN WorkLocation wl ON p.WorkLocation = wl.LocationID
+  WHERE p.Status = 'Active';`
 
   try{
     const EmployeeList = await new Promise((resolve,reject)=>{
