@@ -215,6 +215,12 @@ JOIN BOMVerificationDetails bd ON p.PersonID = bd.CheckedBy
 WHERE bd.Status = '${Status}' AND p.PersonID = '${PersonID}'
 ORDER BY STR_TO_DATE(bd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
 
+PreLamQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,bd.BOMDetailId,bd.PONo,bd.Type,bd.ReferencePdf FROM Person p
+JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
+JOIN  ON p.PersonID = bd.CheckedBy
+WHERE bd.Status = '${Status}' AND p.PersonID = '${PersonID}'
+ORDER BY STR_TO_DATE(bd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
+
     }
 
     const JobCardList = await queryAsync(query);
