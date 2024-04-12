@@ -136,15 +136,15 @@ const AddPreLam = async (req, res) => {
 }
 
 
-const UploadPdf = async (req, res) => {
+const PreLamUploadPdf = async (req, res) => {
 
-  const { JobCardDetailId } = req.body;
+  const { PreLamDetaildId } = req.body;
   /** Uploading PDF in S3 Bucket */
   try {
     const ReferencePdf = await new Promise((resolve, reject) => {
       s3.upload({
         Bucket: process.env.AWS_BUCKET_2,
-        Key: `${JobCardDetailId}_${req.file.originalname}`,
+        Key: `${PreLamDetaildId}_${req.file.originalname}`,
         Body: req.file.buffer,
         ACL: "public-read-write",
         ContentType: req.file.mimetype
@@ -177,4 +177,4 @@ const UploadPdf = async (req, res) => {
 
 
 
-module.exports = { AddPreLam }
+module.exports = { AddPreLam,PreLamUploadPdf }
