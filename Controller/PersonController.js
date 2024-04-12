@@ -98,7 +98,7 @@ const PersonRegister = async (req, res) => {
 
       res.send({ msg: 'Employee Registered Succesfully', data })
     }else{
-      res.status(500).send({msg:'LoginId is already exists'})
+      res.status(400).send({msg:'LoginId is already exists'})
     }
     } catch (err) {
       console.log(err)
