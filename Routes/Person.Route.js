@@ -22,6 +22,7 @@ PersonRouter.get('/GetList',EmployeeList);
 PersonRouter.post('/GetSpecificEmployee',GetSpecificEmployee);
 
 
+
 /**Router to Update Status of Employee */
 PersonRouter.post('/DeleteEmployee',UpdateStatus);
 
