@@ -283,6 +283,7 @@ const UpdateStatus = async (req, res) => {
         } else {
           resolve(result)
         }
+        
       });
     });
     res.send({status:true,message:'Status Updated!',UpdateStatusEmployee})
