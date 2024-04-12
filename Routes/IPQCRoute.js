@@ -1,7 +1,7 @@
 const express = require('express')
 const {AddIPQCJobCard,JobCardList,UploadPdf,GetSpecificJobCard,UpdateJobCardStatus} = require('../Controller/IPQCJobCard')
 const {AddBomVerification,BOMUploadPdf,GetSpecificBOMVerification, UpdateStatusBOM} = require('../Controller/BOMVerification')
-const {AddPreLam,PreLamUploadPdf} = require('../Controller/PreLamController')
+const {AddPreLam,PreLamUploadPdf,GetSpecificPreLam} = require('../Controller/PreLamController')
 const {RoleAuthentication,upload} = require('../Middleware/IPQC.Middleware')
 const IPQC = express.Router();
 
@@ -40,6 +40,9 @@ IPQC.post('/GetSpecificeJobCard',GetSpecificJobCard)
 
 /** Get Specific Bom Verification */
 IPQC.post('/GetSpecificBOMVerification',GetSpecificBOMVerification);
+
+/**Router to Get Specific PreLam */
+IPQC.post('/GetSpecificPreLam',GetSpecificPreLam)
 
 /**Router To Update Status Of Job Card  */
 IPQC.post('/UpdateJobCardStatus',UpdateJobCardStatus)

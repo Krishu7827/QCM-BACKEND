@@ -173,8 +173,45 @@ const PreLamUploadPdf = async (req, res) => {
 }
 
 
+const GetSpecificPreLam = async(req,res)=>{
+const {JobCardDetailId} = req.body
+try{
+  const query = `SELECT *FROM PreLamDetail PD
+  JOIN PreLam PL ON PD.PreLamDetailId = PL.PreLamDetailId
+  WHERE PD.PreLamDetailId = '${JobCardDetailId}';`
+
+    const PreLam = await queryAsync(query)
+   
+    let response = {}
+
+    PreLam.forEach((Lam,i)=>{
+         if(i == 0){
+             response['PreLamDetailId'] = Lam['PreLamDetailId'];
+             response['DocNo'] = Lam['DocNo'];
+             response['RevNo'] = Lam['RevNo'];
+             response['Date'] = Lam['Date'];
+             response['Shift'] = Lam['Shift'];
+             response['Line'] = Lam['Line'];
+             response['PONo'] = Lam['PONo'];
+             response['PreLamPdf'] = Lam['PreLamPdf'];
+             response['CheckedBy'] = Lam['CheckedBy']
+         }
+         const Stage = Lam['Stage'].split(' ').join('');
+        // console.log(JSON.parse(Lam['CheckPoint']))
+        response[`${Stage}CheckPoint`] = JSON.parse(Lam['CheckPoint']);
+        response[`${Stage}Frequency`] = JSON.parse(Lam['Frequency']);
+        response[`${Stage}AcceptanceCriteria`] = JSON.parse(Lam['AcceptanceCriteria']);
+        response[`${Stage}Remark`] = Lam['Remark'];
+
+    })
+    res.send({PreLam,response})
+}catch(err){
+  console.log(err)
+  res.status(400).send({err})
+}
+}
 
 
 
 
-module.exports = { AddPreLam,PreLamUploadPdf }
+module.exports = { AddPreLam,PreLamUploadPdf,GetSpecificPreLam }

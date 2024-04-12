@@ -15,6 +15,22 @@ const PersonRegister = async (req, res) => {
       //const HashedPassword = await bcrypt.hash(PlainPassword,8)
 
       /**query to register a Employee */
+
+      const IsActiveQuery = `SELECT Status FROM Person WHERE LoginID = '${loginid}'`;
+
+      const IsActive = await new Promise((resolve, reject) => {
+        dbConn.query(IsActiveQuery, (err, result) => {
+          if (err) {
+            reject(err)
+          } else {
+
+            resolve(result)
+          }
+        })
+      })
+      const Status = IsActive[0]['Status'];
+
+      if (Status!=='Active') { 
       const query = `CALL PersonRegister('${personid}','${employeeid}','${fullname}','${loginid}','${PlainPassword}', '${joblocation}','krishukumar7827@gmail.com','${department}','','${designation}','${getCurrentDateTime()}','${currentuser}' )`
 
       const data = await new Promise((resolve, reject) => {
@@ -81,10 +97,14 @@ const PersonRegister = async (req, res) => {
       })
 
       res.send({ msg: 'Employee Registered Succesfully', data })
+    }else{
+      res.status(500).send({msg:'LoginId is already exists'})
+    }
     } catch (err) {
       console.log(err)
       res.status(500).send({ err })
     }
+
   } else {
 
 
@@ -283,16 +303,16 @@ const UpdateStatus = async (req, res) => {
         } else {
           resolve(result)
         }
-        
+
       });
     });
-    res.send({status:true,message:'Status Updated!',UpdateStatusEmployee})
+    res.send({ status: true, message: 'Status Updated!', UpdateStatusEmployee })
   } catch (err) {
     console.log(err)
-    res.status(400).send({err})
+    res.status(400).send({ err })
   }
 }
 
 
 
-module.exports = { PersonRegister, UploadProfile, Login, EmployeeList, GetSpecificEmployee,UpdateStatus }
+module.exports = { PersonRegister, UploadProfile, Login, EmployeeList, GetSpecificEmployee, UpdateStatus }
