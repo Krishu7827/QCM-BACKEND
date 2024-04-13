@@ -19,7 +19,7 @@ IPQC.post('/UploadPdf',upload.single('Reference'),UploadPdf)
 IPQC.post('/BOMUploadPdf',upload.single('ReferencePdf'),BOMUploadPdf);
 
 /** Router to Upload Reference Pdf in S3 and Get The Location and Set into dbs(PreLamDetail Table) */
-IPQC.post('/UploadPreLamPdf',upload.single('PreLamPdf'),BOMUploadPdf);
+IPQC.post('/UploadPreLamPdf',upload.single('PreLamPdf'),PreLamUploadPdf);
 
 /**Router To Add BOM Verification Data*/
 IPQC.post('/AddBOMVerification',AddBomVerification)
