@@ -204,7 +204,7 @@ try{
         response[`${Stage}Remark`] = Lam['Remark'];
 
     })
-    res.send({PreLam,response})
+    res.send({response})
 }catch(err){
   console.log(err)
   res.status(400).send({err})
