@@ -73,7 +73,7 @@ const AddPreLam = async (req, res) => {
   console.log(req.body)
   const PreLamDetail = req.body[0];
   const PreLam = req.body[1];
-  const PreLamDetaildId = PreLamDetail['PreLamDetaildId']
+  const PreLamDetaildId = PreLamDetail['PreLamDetailId']
   const UUID = v4();
   if (!PreLamDetaildId) {
     try {
@@ -138,7 +138,7 @@ const AddPreLam = async (req, res) => {
 
 const PreLamUploadPdf = async (req, res) => {
 
-  const { PreLamDetaildId } = req.body;
+  const { JobCardDetailId } = req.body;
   /** Uploading PDF in S3 Bucket */
   try {
     const ReferencePdf = await new Promise((resolve, reject) => {
@@ -214,4 +214,4 @@ try{
 
 
 
-module.exports = { AddPreLam,PreLamUploadPdf,GetSpecificPreLam }
+module.exports = { AddPreLam,PreLamUploadPdf,GetSpecificPreLam } 
