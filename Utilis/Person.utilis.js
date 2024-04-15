@@ -45,7 +45,7 @@ var transport = nodemailer.createTransport({
       pass: 'twod iufn mddq shsr'
     }
   });
-
+console.log("")
   
 module.exports = {generatePassword,s3,AWS,transport,getCurrentDateTime}
 
