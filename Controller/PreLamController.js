@@ -196,6 +196,7 @@ try{
              response['PONo'] = Lam['PONo'];
              response['PreLamPdf'] = Lam['PreLamPdf'];
              response['CheckedBy'] = Lam['CheckedBy']
+             response['Status'] = Lam['Status']
          }
          const Stage = Lam['Stage'].split(' ').join('');
         // console.log(JSON.parse(Lam['CheckPoint']))
