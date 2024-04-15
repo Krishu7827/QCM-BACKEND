@@ -72,9 +72,9 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 const AddPreLam = async (req, res) => {
   const PreLamDetail = req.body[0];
   const PreLam = req.body[1];
-  const PreLamDetaildId = PreLamDetail['PreLamDetailId']
+  const PreLamDetailId = PreLamDetail['PreLamDetailId']
   const UUID = v4();
-  if (!PreLamDetaildId) {
+  if (!PreLamDetailId) {
     try {
       const PreLamDetailQuery = `INSERT INTO PreLamDetail(PreLamDetailId,Type,DocNo,RevNo,Date,Shift,Line,PONo,CheckedBy,CreatedBy,CreatedOn,Status)
                                           VALUES('${UUID}','PreLam','${PreLamDetail['DocNo']}','${PreLamDetail['RevNo']}','${PreLamDetail['Date']}','${PreLamDetail['Shift']}','${PreLamDetail['Line']}','${PreLamDetail['PONo']}','${PreLamDetail['CurrentUser']}','${PreLamDetail['CurrentUser']}','${getCurrentDateTime()}','${PreLamDetail['Status']}')`
@@ -82,7 +82,7 @@ const AddPreLam = async (req, res) => {
       await queryAsync(PreLamDetailQuery);
 
       PreLam.forEach(async (Lam) => {
-        console.log(Lam)
+
         const PreLamQuery = `INSERT INTO PreLam(PreLamId,PreLamDetailId,Stage,CheckPoint,Frequency,AcceptanceCriteria,Remark)
                                           VALUES('${v4()}','${UUID}','${Lam['Stage']}','${JSON.stringify(Lam['CheckPoint'])}','${JSON.stringify(Lam['Frequency'])}','${JSON.stringify(Lam['AcceptanceCriteria'])}','${Lam['Remark']}');`
         await queryAsync(PreLamQuery);
@@ -107,21 +107,21 @@ const AddPreLam = async (req, res) => {
      CheckedBy = '${PreLamDetail['CurrentUser']}',
      CreatedBy = '${PreLamDetail['CurrentUser']}',
      Status = '${PreLamDetail['Status']}'
-   WHERE PreLamDetailId = '${PreLamDetail['PreLamDetailId']}';
+   WHERE PreLamDetailId = '${PreLamDetailId}';
      `
       await queryAsync(PreLamDetailQuery);
 
       PreLam.forEach(async (Lam) => {
         // const PreLamQuery = `INSERT INTO PreLam(PreLamId,PreLamDetailId,Stage,CheckPoint,Frequency,AcceptanceCriteria,Remark)
         // VALUES('${v4()}','${UUID}','${Lam['Stage']}','${JSON.stringify(Lam['CheckPoint'])}','${JSON.stringify(Lam['Frequency'])}','${JSON.stringify(Lam['AcceptanceCriteria'])}','${Lam['Remark']}');`
-        
+
         const PreLamQuery = `UPDATE PreLam
      SET
        CheckPoint = '${JSON.stringify(Lam['CheckPoint'])}',
        Frequency = '${JSON.stringify(Lam['Frequency'])}',
        AcceptanceCriteria = '${JSON.stringify(Lam['AcceptanceCriteria'])}',
        Remark = '${Lam['Remark']}'
-     WHERE PreLamDetailId = '${PreLamDetail['PreLamDetailId']}' AND Stage = '${Lam['Stage']}';
+     WHERE PreLamDetailId = '${PreLamDetailId}' AND Stage = '${Lam['Stage']}';
        `
         await queryAsync(PreLamQuery);
       })
