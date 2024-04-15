@@ -83,6 +83,7 @@ const AddPreLam = async (req, res) => {
       await queryAsync(PreLamDetailQuery);
 
       PreLam.forEach(async (Lam) => {
+        console.log(Lam)
         const PreLamQuery = `INSERT INTO PreLam(PreLamId,PreLamDetailId,Stage,CheckPoint,Frequency,AcceptanceCriteria,Remark)
                                           VALUES('${v4()}','${UUID}','${Lam['Stage']}','${JSON.stringify(Lam['CheckPoint'])}','${JSON.stringify(Lam['Frequency'])}','${JSON.stringify(Lam['AcceptanceCriteria'])}','${Lam['Remark']}');`
         await queryAsync(PreLamQuery);
