@@ -145,7 +145,7 @@ const PreLamUploadPdf = async (req, res) => {
     const ReferencePdf = await new Promise((resolve, reject) => {
       s3.upload({
         Bucket: process.env.AWS_BUCKET_2,
-        Key: `${JobCardDetailId}_${req.file.originalname}`,
+        Key: `IPQC/${JobCardDetailId}_${req.file.originalname}`,
         Body: req.file.buffer,
         ACL: "public-read-write",
         ContentType: req.file.mimetype
