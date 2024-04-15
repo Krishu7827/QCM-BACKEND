@@ -213,5 +213,25 @@ try{
 
 
 
+const UpdatePreLamStatus = async(req,res)=>{
+  const {JobCardDetailId,Status,CurrentUser} = req.body;
 
-module.exports = { AddPreLam,PreLamUploadPdf,GetSpecificPreLam } 
+  try{
+     const UpdateStatusQuery = `UPDATE PreLamDetail
+                                SET
+                                  Status = '${Status}',
+                                  UpdatedBy = '${CurrentUser}',
+                                  UpdatedOn = '${getCurrentDateTime()}'
+                                WHERE PreLamDetailId = '${JobCardDetailId}';`;
+
+    let UpdateStatus =  await queryAsync(UpdateStatusQuery);
+
+    res.send({status:true,data:UpdateStatus});
+  }catch(err){
+    console.log(err)
+    res.status(400).send({status:false,err})
+  }
+}
+
+
+module.exports = { AddPreLam,PreLamUploadPdf,GetSpecificPreLam,UpdatePreLamStatus } 
