@@ -114,7 +114,7 @@ const AddPreLam = async (req, res) => {
       PreLam.forEach(async (Lam) => {
         // const PreLamQuery = `INSERT INTO PreLam(PreLamId,PreLamDetailId,Stage,CheckPoint,Frequency,AcceptanceCriteria,Remark)
         // VALUES('${v4()}','${UUID}','${Lam['Stage']}','${JSON.stringify(Lam['CheckPoint'])}','${JSON.stringify(Lam['Frequency'])}','${JSON.stringify(Lam['AcceptanceCriteria'])}','${Lam['Remark']}');`
-
+        console.log(Lam)
         const PreLamQuery = `UPDATE PreLam
      SET
        CheckPoint = '${JSON.stringify(Lam['CheckPoint'])}',
