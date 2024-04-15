@@ -70,7 +70,6 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 // ]];
 
 const AddPreLam = async (req, res) => {
-  console.log(req.body)
   const PreLamDetail = req.body[0];
   const PreLam = req.body[1];
   const PreLamDetaildId = PreLamDetail['PreLamDetailId']
