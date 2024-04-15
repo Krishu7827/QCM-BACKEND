@@ -125,7 +125,7 @@ const AddPreLam = async (req, res) => {
        `
         await queryAsync(PreLamQuery);
       })
-      res.send({ msg: 'Data Inserted Succesfully !',UUID:PreLamDetaildId });
+      res.send({ msg: 'Data Inserted Succesfully !',UUID:PreLamDetailId });
     } catch (err) {
       
       console.log(err)
