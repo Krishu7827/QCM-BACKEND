@@ -139,6 +139,7 @@ const AddPreLam = async (req, res) => {
 const PreLamUploadPdf = async (req, res) => {
 
   const { JobCardDetailId } = req.body;
+  console.log(req.file)
   /** Uploading PDF in S3 Bucket */
   try {
     const ReferencePdf = await new Promise((resolve, reject) => {
@@ -160,9 +161,9 @@ const PreLamUploadPdf = async (req, res) => {
 
 
 
-    const query = `UPDATE JobCardDetails jcd
-    set jcd.ReferencePdf = '${ReferencePdf.Location}'
-   WHERE jcd.JobCardDetailID = '${JobCardDetailId}';`;
+    const query = `UPDATE PreLamDetail
+    set PreLamPdf = '${ReferencePdf.Location}'
+   WHERE PreLamDetailId = '${JobCardDetailId}';`;
 
     const update = await queryAsync(query);
     res.send({ msg: 'Data Inserted SuccesFully !', URL: ReferencePdf.Location });
