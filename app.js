@@ -28,7 +28,197 @@ app.use('/IQCSolarCell',IQCSolarCellRoute)
 /**to IPQC */
 app.use('/IPQC',IPQC);
 
-
+let IQC = [
+  {
+      "SolarDetailID": "9238f0e2-d704-4732-b6bb-de1f6892c960",
+      "LotSize": "2",
+      "SupplierName": "a",
+      "InvoiceNo": "aa",
+      "InvoiceDate": "2024-04-05",
+      "SupplierRMBatchNo": "2",
+      "RawMaterialSpecs": "tt",
+      "QualityCheckDate": "2024-04-05",
+      "ReceiptDate": "2024-04-05",
+      "Status": "Inprogress",
+      "COCPdf": null,
+      "InvoicePdf": null,
+      "IQCSolarID": "6dd7cf37-2040-4116-b864-0a69545dcdbe",
+      "CheckType": "Packaging",
+      "Characterstics": "Packing (Make type and rating)",
+      "MeasuringMethod": "Visual Inspection",
+      "Reference": "PO/INVOICE",
+      "Sampling": "Whole Lot",
+      "AcceptanceCriteria": "No Physical Damage / No Mismatch against PO/Invoice",
+      "SampleSize": "1",
+      "Samples": "[]",
+      "RejectedID": "ede4a145-ee3d-4b27-afba-e953f28b64ab",
+      "CheckTypes": "[{\"Packaging\":false},{\"Visual\":false},{\"Physical\":false},{\"FrontBus\":false},{\"Verification\":false},{\"Electrical\":false},{\"Performance\":false}]",
+      "Reason": "",
+      "Result": "Fail"
+  },
+  {
+      "SolarDetailID": "9238f0e2-d704-4732-b6bb-de1f6892c960",
+      "LotSize": "2",
+      "SupplierName": "a",
+      "InvoiceNo": "aa",
+      "InvoiceDate": "2024-04-05",
+      "SupplierRMBatchNo": "2",
+      "RawMaterialSpecs": "tt",
+      "QualityCheckDate": "2024-04-05",
+      "ReceiptDate": "2024-04-05",
+      "Status": "Inprogress",
+      "COCPdf": null,
+      "InvoicePdf": null,
+      "IQCSolarID": "f796cc6e-4e18-4275-a254-bb83551e5ceb",
+      "CheckType": "Visual",
+      "Characterstics": "Color Variation, Cell Chip, Cell Crack, Grid Miss, Grid Line cut, Print Shift, Oxidation, Spot on cell",
+      "MeasuringMethod": "Verner Calliper/Measuring Scale",
+      "Reference": "GSPL Technical Specification / Supplier COC",
+      "Sampling": "SIL S1 AQL 6.5",
+      "AcceptanceCriteria": "As GSPL Technical Specification / Acceptance Criteria",
+      "SampleSize": "1",
+      "Samples": "[]",
+      "RejectedID": "ede4a145-ee3d-4b27-afba-e953f28b64ab",
+      "CheckTypes": "[{\"Packaging\":false},{\"Visual\":false},{\"Physical\":false},{\"FrontBus\":false},{\"Verification\":false},{\"Electrical\":false},{\"Performance\":false}]",
+      "Reason": "",
+      "Result": "Fail"
+  },
+  {
+      "SolarDetailID": "9238f0e2-d704-4732-b6bb-de1f6892c960",
+      "LotSize": "2",
+      "SupplierName": "a",
+      "InvoiceNo": "aa",
+      "InvoiceDate": "2024-04-05",
+      "SupplierRMBatchNo": "2",
+      "RawMaterialSpecs": "tt",
+      "QualityCheckDate": "2024-04-05",
+      "ReceiptDate": "2024-04-05",
+      "Status": "Inprogress",
+      "COCPdf": null,
+      "InvoicePdf": null,
+      "IQCSolarID": "e306f592-278d-4453-92c6-82aaea7fa180",
+      "CheckType": "Physical",
+      "Characterstics": "Dimension(L X W X T)",
+      "MeasuringMethod": "Verner Calliper/Measuring Scale",
+      "Reference": "GSPL Technical Specification / Supplier COC",
+      "Sampling": "SIL S1 AQL 6.5",
+      "AcceptanceCriteria": "COC",
+      "SampleSize": "",
+      "Samples": "[]",
+      "RejectedID": "ede4a145-ee3d-4b27-afba-e953f28b64ab",
+      "CheckTypes": "[{\"Packaging\":false},{\"Visual\":false},{\"Physical\":false},{\"FrontBus\":false},{\"Verification\":false},{\"Electrical\":false},{\"Performance\":false}]",
+      "Reason": "",
+      "Result": "Fail"
+  },
+  {
+      "SolarDetailID": "9238f0e2-d704-4732-b6bb-de1f6892c960",
+      "LotSize": "2",
+      "SupplierName": "a",
+      "InvoiceNo": "aa",
+      "InvoiceDate": "2024-04-05",
+      "SupplierRMBatchNo": "2",
+      "RawMaterialSpecs": "tt",
+      "QualityCheckDate": "2024-04-05",
+      "ReceiptDate": "2024-04-05",
+      "Status": "Inprogress",
+      "COCPdf": null,
+      "InvoicePdf": null,
+      "IQCSolarID": "c02c15aa-f4e3-4297-b55c-0f7de9925dc5",
+      "CheckType": "FrontBus",
+      "Characterstics": "Width",
+      "MeasuringMethod": "Verner Calliper/Measuring Scale",
+      "Reference": "GSPL Technical Specification / Supplier COC",
+      "Sampling": "5 Pcs / Lot",
+      "AcceptanceCriteria": "COC",
+      "SampleSize": "5",
+      "Samples": "[]",
+      "RejectedID": "ede4a145-ee3d-4b27-afba-e953f28b64ab",
+      "CheckTypes": "[{\"Packaging\":false},{\"Visual\":false},{\"Physical\":false},{\"FrontBus\":false},{\"Verification\":false},{\"Electrical\":false},{\"Performance\":false}]",
+      "Reason": "",
+      "Result": "Fail"
+  },
+  {
+      "SolarDetailID": "9238f0e2-d704-4732-b6bb-de1f6892c960",
+      "LotSize": "2",
+      "SupplierName": "a",
+      "InvoiceNo": "aa",
+      "InvoiceDate": "2024-04-05",
+      "SupplierRMBatchNo": "2",
+      "RawMaterialSpecs": "tt",
+      "QualityCheckDate": "2024-04-05",
+      "ReceiptDate": "2024-04-05",
+      "Status": "Inprogress",
+      "COCPdf": null,
+      "InvoicePdf": null,
+      "IQCSolarID": "324a871e-e068-47dc-a9a6-1977100ef88e",
+      "CheckType": "Verification",
+      "Characterstics": "Electrical Paramiter",
+      "MeasuringMethod": "Cell Tester",
+      "Reference": "GSPL Technical Specification",
+      "Sampling": "SIL S1 AQL 6.5",
+      "AcceptanceCriteria": "COC",
+      "SampleSize": "",
+      "Samples": "[]",
+      "RejectedID": "ede4a145-ee3d-4b27-afba-e953f28b64ab",
+      "CheckTypes": "[{\"Packaging\":false},{\"Visual\":false},{\"Physical\":false},{\"FrontBus\":false},{\"Verification\":false},{\"Electrical\":false},{\"Performance\":false}]",
+      "Reason": "",
+      "Result": "Fail"
+  },
+  {
+      "SolarDetailID": "9238f0e2-d704-4732-b6bb-de1f6892c960",
+      "LotSize": "2",
+      "SupplierName": "a",
+      "InvoiceNo": "aa",
+      "InvoiceDate": "2024-04-05",
+      "SupplierRMBatchNo": "2",
+      "RawMaterialSpecs": "tt",
+      "QualityCheckDate": "2024-04-05",
+      "ReceiptDate": "2024-04-05",
+      "Status": "Inprogress",
+      "COCPdf": null,
+      "InvoicePdf": null,
+      "IQCSolarID": "648a290d-446f-4004-b013-818bf7f0a373",
+      "CheckType": "Electrical",
+      "Characterstics": "LID(Light Inducted Degradation)/Preconditioning",
+      "MeasuringMethod": "Sunsimulator",
+      "Reference": "GSPL Technical Specification",
+      "Sampling": "One Module per supplier(each month)",
+      "AcceptanceCriteria": "COC",
+      "SampleSize": "1",
+      "Samples": "[]",
+      "RejectedID": "ede4a145-ee3d-4b27-afba-e953f28b64ab",
+      "CheckTypes": "[{\"Packaging\":false},{\"Visual\":false},{\"Physical\":false},{\"FrontBus\":false},{\"Verification\":false},{\"Electrical\":false},{\"Performance\":false}]",
+      "Reason": "",
+      "Result": "Fail"
+  },
+  {
+      "SolarDetailID": "9238f0e2-d704-4732-b6bb-de1f6892c960",
+      "LotSize": "2",
+      "SupplierName": "a",
+      "InvoiceNo": "aa",
+      "InvoiceDate": "2024-04-05",
+      "SupplierRMBatchNo": "2",
+      "RawMaterialSpecs": "tt",
+      "QualityCheckDate": "2024-04-05",
+      "ReceiptDate": "2024-04-05",
+      "Status": "Inprogress",
+      "COCPdf": null,
+      "InvoicePdf": null,
+      "IQCSolarID": "6f01bcba-1028-444d-b565-0da472249ec7",
+      "CheckType": "Performance",
+      "Characterstics": "Soidering Peel Test",
+      "MeasuringMethod": "Peel Tester",
+      "Reference": "GSPL Technical Specification",
+      "Sampling": "5 Cell/Lot",
+      "AcceptanceCriteria": "1 N to 2N-Cell Frontside 1N to 4N Cell Back side",
+      "SampleSize": "5",
+      "Samples": "[]",
+      "RejectedID": "ede4a145-ee3d-4b27-afba-e953f28b64ab",
+      "CheckTypes": "[{\"Packaging\":false},{\"Visual\":false},{\"Physical\":false},{\"FrontBus\":false},{\"Verification\":false},{\"Electrical\":false},{\"Performance\":false}]",
+      "Reason": "",
+      "Result": "Fail"
+  }
+]
 function ExcelGenerate(){
 let data = [
   {
@@ -190,46 +380,99 @@ worksheet.getCell('G6').border = Border;
 /**Merge Cells */
 worksheet.mergeCells('A12:A13')
 worksheet.getColumn('A').width = 15;
-worksheet.getCell('A12').value = 'Check Type';
+worksheet.getCell('A12').value = 'Check Type'
+worksheet.getCell('A12').style = {alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:10,bold:true},wrapText:true};
 worksheet.getCell('A12').border = Border;
 worksheet.getCell('A13').border = Border;
-worksheet.getCell('A12').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:15,bold:true}};
+
 
 worksheet.mergeCells('B12:B13')
 worksheet.getColumn('B').width = 15;
 worksheet.getCell('B12').value = 'Characterstics';
+worksheet.getCell('B12').style ={alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:10,bold:true},wrapText:true};
 worksheet.getCell('B12').border = Border;
 worksheet.getCell('B13').border = Border;
-worksheet.getCell('B12').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:15,bold:true}};
+
 
 worksheet.mergeCells('C12:C13')
 worksheet.getColumn('C').width = 15;
-worksheet.getCell('C12').value = 'Characterstics';
+worksheet.getCell('C12').value = 'Measuring Method';
+worksheet.getCell('C12').style = {alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:10,bold:true},wrapText:true};
 worksheet.getCell('C12').border = Border;
 worksheet.getCell('C13').border = Border;
-worksheet.getCell('C12').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:15,bold:true}};
+
 
 worksheet.mergeCells('D12:D13')
 worksheet.getColumn('D').width = 15;
-worksheet.getCell('D12').value = 'Characterstics';
+worksheet.getCell('D12').value = 'Sampling';
+worksheet.getCell('D12').style = {alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:10,bold:true},wrapText:true};
 worksheet.getCell('D12').border = Border;
 worksheet.getCell('D13').border = Border;
-worksheet.getCell('D12').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:15,bold:true}};
+
 
 worksheet.mergeCells('E12:E13')
 worksheet.getColumn('E').width = 15;
-worksheet.getCell('E12').value = 'Characterstics';
+worksheet.getCell('E12').value = 'Reference';
+worksheet.getCell('E12').style = {alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:10,bold:true},wrapText:true};
 worksheet.getCell('E12').border = Border;
 worksheet.getCell('E13').border = Border;
-worksheet.getCell('E12').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:15,bold:true}};
+
 
 worksheet.mergeCells('F12:F13')
 worksheet.getColumn('F').width = 15;
-worksheet.getCell('F12').value = 'Characterstics';
+worksheet.getCell('F12').value = 'Acceptance Criteria';
+worksheet.getCell('F12').style = {alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:10,bold:true},wrapText:true};
 worksheet.getCell('F12').border = Border;
 worksheet.getCell('F13').border = Border;
-worksheet.getCell('F12').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:15,bold:true}};
-workbook
+
+
+worksheet.mergeCells('G12:N12')
+worksheet.getCell('G12').value = 'Samples';
+worksheet.getCell('G12').style = {alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:12,bold:true},wrapText:true};
+worksheet.getCell('G12').border = Border;
+worksheet.getCell('N12').border = Border;
+
+let SamplesArray =[{Cell:'G',S:'S1'},{Cell:'H',S:'S2'},{Cell:'I',S:'S3'},{Cell:'J',S:'S4'},{Cell:'K',S:'S5'},{Cell:'L',S:'S6'},{Cell:'M',S:'S7'},{Cell:'N',S:'S8'}];
+
+let SampleCellNo = 13;
+SamplesArray.forEach((Sample)=>{
+  worksheet.getCell(`${Sample['Cell']}${SampleCellNo}`).value = `${Sample['S']}`;
+  worksheet.getCell(`${Sample['Cell']}${SampleCellNo}`).style = {alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:10,bold:true},wrapText:true};
+  worksheet.getCell(`${Sample['Cell']}${SampleCellNo}`).border = Border;
+  
+})
+
+let Row  = 14;
+IQC.forEach((Material)=>{
+  /**Check Type */
+  worksheet.getRow(Row).height = 38
+
+  worksheet.getCell(`A${Row}`).value = Material['CheckType'];
+  worksheet.getCell(`A${Row}`).style = {alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:10,}};
+  worksheet.getCell(`A${Row}`).border = Border;
+  
+
+  worksheet.getCell(`B${Row}`).value = Material['Characterstics'];
+  worksheet.getCell(`B${Row}`).style = {alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:10,}};
+  worksheet.getCell(`B${Row}`).border = Border;
+  
+  worksheet.getCell(`C${Row}`).value = Material['MeasuringMethod'];
+  worksheet.getCell(`C${Row}`).style = {alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:10,}};
+  worksheet.getCell(`C${Row}`).border = Border;
+
+  worksheet.getCell(`D${Row}`).value = Material['Sampling'];
+  worksheet.getCell(`D${Row}`).style = {alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:10,}};
+  worksheet.getCell(`D${Row}`).border = Border;
+
+  worksheet.getCell(`E${Row}`).value = Material['Reference'];
+  worksheet.getCell(`E${Row}`).style = {alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:10,}};
+  worksheet.getCell(`E${Row}`).border = Border;
+
+  worksheet.getCell(`F${Row}`).value = Material['AcceptanceCriteria'];
+  worksheet.getCell(`F${Row}`).style = {alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:10,}};
+  worksheet.getCell(`F${Row}`).border = Border;
+  Row++;
+})
 // Save the workbook to a file
 const excelFileName = 'quality_control_plan_junction_box.xlsx';
 workbook.xlsx.writeFile(excelFileName)
@@ -242,7 +485,7 @@ workbook.xlsx.writeFile(excelFileName)
 
   }
 
-//ExcelGenerate()
+// ExcelGenerate()
 app.listen(PORT,async()=>{
   try{
     console.log('server is running')

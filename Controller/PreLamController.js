@@ -219,7 +219,7 @@ try{
 
 
 const UpdatePreLamStatus = async(req,res)=>{
-  const {JobCardDetailId,Status,CurrentUser} = req.body;
+  const {JobCardDetailId,ApprovalStatus,CurrentUser} = req.body;
 
   try{
      const UpdateStatusQuery = `UPDATE PreLamDetail
