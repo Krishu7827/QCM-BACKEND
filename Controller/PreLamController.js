@@ -224,7 +224,7 @@ const UpdatePreLamStatus = async(req,res)=>{
   try{
      const UpdateStatusQuery = `UPDATE PreLamDetail
                                 SET
-                                  Status = '${Status}',
+                                  Status = '${ApprovalStatus}',
                                   UpdatedBy = '${CurrentUser}',
                                   UpdatedOn = '${getCurrentDateTime()}'
                                 WHERE PreLamDetailId = '${JobCardDetailId}';`;
