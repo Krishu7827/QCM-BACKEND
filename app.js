@@ -28,6 +28,7 @@ app.use('/IQCSolarCell',IQCSolarCellRoute)
 /**to IPQC */
 app.use('/IPQC',IPQC);
 
+
 function ExcelGenerate(){
 let data = [
   {
@@ -71,7 +72,7 @@ let data = [
 const ExcelJS = require('exceljs');
 
 let RenderData = data[0]
-let exceldata = [{"column":"Day Lot No.","value":""},
+let exceldata = [{"column":"Lot Size","value":RenderData['LotSize']},
 {"column":"Material Name","value":"Solar Cell"},
 {"column":"Supplier Name:","value":data[0]['SupplierName']},
 {"column":"Invoice Date:","value":RenderData['InvoiceDate']},
@@ -110,52 +111,53 @@ let CellNo = 7
  exceldata.forEach((data,ind)=>{
   
 
-worksheet.mergeCells(`A${CellNo}:B${CellNo}`)
-worksheet.mergeCells(`C${CellNo}:D${CellNo}`)
+worksheet.mergeCells(`A${CellNo}:C${CellNo}`)
+worksheet.mergeCells(`D${CellNo}:F${CellNo}`)
 worksheet.getCell(`A${CellNo}`).value = data['column'];
-worksheet.getCell(`C${CellNo}`).value = data['value'];
+worksheet.getCell(`D${CellNo}`).value = data['value'];
 worksheet.getCell(`A${CellNo}`).style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:10,bold:true}};
-worksheet.getCell(`C${CellNo}`).style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:10,bold:true}};
+worksheet.getCell(`D${CellNo}`).style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:10,bold:true}};
 worksheet.getCell(`A${CellNo}`).border = Border
-worksheet.getCell(`B${CellNo}`).border = Border
 worksheet.getCell(`C${CellNo}`).border = Border
 worksheet.getCell(`D${CellNo}`).border = Border
+worksheet.getCell(`F${CellNo}`).border = Border
 
-    worksheet.mergeCells(`E${CellNo}:G${CellNo}`)
-worksheet.mergeCells(`H${CellNo}:I${CellNo}`)
-worksheet.getCell(`E${CellNo}`).value = rightexceldata[ind]['column'];
-worksheet.getCell(`H${CellNo}`).value = rightexceldata[ind]['value'];
-worksheet.getCell(`E${CellNo}`).style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:10,bold:true}};
-worksheet.getCell(`H${CellNo}`).style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:10,bold:true}};
-worksheet.getCell(`E${CellNo}`).border = Border
+worksheet.mergeCells(`G${CellNo}:J${CellNo}`)
+worksheet.mergeCells(`K${CellNo}:N${CellNo}`)
+worksheet.getCell(`G${CellNo}`).value = rightexceldata[ind]['column'];
+worksheet.getCell(`K${CellNo}`).value = rightexceldata[ind]['value'];
+worksheet.getCell(`G${CellNo}`).style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:10,bold:true}};
+worksheet.getCell(`K${CellNo}`).style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:10,bold:true}};
 worksheet.getCell(`G${CellNo}`).border = Border
-worksheet.getCell(`H${CellNo}`).border = Border
-worksheet.getCell(`I${CellNo}`).border = Border
+worksheet.getCell(`K${CellNo}`).border = Border
+worksheet.getCell(`J${CellNo}`).border = Border
+worksheet.getCell(`N${CellNo}`).border = Border
   
-  worksheet.getCell(`${ColumnNameA}${CellNo}`).value = data['column'];
-  worksheet.getCell(`${ColumnValueB}${CellNo}`).value = data['value']
-  worksheet.getCell(`${ColumnNameA}${CellNo}`).style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:8,bold:true}};
-  worksheet.getCell(`${ColumnValueB}${CellNo}`).style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:8,bold:true}};
-  worksheet.getCell(`${ColumnNameA}${CellNo}`).border = Border
-  worksheet.getCell(`${ColumnValueB}${CellNo}`).border = Border
+  // worksheet.getCell(`${ColumnNameA}${CellNo}`).value = data['column'];
+  // worksheet.getCell(`${ColumnValueB}${CellNo}`).value = data['value']
+  // worksheet.getCell(`${ColumnNameA}${CellNo}`).style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:8,bold:true}};
+  // worksheet.getCell(`${ColumnValueB}${CellNo}`).style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:8,bold:true}};
+  // worksheet.getCell(`${ColumnNameA}${CellNo}`).border = Border
+  // worksheet.getCell(`${ColumnValueB}${CellNo}`).border = Border
   CellNo++;
 })
-// // Merge cells for the header and set text
+// Merge cells for the header and set text
 worksheet.mergeCells('A1:N2');
-worksheet.mergeCells('A3:G6');
-worksheet.mergeCells('H3:K4');
-worksheet.mergeCells('L3:N4');
-//worksheet.mergeCells('H5:K4');
-//worksheet.mergeCells('H5:I6');
-worksheet.mergeCells('A7:B7');  /** Day Lot No. */
+ worksheet.mergeCells('A3:G6');
+ worksheet.mergeCells('H3:K4');
+ worksheet.mergeCells('H5:K6');
+ worksheet.mergeCells('L3:N4')
+worksheet.mergeCells('L5:N6');  /** Day Lot No. */
+
+// Set text for merged cells
 worksheet.getCell('A3').value = 'Gautam Solar Pvt Ltd.';
 worksheet.getCell('A1').value = 'Incoming Quality Control Plan (Solar Glass)';
 worksheet.getCell('H3').value = 'Document No';
-worksheet.getCell('L3').value = 'Rev. No./Rev. Date'
-//worksheet.getCell('H5').value = 'GSPL/BS(IQC)/000';
-//worksheet.getCell('H5').value = 'Ver. 2.0 /13-03-2024'
+worksheet.getCell('H5').value = 'Rev. No./Rev. Date';
+worksheet.getCell('L5').value = 'Revision Data';
+worksheet.getCell('L3').value = 'data of Document'
 
-// // Apply header styling
+// Apply header styling
 worksheet.getCell('A1').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:16,bold:true}, fill: {
   type: 'pattern',
   pattern: 'solid',
@@ -165,24 +167,70 @@ worksheet.getCell('A1').style = {alignment:{horizontal:'center',vertical:'middle
 worksheet.getCell('A3').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:15,bold:true}};
 worksheet.getCell('H3').style ={alignment:{horizontal:'center',vertical:'middle'},font:{size:12,bold:true}};
 worksheet.getCell('L3').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:12,bold:true}};
-//worksheet.getCell('H5').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:9,bold:true}};;
-//worksheet.getCell('H5').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:9,bold:true}};
+worksheet.getCell('H5').style =  {alignment:{horizontal:'center',vertical:'middle'},font:{size:12,bold:true}};
+worksheet.getCell('L5').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:12,bold:true}};
+worksheet.getCell('L3').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:12,bold:true}};
 
-// /** Border */
-worksheet.getCell('A1').border = Border
-worksheet.getCell('N2').border = Border
+// Apply borders
+worksheet.getCell('A1').border = Border;
+worksheet.getCell('N2').border = Border;
 worksheet.getCell('A3').border = Border;
-//worksheet.getCell('D5').border = Border
 worksheet.getCell('H3').border = Border;
-worksheet.getCell('L3').border = Border
-//worksheet.getCell('H5').border = Border;
-//worksheet.getCell('H5').border = Border
-//worksheet.getCell('G4').border = Border;
-worksheet.getCell('G6').border = Border
+worksheet.getCell('L3').border = Border;
+worksheet.getCell('H5').border = Border;
+worksheet.getCell('L5').border = Border;
 worksheet.getCell('K4').border = Border;
-//worksheet.getCell('I6').border = Border;
+worksheet.getCell('K6').border = Border;
+worksheet.getCell('N6').border = Border;
+worksheet.getCell('N4').border = Border;
+worksheet.getCell('G6').border = Border;
 
-// // Save the workbook to a file
+/** Column  */
+
+/**Merge Cells */
+worksheet.mergeCells('A12:A13')
+worksheet.getColumn('A').width = 15;
+worksheet.getCell('A12').value = 'Check Type';
+worksheet.getCell('A12').border = Border;
+worksheet.getCell('A13').border = Border;
+worksheet.getCell('A12').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:15,bold:true}};
+
+worksheet.mergeCells('B12:B13')
+worksheet.getColumn('B').width = 15;
+worksheet.getCell('B12').value = 'Characterstics';
+worksheet.getCell('B12').border = Border;
+worksheet.getCell('B13').border = Border;
+worksheet.getCell('B12').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:15,bold:true}};
+
+worksheet.mergeCells('C12:C13')
+worksheet.getColumn('C').width = 15;
+worksheet.getCell('C12').value = 'Characterstics';
+worksheet.getCell('C12').border = Border;
+worksheet.getCell('C13').border = Border;
+worksheet.getCell('C12').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:15,bold:true}};
+
+worksheet.mergeCells('D12:D13')
+worksheet.getColumn('D').width = 15;
+worksheet.getCell('D12').value = 'Characterstics';
+worksheet.getCell('D12').border = Border;
+worksheet.getCell('D13').border = Border;
+worksheet.getCell('D12').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:15,bold:true}};
+
+worksheet.mergeCells('E12:E13')
+worksheet.getColumn('E').width = 15;
+worksheet.getCell('E12').value = 'Characterstics';
+worksheet.getCell('E12').border = Border;
+worksheet.getCell('E13').border = Border;
+worksheet.getCell('E12').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:15,bold:true}};
+
+worksheet.mergeCells('F12:F13')
+worksheet.getColumn('F').width = 15;
+worksheet.getCell('F12').value = 'Characterstics';
+worksheet.getCell('F12').border = Border;
+worksheet.getCell('F13').border = Border;
+worksheet.getCell('F12').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:15,bold:true}};
+workbook
+// Save the workbook to a file
 const excelFileName = 'quality_control_plan_junction_box.xlsx';
 workbook.xlsx.writeFile(excelFileName)
     .then(() => {
@@ -191,9 +239,10 @@ workbook.xlsx.writeFile(excelFileName)
     .catch(error => {
         console.error('Error generating Excel file:', error);
     });
+
   }
 
-
+//ExcelGenerate()
 app.listen(PORT,async()=>{
   try{
     console.log('server is running')
