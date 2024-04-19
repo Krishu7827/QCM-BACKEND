@@ -1,6 +1,7 @@
 const express = require('express');
 const IQCSolarCellRoute = express.Router()
-const {AddIQCSolarCell, GetIQCSolarCellTests,GetSpecificSolarCellTest,UpdateStatus,UploadPdf} = require('../Controller/IQCSolarCell')
+const {AddIQCSolarCell, GetIQCSolarCellTests,GetSpecificSolarCellTest,UpdateStatus,UploadPdf} = require('../Controller/IQCSolarCell');
+const {AddFQC} = require('../Controller/IQCFQC.Controller')
 const {RoleAuthentication,upload} = require('../Middleware/IQCSolarCell.Middleware')
 
 
@@ -10,6 +11,8 @@ IQCSolarCellRoute.post('/AddIQCSolarCell',AddIQCSolarCell)
 /**to Upload PDF */
 IQCSolarCellRoute.post('/UploadPdf',upload,UploadPdf)
 
+/**to Add FQC Data in FQCDetails Table And FQCTest Table */
+IQCSolarCellRoute.post('/AddFQC',AddFQC);
 
 /** Middleware To Role Authentication  */
 IQCSolarCellRoute.use(RoleAuthentication)

@@ -36,9 +36,11 @@ let IQC = [
       "InvoiceNo": "aa",
       "InvoiceDate": "2024-04-05",
       "SupplierRMBatchNo": "2",
+      "RevisionNo":"Ver2.0/13-03-2024",
       "RawMaterialSpecs": "tt",
       "QualityCheckDate": "2024-04-05",
       "ReceiptDate": "2024-04-05",
+      "Name":"Neha Sharma",
       "Status": "Inprogress",
       "COCPdf": null,
       "InvoicePdf": null,
@@ -49,11 +51,11 @@ let IQC = [
       "Reference": "PO/INVOICE",
       "Sampling": "Whole Lot",
       "AcceptanceCriteria": "No Physical Damage / No Mismatch against PO/Invoice",
-      "SampleSize": "1",
-      "Samples": "[]",
+      "SampleSize": 2,
+      "Samples": [{"SampleBarcode":"567643212345","SampleTest":false,"SampleRemarks":"gggg"},{"SampleBarcode":"567643212345","SampleTest":false,"SampleRemarks":"gggg"}],
       "RejectedID": "ede4a145-ee3d-4b27-afba-e953f28b64ab",
       "CheckTypes": "[{\"Packaging\":false},{\"Visual\":false},{\"Physical\":false},{\"FrontBus\":false},{\"Verification\":false},{\"Electrical\":false},{\"Performance\":false}]",
-      "Reason": "",
+      "Reason": "Quantity was Less, Product was Damaged",
       "Result": "Fail"
   },
   {
@@ -66,6 +68,7 @@ let IQC = [
       "RawMaterialSpecs": "tt",
       "QualityCheckDate": "2024-04-05",
       "ReceiptDate": "2024-04-05",
+      "Name":"Neha Sharma",
       "Status": "Inprogress",
       "COCPdf": null,
       "InvoicePdf": null,
@@ -76,8 +79,8 @@ let IQC = [
       "Reference": "GSPL Technical Specification / Supplier COC",
       "Sampling": "SIL S1 AQL 6.5",
       "AcceptanceCriteria": "As GSPL Technical Specification / Acceptance Criteria",
-      "SampleSize": "1",
-      "Samples": "[]",
+      "SampleSize": 2,
+      "Samples": [{"SampleBarcode":"567643212345","SampleTest":false,"SampleRemarks":"gggg"},{"SampleBarcode":"567643212345","SampleTest":false,"SampleRemarks":"gggg"},{"SampleBarcode":"567643212345","SampleTest":true,"SampleRemarks":"gggg"}],
       "RejectedID": "ede4a145-ee3d-4b27-afba-e953f28b64ab",
       "CheckTypes": "[{\"Packaging\":false},{\"Visual\":false},{\"Physical\":false},{\"FrontBus\":false},{\"Verification\":false},{\"Electrical\":false},{\"Performance\":false}]",
       "Reason": "",
@@ -94,6 +97,7 @@ let IQC = [
       "QualityCheckDate": "2024-04-05",
       "ReceiptDate": "2024-04-05",
       "Status": "Inprogress",
+      "Name":"Neha Sharma",
       "COCPdf": null,
       "InvoicePdf": null,
       "IQCSolarID": "e306f592-278d-4453-92c6-82aaea7fa180",
@@ -103,8 +107,8 @@ let IQC = [
       "Reference": "GSPL Technical Specification / Supplier COC",
       "Sampling": "SIL S1 AQL 6.5",
       "AcceptanceCriteria": "COC",
-      "SampleSize": "",
-      "Samples": "[]",
+      "SampleSize": 2,
+      "Samples": [{"SampleBarcode":"567643212345","SampleTest":false,"SampleRemarks":"gggg"},{"SampleBarcode":"567643212345","SampleTest":false,"SampleRemarks":"gggg"}],
       "RejectedID": "ede4a145-ee3d-4b27-afba-e953f28b64ab",
       "CheckTypes": "[{\"Packaging\":false},{\"Visual\":false},{\"Physical\":false},{\"FrontBus\":false},{\"Verification\":false},{\"Electrical\":false},{\"Performance\":false}]",
       "Reason": "",
@@ -121,6 +125,7 @@ let IQC = [
       "QualityCheckDate": "2024-04-05",
       "ReceiptDate": "2024-04-05",
       "Status": "Inprogress",
+      "Name":"Neha Sharma",
       "COCPdf": null,
       "InvoicePdf": null,
       "IQCSolarID": "c02c15aa-f4e3-4297-b55c-0f7de9925dc5",
@@ -130,8 +135,8 @@ let IQC = [
       "Reference": "GSPL Technical Specification / Supplier COC",
       "Sampling": "5 Pcs / Lot",
       "AcceptanceCriteria": "COC",
-      "SampleSize": "5",
-      "Samples": "[]",
+      "SampleSize": 2,
+      "Samples": [{"SampleBarcode":"567643212345","SampleTest":false,"SampleRemarks":"gggg"},{"SampleBarcode":"567643212345","SampleTest":false,"SampleRemarks":"gggg"},{"SampleBarcode":"567643212345","SampleTest":true,"SampleRemarks":"gggg"},{"SampleBarcode":"567643212345","SampleTest":false,"SampleRemarks":"gggg"}],
       "RejectedID": "ede4a145-ee3d-4b27-afba-e953f28b64ab",
       "CheckTypes": "[{\"Packaging\":false},{\"Visual\":false},{\"Physical\":false},{\"FrontBus\":false},{\"Verification\":false},{\"Electrical\":false},{\"Performance\":false}]",
       "Reason": "",
@@ -148,6 +153,7 @@ let IQC = [
       "QualityCheckDate": "2024-04-05",
       "ReceiptDate": "2024-04-05",
       "Status": "Inprogress",
+      "Name":"Neha Sharma",
       "COCPdf": null,
       "InvoicePdf": null,
       "IQCSolarID": "324a871e-e068-47dc-a9a6-1977100ef88e",
@@ -157,8 +163,8 @@ let IQC = [
       "Reference": "GSPL Technical Specification",
       "Sampling": "SIL S1 AQL 6.5",
       "AcceptanceCriteria": "COC",
-      "SampleSize": "",
-      "Samples": "[]",
+      "SampleSize": 2,
+      "Samples": [{"SampleBarcode":"567643212345","SampleTest":false,"SampleRemarks":"gggg"},{"SampleBarcode":"567643212345","SampleTest":true,"SampleRemarks":"gggg"},{"SampleBarcode":"567643212345","SampleTest":false,"SampleRemarks":"gggg"}],
       "RejectedID": "ede4a145-ee3d-4b27-afba-e953f28b64ab",
       "CheckTypes": "[{\"Packaging\":false},{\"Visual\":false},{\"Physical\":false},{\"FrontBus\":false},{\"Verification\":false},{\"Electrical\":false},{\"Performance\":false}]",
       "Reason": "",
@@ -175,6 +181,7 @@ let IQC = [
       "QualityCheckDate": "2024-04-05",
       "ReceiptDate": "2024-04-05",
       "Status": "Inprogress",
+      "Name":"Neha Sharma",
       "COCPdf": null,
       "InvoicePdf": null,
       "IQCSolarID": "648a290d-446f-4004-b013-818bf7f0a373",
@@ -184,8 +191,8 @@ let IQC = [
       "Reference": "GSPL Technical Specification",
       "Sampling": "One Module per supplier(each month)",
       "AcceptanceCriteria": "COC",
-      "SampleSize": "1",
-      "Samples": "[]",
+      "SampleSize": 2,
+      "Samples": [{"SampleBarcode":"567643212345","SampleTest":true,"SampleRemarks":"gggg"},{"SampleBarcode":"567643212345","SampleTest":false,"SampleRemarks":"gggg"}],
       "RejectedID": "ede4a145-ee3d-4b27-afba-e953f28b64ab",
       "CheckTypes": "[{\"Packaging\":false},{\"Visual\":false},{\"Physical\":false},{\"FrontBus\":false},{\"Verification\":false},{\"Electrical\":false},{\"Performance\":false}]",
       "Reason": "",
@@ -202,6 +209,7 @@ let IQC = [
       "QualityCheckDate": "2024-04-05",
       "ReceiptDate": "2024-04-05",
       "Status": "Inprogress",
+      "Name":"Neha Sharma",
       "COCPdf": null,
       "InvoicePdf": null,
       "IQCSolarID": "6f01bcba-1028-444d-b565-0da472249ec7",
@@ -211,69 +219,69 @@ let IQC = [
       "Reference": "GSPL Technical Specification",
       "Sampling": "5 Cell/Lot",
       "AcceptanceCriteria": "1 N to 2N-Cell Frontside 1N to 4N Cell Back side",
-      "SampleSize": "5",
-      "Samples": "[]",
+      "SampleSize":2,
+      "Samples": [{"SampleBarcode":"567643212345","SampleTest":false,"SampleRemarks":"gggg"},{"SampleBarcode":"567643212345","SampleTest":true,"SampleRemarks":"gggg"}],
       "RejectedID": "ede4a145-ee3d-4b27-afba-e953f28b64ab",
       "CheckTypes": "[{\"Packaging\":false},{\"Visual\":false},{\"Physical\":false},{\"FrontBus\":false},{\"Verification\":false},{\"Electrical\":false},{\"Performance\":false}]",
-      "Reason": "",
+      "Reason": "Model Version Not Corrected",
       "Result": "Fail"
   }
 ]
 function ExcelGenerate(){
-let data = [
-  {
-      "SolarDetailID": "94c65a75-caa7-4d7c-aea9-eec2bd471f27",
-      "LotSize": "33",
-      "SupplierName": "Vikas Entertainment ",
-      "InvoiceNo": "V001278",
-      "InvoiceDate": "2024-04-03",
-      "SupplierRMBatchNo": "99",
-      "RawMaterialSpecs": "gg",
-      "QualityCheckDate": "2024-04-03",
-      "ReceiptDate": "2024-04-03",
-      "Status": "Inprogress",
-      "COCPdf": null,
-      "InvoicePdf": null,
-      "IQCSolarID": "a170b3f2-5cb3-4387-bbd8-1ea9c36cd4a3",
-      "RejectedID": "7e25c457-2808-4b5d-bedc-58756e827340",
-      "RejectPackaging": false,
-      "RejectVisual": false,
-      "RejectPhysical": false,
-      "RejectFrontBus": false,
-      "RejectVerification": false,
-      "RejectElectrical": false,
-      "Reason": "",
-      "Result": "Fail",
-      "SampleSizePackaging": 1,
-      "Packaging": [],
-      "SampleSizeVisual": 0,
-      "Visual": [],
-      "SampleSizePhysical": 0,
-      "Physical": [],
-      "SampleSizeFrontBus": 0,
-      "FrontBus": [],
-      "SampleSizeVerification": 0,
-      "Verification": [],
-      "SampleSizeElectrical": 0,
-      "Electrical": []
-  }
-]
+// let data = [
+//   {
+//       "SolarDetailID": "94c65a75-caa7-4d7c-aea9-eec2bd471f27",
+//       "LotSize": "33",
+//       "SupplierName": "Vikas Entertainment ",
+//       "InvoiceNo": "V001278",
+//       "InvoiceDate": "2024-04-03",
+//       "SupplierRMBatchNo": "99",
+//       "RawMaterialSpecs": "gg",
+//       "QualityCheckDate": "2024-04-03",
+//       "ReceiptDate": "2024-04-03",
+//       "Status": "Inprogress",
+//       "COCPdf": null,
+//       "InvoicePdf": null,
+//       "IQCSolarID": "a170b3f2-5cb3-4387-bbd8-1ea9c36cd4a3",
+//       "RejectedID": "7e25c457-2808-4b5d-bedc-58756e827340",
+//       "RejectPackaging": false,
+//       "RejectVisual": false,
+//       "RejectPhysical": false,
+//       "RejectFrontBus": false,
+//       "RejectVerification": false,
+//       "RejectElectrical": false,
+//       "Reason": "",
+//       "Result": "Fail",
+//       "SampleSizePackaging": 1,
+//       "Packaging": [],
+//       "SampleSizeVisual": 0,
+//       "Visual": [],
+//       "SampleSizePhysical": 0,
+//       "Physical": [],
+//       "SampleSizeFrontBus": 0,
+//       "FrontBus": [],
+//       "SampleSizeVerification": 0,
+//       "Verification": [],
+//       "SampleSizeElectrical": 0,
+//       "Electrical": []
+//   }
+// ]
 
 const ExcelJS = require('exceljs');
 
-let RenderData = data[0]
-let exceldata = [{"column":"Lot Size","value":RenderData['LotSize']},
+
+let exceldata = [{"column":"Lot Size","value":IQC[0]['LotSize']},
 {"column":"Material Name","value":"Solar Cell"},
-{"column":"Supplier Name:","value":data[0]['SupplierName']},
-{"column":"Invoice Date:","value":RenderData['InvoiceDate']},
-{"column":"Rm Details","value":RenderData['RawMaterialSpecs']}
+{"column":"Supplier Name:","value":IQC[0]['SupplierName']},
+{"column":"Invoice Date:","value":IQC[0]['InvoiceDate']},
+{"column":"Raw Material Specs","value":IQC[0]['RawMaterialSpecs']}
 ]
 
-let rightexceldata = [{"column":"No. of Samples to be checked","value":""},
+let rightexceldata = [{"column":"No. of Samples to be checked","value":''},
 {"column":"Sample to be checked","value":"AS PER SIL S1 AQL 4.0"},
-{"column":"Suppliers'RM Batch No.:","value":""},
-{"column":"Invoice No.:","value":""},
-{"column":"Receipt Date:","value":""}
+{"column":"Suppliers'RM Batch No.:","value":IQC[0]['SupplierRMBatchNo']},
+{"column":"Invoice No.:","value":IQC[0]['InvoiceNo']},
+{"column":"Receipt Date:","value":IQC[0]['ReceiptDate']}
 ]
 
 
@@ -344,8 +352,8 @@ worksheet.getCell('A3').value = 'Gautam Solar Pvt Ltd.';
 worksheet.getCell('A1').value = 'Incoming Quality Control Plan (Solar Glass)';
 worksheet.getCell('H3').value = 'Document No';
 worksheet.getCell('H5').value = 'Rev. No./Rev. Date';
-worksheet.getCell('L5').value = 'Revision Data';
-worksheet.getCell('L3').value = 'data of Document'
+worksheet.getCell('L5').value = IQC[0]['RevisionNo'];
+worksheet.getCell('L3').value = 'GSPL/SG(IQC)/001'
 
 // Apply header styling
 worksheet.getCell('A1').style = {alignment:{horizontal:'center',vertical:'middle'},font:{size:16,bold:true}, fill: {
@@ -471,10 +479,125 @@ IQC.forEach((Material)=>{
   worksheet.getCell(`F${Row}`).value = Material['AcceptanceCriteria'];
   worksheet.getCell(`F${Row}`).style = {alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:10,}};
   worksheet.getCell(`F${Row}`).border = Border;
+
+  var startCharCode = 'G'.charCodeAt(0);
+var endCharCode = 'N'.charCodeAt(0);
+let index = 0;
+for (var i = startCharCode; i <= endCharCode; i++) {
+console.log(Material['Samples'][index])
+  worksheet.getCell(`${String.fromCharCode(i)}${Row}`).value = Material['Samples'][index]?Material['Samples'][index]['SampleTest']?'✔':'❌':'';
+  worksheet.getCell(`${String.fromCharCode(i)}${Row}`).style = {alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },font: { size: 12, }}
+  worksheet.getCell(`${String.fromCharCode(i)}${Row}`).border = Border;
+    index++;
+}
+
   Row++;
 })
+
+let Column = 'A';
+worksheet.getRow(Row).height = 58;
+worksheet.mergeCells(`${Column}${Row}:${'B'}${Row}`);
+worksheet.getCell(`${Column}${Row}`).value = 'DEVIATION/REJECTION REASON:';
+worksheet.getCell(`${Column}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10 } };
+worksheet.getCell(`${Column}${Row}`).border = Border;
+worksheet.getCell(`${'B'}${Row}`).border = Border;
+
+
+Column = 'C'
+worksheet.mergeCells(`${Column}${Row}:${'N'}${Row}`);
+worksheet.getCell(`${Column}${Row}`).value = IQC[0]['Result'] == 'Fail'?IQC[0]['Reason']:"";
+worksheet.getCell(`${Column}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10 } };
+worksheet.getCell(`${Column}${Row}`).border = Border;
+worksheet.getCell(`${'N'}${Row}`).border = Border;
+
+Row++;
+
+Column = 'A'
+worksheet.mergeCells(`${Column}${Row}:${Column}${Row+1}`);
+worksheet.getCell(`${Column}${Row}`).value = 'Checked By';
+worksheet.getCell(`${Column}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10,bold:true } };
+worksheet.getCell(`${Column}${Row}`).border = Border;
+worksheet.getCell(`${Column}${Row+1}`).border = Border;
+
+Column = 'B'
+worksheet.mergeCells(`${Column}${Row}:${'E'}${Row+1}`);
+worksheet.getCell(`${Column}${Row}`).value = IQC[0]['Name'];
+worksheet.getCell(`${Column}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10 } };
+worksheet.getCell(`${Column}${Row}`).border = Border;
+worksheet.getCell(`${'E'}${Row+1}`).border = Border;
+
+Column = 'F'
+worksheet.mergeCells(`${Column}${Row}:${Column}${Row+1}`);
+worksheet.getCell(`${Column}${Row}`).value = 'Reviewed By';
+worksheet.getCell(`${Column}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10, bold:true } };
+worksheet.getCell(`${Column}${Row}`).border = Border;
+worksheet.getCell(`${Column}${Row+1}`).border = Border;
+
+Column = 'G'
+worksheet.mergeCells(`${Column}${Row}:${'N'}${Row+1}`);
+worksheet.getCell(`${Column}${Row}`).value = IQC[0]['Name'];
+worksheet.getCell(`${Column}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10, } };
+worksheet.getCell(`${Column}${Row}`).border = Border;
+worksheet.getCell(`${'N'}${Row+1}`).border = Border;
+
+Row++;
+Row++;
+worksheet.mergeCells(`A${Row}:A${Row+1}`)
+worksheet.getCell(`A${Row}`).value = 'Check Type';
+worksheet.getCell(`A${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10,bold:true },  };
+worksheet.getCell(`A${Row}`).border = Border;
+worksheet.getCell(`A${Row+1}`).border = Border;
+
+worksheet.mergeCells(`B${Row}:N${Row}`)
+worksheet.getCell(`B${Row}`).value = 'Sample Remarks';
+worksheet.getCell(`B${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 13,bold:true }, fill: {
+  type: 'pattern',
+  pattern: 'solid',
+  fgColor: { argb: 'FFF6DC' } // Yellow background color
+} };
+worksheet.getCell(`B${Row}`).border = Border;
+worksheet.getCell(`N${Row}`).border = Border;
+
+
+var startCharCode = 'B'.charCodeAt(0);
+var endCharCode = 'N'.charCodeAt(0);
+let index = 1;
+for (var i = startCharCode; i <= endCharCode; i++) {
+ 
+ worksheet.getCell(`${String.fromCharCode(i)}${Row+1}`).value = `S${index}`;
+ worksheet.getCell(`${String.fromCharCode(i)}${Row+1}`).style  = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10, bold:true } };
+ worksheet.getCell(`${String.fromCharCode(i)}${Row+1}`).border = Border;
+ if(index>=6){
+  worksheet.getColumn(`${String.fromCharCode(i)}`).width = 15;
+ }
+    index++;
+}
+
+Row++;
+Row++;
+IQC.forEach((Material)=>{
+  worksheet.getRow(Row).height = 38
+
+  worksheet.getCell(`A${Row}`).value = Material['CheckType'];
+  worksheet.getCell(`A${Row}`).style = {alignment:{horizontal:'center',vertical:'middle',wrapText:true},font:{size:10,}};
+  worksheet.getCell(`A${Row}`).border = Border;
+
+var startCharCode = 'B'.charCodeAt(0);
+var endCharCode = 'N'.charCodeAt(0);
+let index = 0;
+for (var i = startCharCode; i <= endCharCode; i++) {
+console.log(Material['Samples'][index])
+  worksheet.getCell(`${String.fromCharCode(i)}${Row}`).value = Material['Samples'][index]?Material['Samples'][index]['SampleRemarks']?Material['Samples'][index]['SampleRemarks']:'':'';
+  worksheet.getCell(`${String.fromCharCode(i)}${Row}`).style = {alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },font: { size: 12, }}
+  worksheet.getCell(`${String.fromCharCode(i)}${Row}`).border = Border;
+    index++;
+}
+  Row++;
+})
+
 // Save the workbook to a file
 const excelFileName = 'quality_control_plan_junction_box.xlsx';
+
 workbook.xlsx.writeFile(excelFileName)
     .then(() => {
         console.log('Excel file generated successfully!');
@@ -485,7 +608,8 @@ workbook.xlsx.writeFile(excelFileName)
 
   }
 
-// ExcelGenerate()
+//ExcelGenerate()
+
 app.listen(PORT,async()=>{
   try{
     console.log('server is running')
