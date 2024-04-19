@@ -67,6 +67,7 @@ const AddFQC = async (req, res) => {
     const FQCTests = params['FqcTest']
     const Rejected = params['Rejected']
     const UUID = v4();
+    
     if (!params['FqcId']) {
         try {
             const FQCDetailsQuery = `INSERT INTO FQCDetails(FQCDetailId,Type,Product,ProductSpecs,ProductBatchNo,PartyName,PackingDate,ReportNumber,DateOfQualityCheck,DocumentNo,RevNo,Status,Result,CheckTypes,Reason,CreatedBy,CreatedOn)
