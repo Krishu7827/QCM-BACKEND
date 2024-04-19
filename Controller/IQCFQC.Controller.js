@@ -134,6 +134,7 @@ const GetFQCList = async (req, res) => {
 
     let query;
 
+    
     /** Query */
     try {
         if (Designation == 'Admin' || Designation == 'Super Admin') {
