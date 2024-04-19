@@ -134,17 +134,17 @@ const GetFQCList = async (req, res) => {
 
     let query;
 
-    
+
     /** Query */
     try {
         if (Designation == 'Admin' || Designation == 'Super Admin') {
-            query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,FD.Product,FD.ProductBatchNo,FD.Pdf FROM Person p
+            query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,FD.FQCDetailId,FD.Product,FD.ProductBatchNo,FD.Pdf FROM Person p
     JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
     JOIN FQCDetails FD ON p.PersonID = FD.CreatedBy
     WHERE FD.Status = '${Status}'
     ORDER BY STR_TO_DATE(FD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
         } else {
-            query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,FD.Product,FD.ProductBatchNo,FD.Pdf FROM Person p
+            query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,FD.FQCDetailId,FD.Product,FD.ProductBatchNo,FD.Pdf FROM Person p
             JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
             JOIN FQCDetails FD ON p.PersonID = FD.CreatedBy
             WHERE FD.Status = '${Status}' AND p.PersonID = '${PersonID}'
@@ -160,4 +160,42 @@ const GetFQCList = async (req, res) => {
 }
 
 
-module.exports = { AddFQC, GetFQCList }
+const GetSpecificFQC = async(req,res)=>{
+    const {FQCDetailId} = req.body;
+
+ try{
+  const query = `SELECT *FROM FQCDetails FD
+                 JOIN FQCTest FT ON FT.FQCDetailId = FD.FQCDetailId
+                 WHERE FD.FQCDetailId = '${FQCDetailId}'`
+  const data = await queryAsync(query);
+
+  data[0]['Sample1'] =  JSON.parse(data[0]['Sample1'])
+  data[0]['Sample2'] = JSON.parse(data[0]['Sample2'])
+  data[0]['Sample3'] = JSON.parse(data[0]['Sample3'])
+  data[0]['CheckTypes'] = JSON.parse(data[0]['CheckTypes'])
+  res.send({data})
+ }catch(err){
+ console.log(err);
+ res.send({err});
+ }
+}
+
+const FQCUpdateStatus = async(req,res)=>{
+    const {FQCDetailId,Status,PersonID} = req.body;
+
+    try{
+     const query = `UPDATE FQCDetails
+                    SET
+                       Status = '${Status}',
+                       UpdatedBy = '${PersonID}',
+                       UpdatedOn = '${getCurrentDateTime()}'
+                    WHERE FQCDetailId = '${FQCDetailId}';`;
+    
+    const FQCApproveStatus = await queryAsync(query);
+    res.send({FQCApproveStatus})
+    }catch(err){
+        console.log(err)
+        res.status(500).send({ err })
+    }
+}
+module.exports = { AddFQC, GetFQCList, GetSpecificFQC, FQCUpdateStatus }

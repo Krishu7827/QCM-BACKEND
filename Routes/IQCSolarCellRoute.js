@@ -1,7 +1,7 @@
 const express = require('express');
 const IQCSolarCellRoute = express.Router()
 const {AddIQCSolarCell, GetIQCSolarCellTests,GetSpecificSolarCellTest,UpdateStatus,UploadPdf} = require('../Controller/IQCSolarCell');
-const {AddFQC,GetFQCList} = require('../Controller/IQCFQC.Controller')
+const {AddFQC,GetFQCList,GetSpecificFQC,FQCUpdateStatus} = require('../Controller/IQCFQC.Controller')
 const {RoleAuthentication,upload} = require('../Middleware/IQCSolarCell.Middleware')
 
 
@@ -28,6 +28,12 @@ IQCSolarCellRoute.post('/UpdateStatus',UpdateStatus)
 
 /**to Get FQC Card List */
 IQCSolarCellRoute.post('/FQCList',GetFQCList)
+
+/**to Get Specific FQC Detail */
+IQCSolarCellRoute.post('/GetSpecificFQC',GetSpecificFQC)
+
+/**To Update Status of Aprrove in FQC Table */
+IQCSolarCellRoute.post('/FQCUpdateStatus',FQCUpdateStatus)
 
 /** Exporting Routes */
 module.exports = {IQCSolarCellRoute}
