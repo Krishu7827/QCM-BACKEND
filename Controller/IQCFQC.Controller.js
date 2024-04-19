@@ -47,7 +47,7 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 //             "visualParametersController645": "visualParametersController645.text",
 //             "visualParameterCrietrion1Controller645":
 //                 "visualParameterCrietrion1Controller645.text"
-            
+
 //         }
 //     },
 //     "Rejected": {
@@ -67,7 +67,7 @@ const AddFQC = async (req, res) => {
     const FQCTests = params['FqcTest']
     const Rejected = params['Rejected']
     const UUID = v4();
-console.log(params['FqcId'])
+    console.log(params['FqcId'])
 
     if (!params['FqcId']) {
         try {
@@ -117,7 +117,7 @@ WHERE
 `;
             await queryAsync(FQCTestsQuery);
 
-            res.send({ msg: 'Data Inserted SuccesFully !', 'SolarDetailID': params['FqcId'], 'Status': params['Status'] });
+            res.send({ msg: 'Data Inserted SuccesFully !', 'FQCDetailId': params['FqcId'] });
         } catch (err) {
             console.log(err);
             res.status(401).send(err);
@@ -129,30 +129,34 @@ WHERE
 
 
 
-const GetFQCList = (req,res)=>{
+const GetFQCList = async (req, res) => {
     const { PersonID, Designation, Department, Status } = req.body
- 
+
     let query;
-  
+
     /** Query */
     try {
-      if (Designation == 'Admin' || Designation == 'Super Admin') {
-        query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,id.SupplierName,id.QualityCheckDate,id.COCPdf,id.InvoicePdf,id.CreatedDate,id.SolarDetailID,id.MaterialName,id.InvoiceNo FROM Person p
+        if (Designation == 'Admin' || Designation == 'Super Admin') {
+            query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,FD.Product,FD.ProductBatchNo,FD.Pdf FROM Person p
     JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
     JOIN FQCDetails FD ON p.PersonID = FD.CreatedBy
     WHERE FD.Status = '${Status}'
     ORDER BY STR_TO_DATE(FD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
-      } else {
-        query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,id.SupplierName,id.QualityCheckDate,id.COCPdf,id.InvoicePdf,id.CreatedDate,id.SolarDetailID,id.MaterialName,id.InvoiceNo FROM Person p
-        JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
-        JOIN FQCDetails FD ON p.PersonID = FD.CreatedBy
-        WHERE FD.Status = '${Status}' AND p.PersonID = ${PersonID}
-        ORDER BY STR_TO_DATE(FD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
-      }
-    }catch(err){
+        } else {
+            query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,FD.Product,FD.ProductBatchNo,FD.Pdf FROM Person p
+            JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
+            JOIN FQCDetails FD ON p.PersonID = FD.CreatedBy
+            WHERE FD.Status = '${Status}' AND p.PersonID = '${PersonID}'
+            ORDER BY STR_TO_DATE(FD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
+        }
 
+        let data = await queryAsync(query);
+        res.send({ status: true, data })
+    } catch (err) {
+        console.log(err);
+        res.status(400).send({ status: false, err });
     }
 }
 
 
-module.exports = {AddFQC}
+module.exports = { AddFQC, GetFQCList }
