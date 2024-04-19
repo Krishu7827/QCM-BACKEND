@@ -67,8 +67,8 @@ const AddFQC = async (req, res) => {
     const FQCTests = params['FqcTest']
     const Rejected = params['Rejected']
     const UUID = v4();
+console.log(params['FqcId'])
 
-    
     if (!params['FqcId']) {
         try {
             const FQCDetailsQuery = `INSERT INTO FQCDetails(FQCDetailId,Type,Product,ProductSpecs,ProductBatchNo,PartyName,PackingDate,ReportNumber,DateOfQualityCheck,DocumentNo,RevNo,Status,Result,CheckTypes,Reason,CreatedBy,CreatedOn)
@@ -129,7 +129,30 @@ WHERE
 
 
 
+const GetFQCList = (req,res)=>{
+    const { PersonID, Designation, Department, Status } = req.body
+ 
+    let query;
+  
+    /** Query */
+    try {
+      if (Designation == 'Admin' || Designation == 'Super Admin') {
+        query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,id.SupplierName,id.QualityCheckDate,id.COCPdf,id.InvoicePdf,id.CreatedDate,id.SolarDetailID,id.MaterialName,id.InvoiceNo FROM Person p
+    JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
+    JOIN FQCDetails FD ON p.PersonID = FD.CreatedBy
+    WHERE FD.Status = '${Status}'
+    ORDER BY STR_TO_DATE(FD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
+      } else {
+        query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,id.SupplierName,id.QualityCheckDate,id.COCPdf,id.InvoicePdf,id.CreatedDate,id.SolarDetailID,id.MaterialName,id.InvoiceNo FROM Person p
+        JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
+        JOIN FQCDetails FD ON p.PersonID = FD.CreatedBy
+        WHERE FD.Status = '${Status}' AND p.PersonID = ${PersonID}
+        ORDER BY STR_TO_DATE(FD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
+      }
+    }catch(err){
 
+    }
+}
 
 
 module.exports = {AddFQC}
