@@ -150,7 +150,8 @@ const AddIPQCJobCard = async (req, res) => {
         jcd.Date = '${JobCardDetails['date']}',
         jcd.MatrixSize = '${JobCardDetails['matrixSize']}',
         jcd.Status = '${JobCardDetails['Status']}',
-        jcd.CreatedBy = '${JobCardDetails['CreatedBy']}'
+        jcd.CreatedBy = '${JobCardDetails['CreatedBy']}',
+        jcd.CreatedOn = '${getCurrentDateTime()}'
     WHERE jcd.JobCardDetailID = '${JobCardDetailId}';`
 
       await queryAsync(QueryToJobCardDetails)

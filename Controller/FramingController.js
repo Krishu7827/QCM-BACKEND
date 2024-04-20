@@ -119,7 +119,8 @@ const AddFraming = async(req,res)=>{
                                  Date  = '${Date}',
                                  Shift = '${Shift}',
                                  Status = '${Status}',
-                                 CheckedBy = '${CurrentUser}'
+                                 CheckedBy = '${CurrentUser}',
+                                 CreatedOn = '${getCurrentDateTime()}'
                                WHERE PreLamDetailId = '${PreLamDetailId}';`;
     await queryAsync(PreLamDetailQuery);
    Samples.forEach(async(sample)=>{

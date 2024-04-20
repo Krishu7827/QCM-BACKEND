@@ -101,7 +101,8 @@ const AddFQC = async (req, res) => {
             Status = '${params['Status']}',
             Result = '${Rejected['Result']}',
             CheckTypes = '${JSON.stringify(Rejected['CheckTypes'])}',
-            Reason = '${Rejected['Reason']}'
+            Reason = '${Rejected['Reason']}',
+            CreatedOn = '${getCurrentDateTime()}'
         WHERE
             FQCDetailId = '${params['FqcId']}';
         `
