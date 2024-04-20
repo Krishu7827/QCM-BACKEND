@@ -138,13 +138,13 @@ const GetFQCList = async (req, res) => {
     /** Query */
     try {
         if (Designation == 'Admin' || Designation == 'Super Admin') {
-            query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,FD.FQCDetailId,FD.Product,FD.ProductBatchNo,FD.Pdf FROM Person p
+            query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,FD.FQCDetailId,FD.Product,FD.ProductBatchNo,FD.PartyName,FD.Pdf FROM Person p
     JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
     JOIN FQCDetails FD ON p.PersonID = FD.CreatedBy
     WHERE FD.Status = '${Status}'
     ORDER BY STR_TO_DATE(FD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
         } else {
-            query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,FD.FQCDetailId,FD.Product,FD.ProductBatchNo,FD.Pdf FROM Person p
+            query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,FD.FQCDetailId,FD.Product,FD.ProductBatchNo,FD.PartyName,FD.Pdf FROM Person p
             JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
             JOIN FQCDetails FD ON p.PersonID = FD.CreatedBy
             WHERE FD.Status = '${Status}' AND p.PersonID = '${PersonID}'
@@ -169,10 +169,10 @@ const GetSpecificFQC = async(req,res)=>{
                  WHERE FD.FQCDetailId = '${FQCDetailId}'`
   const data = await queryAsync(query);
 
-  data[0]['Sample1'] =  JSON.parse(data[0]['Sample1'])
-  data[0]['Sample2'] = JSON.parse(data[0]['Sample2'])
-  data[0]['Sample3'] = JSON.parse(data[0]['Sample3'])
-  data[0]['CheckTypes'] = JSON.parse(data[0]['CheckTypes'])
+  data[0]['Sample1'] =  JSON.parse(data[0]['Sample1']);
+  data[0]['Sample2'] = JSON.parse(data[0]['Sample2']);
+  data[0]['Sample3'] = JSON.parse(data[0]['Sample3']); 
+  data[0]['CheckTypes'] = JSON.parse(data[0]['CheckTypes']);
   res.send({data})
  }catch(err){
  console.log(err);
