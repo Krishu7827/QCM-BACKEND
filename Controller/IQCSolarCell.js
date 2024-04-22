@@ -1,7 +1,7 @@
 const { v4: uuidv4, v4 } = require('uuid');
 const { dbConn } = require('../db.config/db.config')
 const util = require('util')
-const { getCurrentDateTime, s3 } = require('../Utilis/IQCSolarCellUtilis');
+const { getCurrentDateTime, s3,ExcelGenerate } = require('../Utilis/IQCSolarCellUtilis');
 
 require('dotenv').config()
 
@@ -400,12 +400,24 @@ const UpdateStatus = async (req, res) => {
       })
     })
 
-    const ExcelQuery = `SELECT id.SolarDetailID,id.LotSize,id.SupplierName,id.InvoiceNo,id.InvoiceDate,id.SupplierRMBatchNo,id.RawMaterialSpecs,id.QualityCheckDate,id.ReceiptDate,id.Status,id.COCPdf,id.InvoicePdf,i.IQCSolarID,i.CheckType,i.SampleSize,i.Samples,r.RejectedID,r.CheckTypes,r.Reason,r.Result,a.Status as ApprovalStatus,a.Reason as ApprovalReason FROM IQCSolarDetails id
+    const ExcelQuery = `SELECT id.SolarDetailID,id.MaterialName,id.DocumentNo,id.RevisionNo,id.LotSize,id.SupplierName,id.InvoiceNo,id.InvoiceDate,id.SupplierRMBatchNo,id.RawMaterialSpecs,id.QualityCheckDate,id.ReceiptDate,id.Status,id.COCPdf,id.InvoicePdf,i.IQCSolarID,i.CheckType,i.Characterstics,i.MeasuringMethod,i.Sampling,i.Reference,i.AcceptanceCriteria,i.SampleSize,i.Samples,r.RejectedID,r.CheckTypes,r.Reason,r.Result,id.CheckedBy,id.UpdatedBy, p.Name, a.Reason as ApproveReason  FROM IQCSolarDetails id
     JOIN IQCSolar i ON id.SolarDetailID = i.SolarDetailID
     JOIN Rejected r ON id.SolarDetailID = r.SolarDetailID
-    JOIN ApprovalStatus a on id.SolarDetailID = a.SolarDetailID
-    WHERE id.SolarDetailID = '${SolarDetailID}';`
-    res.send({ ApprovalStatus, SolarCellDetailTable })
+    JOIN Person p on p.PersonID =  id.CheckedBy
+    JOIN ApprovalStatus a on a.SolarDetailID = r.SolarDetailID
+    WHERE id.SolarDetailID = '${SolarDetailID}';`;
+
+    const ApproveTableQuery = `select p.Name from IQCSolarDetails id
+    join Person p on p.PersonID = id.UpdatedBy
+    where id.SolarDetailID = '${SolarDetailID}';`;
+
+    const ExcelData = await queryAsync(ExcelQuery);
+    const ApproveData = await queryAsync(ApproveTableQuery);
+  ExcelData.forEach((data)=>{
+    data['Samples'] = JSON.parse(data['Samples']);
+  })
+   ExcelGenerate(ExcelData,ApproveData);
+    res.send({ ExcelData,ApproveData })
   } catch (err) {
     console.log(err)
     res.status(500).send({ err })
