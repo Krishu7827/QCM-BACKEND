@@ -2,7 +2,7 @@ const express = require('express');
 const {AddIPQCJobCard,JobCardList,UploadPdf,GetSpecificJobCard,UpdateJobCardStatus} = require('../Controller/IPQCJobCard');
 const {AddBomVerification,BOMUploadPdf,GetSpecificBOMVerification, UpdateStatusBOM} = require('../Controller/BOMVerification');
 const {AddPreLam,PreLamUploadPdf,GetSpecificPreLam,UpdatePreLamStatus} = require('../Controller/PreLamController');
-const {AddFraming} = require("../Controller/FramingController");
+const {AddFraming,UploadFramingPdf,GetSpecificFraming,UpdateFramingStatus} = require("../Controller/FramingController");
 const {RoleAuthentication,upload} = require('../Middleware/IPQC.Middleware');
 const IPQC = express.Router();
 
@@ -21,6 +21,9 @@ IPQC.post('/BOMUploadPdf',upload.single('ReferencePdf'),BOMUploadPdf);
 
 /** Router to Upload Reference Pdf in S3 and Get The Location and Set into dbs(PreLamDetail Table) */
 IPQC.post('/UploadPreLamPdf',upload.single('PreLamPdf'),PreLamUploadPdf);
+
+/** Router to Upload Reference Pdf in S3 and Get The Location and Set into dbs(PreLamDetail Table) */
+IPQC.post('/UploadFramingPdf',upload.single('FramingPdf'),UploadFramingPdf);
 
 /**Router To Add BOM Verification Data*/
 IPQC.post('/AddBOMVerification',AddBomVerification);
@@ -47,6 +50,9 @@ IPQC.post('/GetSpecificBOMVerification',GetSpecificBOMVerification);
 /**Router to Get Specific PreLam */
 IPQC.post('/GetSpecificPreLam',GetSpecificPreLam);
 
+/**Router to Get Specific Framing  */
+IPQC.post('/GetSpecificFraming',GetSpecificFraming);
+
 /**Router To Update Status Of Job Card  */
 IPQC.post('/UpdateJobCardStatus',UpdateJobCardStatus);
 
@@ -55,5 +61,8 @@ IPQC.post('/UpdateBOMStatus',UpdateStatusBOM);
 
 /**Router to Update Status of Pre Lam  */
 IPQC.post('/UpdatePreLamStatus',UpdatePreLamStatus);
+
+/**Router to Update Status of Framing  */
+IPQC.post('/UpdateFramingStatus',UpdateFramingStatus);
 
 module.exports = {IPQC}  

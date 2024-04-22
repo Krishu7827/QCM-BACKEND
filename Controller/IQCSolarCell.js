@@ -435,7 +435,7 @@ const UploadPdf = async (req, res) => {
     const COC = await new Promise((resolve, reject) => {
       s3.upload({
         Bucket: process.env.AWS_BUCKET_2,
-        Key: `${SolarDetailId}_${req.files['COCPdf'][0].originalname}`,
+        Key: `IQC/${SolarDetailId}_${req.files['COCPdf'][0].originalname}`,
         Body: req.files['COCPdf'][0].buffer,
         ACL: "public-read-write",
         ContentType: req.files['COCPdf'][0].mimetype

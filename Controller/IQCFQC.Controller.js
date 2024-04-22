@@ -139,13 +139,13 @@ const GetFQCList = async (req, res) => {
     /** Query */
     try {
         if (Designation == 'Admin' || Designation == 'Super Admin') {
-            query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,FD.FQCDetailId,FD.Product,FD.ProductBatchNo,FD.PartyName,FD.Pdf FROM Person p
+            query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,FD.FQCDetailId,FD.Product,FD.ProductBatchNo,FD.PartyName,FD.DateOfQualityCheck,FD.Pdf FROM Person p
     JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
     JOIN FQCDetails FD ON p.PersonID = FD.CreatedBy
     WHERE FD.Status = '${Status}'
     ORDER BY STR_TO_DATE(FD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
         } else {
-            query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,FD.FQCDetailId,FD.Product,FD.ProductBatchNo,FD.PartyName,FD.Pdf FROM Person p
+            query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,FD.FQCDetailId,FD.Product,FD.ProductBatchNo,FD.PartyName,FD.DateOfQualityCheck,FD.Pdf FROM Person p
             JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
             JOIN FQCDetails FD ON p.PersonID = FD.CreatedBy
             WHERE FD.Status = '${Status}' AND p.PersonID = '${PersonID}'
@@ -160,6 +160,38 @@ const GetFQCList = async (req, res) => {
     }
 }
 
+const UploadFQCPdf = async(req,res)=>{
+const {FQCDetailId} = req.body;
+
+try {
+    const Invoice = await new Promise((resolve, reject) => {
+      s3.upload({
+        Bucket: process.env.AWS_BUCKET_2,
+        Key: `IQC/${FQCDetailId}_${req.file.originalname}`,
+        Body: req.file.buffer,
+        ACL: "public-read-write",
+        ContentType: req.file.mimetype
+      }, (err, result) => {
+        if (err) {
+          reject(err)
+        } else {
+
+          resolve(result)
+        }
+      })
+    })
+
+    const query = `UPDATE FQCDetails FD
+                  set FD.Pdf = '${Invoice.Location}'
+                 WHERE FD.FQCDetailId = '${FQCDetailId}';`;
+
+    let data = await queryAsync(query)
+    res.send({msg:'Data Inserted SuccesFully !',data})
+  } catch (err) {
+    console.log(err);
+    res.status(401).send(err);
+  }
+}
 
 const GetSpecificFQC = async(req,res)=>{
     const {FQCDetailId} = req.body;
@@ -199,4 +231,4 @@ const FQCUpdateStatus = async(req,res)=>{
         res.status(500).send({ err })
     }
 }
-module.exports = { AddFQC, GetFQCList, GetSpecificFQC, FQCUpdateStatus }
+module.exports = { AddFQC, GetFQCList, GetSpecificFQC, FQCUpdateStatus,UploadFQCPdf };

@@ -91,13 +91,13 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 
 
 const AddFraming = async(req,res)=>{
-  const {DocNo,RevNo,Shift,Date,CurrentUser,Status,PreLamDetailId} = req.body;
+  const {DocNo,RevNo,Shift,Date,CurrentUser,Status,PreLamDetailId,Line} = req.body;
   const Samples = req.body['samples'];
   const UUID = v4();
   if(!PreLamDetailId){
   try{
-    const PreLamDetailQuery = `INSERT INTO PreLamDetail(PreLamDetailId,Type,DocNo,RevNo,Date,Shift,Status,CheckedBy,CreatedOn)
-                                    VALUES('${UUID}','Framing Dimension','${DocNo}','${RevNo}','${Date}','${Shift}','${Status}','${CurrentUser}','${getCurrentDateTime()}');`;
+    const PreLamDetailQuery = `INSERT INTO PreLamDetail(PreLamDetailId,Type,DocNo,RevNo,Date,Shift,Line,Status,CheckedBy,CreatedOn)
+                                    VALUES('${UUID}','Framing Dimension','${DocNo}','${RevNo}','${Date}','${Shift}','${Line}','${Status}','${CurrentUser}','${getCurrentDateTime()}');`;
     await queryAsync(PreLamDetailQuery);
 
     Samples.forEach(async(sample)=>{
@@ -107,7 +107,7 @@ const AddFraming = async(req,res)=>{
     })
     res.send({ msg: 'Data Inserted Succesfully !', UUID });
   }catch(err){
-  console.log(err)
+  console.log(err);
   res.status(400).send({ err });
   }
 }else{
@@ -135,16 +135,102 @@ const AddFraming = async(req,res)=>{
    })
    res.send({ msg: 'Data Inserted Succesfully !', UUID:PreLamDetailId });
  }catch(err){
-    console.log(err)
+    console.log(err);
     res.status(400).send({ err });
- }
+ };
+};
+};
+
+
+const UploadFramingPdf = async (req, res) => {
+
+  const { JobCardDetailId } = req.body;
+  if(req.file.size){
+  /** Uploading PDF in S3 Bucket */
+  try {
+    const ReferencePdf = await new Promise((resolve, reject) => {
+      s3.upload({
+        Bucket: process.env.AWS_BUCKET_2,
+        Key: `IPQC/${JobCardDetailId}_${req.file.originalname}`,
+        Body: req.file.buffer,
+        ACL: "public-read-write",
+        ContentType: req.file.mimetype
+      }, (err, result) => {
+        if (err) {
+          reject(err)
+        } else {
+
+          resolve(result)
+        }
+      })
+    });
+
+
+
+    const query = `UPDATE PreLamDetail
+    set PreLamPdf = '${ReferencePdf.Location}'
+   WHERE PreLamDetailId = '${JobCardDetailId}';`;
+
+    const update = await queryAsync(query);
+    res.send({ msg: 'Data Inserted SuccesFully !', URL: ReferencePdf.Location });
+  } catch (err) {
+    console.log(err);
+    res.status(401).send(err);
+  }
+}else{
+  res.status(401).send({status:false,'err':'file is empty'})
 }
 }
 
 
+const GetSpecificFraming = async(req,res)=>{
+  const { JobCardDetailId } = req.body
+
+  try{
+    const query = `SELECT *FROM PreLamDetail PD
+    JOIN Framing F ON PD.PreLamDetailId = F.PreLamDetailId
+    WHERE PD.PreLamDetailId = '${JobCardDetailId}';`;
+  const FramingData = await queryAsync(query);
+   
+  let response = {};
+
+  FramingData.forEach((Framing,i)=>{
+    if(i == 0){
+      response['PreLamDetailId'] = Framing['PreLamDetailId'];
+      response['DocNo'] = Framing['DocNo'];
+      response['RevNo'] = Framing['RevNo'];
+      response['Date'] = Framing['Date'];
+      response['Shift'] = Framing['Shift'];
+      response['Line'] = Framing['Line'];
+      response['PreLamPdf'] = Framing['PreLamPdf'];
+
+    }
+    response[`${Framing['Sample']}FramingObservation`] = Framing['FramingObservation'];
+    response[`${Framing['Sample']}FramingDimension`] = JSON.parse(Framing['FramingDimension']);
+  })
+  res.send({response});
+  }catch(err){
+   console.log(err);
+   res.status(400).send({err});
+  }
+}
 
 
+const UpdateFramingStatus = async(req,res)=>{
+  const { CurrentUser, ApprovalStatus, JobCardDetailId } = req.body;
 
+  try {
+    let query = `UPDATE PreLamDetail PD
+                    set PD.Status = '${ApprovalStatus}',
+                        PD.UpdatedBy ='${CurrentUser}',
+                        PD.UpdatedOn = '${getCurrentDateTime()}'
+                    WHERE PD.PreLamDetailId = '${JobCardDetailId}'`
+    let JobCardDetail = await queryAsync(query)
+    res.send({ ApprovalStatus, JobCardDetail })
+  } catch (err) {
+    console.log(err)
+    res.status(400).send(err)
+  }
+}
 
-
-module.exports = {AddFraming};
+module.exports = {AddFraming,UploadFramingPdf,GetSpecificFraming,UpdateFramingStatus};
