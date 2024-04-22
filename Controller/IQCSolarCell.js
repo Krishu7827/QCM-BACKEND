@@ -400,6 +400,11 @@ const UpdateStatus = async (req, res) => {
       })
     })
 
+    const ExcelQuery = `SELECT id.SolarDetailID,id.LotSize,id.SupplierName,id.InvoiceNo,id.InvoiceDate,id.SupplierRMBatchNo,id.RawMaterialSpecs,id.QualityCheckDate,id.ReceiptDate,id.Status,id.COCPdf,id.InvoicePdf,i.IQCSolarID,i.CheckType,i.SampleSize,i.Samples,r.RejectedID,r.CheckTypes,r.Reason,r.Result,a.Status as ApprovalStatus,a.Reason as ApprovalReason FROM IQCSolarDetails id
+    JOIN IQCSolar i ON id.SolarDetailID = i.SolarDetailID
+    JOIN Rejected r ON id.SolarDetailID = r.SolarDetailID
+    JOIN ApprovalStatus a on id.SolarDetailID = a.SolarDetailID
+    WHERE id.SolarDetailID = '${SolarDetailID}';`
     res.send({ ApprovalStatus, SolarCellDetailTable })
   } catch (err) {
     console.log(err)
