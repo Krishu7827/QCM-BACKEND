@@ -340,8 +340,7 @@ ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
           }
         }
         JobCardList.push(BOM);
-      })
-
+      });
 
       /** Sort the array by the "CreatedOn" property in descending order */
       JobCardList.sort((a, b) => {
@@ -349,7 +348,64 @@ ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
         const dateB = parseDate(b.UpdatedOn);
         return dateB - dateA; /** Compare dates in descending order */
       });
-      res.send({ status: true, data: JobCardList })
+      res.send({ status: true, data: JobCardList });
+
+    }else{
+
+      BomList.forEach((BOM) => {
+        for (let key in BOM) {
+          if (key == 'BOMDetailId') {
+            BOM['JobCardDetailID'] = BOM[key]
+            delete BOM[key]
+          } else if (key == 'PONo') {
+            BOM['ModuleNo'] = BOM[key]
+            delete BOM[key]
+          }
+        }
+        JobCardList.push(BOM)
+      })
+
+      PreLamList.forEach((BOM) => {
+        for (let key in BOM) {
+
+
+          if (BOM['Type'] == 'PreLam' || BOM['Type'] == 'PostLam') {
+            if (key == 'PreLamDetailId') {
+              BOM['JobCardDetailID'] = BOM[key]
+              delete BOM[key]
+            } else if (key == 'PONo') {
+              BOM['ModuleNo'] = BOM[key]
+              delete BOM[key]
+            } else if (key == 'PreLamPdf') {
+              BOM['ReferencePdf'] = BOM[key]
+              delete BOM[key]
+            }
+            delete BOM['Line'];
+          } else if (BOM['Type'] == 'Framing Dimension') {
+            if (key == 'PreLamDetailId') {
+              BOM['JobCardDetailID'] = BOM[key]
+              delete BOM[key]
+            } else if (key == 'Line') {
+              BOM['ModuleNo'] = BOM[key]
+              delete BOM[key]
+            } else if (key == 'PreLamPdf') {
+              BOM['ReferencePdf'] = BOM[key]
+              delete BOM[key]
+            }
+          }
+        }
+        JobCardList.push(BOM);
+      })
+
+
+      /** Sort the array by the "CreatedOn" property in descending order */
+      JobCardList.sort((a, b) => {
+        const dateA = parseDate(a.CreatedOn);
+        const dateB = parseDate(b.CreatedOn);
+        return dateB - dateA; /** Compare dates in descending order */
+      });
+
+      res.send({ status: true, data: JobCardList });
     }
   } catch (err) {
     console.log(err)
