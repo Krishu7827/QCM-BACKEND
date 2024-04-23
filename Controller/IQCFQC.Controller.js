@@ -214,8 +214,7 @@ const GetSpecificFQC = async(req,res)=>{
 }
 
 const FQCUpdateStatus = async(req,res)=>{
-    const {Testid:FQCDetailId,ApprovalStatus:Status,PersonID,RejectionReasonStatus:Reason} = req.body;
-
+    const {TestId:FQCDetailId,ApprovalStatus:Status,PersonID,RejectionReasonStatus:Reason} = req.body;
     try{
      const query = `UPDATE FQCDetails
                     SET
@@ -224,7 +223,7 @@ const FQCUpdateStatus = async(req,res)=>{
                        UpdatedOn = '${getCurrentDateTime()}',
                        ApprovalStatusReason = '${Reason}'
                     WHERE FQCDetailId = '${FQCDetailId}';`;
-    
+     
     const FQCApproveStatus = await queryAsync(query);
     res.send({FQCApproveStatus})
     }catch(err){
