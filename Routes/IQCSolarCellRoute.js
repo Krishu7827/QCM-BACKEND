@@ -18,7 +18,7 @@ IQCSolarCellRoute.post('/UploadFQCPdf',FQCUpload.single('FQCPdf'),UploadFQCPdf)
 IQCSolarCellRoute.post('/AddFQC',AddFQC);
 
 /** Middleware To Role Authentication  */
-//IQCSolarCellRoute.use(RoleAuthentication)
+IQCSolarCellRoute.use(RoleAuthentication)
 
 /** to Get All tests with checked Person*/
 IQCSolarCellRoute.post('/GetIQCTests',GetIQCSolarCellTests)

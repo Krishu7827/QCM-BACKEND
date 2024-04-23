@@ -205,7 +205,7 @@ const GetSpecificFraming = async(req,res)=>{
       response['PreLamPdf'] = Framing['PreLamPdf'];
 
     }
-    response[`Sample`] = Framing['Sample']
+    response[`Sample${i+1}`] = Framing['Sample'];
     response[`${i+1}FramingObservation`] = Framing['FramingObservation'];
     response[`${i+1}FramingDimension`] = JSON.parse(Framing['FramingDimension']);
   })
