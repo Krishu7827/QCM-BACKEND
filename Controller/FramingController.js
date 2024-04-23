@@ -126,6 +126,7 @@ const AddFraming = async(req,res)=>{
    Samples.forEach(async(sample)=>{
     const query = `UPDATE Framing
                    SET
+                     Sample = '${sample['Sample']}',
                      FramingObservation = '${sample['FramingObservation']}',
                      FramingDimension = '${JSON.stringify(sample['FramingDimension'])}'
                    WHERE PreLamDetailId = '${PreLamDetailId}' AND Stage = '${sample['Stage']}';
