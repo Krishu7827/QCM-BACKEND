@@ -271,7 +271,7 @@ ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
               delete BOM[key]
             }
             delete BOM['Line'];
-          } else if (BOM['Type'] == 'Framing Dimension') {
+          } else if (BOM['Type'] == 'Framing') {
             if (key == 'PreLamDetailId') {
               BOM['JobCardDetailID'] = BOM[key]
               delete BOM[key]
@@ -326,7 +326,7 @@ ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
               delete BOM[key]
             }
             delete BOM['Line'];
-          } else if (BOM['Type'] == 'Framing Dimension') {
+          } else if (BOM['Type'] == 'Framing') {
             if (key == 'PreLamDetailId') {
               BOM['JobCardDetailID'] = BOM[key]
               delete BOM[key]
