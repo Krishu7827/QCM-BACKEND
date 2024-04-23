@@ -101,8 +101,8 @@ const AddFraming = async(req,res)=>{
     await queryAsync(PreLamDetailQuery);
 
     Samples.forEach(async(sample)=>{
-        const query = `INSERT INTO Framing(FramingId,PreLamDetailId,Sample,FramingObservation,FramingDimension)
-                           VALUES('${v4()}','${UUID}','${sample['Sample']}','${sample['FramingObservation']}','${JSON.stringify(sample['FramingDimension'])}');`;
+        const query = `INSERT INTO Framing(FramingId,PreLamDetailId,Stage,Sample,FramingObservation,FramingDimension)
+                           VALUES('${v4()}','${UUID}','${sample['Stage']}','${sample['Sample']}','${sample['FramingObservation']}','${JSON.stringify(sample['FramingDimension'])}');`;
        await queryAsync(query);
     })
     res.send({ msg: 'Data Inserted Succesfully !', UUID });
@@ -128,7 +128,7 @@ const AddFraming = async(req,res)=>{
                    SET
                      FramingObservation = '${sample['FramingObservation']}',
                      FramingDimension = '${JSON.stringify(sample['FramingDimension'])}'
-                   WHERE PreLamDetailId = '${PreLamDetailId}' AND Sample = '${sample['Sample']}';
+                   WHERE PreLamDetailId = '${PreLamDetailId}' AND Stage = '${sample['Stage']}';
                      `;
     await queryAsync(query);
 
@@ -203,7 +203,7 @@ const GetSpecificFraming = async(req,res)=>{
       response['Shift'] = Framing['Shift'];
       response['ModuleId'] = Framing['Line'];
       response['PreLamPdf'] = Framing['PreLamPdf'];
-
+      response['Status'] = Framing['Status']
     }
     response[`Sample${i+1}`] = Framing['Sample'];
     response[`${i+1}FramingObservation`] = Framing['FramingObservation'];
