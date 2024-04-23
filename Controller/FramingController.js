@@ -97,7 +97,7 @@ const AddFraming = async(req,res)=>{
   if(!PreLamDetailId){
   try{
     const PreLamDetailQuery = `INSERT INTO PreLamDetail(PreLamDetailId,Type,DocNo,RevNo,Date,Shift,Line,Status,CheckedBy,CreatedOn)
-                                    VALUES('${UUID}','Framing Dimension','${DocNo}','${RevNo}','${Date}','${Shift}','${Line}','${Status}','${CurrentUser}','${getCurrentDateTime()}');`;
+                                    VALUES('${UUID}','Framing','${DocNo}','${RevNo}','${Date}','${Shift}','${Line}','${Status}','${CurrentUser}','${getCurrentDateTime()}');`;
     await queryAsync(PreLamDetailQuery);
 
     Samples.forEach(async(sample)=>{
@@ -201,12 +201,13 @@ const GetSpecificFraming = async(req,res)=>{
       response['RevNo'] = Framing['RevNo'];
       response['Date'] = Framing['Date'];
       response['Shift'] = Framing['Shift'];
-      response['Line'] = Framing['Line'];
+      response['ModuleId'] = Framing['Line'];
       response['PreLamPdf'] = Framing['PreLamPdf'];
 
     }
-    response[`${Framing['Sample']}FramingObservation`] = Framing['FramingObservation'];
-    response[`${Framing['Sample']}FramingDimension`] = JSON.parse(Framing['FramingDimension']);
+    response[`Sample`] = Framing['Sample']
+    response[`${i+1}FramingObservation`] = Framing['FramingObservation'];
+    response[`${i+1}FramingDimension`] = JSON.parse(Framing['FramingDimension']);
   })
   res.send({response});
   }catch(err){

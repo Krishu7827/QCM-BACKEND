@@ -295,7 +295,7 @@ async function ExcelGenerate(IQC,ApproveData){
   
   Column = 'F'
   worksheet.mergeCells(`${Column}${Row}:${Column}${Row+1}`);
-  worksheet.getCell(`${Column}${Row}`).value = 'Reviewed By';
+  worksheet.getCell(`${Column}${Row}`).value = `${IQC[0]['Status']} By`;
   worksheet.getCell(`${Column}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10, bold:true } };
   worksheet.getCell(`${Column}${Row}`).border = Border;
   worksheet.getCell(`${Column}${Row+1}`).border = Border;
@@ -378,32 +378,24 @@ async function ExcelGenerate(IQC,ApproveData){
       await transport.sendMail({
         from: 'bhanu.galo@gmail.com',
         cc: 'bhanu.galo@gmail.com',
-        to: 'krishukumar7827@gmail.com',
-        subject: 'Enrollment in Gautam Solar Private Limited',
+        to: 'nidhi@gautamsolar.com',
+        subject: `IQC Report: Invoice No. ${IQC[0]['InvoiceNo']} - ${IQC[0]['MaterialName']}`,
         attachments:[{
-          filename:'quality_control_plan_junction_box.xlsx',
+          filename:`quality_control_plan_${IQC[0]['MaterialName']}_${IQC[0]['InvoiceNo']}.xlsx`,
           content:excelBuffer,
           contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         }],
         html: `<div style="position: relative; padding: 5px;">
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://galo.co.in/wp-content/uploads/2024/01/Galo-Energy-Logo-06.png'); background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0.3; z-index: -1;"></div>
         <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px;">
-          <h3 style="color: #2f4f4f;">Welcome to Gautam Solar Private Limited!</h3>
-          <p style="font-size: 16px;">Dear Admin,</p>      
-          <p style="font-size: 16px; margin-bottom: 0px;">Congratulations, ${''} is now officially enrolled in ${''} department.</p>      
-          <p style="font-size: 16px;">Below are your enrollment details:</p>
-          <ul style="font-size: 16px;">
-            <li><strong>Login ID:</strong> ${''}</li>
-            <li><strong>Password:</strong> ${''}</li>
-          </ul>
-          <p style="font-size: 16px; margin-bottom: 0px;">Please keep his Employee ID and Password confidential for security reasons.</p>        
-          <p style="font-size: 16px; margin-bottom: 0px;">If you have any questions or need assistance, feel free to contact us at <a href="mailto:quality@gautamsolar.com" style="color: #007bff;">quality@gautamsolar.com</a>.</p>
-          <p style="font-size: 16px;">We look forward to working with you!</p>
-          <br>
-          <p style="font-size: 16px;"><em>Sincerely,</em></p>
-          <p style="font-size: 16px;"><strong>Gautam Solar QCM Team</strong></p>
+            <p style="font-size: 16px;">Dear Super Admin,</p>
+            <p style="font-size: 16px; margin-bottom: 0;">Invoice No: ${IQC[0]['InvoiceNo']} of ${IQC[0]['MaterialName']} has been ${IQC[0]['Status']} by ${ApproveData[0]['Name']}.</p>
+            <p style="font-size: 16px;">Please find the attached Excel report for more details.</p>
+            <br>
+            <p style="font-size: 16px;"><em>Best regards,</em></p>
+            <p style="font-size: 16px;"><strong>Gautam Solar QCM Team</strong></p>
         </div>
-      </div>`
+    </div>`
       })
   
     }

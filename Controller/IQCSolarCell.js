@@ -380,25 +380,25 @@ const UpdateStatus = async (req, res) => {
        id.UpdatedDate = '${getCurrentDateTime()}'
   WHERE SolarDetailID = '${SolarDetailID}';`;
   try {
-    const ApprovalStatus = await new Promise((resolve, rejects) => {
-      dbConn.query(ApprovalQuery, (err, result) => {
-        if (err) {
-          rejects(err)
-        } else {
-          resolve(result)
-        }
-      })
-    })
+    // const ApprovalStatus = await new Promise((resolve, rejects) => {
+    //   dbConn.query(ApprovalQuery, (err, result) => {
+    //     if (err) {
+    //       rejects(err)
+    //     } else {
+    //       resolve(result)
+    //     }
+    //   })
+    // })
 
-    const SolarCellDetailTable = await new Promise((resolve, rejects) => {
-      dbConn.query(UpdateQuery, (err, result) => {
-        if (err) {
-          rejects(err)
-        } else {
-          resolve(result)
-        }
-      })
-    })
+    // const SolarCellDetailTable = await new Promise((resolve, rejects) => {
+    //   dbConn.query(UpdateQuery, (err, result) => {
+    //     if (err) {
+    //       rejects(err)
+    //     } else {
+    //       resolve(result)
+    //     }
+    //   })
+    // })
 
     const ExcelQuery = `SELECT id.SolarDetailID,id.MaterialName,id.DocumentNo,id.RevisionNo,id.LotSize,id.SupplierName,id.InvoiceNo,id.InvoiceDate,id.SupplierRMBatchNo,id.RawMaterialSpecs,id.QualityCheckDate,id.ReceiptDate,id.Status,id.COCPdf,id.InvoicePdf,i.IQCSolarID,i.CheckType,i.Characterstics,i.MeasuringMethod,i.Sampling,i.Reference,i.AcceptanceCriteria,i.SampleSize,i.Samples,r.RejectedID,r.CheckTypes,r.Reason,r.Result,id.CheckedBy,id.UpdatedBy, p.Name, a.Reason as ApproveReason  FROM IQCSolarDetails id
     JOIN IQCSolar i ON id.SolarDetailID = i.SolarDetailID
