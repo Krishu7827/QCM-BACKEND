@@ -362,6 +362,7 @@ ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
             delete BOM[key]
           }
         }
+        
         JobCardList.push(BOM)
       })
 
