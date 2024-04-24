@@ -3,6 +3,7 @@ const express = require('express')
 const {PersonRouter} = require('./Routes/Person.Route')
 const {designationRouter} = require('./Routes/DesignationRoute')
 const {IQCSolarCellRoute} = require('./Routes/IQCSolarCellRoute')
+const path = require('path')
 const {IPQC} = require('./Routes/IPQCRoute')
 const app = express()
 const cors = require('cors')
@@ -573,8 +574,9 @@ app.use('/IPQC',IPQC);
 
 //ExcelGenerate()
 
-app.get("/",(req,res)=>{
-  res.send({msg:"Welcome in Backend"});
+app.get("/getFile",(req,res)=>{
+  const pathfile = path.join(__dirname,'check.png');
+  res.download(pathfile);
 });
 app.listen(PORT,async()=>{
   try{
