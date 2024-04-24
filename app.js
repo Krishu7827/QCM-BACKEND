@@ -1,5 +1,5 @@
 const express = require('express')
-const {dbConn} = require('./db.config/db.config')
+//const {dbConn} = require('./db.config/db.config')
 const {PersonRouter} = require('./Routes/Person.Route')
 const {designationRouter} = require('./Routes/DesignationRoute')
 const {IQCSolarCellRoute} = require('./Routes/IQCSolarCellRoute')
@@ -580,7 +580,7 @@ app.listen(PORT,async()=>{
   try{
     console.log('server is running')
     console.log('Database is connecting....')
-    //  dbConn
+    //dbConn
   }catch(err){
 console.log(err)
   }
