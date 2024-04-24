@@ -573,6 +573,9 @@ app.use('/IPQC',IPQC);
 
 //ExcelGenerate()
 
+app.get("/",(req,res)=>{
+  res.send({msg:"Welcome in Backend"});
+});
 app.listen(PORT,async()=>{
   try{
     console.log('server is running')
