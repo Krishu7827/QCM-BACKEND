@@ -23,7 +23,7 @@ SET NAMES 'utf8';
 --
 -- Set default database
 --
-USE QCDev;
+USE qcmproduction;
 
 --
 -- Drop table `ApprovalStatus`
@@ -33,7 +33,7 @@ DROP TABLE IF EXISTS ApprovalStatus;
 --
 -- Drop procedure `spAddSolarCell`
 --
-DROP PROCEDURE IF EXISTS spAddSolarCell;
+-- DROP PROCEDURE IF EXISTS spAddSolarCell;
 
 --
 -- Drop table `IQCSolar`
@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS WorkLocation;
 --
 -- Set default database
 --
-USE QCDev;
+USE qcmproduction;
 
 --
 -- Create table `WorkLocation`
@@ -185,35 +185,35 @@ REFERENCES WorkLocation (LocationID);
 
 DELIMITER $$
 
---
--- Create procedure `PersonRegister`
---
-CREATE
-DEFINER = 'admin'@'%'
-PROCEDURE PersonRegister (pPersonid varchar(155),
-pEmployeeId varchar(55),
-pName varchar(55),
-pLoginID varchar(55),
-pPassword varchar(55),
-pWorkLocation varchar(55),
-pEmail varchar(55),
-pDepartment varchar(55),
-pProfileImg varchar(155),
-pDesignation varchar(55))
-BEGIN
-  DECLARE vPersonID varchar(155);
-  SET vPersonID = UUID();
+-- --
+-- -- Create procedure `PersonRegister`
+-- --
+-- CREATE
+-- DEFINER = 'admin'@'%'
+-- PROCEDURE PersonRegister (pPersonid varchar(155),
+-- pEmployeeId varchar(55),
+-- pName varchar(55),
+-- pLoginID varchar(55),
+-- pPassword varchar(55),
+-- pWorkLocation varchar(55),
+-- pEmail varchar(55),
+-- pDepartment varchar(55),
+-- pProfileImg varchar(155),
+-- pDesignation varchar(55))
+-- BEGIN
+--   DECLARE vPersonID varchar(155);
+--   SET vPersonID = UUID();
 
-  INSERT INTO Person (PersonID, EmployeeID, Name, LoginID, Password, WorkLocation, Email, Department, ProfileImg, Desgination)
-    VALUES (vPersonID, pEmployeeId, pName, pLoginID, pPassword, pWorkLocation, pEmail, pDepartment, pProfileImg, pDesignation);
+--   INSERT INTO Person (PersonID, EmployeeID, Name, LoginID, Password, WorkLocation, Email, Department, ProfileImg, Desgination)
+--     VALUES (vPersonID, pEmployeeId, pName, pLoginID, pPassword, pWorkLocation, pEmail, pDepartment, pProfileImg, pDesignation);
 
 
-  SELECT
-    vPersonID;
-END
-$$
+--   SELECT
+--     vPersonID;
+-- END
+-- $$
 
-DELIMITER ;
+-- DELIMITER ;
 
 --
 -- Create table `IQCSolarDetails`
@@ -328,41 +328,41 @@ REFERENCES IQCSolarDetails (SolarDetailID);
 
 DELIMITER $$
 
---
--- Create procedure `spAddSolarCell`
---
-CREATE
-DEFINER = 'admin'@'%'
-PROCEDURE spAddSolarCell (pLotSize int, pSupplierName varchar(55), pQuantityRecd varchar(155), pInvoiceDate varchar(55), pRMDetails varchar(255),
-pQualityCheckDate varchar(55), pSampleQuantityCheck varchar(55), pInvoiceNo varchar(55), pRecieptDate varchar(55),
-pDocumentNo varchar(55), pRevisionNo varchar(155), pCheckedBy varchar(155), pCheckType varchar(255),
-pCharterstics varchar(255), pMeasuringMethod varchar(255), pSampling varchar(255), pReference varchar(155),
-pAcceptanceCriteria varchar(255), pSamples varchar(255), pRejectionReason varchar(255))
-BEGIN
-  DECLARE vSolarDetailID varchar(155);
-  DECLARE vDate date;
-  DECLARE vRejectionReason varchar(255);
+-- --
+-- -- Create procedure `spAddSolarCell`
+-- --
+-- CREATE
+-- DEFINER = 'admin'@'%'
+-- PROCEDURE spAddSolarCell (pLotSize int, pSupplierName varchar(55), pQuantityRecd varchar(155), pInvoiceDate varchar(55), pRMDetails varchar(255),
+-- pQualityCheckDate varchar(55), pSampleQuantityCheck varchar(55), pInvoiceNo varchar(55), pRecieptDate varchar(55),
+-- pDocumentNo varchar(55), pRevisionNo varchar(155), pCheckedBy varchar(155), pCheckType varchar(255),
+-- pCharterstics varchar(255), pMeasuringMethod varchar(255), pSampling varchar(255), pReference varchar(155),
+-- pAcceptanceCriteria varchar(255), pSamples varchar(255), pRejectionReason varchar(255))
+-- BEGIN
+--   DECLARE vSolarDetailID varchar(155);
+--   DECLARE vDate date;
+--   DECLARE vRejectionReason varchar(255);
 
-  SET vSolarDetailID = UUID();
-  SET vDate = CURDATE();
-  SET vRejectionReason = pRejectionReason;
+--   SET vSolarDetailID = UUID();
+--   SET vDate = CURDATE();
+--   SET vRejectionReason = pRejectionReason;
 
-  -- inserting Values into IQCSolarDetails Table
-  INSERT INTO IQCSolarDetails (SolarDetailID, LotSize, SupplierName, QuantityRecd, InvoiceDate, RMDetails, QualityCheckDate, SampleQuantityCheck, InvoiceNo, ReceiptDate, DocumentNo, RevisionNo, CheckedBy, CreatedDate)
-    VALUES (vSolarDetailID, pLotSize, pSupplierName, pQuantityRecd, pInvoiceDate, pRMDetails, pQualityCheckDate, pSampleQuantityCheck, pInvoiceNo, pRecieptDate, pDocumentNo, pRevisionNo, pCheckedBy, vDate);
+--   -- inserting Values into IQCSolarDetails Table
+--   INSERT INTO IQCSolarDetails (SolarDetailID, LotSize, SupplierName, QuantityRecd, InvoiceDate, RMDetails, QualityCheckDate, SampleQuantityCheck, InvoiceNo, ReceiptDate, DocumentNo, RevisionNo, CheckedBy, CreatedDate)
+--     VALUES (vSolarDetailID, pLotSize, pSupplierName, pQuantityRecd, pInvoiceDate, pRMDetails, pQualityCheckDate, pSampleQuantityCheck, pInvoiceNo, pRecieptDate, pDocumentNo, pRevisionNo, pCheckedBy, vDate);
 
-  -- inserting Values into IQCSolar Table
-  INSERT INTO IQCSolar (IQCSolarID, SolarDetailID, CheckType, Characterstics, MeasuringMethod, Sampling, Reference, AcceptanceCriteria, Samples, CreatedDate)
-    VALUES (UUID(), vSolarDetailID, pCheckType, pCharterstics, pMeasuringMethod, pSampling, pReference, pAcceptanceCriteria, pSamples, vDate);
+--   -- inserting Values into IQCSolar Table
+--   INSERT INTO IQCSolar (IQCSolarID, SolarDetailID, CheckType, Characterstics, MeasuringMethod, Sampling, Reference, AcceptanceCriteria, Samples, CreatedDate)
+--     VALUES (UUID(), vSolarDetailID, pCheckType, pCharterstics, pMeasuringMethod, pSampling, pReference, pAcceptanceCriteria, pSamples, vDate);
 
-  -- inserting Values into Rejected Table
-  INSERT INTO Rejected (RejectedID, SolarDetailID, RejectionReason, CreatedDate)
-    VALUES (UUID(), vSolarDetailID, vRejectionReason, vDate);
+--   -- inserting Values into Rejected Table
+--   INSERT INTO Rejected (RejectedID, SolarDetailID, RejectionReason, CreatedDate)
+--     VALUES (UUID(), vSolarDetailID, vRejectionReason, vDate);
 
-END
-$$
+-- END
+-- $$
 
-DELIMITER ;
+-- DELIMITER ;
 
 --
 -- Create table `ApprovalStatus`
@@ -452,7 +452,7 @@ INSERT INTO IQCSolar VALUES
 ('d43a4ca2-ebfb-435b-86d9-95c0f048b75f', 'cbabe3cd-3329-4582-8d9d-042e1825fb14', 'Electrical', 'LID(Light Inducted Degradation)/Preconditioning', 'Sunsimulator', 'One Module per supplier(each month)', 'GSPL Technical Specification', 'COC', '[{"ElectricalSampleBarcode1":"123456789104","ElectricalSampleTest1":"true","ElectricalSampleRemarks1":""}]', '29-03-2024 10:57:53', ''),
 ('c7c0948b-5ec5-45fe-8f4d-7e2da6514e81', 'cbabe3cd-3329-4582-8d9d-042e1825fb14', 'Performance', 'Soidering Peel Test', 'Peel Tester', '5 Cell/Lot', 'GSPL Technical Specification', '1 N to 2N-Cell Frontside 1N to 4N Cell Back side', '[{"PerformanceSampleBarcode1":"https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html","PerformanceSampleTest1":"true","PerformanceSampleRemarks1":""},{"PerformanceSampleBarcode2":"123456789104","PerformanceSampleTest2":"true","PerformanceSampleRemarks2":""},{"PerformanceSampleBarcode3":"123456789104","PerformanceSampleTest3":"true","PerformanceSampleRemarks3":""},{"PerformanceSampleBarcode4":"123456789104","PerformanceSampleTest4":"true","PerformanceSampleRemarks4":""},{"PerformanceSampleBarcode5":"123456789104","PerformanceSampleTest5":"true","PerformanceSampleRemarks5":""}]', '29-03-2024 10:57:54', '');
 
--- Table QCDev.ApprovalStatus does not contain any data (it is empty)
+-- Table qcmproduction.ApprovalStatus does not contain any data (it is empty)
 
 --
 -- Restore previous SQL mode
