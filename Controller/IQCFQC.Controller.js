@@ -163,34 +163,42 @@ const GetFQCList = async (req, res) => {
 const UploadFQCPdf = async(req,res)=>{
 const {FQCDetailId} = req.body;
 
-try {
-    const Invoice = await new Promise((resolve, reject) => {
-      s3.upload({
-        Bucket: process.env.AWS_BUCKET_2,
-        Key: `IQC/${FQCDetailId}_${req.file.originalname}`,
-        Body: req.file.buffer,
-        ACL: "public-read-write",
-        ContentType: req.file.mimetype
-      }, (err, result) => {
-        if (err) {
-          reject(err)
-        } else {
-
-          resolve(result)
-        }
-      })
-    })
-
+if(req.file.size){
+    /** making file in IPQC-Pdf-Folder*/
+    try {
+       // Get the file buffer and the file format
+       const fileBuffer = req.file.buffer;
+      
+       // Define the folder path
+       const folderPath = Path.join('IQC-Pdf-Folder');
+  
+       // Create the folder if it doesn't exist
+       if (!fs.existsSync(folderPath)) {
+        console.log(folderPath)
+           fs.mkdirSync(folderPath, { recursive: true });
+       }
+       
+       // Define the file path, including the desired file name and format
+       const fileName = `${FQCDetailId}.pdf`;
+       const filePath = Path.join(folderPath, fileName);
+  
+       // Save the file buffer to the specified file path
+    fs.writeFileSync(filePath, fileBuffer);
     const query = `UPDATE FQCDetails FD
-                  set FD.Pdf = '${Invoice.Location}'
-                 WHERE FD.FQCDetailId = '${FQCDetailId}';`;
-
-    let data = await queryAsync(query)
-    res.send({msg:'Data Inserted SuccesFully !',data})
-  } catch (err) {
-    console.log(err);
-    res.status(401).send(err);
+                  set FD.Pdf = 'http://srv515471.hstgr.cloud:8080/IQC/Pdf/${fileName}'
+                    WHERE FD.FQCDetailId = '${FQCDetailId}';`;
+  const update = await queryAsync(query);
+  
+  
+  res.send({ msg: 'Data inserted successfully!', URL: `http://srv515471.hstgr.cloud:8080/IQC/Pdf/${fileName}` });
+    } catch (err) {
+      console.log(err);
+      res.status(401).send(err);
+    }
+  }else{
+    res.status(401).send({status:false,'err':'file is empty'})
   }
+
 }
 
 const GetSpecificFQC = async(req,res)=>{

@@ -1,6 +1,8 @@
 const { v4: uuidv4, v4 } = require('uuid');
 const { getCurrentDateTime, s3 } = require('../Utilis/IPQCJobCardUtilis')
 const util = require('util')
+const fs = require('fs');
+const Path = require('path')
 const { dbConn } = require('../db.config/db.config');
 
 
@@ -418,38 +420,43 @@ ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 }
 
 const UploadPdf = async (req, res) => {
+ const {JobCardDetailId} = req.body;
 
-  const { JobCardDetailId } = req.body;
-  /** Uploading PDF in S3 Bucket */
-  try {
-    const ReferencePdf = await new Promise((resolve, reject) => {
-      s3.upload({
-        Bucket: process.env.AWS_BUCKET_2,
-        Key: `IPQC/${JobCardDetailId}_${req.file.originalname}`,
-        Body: req.file.buffer,
-        ACL: "public-read-write",
-        ContentType: req.file.mimetype
-      }, (err, result) => {
-        if (err) {
-          reject(err)
-        } else {
+  if(req.file.size){
+    /** making file in IPQC-Pdf-Folder*/
+    try {
+       // Get the file buffer and the file format
+       const fileBuffer = req.file.buffer;
 
-          resolve(result)
-        }
-      })
-    });
-
-
+       // Define the folder path
+       const folderPath = Path.join( 'IPQC-Pdf-Folder');
+  
+       // Create the folder if it doesn't exist
+       if (!fs.existsSync(folderPath)) {
+        console.log(folderPath)
+           fs.mkdirSync(folderPath, { recursive: true });
+       }
+       
+       // Define the file path, including the desired file name and format
+       const fileName = `${JobCardDetailId}.pdf`;
+       const filePath = Path.join(folderPath, fileName);
+  
+       // Save the file buffer to the specified file path
+    fs.writeFileSync(filePath, fileBuffer);
 
     const query = `UPDATE JobCardDetails jcd
-    set jcd.ReferencePdf = '${ReferencePdf.Location}'
-   WHERE jcd.JobCardDetailID = '${JobCardDetailId}';`;
-
-    const update = await queryAsync(query);
-    res.send({ msg: 'Data Inserted SuccesFully !', URL: ReferencePdf.Location });
-  } catch (err) {
-    console.log(err);
-    res.status(401).send(err);
+set jcd.ReferencePdf = 'http://srv502293.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf'
+WHERE jcd.JobCardDetailID = '${JobCardDetailId}';`;
+  const update = await queryAsync(query);
+  
+  // Send success response with the file URL
+  res.send({ msg: 'Data inserted successfully!', URL: `http://srv502293.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf` });
+    } catch (err) {
+      console.log(err);
+      res.status(401).send(err);
+    }
+  }else{
+    res.status(401).send({status:false,'err':'file is empty'})
   }
 }
 

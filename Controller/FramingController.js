@@ -151,7 +151,6 @@ const UploadFramingPdf = async (req, res) => {
   const { JobCardDetailId } = req.body;
   if(req.file.size){
   /** making file in IPQC-Pdf-Folder*/
-  // req.file.buffer  req.body.FileFormat
   try {
      // Get the file buffer and the file format
      const fileBuffer = req.file.buffer;
@@ -166,17 +165,16 @@ const UploadFramingPdf = async (req, res) => {
       console.log(folderPath)
          fs.mkdirSync(folderPath, { recursive: true });
      }
-console.log(folderPath);
      // Define the file path, including the desired file name and format
      const fileName = `${JobCardDetailId}.pdf`;
      const filePath = Path.join(folderPath, fileName);
 
      // Save the file buffer to the specified file path
   fs.writeFileSync(filePath, fileBuffer);
-//      const query = `UPDATE PreLamDetail
-//      SET PreLamPdf = 'http://localhost:8080/IPQC/Pdf/${JobCardDetailId}.pdf'
-//      WHERE PreLamDetailId = '${JobCardDetailId}';`;
-// const update = await queryAsync(query);
+     const query = `UPDATE PreLamDetail
+     SET PreLamPdf = 'http://srv502293.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf'
+     WHERE PreLamDetailId = '${JobCardDetailId}';`;
+const update = await queryAsync(query);
 
 // Send success response with the file URL
 res.send({ msg: 'Data inserted successfully!', URL: `http://srv502293.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf` });
@@ -197,8 +195,8 @@ const GetPdf = async(req,res)=>{
 
    // Construct the full file path to the requested file
    const filePath = Path.join(pdfFolderPath, filename);
+
    // Send the file to the client
-   
    res.sendFile(filePath, (err) => {
        if (err) {
            console.error('Error sending file:', err);
