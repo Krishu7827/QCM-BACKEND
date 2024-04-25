@@ -179,7 +179,7 @@ console.log(folderPath);
 // const update = await queryAsync(query);
 
 // Send success response with the file URL
-res.send({ msg: 'Data inserted successfully!', URL: `http://localhost:8080/IPQC/Pdf/${JobCardDetailId}.pdf` });
+res.send({ msg: 'Data inserted successfully!', URL: `http://srv502293.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf` });
   } catch (err) {
     console.log(err);
     res.status(401).send(err);
