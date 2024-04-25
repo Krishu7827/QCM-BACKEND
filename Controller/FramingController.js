@@ -198,6 +198,7 @@ const GetPdf = async(req,res)=>{
    // Construct the full file path to the requested file
    const filePath = Path.join(pdfFolderPath, filename);
    // Send the file to the client
+   
    res.sendFile(filePath, (err) => {
        if (err) {
            console.error('Error sending file:', err);
