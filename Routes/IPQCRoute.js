@@ -2,7 +2,7 @@ const express = require('express');
 const {AddIPQCJobCard,JobCardList,UploadPdf,GetSpecificJobCard,UpdateJobCardStatus} = require('../Controller/IPQCJobCard');
 const {AddBomVerification,BOMUploadPdf,GetSpecificBOMVerification, UpdateStatusBOM} = require('../Controller/BOMVerification');
 const {AddPreLam,PreLamUploadPdf,GetSpecificPreLam,UpdatePreLamStatus} = require('../Controller/PreLamController');
-const {AddFraming,UploadFramingPdf,GetSpecificFraming,UpdateFramingStatus} = require("../Controller/FramingController");
+const {AddFraming,UploadFramingPdf,GetSpecificFraming,UpdateFramingStatus,GetPdf} = require("../Controller/FramingController");
 const {RoleAuthentication,upload} = require('../Middleware/IPQC.Middleware');
 const IPQC = express.Router();
 
@@ -33,6 +33,9 @@ IPQC.post("/AddPreLam",AddPreLam);
 
 /** Router To Add Framing Detail */
 IPQC.post('/AddFraming',AddFraming);
+
+/**Router to Get Pdf */
+IPQC.get('/Pdf/:filename',GetPdf);
 
 /** Middleware to check Role Authentication */
 IPQC.use(RoleAuthentication);

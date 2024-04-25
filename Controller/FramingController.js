@@ -1,5 +1,8 @@
 const { v4: uuidv4, v4 } = require('uuid');
 const { getCurrentDateTime, s3 } = require('../Utilis/PreLamUtilis');
+const fs = require('fs');
+const Path = require('path')
+
 const util = require('util');
 const { dbConn } = require('../db.config/db.config');
 
@@ -147,33 +150,36 @@ const UploadFramingPdf = async (req, res) => {
 
   const { JobCardDetailId } = req.body;
   if(req.file.size){
-  /** Uploading PDF in S3 Bucket */
+  /** making file in IPQC-Pdf-Folder*/
+  // req.file.buffer  req.body.FileFormat
   try {
-    const ReferencePdf = await new Promise((resolve, reject) => {
-      s3.upload({
-        Bucket: process.env.AWS_BUCKET_2,
-        Key: `IPQC/${JobCardDetailId}_${req.file.originalname}`,
-        Body: req.file.buffer,
-        ACL: "public-read-write",
-        ContentType: req.file.mimetype
-      }, (err, result) => {
-        if (err) {
-          reject(err)
-        } else {
+     // Get the file buffer and the file format
+     const fileBuffer = req.file.buffer;
+     const fileFormat = req.file;
+     console.log(fileFormat)
+  console.log(fileBuffer)
+     // Define the folder path
+     const folderPath = Path.join( 'IPQC-Pdf-Folder');
 
-          resolve(result)
-        }
-      })
-    });
+     // Create the folder if it doesn't exist
+     if (!fs.existsSync(folderPath)) {
+      console.log(folderPath)
+         fs.mkdirSync(folderPath, { recursive: true });
+     }
+console.log(folderPath);
+     // Define the file path, including the desired file name and format
+     const fileName = `${JobCardDetailId}.pdf`;
+     const filePath = Path.join(folderPath, fileName);
 
+     // Save the file buffer to the specified file path
+  fs.writeFileSync(filePath, fileBuffer);
+//      const query = `UPDATE PreLamDetail
+//      SET PreLamPdf = 'http://localhost:8080/IPQC/Pdf/${JobCardDetailId}.pdf'
+//      WHERE PreLamDetailId = '${JobCardDetailId}';`;
+// const update = await queryAsync(query);
 
-
-    const query = `UPDATE PreLamDetail
-    set PreLamPdf = '${ReferencePdf.Location}'
-   WHERE PreLamDetailId = '${JobCardDetailId}';`;
-
-    const update = await queryAsync(query);
-    res.send({ msg: 'Data Inserted SuccesFully !', URL: ReferencePdf.Location });
+// Send success response with the file URL
+res.send({ msg: 'Data inserted successfully!', URL: `http://localhost:8080/IPQC/Pdf/${JobCardDetailId}.pdf` });
   } catch (err) {
     console.log(err);
     res.status(401).send(err);
@@ -183,6 +189,22 @@ const UploadFramingPdf = async (req, res) => {
 }
 }
 
+
+const GetPdf = async(req,res)=>{
+  const filename = req.params.filename;
+   // Define the absolute path to the IPQC-Pdf-Folder directory
+   const pdfFolderPath = Path.resolve( 'IPQC-Pdf-Folder');
+
+   // Construct the full file path to the requested file
+   const filePath = Path.join(pdfFolderPath, filename);
+   // Send the file to the client
+   res.sendFile(filePath, (err) => {
+       if (err) {
+           console.error('Error sending file:', err);
+           res.status(404).send({ error: 'File not found' });
+       }
+   });
+}
 
 const GetSpecificFraming = async(req,res)=>{
   const { JobCardDetailId } = req.body
@@ -235,4 +257,4 @@ const UpdateFramingStatus = async(req,res)=>{
   }
 }
 
-module.exports = {AddFraming,UploadFramingPdf,GetSpecificFraming,UpdateFramingStatus};
+module.exports = {AddFraming,UploadFramingPdf,GetSpecificFraming,UpdateFramingStatus,GetPdf};
