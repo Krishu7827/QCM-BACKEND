@@ -445,7 +445,7 @@ const UploadPdf = async (req, res) => {
     fs.writeFileSync(filePath, fileBuffer);
 
     const query = `UPDATE JobCardDetails jcd
-set jcd.ReferencePdf = 'http://srv502293.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf'
+set jcd.ReferencePdf = 'http://srv515471.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf'
 WHERE jcd.JobCardDetailID = '${JobCardDetailId}';`;
   const update = await queryAsync(query);
   

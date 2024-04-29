@@ -165,12 +165,12 @@ const PreLamUploadPdf = async (req, res) => {
        // Save the file buffer to the specified file path
     fs.writeFileSync(filePath, fileBuffer);
        const query = `UPDATE PreLamDetail
-       SET PreLamPdf = 'http://srv502293.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf'
+       SET PreLamPdf = 'http://srv515471.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf'
        WHERE PreLamDetailId = '${JobCardDetailId}';`;
   const update = await queryAsync(query);
   
   // Send success response with the file URL
-  res.send({ msg: 'Data inserted successfully!', URL: `http://srv502293.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf` });
+  res.send({ msg: 'Data inserted successfully!', URL: `http://srv515471.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf` });
     } catch (err) {
       console.log(err);
       res.status(401).send(err);
