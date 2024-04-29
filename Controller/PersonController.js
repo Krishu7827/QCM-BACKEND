@@ -289,7 +289,7 @@ const Login = async (req, res) => {
         const getdata = `SELECT p.PersonID,p.ProfileImg,p.Name,d1.Designation,d.Department FROM Person p
       JOIN Department d ON p.Department = d.DepartmentID
       JOIN Designation d1 ON p.Desgination = d1.DesignationID
-      WHERE p.LoginID = '${loginid}'`
+      WHERE p.LoginID = '${loginid}' AND Status = 'Active'; `
 
         const PersonData = await new Promise((resolve, reject) => {
           dbConn.query(getdata, (err, result) => {
