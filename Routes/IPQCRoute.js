@@ -4,6 +4,7 @@ const {AddBomVerification,BOMUploadPdf,GetSpecificBOMVerification, UpdateStatusB
 const {AddPreLam,PreLamUploadPdf,GetSpecificPreLam,UpdatePreLamStatus} = require('../Controller/PreLamController');
 const {AddFraming,UploadFramingPdf,GetSpecificFraming,UpdateFramingStatus,GetPdf} = require("../Controller/FramingController");
 const {AddSealentWeight,UploadSealentWeightPdf,GetSpecificSealentWeight,UpdateSealentStatus} = require('../Controller/SealentWeightController')
+const {AddSolderingPeelTest} = require('../Controller/SolderingPeelTest')
 const {RoleAuthentication,upload} = require('../Middleware/IPQC.Middleware');
 const IPQC = express.Router();
 
@@ -40,6 +41,9 @@ IPQC.post('/AddFraming',AddFraming);
 
 /**Router To Add Sealent Weight */
 IPQC.post('/AddSealentWeight',AddSealentWeight);
+
+/**Router To Add Soldering Peel Test */
+IPQC.post('/AddSolderingPeelTest',AddSolderingPeelTest);
 
 /**Router to Get Pdf */
 IPQC.get('/Pdf/:filename',GetPdf);

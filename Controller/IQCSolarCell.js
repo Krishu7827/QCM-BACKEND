@@ -418,6 +418,8 @@ const UpdateStatus = async (req, res) => {
     ExcelData.forEach((data) => {
       data['Samples'] = JSON.parse(data['Samples']);
     })
+
+    console.log(ExcelData)
     ExcelGenerate(ExcelData, ApproveData);
     res.send({ ExcelData, ApproveData })
   } catch (err) {
