@@ -3,7 +3,7 @@ const {AddIPQCJobCard,JobCardList,UploadPdf,GetSpecificJobCard,UpdateJobCardStat
 const {AddBomVerification,BOMUploadPdf,GetSpecificBOMVerification, UpdateStatusBOM} = require('../Controller/BOMVerification');
 const {AddPreLam,PreLamUploadPdf,GetSpecificPreLam,UpdatePreLamStatus} = require('../Controller/PreLamController');
 const {AddFraming,UploadFramingPdf,GetSpecificFraming,UpdateFramingStatus,GetPdf} = require("../Controller/FramingController");
-const {AddSealentWeight,UploadSealentWeightPdf,GetSpecificSealentWeight} = require('../Controller/SealentWeightController')
+const {AddSealentWeight,UploadSealentWeightPdf,GetSpecificSealentWeight,UpdateSealentStatus} = require('../Controller/SealentWeightController')
 const {RoleAuthentication,upload} = require('../Middleware/IPQC.Middleware');
 const IPQC = express.Router();
 
@@ -63,7 +63,7 @@ IPQC.post('/GetSpecificPreLam',GetSpecificPreLam);
 /**Router to Get Specific Framing  */
 IPQC.post('/GetSpecificFraming',GetSpecificFraming);
 
-/**Router to Get Specific Framing  */
+/**Router to Get Specific Sealent  */
 IPQC.post('/GetSpecificSealentWeight',GetSpecificSealentWeight);
 
 /**Router To Update Status Of Job Card  */
@@ -77,5 +77,9 @@ IPQC.post('/UpdatePreLamStatus',UpdatePreLamStatus);
 
 /**Router to Update Status of Framing  */
 IPQC.post('/UpdateFramingStatus',UpdateFramingStatus);
+
+/**Router to Update Status of Sealent  */
+IPQC.post('/UpdateSealentStatus',UpdateSealentStatus);
+
 
 module.exports = {IPQC}  

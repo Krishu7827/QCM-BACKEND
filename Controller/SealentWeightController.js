@@ -199,5 +199,25 @@ const GetSpecificSealentWeight = async(req,res)=>{
       }
 }
 
+const UpdateSealentStatus = async(req,res)=>{
+    const {JobCardDetailId,ApprovalStatus,CurrentUser} = req.body;
+  
+    try{
+       const UpdateStatusQuery = `UPDATE PreLamDetail
+                                  SET
+                                    Status = '${ApprovalStatus}',
+                                    UpdatedBy = '${CurrentUser}',
+                                    UpdatedOn = '${getCurrentDateTime()}'
+                                  WHERE PreLamDetailId = '${JobCardDetailId}';`;
+  
+      let UpdateStatus =  await queryAsync(UpdateStatusQuery);
+  
+      res.send({status:true,data:UpdateStatus});
+    }catch(err){
+      console.log(err)
+      res.status(400).send({status:false,err})
+    }
+  }
 
-module.exports = {AddSealentWeight,UploadSealentWeightPdf,GetSpecificSealentWeight}
+
+module.exports = {AddSealentWeight,UploadSealentWeightPdf,GetSpecificSealentWeight,UpdateSealentStatus}
