@@ -2,10 +2,13 @@ const { dbConn } = require('../db.config/db.config')
 const { generatePassword, s3, AWS, transport, getCurrentDateTime } = require('../Utilis/Person.utilis')
 const bcrypt = require('bcrypt')
 const fs = require('fs');
+const util = require('util');
 const Path = require('path')
 const JWT = require('jsonwebtoken')
 require('dotenv').config()
 
+/** Making Sync To Query to Loop */
+const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 
 /** Controller to Register Employee */
 const PersonRegister = async (req, res) => {
