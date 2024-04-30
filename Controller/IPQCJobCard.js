@@ -204,7 +204,7 @@ JOIN BOMVerificationDetails bd ON p.PersonID = bd.CheckedBy
 WHERE bd.Status = '${Status}'
 ORDER BY STR_TO_DATE(bd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
-      PreLamQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,PD.PreLamDetailId,PD.PONo,PD.Line,PD.Type,PD.PreLamPdf, PD.CreatedOn, PD.UpdatedOn FROM Person p
+      PreLamQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,PD.PreLamDetailId,PD.PONo,PD.Line,PD.Shift,PD.Type,PD.PreLamPdf, PD.CreatedOn, PD.UpdatedOn FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN PreLamDetail PD ON p.PersonID = PD.CheckedBy
 WHERE PD.Status = '${Status}'
@@ -224,7 +224,7 @@ JOIN BOMVerificationDetails bd ON p.PersonID = bd.CheckedBy
 WHERE bd.Status = '${Status}' AND p.PersonID = '${PersonID}'
 ORDER BY STR_TO_DATE(bd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
-      PreLamQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,PD.PreLamDetailId,PD.PONo,PD.Line,PD.Type,PD.PreLamPdf, PD.CreatedOn,PD.UpdatedOn FROM Person p
+      PreLamQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,PD.PreLamDetailId,PD.PONo,PD.Line,PD.Shift,PD.Type,PD.PreLamPdf, PD.CreatedOn,PD.UpdatedOn FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN PreLamDetail PD ON p.PersonID = PD.CheckedBy
 WHERE PD.Status = '${Status}' AND p.PersonID = '${PersonID}'
@@ -284,6 +284,17 @@ ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
               BOM['ReferencePdf'] = BOM[key]
               delete BOM[key]
             }
+          }else if(BOM['Type'] == 'Sealent'){
+            if (key == 'PreLamDetailId') {
+              BOM['JobCardDetailID'] = BOM[key]
+              delete BOM[key]
+            }else if (key == 'Shift') {
+              BOM['ModuleNo'] = BOM[key]
+              delete BOM[key]
+            }else if (key == 'PreLamPdf') {
+              BOM['ReferencePdf'] = BOM[key]
+              delete BOM[key]
+            }
           }
         }
         JobCardList.push(BOM);
@@ -336,6 +347,17 @@ ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
               BOM['ModuleNo'] = BOM[key]
               delete BOM[key]
             } else if (key == 'PreLamPdf') {
+              BOM['ReferencePdf'] = BOM[key]
+              delete BOM[key]
+            }
+          }else if(BOM['Type'] == 'Sealent'){
+            if (key == 'PreLamDetailId') {
+              BOM['JobCardDetailID'] = BOM[key]
+              delete BOM[key]
+            }else if (key == 'Shift') {
+              BOM['ModuleNo'] = BOM[key]
+              delete BOM[key]
+            }else if (key == 'PreLamPdf') {
               BOM['ReferencePdf'] = BOM[key]
               delete BOM[key]
             }
@@ -392,6 +414,17 @@ ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
               BOM['ModuleNo'] = BOM[key]
               delete BOM[key]
             } else if (key == 'PreLamPdf') {
+              BOM['ReferencePdf'] = BOM[key]
+              delete BOM[key]
+            }
+          }else if(BOM['Type'] == 'Sealent'){
+            if (key == 'PreLamDetailId') {
+              BOM['JobCardDetailID'] = BOM[key]
+              delete BOM[key]
+            }else if (key == 'Shift') {
+              BOM['ModuleNo'] = BOM[key]
+              delete BOM[key]
+            }else if (key == 'PreLamPdf') {
               BOM['ReferencePdf'] = BOM[key]
               delete BOM[key]
             }
