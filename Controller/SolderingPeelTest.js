@@ -102,4 +102,45 @@ const AddSolderingPeelTest = async (req, res) => {
 }
 
 
-module.exports = {AddSolderingPeelTest};
+const UploadSolderingPeelTestPdf = async(req,res)=>{
+    const { JobCardDetailId } = req.body;
+
+    if(req.file.size){
+      /** making file in IPQC-Pdf-Folder*/
+      try {
+         // Get the file buffer and the file format
+         const fileBuffer = req.file.buffer;
+         
+         // Define the folder path
+         const folderPath = Path.join('IPQC-Pdf-Folder');
+    
+         // Create the folder if it doesn't exist
+         if (!fs.existsSync(folderPath)) {
+    
+             fs.mkdirSync(folderPath, { recursive: true });
+         }
+         
+         // Define the file path, including the desired file name and format
+         const fileName = `${JobCardDetailId}.pdf`;
+         const filePath = Path.join(folderPath, fileName);
+    
+         // Save the file buffer to the specified file path
+      fs.writeFileSync(filePath, fileBuffer);
+         const query = `UPDATE SolderingPeelTestDetail
+         SET Pdf = 'http://srv515471.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf'
+         WHERE TestDetailId = '${JobCardDetailId}';`;
+    const update = await queryAsync(query);
+    
+    // Send success response with the file URL
+    res.send({ msg: 'Data inserted successfully!', URL: `http://srv515471.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf` });
+      } catch (err) {
+        console.log(err);
+        res.status(401).send(err);
+      }
+    }else{
+      res.status(401).send({status:false,'err':'file is empty'});
+    }
+}
+
+
+module.exports = {AddSolderingPeelTest,UploadSolderingPeelTestPdf};

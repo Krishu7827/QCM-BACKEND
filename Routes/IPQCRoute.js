@@ -4,7 +4,7 @@ const {AddBomVerification,BOMUploadPdf,GetSpecificBOMVerification, UpdateStatusB
 const {AddPreLam,PreLamUploadPdf,GetSpecificPreLam,UpdatePreLamStatus} = require('../Controller/PreLamController');
 const {AddFraming,UploadFramingPdf,GetSpecificFraming,UpdateFramingStatus,GetPdf} = require("../Controller/FramingController");
 const {AddSealentWeight,UploadSealentWeightPdf,GetSpecificSealentWeight,UpdateSealentStatus} = require('../Controller/SealentWeightController')
-const {AddSolderingPeelTest} = require('../Controller/SolderingPeelTest')
+const {AddSolderingPeelTest,UploadSolderingPeelTestPdf} = require('../Controller/SolderingPeelTest')
 const {RoleAuthentication,upload} = require('../Middleware/IPQC.Middleware');
 const IPQC = express.Router();
 
@@ -29,6 +29,9 @@ IPQC.post('/UploadFramingPdf',upload.single('FramingPdf'),UploadFramingPdf);
 
 /** Router to Upload Reference Pdf in S3 and Get The Location and Set into dbs(PreLamDetail Table) */
 IPQC.post('/UploadSealentWeightPdf',upload.single('SealentWeightPdf'),UploadSealentWeightPdf);
+
+/** Router to Upload Reference Pdf in S3 and Get The Location and Set into dbs(PreLamDetail Table) */
+IPQC.post('/UploadSolderingPeelTestPdf',upload.single('SolderingPdf'),UploadSolderingPeelTestPdf);
 
 /**Router To Add BOM Verification Data*/
 IPQC.post('/AddBOMVerification',AddBomVerification);
