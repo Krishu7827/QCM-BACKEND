@@ -161,4 +161,43 @@ const UploadSealentWeightPdf = async(req,res)=>{
 }
 
 
-module.exports = {AddSealentWeight,UploadSealentWeightPdf}
+const GetSpecificSealentWeight = async(req,res)=>{
+    const {JobCardDetailId} = req.body
+
+    try{
+        const query = `SELECT *FROM PreLamDetail PD
+        JOIN SealentWeight SW ON PD.PreLamDetailId = SW.PreLamDetailId
+        WHERE PD.PreLamDetailId = '${JobCardDetailId}';`
+      
+          const PreLam = await queryAsync(query)
+          let response = {}
+      
+          PreLam.forEach((Lam,i)=>{
+               if(i == 0){
+                   response['PreLamDetailId'] = Lam['PreLamDetailId'];
+                   response['DocNo'] = Lam['DocNo'];
+                   response['RevNo'] = Lam['RevNo'];
+                   response['Date'] = Lam['Date'];
+                   response['Shift'] = Lam['Shift'];
+                   response['PreLamPdf'] = Lam['PreLamPdf'];
+                   response['CheckedBy'] = Lam['CheckedBy'];
+                   response['BaseWeight'] = Lam['BaseWeight'];
+                   response['CatalystWeight'] = Lam['CatalystWeight'];
+                   response['Ratio'] = Lam['Ratio']
+                   response['Status'] = Lam['Status'];
+               }
+              const Stage = Lam['Stage'].split(' ').join('');
+            response[`${Stage}_WithoutSealant`] = Lam['WithoutSealant'];
+            response[`${Stage}_WithSealant`] = Lam['WithSealant'];
+            response[`${Stage}_DiffWeight`] = Lam['DiffWeight'];
+             
+          })
+          res.send({response})
+      }catch(err){
+        console.log(err)
+        res.status(400).send({err})
+      }
+}
+
+
+module.exports = {AddSealentWeight,UploadSealentWeightPdf,GetSpecificSealentWeight}
