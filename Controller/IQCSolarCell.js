@@ -458,8 +458,8 @@ const UploadPdf = async (req, res) => {
       fs.writeFileSync(COCFilePath, COCFileBuffer);
       
       const query = `UPDATE IQCSolarDetails id
-      set id.COCPdf = 'http://srv515471.hstgr.cloud:8080/IQC/Pdf/${COCFileName}',
-       id.InvoicePdf = 'http://srv515471.hstgr.cloud:8080/IQC/Pdf/${InvoiceFileName}'
+      set id.COCPdf = 'http://srv515471.hstgr.cloud:8080/IQCSolarCell/Pdf/${COCFileName}',
+       id.InvoicePdf = 'http://srv515471.hstgr.cloud:8080/IQCSolarCell/Pdf/${InvoiceFileName}'
 
      WHERE id.SolarDetailID = '${SolarDetailId}';`;
      let data = await new Promise((resolve, rejects) => {
