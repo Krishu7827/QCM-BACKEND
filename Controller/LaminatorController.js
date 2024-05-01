@@ -105,7 +105,40 @@ const AddLaminator = async(req,res)=>{
       }
 }
 
+const GetSpecificLaminator = async(req,res)=>{
+    const { JobCardDetailId } = req.body;
+    try {
+        const query = `SELECT *FROM PreLamDetail PD
+        JOIN Laminator L ON PD.PreLamDetailId = L.PreLamDetailId
+        WHERE PD.PreLamDetailId = '${JobCardDetailId}';`
+
+        const Tests = await queryAsync(query);
+        let response = {}
+        Tests.forEach((data, i) => {
+            if (i === 0) {
+                response['PreLamDetailId'] = data['PreLamDetailId'];
+                response['DocNo'] = data['DocNo'];
+                response['RevNo'] = data['RevNo'];
+                response['Location'] = JSON.parse(data['Location']);
+                response['Date'] = data['Date'];
+                response['Shift'] = data['Shift'];
+                response['Status'] = data['Status'];
+                response['Type'] = data['Type'];
+                response['Status'] = data['Status']
+                response['PreLamPdf'] = data['PreLamPdf'];
+            }
+           response[`${data['Parameter'].split(' ').join('')}_Parameter`] = data['Parameter'];
+           response[`${data['Parameter'].split(' ').join('')}_Specification`] = data['Specification'];
+           response[`${data['Parameter'].split(' ').join('')}_ObservedValueA`] = data['ObserverdValueA'];
+           response[`${data['Parameter'].split(' ').join('')}_ObserverdValueB`] = data['ObserverdValueB'];
+        });
+        res.send({response})
+    } catch (err) {
+        console.log(err)
+        res.status(400).send({err})
+    }
+    
+}
 
 
-
-module.exports = {AddLaminator};
+module.exports = {AddLaminator,GetSpecificLaminator};
