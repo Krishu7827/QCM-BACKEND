@@ -189,6 +189,7 @@ const JobCardList = async (req, res) => {
   let query;
   let BomQuery;
   let PreLamQuery;
+  let SolderingPeelTestQuery;
   try {
 
     if (Designation == 'Admin' || Designation == 'Super Admin') {
@@ -210,6 +211,11 @@ JOIN PreLamDetail PD ON p.PersonID = PD.CheckedBy
 WHERE PD.Status = '${Status}'
 ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
+SolderingPeelTestQuery = `  SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,SPT.TestDetailId,SPT.Line,SPT.Shift,SPT.Type,SPT.Pdf, SPT.CreatedOn, SPT.UpdatedOn FROM Person p
+JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
+JOIN SolderingPeelTestDetail SPT ON p.PersonID = SPT.CreatedBy
+WHERE SPT.Status = '${Status}'
+ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
     } else {
       query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,jcd.JobCardDetailID,jcd.ModuleNo,jcd.Type,jcd.ReferencePdf,jcd.CreatedOn,jcd.UpdatedOn  FROM Person p
@@ -230,11 +236,18 @@ JOIN PreLamDetail PD ON p.PersonID = PD.CheckedBy
 WHERE PD.Status = '${Status}' AND p.PersonID = '${PersonID}'
 ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
+SolderingPeelTestQuery = `  SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,SPT.TestDetailId,SPT.Line,SPT.Shift,SPT.Type,SPT.Pdf, SPT.CreatedOn, SPT.UpdatedOn FROM Person p
+JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
+JOIN SolderingPeelTestDetail SPT ON p.PersonID = SPT.CreatedBy
+WHERE SPT.Status = '${Status}' AND p.PersonID = '${PersonID}'
+ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
+
     }
 
     const JobCardList = await queryAsync(query);
     const BomList = await queryAsync(BomQuery);
     const PreLamList = await queryAsync(PreLamQuery);
+    const SolderingPeelTestList = await queryAsync(SolderingPeelTestQuery)
     /** Function to parse the date string into a Date object for comparison **/
     const parseDate = dateString => {
       const [date, time] = dateString.split(' ');
@@ -299,7 +312,24 @@ ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
         }
         JobCardList.push(BOM);
       })
+      
 
+      /** Deconstructing of Soldering Peel Test List */
+      SolderingPeelTestList.forEach((Test)=>{
+        for(let key in Test){
+           if(key == 'TestDetailId'){
+            Test['JobCardDetailID'] = Test[key]
+            delete Test[key]
+           }else if(key == 'Line'){
+            Test['ModuleNo'] = Test[key]
+              delete Test[key]
+           }else if(key = 'Pdf'){
+            Test['ReferencePdf'] = Test[key]
+              delete Test[key]
+           }
+        }
+        JobCardList.push(Test);
+      })
 
       /** Sort the array by the "CreatedOn" property in descending order */
       JobCardList.sort((a, b) => {
@@ -365,6 +395,23 @@ ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
         }
         JobCardList.push(BOM);
       });
+
+      /** Deconstructing of Soldering Peel Test List */
+      SolderingPeelTestList.forEach((Test)=>{
+        for(let key in Test){
+           if(key == 'TestDetailId'){
+            Test['JobCardDetailID'] = Test[key]
+            delete Test[key]
+           }else if(key == 'Line'){
+            Test['ModuleNo'] = Test[key]
+              delete Test[key]
+           }else if(key = 'Pdf'){
+            Test['ReferencePdf'] = Test[key]
+              delete Test[key]
+           }
+        }
+        JobCardList.push(Test);
+      })
 
       /** Sort the array by the "CreatedOn" property in descending order */
       JobCardList.sort((a, b) => {
@@ -433,6 +480,22 @@ ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
         JobCardList.push(BOM);
       })
 
+     /** Deconstructing of Soldering Peel Test List */
+     SolderingPeelTestList.forEach((Test)=>{
+      for(let key in Test){
+         if(key == 'TestDetailId'){
+          Test['JobCardDetailID'] = Test[key]
+          delete Test[key]
+         }else if(key == 'Line'){
+          Test['ModuleNo'] = Test[key]
+            delete Test[key]
+         }else if(key = 'Pdf'){
+          Test['ReferencePdf'] = Test[key]
+            delete Test[key]
+         }
+      }
+      JobCardList.push(Test);
+    })
 
       /** Sort the array by the "CreatedOn" property in descending order */
       JobCardList.sort((a, b) => {
