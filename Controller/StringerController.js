@@ -112,7 +112,7 @@ const AddStringerMachine = async (req, res) => {
 }
 
 
-const GetSpecificLaminator = async(req,res)=>{
+const GetSpecificStringerMachine = async(req,res)=>{
     const { JobCardDetailId } = req.body;
     try {
         const query = `SELECT *FROM PreLamDetail PD
@@ -133,10 +133,10 @@ const GetSpecificLaminator = async(req,res)=>{
                 response['PreLamPdf'] = data['PreLamPdf'];
             }
            response[`${data['Parameter'].split(' ').join('')}_Parameter`] = data['Parameter'];
-           response[`${data['Parameter'].split(' ').join('')}_Specification`] = data['Specification'];
-           response[`${data['Parameter'].split(' ').join('')}_UOM`] = data['UOM'];
-           response[`${data['Parameter'].split(' ').join('')}_TrackA`] = data['TrackA'];
-           response[`${data['Parameter'].split(' ').join('')}_TrackB`] = data['TrackB'];
+           response[`${data['Parameter'].split(' ').join('')}_Specification`] = data['Specification']|| "";
+           response[`${data['Parameter'].split(' ').join('')}_UOM`] = data['UOM']|| "";
+           response[`${data['Parameter'].split(' ').join('')}_TrackA`] = data['TrackA'] || "";
+           response[`${data['Parameter'].split(' ').join('')}_TrackB`] = data['TrackB'] || "";
         });
         res.send({response})
     } catch (err) {
@@ -146,4 +146,4 @@ const GetSpecificLaminator = async(req,res)=>{
     
 }
 
-module.exports = {AddStringerMachine};
+module.exports = {AddStringerMachine, GetSpecificStringerMachine};

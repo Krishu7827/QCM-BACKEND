@@ -6,7 +6,7 @@ const {AddFraming,UploadFramingPdf,GetSpecificFraming,UpdateFramingStatus,GetPdf
 const {AddSealentWeight,UploadSealentWeightPdf,GetSpecificSealentWeight,UpdateSealentStatus} = require('../Controller/SealentWeightController')
 const {AddSolderingPeelTest,UploadSolderingPeelTestPdf,GetSpecificSolderingPeelTest,UpdateSolderingPeelTestStatus} = require('../Controller/SolderingPeelTest')
 const {AddLaminator,GetSpecificLaminator} = require('../Controller/LaminatorController')
-const {AddStringerMachine} = require('../Controller/StringerController')
+const {AddStringerMachine,GetSpecificStringerMachine} = require('../Controller/StringerController')
 const {RoleAuthentication,upload} = require('../Middleware/IPQC.Middleware');
 const IPQC = express.Router();
 
@@ -87,6 +87,9 @@ IPQC.post('/GetSpecificSolderingPeelTest',GetSpecificSolderingPeelTest);
 
 /**Router to Get Specific Laminator */
 IPQC.post('/GetSpecificLaminator',GetSpecificLaminator);
+
+/**Router to Get Specific Stringer Machine */
+IPQC.post('/GetSpecificStringerMachine',GetSpecificStringerMachine);
 
 /**Router To Update Status Of Job Card  */
 IPQC.post('/UpdateJobCardStatus',UpdateJobCardStatus);

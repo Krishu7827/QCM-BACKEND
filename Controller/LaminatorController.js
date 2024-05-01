@@ -57,6 +57,7 @@ const AddLaminator = async(req,res)=>{
           await queryAsync(PreLamDetailQuery);
     
         Stage.forEach(async(data)=>{
+            console.log(data)
             const LaminatorQuery = `INSERT INTO Laminator(PreLamDetailId,LaminatorId,Parameter,Specification,ObservedValueA,ObservedValueB)
                                           VALUES('${UUID}','${v4()}','${data['Parameter']}','${data['Specification']}','${data['ObservedValueA']}','${data['ObservedValueB']}');`
         await queryAsync(LaminatorQuery);
@@ -86,6 +87,7 @@ const AddLaminator = async(req,res)=>{
           await queryAsync(PreLamDetailQuery);
     
           Stage.forEach(async(data)=>{
+            console.log(data)
             const LaminatorQuery = `UPDATE Laminator
             SET
                 Specification = '${data['Specification']}',
