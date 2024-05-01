@@ -4,7 +4,7 @@ const {AddBomVerification,BOMUploadPdf,GetSpecificBOMVerification, UpdateStatusB
 const {AddPreLam,PreLamUploadPdf,GetSpecificPreLam,UpdatePreLamStatus} = require('../Controller/PreLamController');
 const {AddFraming,UploadFramingPdf,GetSpecificFraming,UpdateFramingStatus,GetPdf} = require("../Controller/FramingController");
 const {AddSealentWeight,UploadSealentWeightPdf,GetSpecificSealentWeight,UpdateSealentStatus} = require('../Controller/SealentWeightController')
-const {AddSolderingPeelTest,UploadSolderingPeelTestPdf,GetSpecificSolderingPeelTest} = require('../Controller/SolderingPeelTest')
+const {AddSolderingPeelTest,UploadSolderingPeelTestPdf,GetSpecificSolderingPeelTest,UpdateSolderingPeelTestStatus} = require('../Controller/SolderingPeelTest')
 const {RoleAuthentication,upload} = require('../Middleware/IPQC.Middleware');
 const IPQC = express.Router();
 
@@ -91,5 +91,7 @@ IPQC.post('/UpdateFramingStatus',UpdateFramingStatus);
 /**Router to Update Status of Sealent  */
 IPQC.post('/UpdateSealentStatus',UpdateSealentStatus);
 
+/**Router to Update Status of Soldering Peel Test  */
+IPQC.post('/UpdateSolderingPeelTestStatus',UpdateSolderingPeelTestStatus);
 
 module.exports = {IPQC}  

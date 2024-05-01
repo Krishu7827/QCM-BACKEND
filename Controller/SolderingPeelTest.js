@@ -175,6 +175,7 @@ const GetSpecificSolderingPeelTest = async (req, res) => {
                 response['Pdf'] = data['Pdf'];
                 response['Remarks'] = data['Remarks']
             }
+          response[`${data['Track']}Length`] = JSON.parse(data['TrackData']).length;
           response[data['Track']] = JSON.parse(data['TrackData']);
         });
         res.send({response})
@@ -185,4 +186,25 @@ const GetSpecificSolderingPeelTest = async (req, res) => {
 }
 
 
-module.exports = { AddSolderingPeelTest, UploadSolderingPeelTestPdf, GetSpecificSolderingPeelTest };
+const UpdateSolderingPeelTestStatus = async(req,res)=>{
+    const {JobCardDetailId,ApprovalStatus,CurrentUser} = req.body;
+
+     
+    try{
+        const UpdateStatusQuery = `UPDATE SolderingPeelTestDetail
+                                   SET
+                                     Status = '${ApprovalStatus}',
+                                     UpdatedBy = '${CurrentUser}',
+                                     UpdatedOn = '${getCurrentDateTime()}'
+                                   WHERE TestDetailId = '${JobCardDetailId}';`;
+   
+       let UpdateStatus =  await queryAsync(UpdateStatusQuery);
+   
+       res.send({status:true,data:UpdateStatus});
+     }catch(err){
+       console.log(err)
+       res.status(400).send({status:false,err})
+     }
+}
+
+module.exports = { AddSolderingPeelTest, UploadSolderingPeelTestPdf, GetSpecificSolderingPeelTest, UpdateSolderingPeelTestStatus };
