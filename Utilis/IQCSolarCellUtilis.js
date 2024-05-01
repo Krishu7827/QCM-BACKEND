@@ -37,7 +37,7 @@ const s3 = new AWS.S3();
 async function ExcelGenerate(IQC,ApproveData){
   
   let exceldata = [{"column":"Lot Size","value":IQC[0]['LotSize']},
-  {"column":"Material Name","value":"Solar Cell"},
+  {"column":"Material Name","value":IQC[0]['MaterialName']},
   {"column":"Supplier Name:","value":IQC[0]['SupplierName']},
   {"column":"Invoice Date:","value":IQC[0]['InvoiceDate']},
   {"column":"Raw Material Specs","value":IQC[0]['RawMaterialSpecs']}

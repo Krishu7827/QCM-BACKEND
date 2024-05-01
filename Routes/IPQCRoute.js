@@ -4,7 +4,7 @@ const {AddBomVerification,BOMUploadPdf,GetSpecificBOMVerification, UpdateStatusB
 const {AddPreLam,PreLamUploadPdf,GetSpecificPreLam,UpdatePreLamStatus} = require('../Controller/PreLamController');
 const {AddFraming,UploadFramingPdf,GetSpecificFraming,UpdateFramingStatus,GetPdf} = require("../Controller/FramingController");
 const {AddSealentWeight,UploadSealentWeightPdf,GetSpecificSealentWeight,UpdateSealentStatus} = require('../Controller/SealentWeightController')
-const {AddSolderingPeelTest,UploadSolderingPeelTestPdf} = require('../Controller/SolderingPeelTest')
+const {AddSolderingPeelTest,UploadSolderingPeelTestPdf,GetSpecificSolderingPeelTest} = require('../Controller/SolderingPeelTest')
 const {RoleAuthentication,upload} = require('../Middleware/IPQC.Middleware');
 const IPQC = express.Router();
 
@@ -72,6 +72,9 @@ IPQC.post('/GetSpecificFraming',GetSpecificFraming);
 
 /**Router to Get Specific Sealent  */
 IPQC.post('/GetSpecificSealentWeight',GetSpecificSealentWeight);
+
+/**Router to Get Specific Soldering Peel Test */
+IPQC.post('/GetSpecificSolderingPeelTest',GetSpecificSolderingPeelTest);
 
 /**Router To Update Status Of Job Card  */
 IPQC.post('/UpdateJobCardStatus',UpdateJobCardStatus);
