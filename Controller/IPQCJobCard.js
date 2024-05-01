@@ -308,7 +308,7 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
               BOM['ReferencePdf'] = BOM[key]
               delete BOM[key]
             }
-          } else if (BOM['Type'] == 'Laminator1' || BOM['Type'] == 'Laminator2') {
+          } else if (BOM['Type'] == 'Laminator1' || BOM['Type'] == 'Laminator2' || BOM['Type'] == 'Stringer1' || BOM['Type'] == 'Stringer2' || BOM['Type'] == 'Stringer3') {
             if (key == 'PreLamDetailId') {
               BOM['JobCardDetailID'] = BOM[key]
               delete BOM[key]
@@ -403,7 +403,7 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
               BOM['ReferencePdf'] = BOM[key]
               delete BOM[key]
             }
-          } else if (BOM['Type'] == 'Laminator1' || BOM['Type'] == 'Laminator2') {
+          } else if (BOM['Type'] == 'Laminator1' || BOM['Type'] == 'Laminator2' || BOM['Type'] == 'Stringer1' || BOM['Type'] == 'Stringer2' || BOM['Type'] == 'Stringer3') {
             if (key == 'PreLamDetailId') {
               BOM['JobCardDetailID'] = BOM[key]
               delete BOM[key]
@@ -501,7 +501,7 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
               delete BOM[key]
             }
            
-          } else if (BOM['Type'] == 'Laminator1' || BOM['Type'] == 'Laminator2') {
+          } else if (BOM['Type'] == 'Laminator1' || BOM['Type'] == 'Laminator2' || BOM['Type'] == 'Stringer1' || BOM['Type'] == 'Stringer2' || BOM['Type'] == 'Stringer3') {
             if (key == 'PreLamDetailId') {
               BOM['JobCardDetailID'] = BOM[key]
               delete BOM[key]

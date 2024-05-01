@@ -124,13 +124,12 @@ const GetSpecificLaminator = async(req,res)=>{
                 response['Shift'] = data['Shift'];
                 response['Status'] = data['Status'];
                 response['Type'] = data['Type'];
-                response['Status'] = data['Status']
                 response['PreLamPdf'] = data['PreLamPdf'];
             }
            response[`${data['Parameter'].split(' ').join('')}_Parameter`] = data['Parameter'];
            response[`${data['Parameter'].split(' ').join('')}_Specification`] = data['Specification'];
-           response[`${data['Parameter'].split(' ').join('')}_ObservedValueA`] = data['ObserverdValueA'];
-           response[`${data['Parameter'].split(' ').join('')}_ObserverdValueB`] = data['ObserverdValueB'];
+           response[`${data['Parameter'].split(' ').join('')}_ObservedValueA`] = data['ObserverdValueA'] || "";
+           response[`${data['Parameter'].split(' ').join('')}_ObserverdValueB`] = data['ObserverdValueB'] || "";
         });
         res.send({response})
     } catch (err) {
