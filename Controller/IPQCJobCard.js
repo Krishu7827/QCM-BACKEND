@@ -211,7 +211,7 @@ JOIN PreLamDetail PD ON p.PersonID = PD.CheckedBy
 WHERE PD.Status = '${Status}'
 ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
-SolderingPeelTestQuery = `  SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,SPT.TestDetailId,SPT.Line,SPT.Shift,SPT.Type,SPT.Pdf, SPT.CreatedOn, SPT.UpdatedOn FROM Person p
+      SolderingPeelTestQuery = `  SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,SPT.TestDetailId,SPT.Line,SPT.Shift,SPT.Type,SPT.Pdf, SPT.CreatedOn, SPT.UpdatedOn FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN SolderingPeelTestDetail SPT ON p.PersonID = SPT.CreatedBy
 WHERE SPT.Status = '${Status}'
@@ -236,7 +236,7 @@ JOIN PreLamDetail PD ON p.PersonID = PD.CheckedBy
 WHERE PD.Status = '${Status}' AND p.PersonID = '${PersonID}'
 ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
-SolderingPeelTestQuery = `  SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,SPT.TestDetailId,SPT.Line,SPT.Shift,SPT.Type,SPT.Pdf, SPT.CreatedOn, SPT.UpdatedOn FROM Person p
+      SolderingPeelTestQuery = `  SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,SPT.TestDetailId,SPT.Line,SPT.Shift,SPT.Type,SPT.Pdf, SPT.CreatedOn, SPT.UpdatedOn FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN SolderingPeelTestDetail SPT ON p.PersonID = SPT.CreatedBy
 WHERE SPT.Status = '${Status}' AND p.PersonID = '${PersonID}'
@@ -297,36 +297,48 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
               BOM['ReferencePdf'] = BOM[key]
               delete BOM[key]
             }
-          }else if(BOM['Type'] == 'Sealent'){
+          } else if (BOM['Type'] == 'Sealent') {
             if (key == 'PreLamDetailId') {
               BOM['JobCardDetailID'] = BOM[key]
               delete BOM[key]
-            }else if (key == 'Shift') {
+            } else if (key == 'Shift') {
               BOM['ModuleNo'] = BOM[key]
               delete BOM[key]
-            }else if (key == 'PreLamPdf') {
+            } else if (key == 'PreLamPdf') {
+              BOM['ReferencePdf'] = BOM[key]
+              delete BOM[key]
+            }
+          } else if (BOM['Type'] == 'Laminator1') {
+            if (key == 'PreLamDetailId') {
+              BOM['JobCardDetailID'] = BOM[key]
+              delete BOM[key]
+            } else if (key == 'Shift') {
+              BOM['ModuleNo'] = BOM[key]
+              delete BOM[key]
+            } else if (key == 'PreLamPdf') {
               BOM['ReferencePdf'] = BOM[key]
               delete BOM[key]
             }
           }
         }
+        delete BOM['Line'];
+        delete BOM['PONo']
         JobCardList.push(BOM);
       })
-      
 
       /** Deconstructing of Soldering Peel Test List */
-      SolderingPeelTestList.forEach((Test)=>{
-        for(let key in Test){
-           if(key == 'TestDetailId'){
+      SolderingPeelTestList.forEach((Test) => {
+        for (let key in Test) {
+          if (key == 'TestDetailId') {
             Test['JobCardDetailID'] = Test[key]
             delete Test[key]
-           }else if(key == 'Line'){
+          } else if (key == 'Line') {
             Test['ModuleNo'] = Test[key]
-              delete Test[key]
-           }else if(key = 'Pdf'){
+            delete Test[key]
+          } else if (key = 'Pdf') {
             Test['ReferencePdf'] = Test[key]
-              delete Test[key]
-           }
+            delete Test[key]
+          }
         }
         JobCardList.push(Test);
       })
@@ -380,35 +392,48 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
               BOM['ReferencePdf'] = BOM[key]
               delete BOM[key]
             }
-          }else if(BOM['Type'] == 'Sealent'){
+          } else if (BOM['Type'] == 'Sealent') {
             if (key == 'PreLamDetailId') {
               BOM['JobCardDetailID'] = BOM[key]
               delete BOM[key]
-            }else if (key == 'Shift') {
+            } else if (key == 'Shift') {
               BOM['ModuleNo'] = BOM[key]
               delete BOM[key]
-            }else if (key == 'PreLamPdf') {
+            } else if (key == 'PreLamPdf') {
+              BOM['ReferencePdf'] = BOM[key]
+              delete BOM[key]
+            }
+          } else if (BOM['Type'] == 'Laminator1') {
+            if (key == 'PreLamDetailId') {
+              BOM['JobCardDetailID'] = BOM[key]
+              delete BOM[key]
+            } else if (key == 'Shift') {
+              BOM['ModuleNo'] = BOM[key]
+              delete BOM[key]
+            } else if (key == 'PreLamPdf') {
               BOM['ReferencePdf'] = BOM[key]
               delete BOM[key]
             }
           }
         }
+        delete BOM['Line'];
+        delete BOM['PONo']
         JobCardList.push(BOM);
       });
 
       /** Deconstructing of Soldering Peel Test List */
-      SolderingPeelTestList.forEach((Test)=>{
-        for(let key in Test){
-           if(key == 'TestDetailId'){
+      SolderingPeelTestList.forEach((Test) => {
+        for (let key in Test) {
+          if (key == 'TestDetailId') {
             Test['JobCardDetailID'] = Test[key]
             delete Test[key]
-           }else if(key == 'Line'){
+          } else if (key == 'Line') {
             Test['ModuleNo'] = Test[key]
-              delete Test[key]
-           }else if(key = 'Pdf'){
+            delete Test[key]
+          } else if (key = 'Pdf') {
             Test['ReferencePdf'] = Test[key]
-              delete Test[key]
-           }
+            delete Test[key]
+          }
         }
         JobCardList.push(Test);
       })
@@ -421,7 +446,7 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
       });
       res.send({ status: true, data: JobCardList });
 
-    }else{
+    } else {
 
       BomList.forEach((BOM) => {
         for (let key in BOM) {
@@ -464,38 +489,53 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
               BOM['ReferencePdf'] = BOM[key]
               delete BOM[key]
             }
-          }else if(BOM['Type'] == 'Sealent'){
+          } else if (BOM['Type'] == 'Sealent') {
             if (key == 'PreLamDetailId') {
               BOM['JobCardDetailID'] = BOM[key]
               delete BOM[key]
-            }else if (key == 'Shift') {
+            } else if (key == 'Shift') {
               BOM['ModuleNo'] = BOM[key]
               delete BOM[key]
-            }else if (key == 'PreLamPdf') {
+            } else if (key == 'PreLamPdf') {
               BOM['ReferencePdf'] = BOM[key]
               delete BOM[key]
             }
+           
+          } else if (BOM['Type'] == 'Laminator1') {
+            if (key == 'PreLamDetailId') {
+              BOM['JobCardDetailID'] = BOM[key]
+              delete BOM[key]
+            } else if (key == 'Shift') {
+              BOM['ModuleNo'] = BOM[key]
+              delete BOM[key]
+            } else if (key == 'PreLamPdf') {
+              BOM['ReferencePdf'] = BOM[key]
+              delete BOM[key]
+            }
+        
           }
         }
+        delete BOM['Line'];
+        delete BOM['PONo']
         JobCardList.push(BOM);
       })
 
-     /** Deconstructing of Soldering Peel Test List */
-     SolderingPeelTestList.forEach((Test)=>{
-      for(let key in Test){
-         if(key == 'TestDetailId'){
-          Test['JobCardDetailID'] = Test[key]
-          delete Test[key]
-         }else if(key == 'Line'){
-          Test['ModuleNo'] = Test[key]
+      /** Deconstructing of Soldering Peel Test List */
+      SolderingPeelTestList.forEach((Test) => {
+        for (let key in Test) {
+          if (key == 'TestDetailId') {
+            Test['JobCardDetailID'] = Test[key]
             delete Test[key]
-         }else if(key = 'Pdf'){
-          Test['ReferencePdf'] = Test[key]
+          } else if (key == 'Line') {
+            Test['ModuleNo'] = Test[key]
             delete Test[key]
-         }
-      }
-      JobCardList.push(Test);
-    })
+          } else if (key = 'Pdf') {
+            Test['ReferencePdf'] = Test[key]
+            delete Test[key]
+          }
+        }
+        JobCardList.push(Test);
+      })
 
       /** Sort the array by the "CreatedOn" property in descending order */
       JobCardList.sort((a, b) => {
@@ -516,43 +556,43 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 }
 
 const UploadPdf = async (req, res) => {
- const {JobCardDetailId} = req.body;
+  const { JobCardDetailId } = req.body;
 
-  if(req.file.size){
+  if (req.file.size) {
     /** making file in IPQC-Pdf-Folder*/
     try {
-       // Get the file buffer and the file format
-       const fileBuffer = req.file.buffer;
+      // Get the file buffer and the file format
+      const fileBuffer = req.file.buffer;
 
-       // Define the folder path
-       const folderPath = Path.join( 'IPQC-Pdf-Folder');
-  
-       // Create the folder if it doesn't exist
-       if (!fs.existsSync(folderPath)) {
+      // Define the folder path
+      const folderPath = Path.join('IPQC-Pdf-Folder');
+
+      // Create the folder if it doesn't exist
+      if (!fs.existsSync(folderPath)) {
         console.log(folderPath)
-           fs.mkdirSync(folderPath, { recursive: true });
-       }
-       
-       // Define the file path, including the desired file name and format
-       const fileName = `${JobCardDetailId}.pdf`;
-       const filePath = Path.join(folderPath, fileName);
-  
-       // Save the file buffer to the specified file path
-    fs.writeFileSync(filePath, fileBuffer);
+        fs.mkdirSync(folderPath, { recursive: true });
+      }
 
-    const query = `UPDATE JobCardDetails jcd
+      // Define the file path, including the desired file name and format
+      const fileName = `${JobCardDetailId}.pdf`;
+      const filePath = Path.join(folderPath, fileName);
+
+      // Save the file buffer to the specified file path
+      fs.writeFileSync(filePath, fileBuffer);
+
+      const query = `UPDATE JobCardDetails jcd
 set jcd.ReferencePdf = 'http://srv515471.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf'
 WHERE jcd.JobCardDetailID = '${JobCardDetailId}';`;
-  const update = await queryAsync(query);
-  
-  // Send success response with the file URL
-  res.send({ msg: 'Data inserted successfully!', URL: `http://srv502293.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf` });
+      const update = await queryAsync(query);
+
+      // Send success response with the file URL
+      res.send({ msg: 'Data inserted successfully!', URL: `http://srv502293.hstgr.cloud:8080/IPQC/Pdf/${JobCardDetailId}.pdf` });
     } catch (err) {
       console.log(err);
       res.status(401).send(err);
     }
-  }else{
-    res.status(401).send({status:false,'err':'file is empty'})
+  } else {
+    res.status(401).send({ status: false, 'err': 'file is empty' })
   }
 }
 

@@ -5,6 +5,7 @@ const {AddPreLam,PreLamUploadPdf,GetSpecificPreLam,UpdatePreLamStatus} = require
 const {AddFraming,UploadFramingPdf,GetSpecificFraming,UpdateFramingStatus,GetPdf} = require("../Controller/FramingController");
 const {AddSealentWeight,UploadSealentWeightPdf,GetSpecificSealentWeight,UpdateSealentStatus} = require('../Controller/SealentWeightController')
 const {AddSolderingPeelTest,UploadSolderingPeelTestPdf,GetSpecificSolderingPeelTest,UpdateSolderingPeelTestStatus} = require('../Controller/SolderingPeelTest')
+const {AddLaminator} = require('../Controller/LaminatorController')
 const {RoleAuthentication,upload} = require('../Middleware/IPQC.Middleware');
 const IPQC = express.Router();
 
@@ -12,8 +13,6 @@ const IPQC = express.Router();
 
 
 
-/** Route To Add Job Card */
-IPQC.post('/AddJobCard',AddIPQCJobCard);
 
 /** Router to Upload Reference Pdf in S3 and Get The Location and Set into dbs */
 IPQC.post('/UploadPdf',upload.single('Reference'),UploadPdf);
@@ -33,6 +32,9 @@ IPQC.post('/UploadSealentWeightPdf',upload.single('SealentWeightPdf'),UploadSeal
 /** Router to Upload Reference Pdf in S3 and Get The Location and Set into dbs(PreLamDetail Table) */
 IPQC.post('/UploadSolderingPeelTestPdf',upload.single('SolderingPdf'),UploadSolderingPeelTestPdf);
 
+/** Route To Add Job Card */
+IPQC.post('/AddJobCard',AddIPQCJobCard);
+
 /**Router To Add BOM Verification Data*/
 IPQC.post('/AddBOMVerification',AddBomVerification);
 
@@ -47,6 +49,9 @@ IPQC.post('/AddSealentWeight',AddSealentWeight);
 
 /**Router To Add Soldering Peel Test */
 IPQC.post('/AddSolderingPeelTest',AddSolderingPeelTest);
+
+/** Route To Add Laminator Data */
+IPQC.post('/AddLaminator',AddLaminator);
 
 /**Router to Get Pdf */
 IPQC.get('/Pdf/:filename',GetPdf);

@@ -142,7 +142,7 @@ const AddPreLam = async (req, res) => {
 const PreLamUploadPdf = async (req, res) => {
 
   const { JobCardDetailId } = req.body;
-
+try{
   if(req.file.size){
     /** making file in IPQC-Pdf-Folder*/
     try {
@@ -150,7 +150,7 @@ const PreLamUploadPdf = async (req, res) => {
        const fileBuffer = req.file.buffer;
        
        // Define the folder path
-       const folderPath = Path.join( 'IPQC-Pdf-Folder');
+       const folderPath = Path.join('IPQC-Pdf-Folder');
   
        // Create the folder if it doesn't exist
        if (!fs.existsSync(folderPath)) {
@@ -175,9 +175,10 @@ const PreLamUploadPdf = async (req, res) => {
       console.log(err);
       res.status(401).send(err);
     }
-  }else{
-    res.status(401).send({status:false,'err':'file is empty'});
   }
+}catch(err){
+  res.send({status:false,'err':'file is empty'})
+}
 }
 
 
