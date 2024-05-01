@@ -1,6 +1,8 @@
 const { v4: uuidv4, v4 } = require('uuid');
 const { dbConn } = require('../db.config/db.config')
 const util = require('util')
+const Path = require('path')
+const fs = require('fs')
 const { getCurrentDateTime, s3 } = require('../Utilis/IQCSolarCellUtilis');
 
 require('dotenv').config()
@@ -171,7 +173,7 @@ if(req.file.size){
       
        // Define the folder path
        const folderPath = Path.join('IQC-Pdf-Folder');
-  
+    
        // Create the folder if it doesn't exist
        if (!fs.existsSync(folderPath)) {
         console.log(folderPath)
