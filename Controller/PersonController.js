@@ -37,7 +37,7 @@ const PersonRegister = async (req, res) => {
       })
       const Status = IsActive;
       if (!Status.length) { 
-      const query = `CALL PersonRegister('${personid}','${employeeid}','${fullname}','${loginid}','${PlainPassword}', '${joblocation}','krishukumar7827@gmail.com','84949eb1-e816-11ee-b439-0ac93defbbf1','','d66d6ab7-e2ab-11ee-974e-12d6db81f661','${getCurrentDateTime()}','${currentuser}' )`
+      const query = `CALL PersonRegister('${personid}','${employeeid}','${fullname}','${loginid}','${PlainPassword}', '${joblocation}','krishukumar7827@gmail.com','${department}','','${designation}','${getCurrentDateTime()}','${currentuser}' )`
 
       const data = await new Promise((resolve, reject) => {
         dbConn.query(query, (err, result) => {

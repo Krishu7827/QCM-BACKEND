@@ -17,7 +17,7 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 
 const IssueTypes = async(req,res)=>{
     try{
-        let query = `SELECT IssueId, Issue FROM IssuesType;`
+        let query = `SELECT IssueId, Issue FROM IssuesType ORDER BY Issue ASC;`
 
         let Issues = await queryAsync(query);
         console.log(Issues);
@@ -28,5 +28,20 @@ const IssueTypes = async(req,res)=>{
     }
 }
 
+/**Get Listing of Issues Type */
 
-module.exports = {IssueTypes}
+const GetModelListing = async(req,res)=>{
+    try{
+        let query = `SELECT ModelId, ModelName FROM ModelTypes ORDER BY ModelName ASC;`
+
+        let Models = await queryAsync(query);
+        console.log(Models);
+        res.send({Models});
+    }catch(err){
+       console.log(err);
+       res.send({err})
+    }
+}
+
+
+module.exports = {IssueTypes,GetModelListing}
