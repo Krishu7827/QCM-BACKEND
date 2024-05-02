@@ -187,12 +187,12 @@ if(req.file.size){
        // Save the file buffer to the specified file path
     fs.writeFileSync(filePath, fileBuffer);
     const query = `UPDATE FQCDetails FD
-                  set FD.Pdf = 'http://srv515471.hstgr.cloud:8080/IQC/Pdf/${fileName}'
+                  set FD.Pdf = 'http://srv515471.hstgr.cloud:8080/IQCSolarCell/Pdf/${fileName}'
                     WHERE FD.FQCDetailId = '${FQCDetailId}';`;
   const update = await queryAsync(query);
   
   
-  res.send({ msg: 'Data inserted successfully!', URL: `http://srv515471.hstgr.cloud:8080/IQC/Pdf/${fileName}` });
+  res.send({ msg: 'Data inserted successfully!', URL: `http://srv515471.hstgr.cloud:8080/IQCSolarCell/Pdf/${fileName}` });
     } catch (err) {
       console.log(err);
       res.status(401).send(err);
