@@ -3,6 +3,7 @@ const express = require('express')
 const {PersonRouter} = require('./Routes/Person.Route')
 const {designationRouter} = require('./Routes/DesignationRoute')
 const {IQCSolarCellRoute} = require('./Routes/IQCSolarCellRoute')
+const {QualityRoute} = require('./Routes/QualityRoutes')
 const path = require('path')
 const {IPQC} = require('./Routes/IPQCRoute')
 const app = express()
@@ -28,6 +29,9 @@ app.use('/IQCSolarCell',IQCSolarCellRoute)
 
 /**to IPQC */
 app.use('/IPQC',IPQC);
+
+/**to Quality */
+app.use('/Quality',QualityRoute)
 
 // let IQC = [
 //   {
