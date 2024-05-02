@@ -2,10 +2,10 @@ const { v4: uuidv4, v4 } = require('uuid');
 const { getCurrentDateTime, s3 } = require('../Utilis/PreLamUtilis');
 const fs = require('fs');
 const Path = require('path')
-
 const util = require('util');
 const { dbConn } = require('../db.config/db.config');
-
+require('dotenv').config()
+const PORT = process.env.PORT || 8080
 
 /** Making Sync To Query */
 const queryAsync = util.promisify(dbConn.query).bind(dbConn);

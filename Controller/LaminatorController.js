@@ -4,7 +4,8 @@ const util = require('util');
 const fs = require('fs');
 const Path = require('path')
 const { dbConn } = require('../db.config/db.config');
-
+require('dotenv').config()
+const PORT = process.env.PORT || 8080
 
 /** Making Sync To Query */
 const queryAsync = util.promisify(dbConn.query).bind(dbConn);
