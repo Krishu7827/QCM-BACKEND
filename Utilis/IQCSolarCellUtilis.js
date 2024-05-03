@@ -322,7 +322,7 @@ async function ExcelGenerate(IQC, ApproveData) {
   let Row = 14;
   IQC.forEach((Material) => {
     /**Check Type */
-    worksheet.getRow(Row).height = 40;
+    worksheet.getRow(Row).height = 45;
 
     worksheet.getCell(`A${Row}`).value = Material['CheckType'];
     worksheet.getCell(`A${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10, } };
@@ -355,7 +355,7 @@ async function ExcelGenerate(IQC, ApproveData) {
     for (var i = startCharCode; i <= endCharCode; i++) {
       console.log(Material['Samples'][index]);
       // console.log(JSON.parse(Material['Samples']));
-      worksheet.getCell(`${String.fromCharCode(i)}${Row}`).value = Material['Samples'][index] ? Material['Samples'][index]['SampleTest'] ? '✔' : '❌' : '';
+      worksheet.getCell(`${String.fromCharCode(i)}${Row}`).value = Material['Samples'][index] ? Material['Samples'][index]['SampleTest'] ? 'Pass' : 'Fail' : '';
       worksheet.getCell(`${String.fromCharCode(i)}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 12, } }
       worksheet.getCell(`${String.fromCharCode(i)}${Row}`).border = Border;
       index++;
