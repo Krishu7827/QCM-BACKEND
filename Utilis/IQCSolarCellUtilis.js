@@ -2,6 +2,8 @@ const AWS = require('aws-sdk');
 const { transport } = require('../Utilis/Person.utilis')
 require('aws-sdk/lib/maintenance_mode_message').suppress = true;
 const ExcelJS = require('exceljs');
+const Path = require('path');
+const fs = require('fs')
 require('dotenv').config();
 
 /** to Get current Date & Time */
@@ -89,34 +91,51 @@ async function ExcelGenerate(IQC, ApproveData) {
   let PVRibbonCheckTypes = ['Visual','Physical','Verification','Performance','Verification','Verification','Verification','Verification'];
   let SealentCheckTypes = ['Visual','Performance','Performance','Performance','Visual','Verification','Verification','Verification'];
   let FluxCheckTypes = ['Visual/Verification','Visual','Verification','Verification','Verification'];
+  let JunctionBox = ['Visual','Physical','Electrical','Measurement','Verification','Verification']
 
-  let CheckTypesArray = []
  if(MaterialName == 'Solar Glass'){
-  CheckTypesArray = SolarGlassCheckTypes;
+  IQC.forEach((Material,i)=>{
+    Material['CheckType'] = SolarGlassCheckTypes[i];
+   })
 
  }else if(MaterialName == 'Backsheet'){
-  CheckTypesArray = BacksheetCheckTypes;
+  IQC.forEach((Material,i)=>{
+    Material['CheckType'] = BacksheetCheckTypes[i];
+   })
 
  }else if(MaterialName == 'Flux'){
-  CheckTypesArray = FluxCheckTypes;
+  IQC.forEach((Material,i)=>{
+    Material['CheckType'] = FluxCheckTypes[i];
+   })
 
  }else if(MaterialName == 'EVA(Encapsulant)'){
-  CheckTypesArray = EVCheckTypes;
+  IQC.forEach((Material,i)=>{
+    Material['CheckType'] = EVCheckTypes[i];
+   })
 
  }else if(MaterialName == 'PV Ribbon'){
- CheckTypesArray = PVRibbonCheckTypes;
+  IQC.forEach((Material,i)=>{
+    Material['CheckType'] = PVRibbonCheckTypes[i];
+   })
 
  }else if(MaterialName == 'Aluminium Frame'){
-CheckTypesArray = AluminiumCheckTypes;
+  IQC.forEach((Material,i)=>{
+    Material['CheckType'] = AluminiumCheckTypes[i];
+   })
 
  }else if(MaterialName == 'Sealant/Poating'){
-  CheckTypesArray = SealentCheckTypes;
+  IQC.forEach((Material,i)=>{
+    Material['CheckType'] = SealentCheckTypes[i];
+   })
+
+ }else if(MaterialName == 'Junction Box'){
+  IQC.forEach((Material,i)=>{
+    Material['CheckType'] = JunctionBox[i];
+   })
 
  }
 
- IQC.forEach((Material,i)=>{
-  Material['CheckType'] = CheckTypesArray[i];
- })
+ 
 
   let exceldata = [{ "column": "Lot Size", "value": IQC[0]['LotSize'] },
   { "column": "Material Name", "value": IQC[0]['MaterialName'] },
@@ -484,6 +503,29 @@ CheckTypesArray = AluminiumCheckTypes;
     </div>`
   })
 
+  try{
+
+      /** Define the folder path */
+      const folderPath = Path.join('ExcelFile');
+      
+    
+      /** Create the folder if it doesn't exist */
+      if (!fs.existsSync(folderPath)) {
+        fs.mkdirSync(folderPath, { recursive: true });
+      }
+
+        /** Define the file path, including the desired file name and format */
+        const Excel = `${IQC[0]['SolarDetailID']}.xlsx`;
+        
+        const ExcelFilePath = Path.join(folderPath, Excel);
+     
+
+      /** Save the file buffer to the specified file path */
+      fs.writeFileSync(ExcelFilePath, excelBuffer);
+    
+  }catch(err){
+   throw err
+  }
 }
 
 module.exports = { getCurrentDateTime, s3, ExcelGenerate }

@@ -89,7 +89,7 @@ const AddSolderingPeelTest = async (req, res) => {
          SET
              TrackData = '${JSON.stringify(Samples[key])}'
          WHERE
-             TestDetailId = '${UUID}' AND Track = '${SampleName}';
+             TestDetailId = '${JobCardDetailId}' AND Track = '${SampleName}';
          `
                 await queryAsync(SolderingPeelTestQuery);
             }

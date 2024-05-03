@@ -419,7 +419,7 @@ const UpdateStatus = async (req, res) => {
       data['Samples'] = JSON.parse(data['Samples']);
     })
 
-    console.log(ExcelData)
+    console.log(ExcelData.length)
     ExcelGenerate(ExcelData, ApproveData);
     res.send({ ExcelData, ApproveData })
   } catch (err) {
@@ -502,8 +502,24 @@ const GetPdf = async(req,res)=>{
    });
 }
 
+const GetExcel = async(req,res)=>{
+  const filename = req.params.filename;
+   /** Define the absolute path to the IPQC-Pdf-Folder directory */
+   const pdfFolderPath = Path.resolve('ExcelFile');
+
+   /** Construct the full file path to the requested file */
+   const filePath = Path.join(pdfFolderPath, filename);
+
+   /** Send the file to the client */
+   res.sendFile(filePath, (err) => {
+       if (err) {
+           console.error('Error sending file:', err);
+           res.status(404).send({ error: 'File not found' });
+       }
+   });
+}
 
 /** Export Controllers */
-module.exports = { AddIQCSolarCell, GetIQCSolarCellTests, GetSpecificSolarCellTest, UpdateStatus, UploadPdf, GetPdf };
+module.exports = { AddIQCSolarCell, GetIQCSolarCellTests, GetSpecificSolarCellTest, UpdateStatus, UploadPdf, GetPdf, GetExcel };
 
 
