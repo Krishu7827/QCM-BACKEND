@@ -42,6 +42,43 @@ const GetModelListing = async(req,res)=>{
        res.send({err})
     }
 }
+let a = {
+    "currentuser": "personid",
+    "shift": "shift",
+    "shiftinchargename": "shiftinchargename",
+    "shiftinchargeprelime": "shiftinchargeprelime",
+    "shiftinchargepostlime": "shiftinchargepostlime",
+    "productBarcode": "productBarcode",
+    "wattage": "wattage",
+    "modelnumber": "modelnumber",
+    "othermodelnumber": "othermodelnumber",
+    "issuetype": "issuetype",
+    "otherissuetype": "otherissuetype",
+    "stage": "stage",
+    "responsibleperson": "responsibleperson",
+    "reasonofissue": "reasonofissue",
+    "issuecomefrom": "issuecomefrom",
+    "actiontaken": "actiontaken",
+  }
+const AddQuality = async(req,res)=>{
+  const {currentuser,shiftinchargename,shift,
+    shiftinchargepostlime,shiftinchargeprelime,
+    issuetype,otherissuetype,
+    modelnumber,othermodelnumber,reasonofissue,responsibleperson,
+stage,wattage,productBarcode,issuecomefrom,actiontaken} = req.body;
+let UUID = v4()
+try{
+const query = `INSERT INTO Quality(QualityId,Shift,ShiftInChargeName,ShiftInChargePreLime,ShiftInChargePostLim,ProductBarCode,Wattage,ModelNumber,OtherModelNumber,IssueType,OtherIssueType,Stage,ResposiblePerson,ReasonOfIssue,IssueComeFrom,ActionTaken,CreatedBy,CreatedOn)
+              VALUES('${UUID}','${shift}','${shiftinchargename}','${shiftinchargeprelime}','${shiftinchargepostlime}','${productBarcode}','${wattage}','${modelnumber}','${othermodelnumber}','${issuetype}','${otherissuetype}','${stage}','${responsibleperson}','${reasonofissue}','${issuecomefrom}','${actiontaken}','${currentuser}','${getCurrentDateTime()}');`;
+
+  await queryAsync(query);
+   res.send({msg:"data inserted Succesfully",UUID});
+}catch(err){
+  console.log(err);
+  res.send({err});
+}
+
+}
 
 
-module.exports = {IssueTypes,GetModelListing}
+module.exports = {IssueTypes,GetModelListing,AddQuality}

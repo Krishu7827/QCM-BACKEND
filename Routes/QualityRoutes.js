@@ -1,6 +1,6 @@
 const express = require('express');
 const QualityRoute = express.Router();
-const {IssueTypes:GetIssueTypes,GetModelListing} = require('../Controller/QualityController')
+const {IssueTypes:GetIssueTypes,GetModelListing,AddQuality} = require('../Controller/QualityController')
 
 
 
@@ -13,5 +13,7 @@ QualityRoute.get('/GetIssues',GetIssueTypes);
 
 /** Router To Get Listing of Model */
 QualityRoute.get('/GetModels',GetModelListing);
+
+QualityRoute.post('/AddQuality',AddQuality)
 
 module.exports = {QualityRoute}
