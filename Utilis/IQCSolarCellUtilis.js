@@ -322,7 +322,7 @@ async function ExcelGenerate(IQC, ApproveData) {
   let Row = 14;
   IQC.forEach((Material) => {
     /**Check Type */
-    worksheet.getRow(Row).height = 38
+    worksheet.getRow(Row).height = 40;
 
     worksheet.getCell(`A${Row}`).value = Material['CheckType'];
     worksheet.getCell(`A${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10, } };
