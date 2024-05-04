@@ -522,10 +522,12 @@ async function ExcelGenerate(IQC, ApproveData) {
 
       /** Save the file buffer to the specified file path */
       fs.writeFileSync(ExcelFilePath, excelBuffer);
-    
+     
   }catch(err){
-   throw err
+    
+   throw err;
   }
+  return `${IQC[0]['SolarDetailID']}.xlsx`;
 }
 
 module.exports = { getCurrentDateTime, s3, ExcelGenerate }
