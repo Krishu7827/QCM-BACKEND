@@ -9,9 +9,6 @@ const {upload} = require('../Middleware/IPQC.Middleware')
 QualityRoute.get('/GetIssues',GetIssueTypes);
 
 /** Router To Get Listing of Model */
-QualityRoute.get('/GetIssues',GetIssueTypes);
-
-/** Router To Get Listing of Model */
 QualityRoute.get('/GetModels',GetModelListing);
 
 /**Router To Add Quality */

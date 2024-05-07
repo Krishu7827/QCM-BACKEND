@@ -65,18 +65,26 @@ const AddQuality = async (req, res) => {
     issuetype, otherissuetype,
     modelnumber, othermodelnumber, reasonofissue, responsibleperson,
     stage, wattage, productBarcode, issuecomefrom, actiontaken } = req.body;
-  let UUID = v4()
-  try {
-    const query = `INSERT INTO Quality(QualityId,Shift,ShiftInChargeName,ShiftInChargePreLime,ShiftInChargePostLim,ProductBarCode,Wattage,ModelNumber,OtherModelNumber,IssueType,OtherIssueType,Stage,ResposiblePerson,ReasonOfIssue,IssueComeFrom,ActionTaken,CreatedBy,CreatedOn)
+
+  let UUID = v4();
+  let IsPresent = await IsPresentSameIssue(modelnumber, othermodelnumber, otherissuetype, issuetype);
+  console.log(IsPresent)
+  if (!IsPresent) {
+    try {
+
+
+      const query = `INSERT INTO Quality(QualityId,Shift,ShiftInChargeName,ShiftInChargePreLime,ShiftInChargePostLim,ProductBarCode,Wattage,ModelNumber,OtherModelNumber,IssueType,OtherIssueType,Stage,ResposiblePerson,ReasonOfIssue,IssueComeFrom,ActionTaken,CreatedBy,CreatedOn)
               VALUES('${UUID}','${shift}','${shiftinchargename}','${shiftinchargeprelime}','${shiftinchargepostlime}','${productBarcode}','${wattage}','${modelnumber}','${othermodelnumber}','${issuetype}','${otherissuetype}','${stage}','${responsibleperson}','${reasonofissue}','${issuecomefrom}','${actiontaken}','${currentuser}','${getCurrentDateTime()}');`;
 
-    await queryAsync(query);
-    res.send({ msg: "data inserted Succesfully", UUID });
-  } catch (err) {
-    console.log(err);
-    res.send({ err });
+      await queryAsync(query);
+      res.send({ msg: "data inserted Succesfully", UUID });
+    } catch (err) {
+      console.log(err);
+      res.send({ err });
+    }
+  } else {
+    res.status(400).send({ msg: 'This Issue Already exists in this Model Number' });
   }
-
 }
 
 const UploadModuleImage = async (req, res) => {
@@ -120,36 +128,108 @@ const UploadModuleImage = async (req, res) => {
   }
 }
 
-const QualityListing = async(req,res)=>{
+const QualityListing = async (req, res) => {
 
- try{
-   let query = `SELECT *FROM Quality ORDER BY STR_TO_DATE(CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
-   let data = await queryAsync(query);
-   
-   res.send({data})
- }catch(err){
-  console.log(err);
-  res.send({err})
- }
+  try {
+    let query = `SELECT Q.QualityId,Q.Shift,Q.ShiftInChargeName,Q.ShiftInChargePreLime,Q.ShiftInChargePostLim,Q.ProductBarCode,Q.Wattage, Q.Stage, Q.ResposiblePerson,Q.ReasonOfIssue,Q.IssueComeFrom,Q.ActionTaken,Q.OtherIssueType,Q.ModulePicture, Q.OtherModelNumber, I.Issue, M.ModelName FROM Quality Q
+    JOIN IssuesType I ON I.IssueId = Q.IssueType
+    JOIN ModelTypes M ON M.ModelId = Q.ModelNumber ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
+    let data = await queryAsync(query);
+
+     data.forEach((el)=>{
+      if(el['Issue'] == 'Other'){
+        el['Issue'] = el['OtherIssueType']
+        
+
+      }
+
+      if(el['ModelName'] == 'Other'){
+        el['ModelName'] = el['OtherModelNumber']
+        
+
+      }
+      delete el['OtherIssueType'];
+      delete el['OtherModelNumber'];
+     })
+     
+    res.send({ data,a})
+  } catch (err) {
+    console.log(err);
+    res.send({ err })
+  }
 }
 
-const GetModuleImage = async(req,res)=>{
+const GetModuleImage = async (req, res) => {
   const filename = req.params.filename;
-   // Define the absolute path to the IPQC-Pdf-Folder directory
-   const pdfFolderPath = Path.resolve('Quality-Upload');
+  // Define the absolute path to the IPQC-Pdf-Folder directory
+  const pdfFolderPath = Path.resolve('Quality-Upload');
 
-   // Construct the full file path to the requested file
-   const filePath = Path.join(pdfFolderPath, filename);
+  // Construct the full file path to the requested file
+  const filePath = Path.join(pdfFolderPath, filename);
 
-   // Send the file to the client
-   res.sendFile(filePath, (err) => {
-       if (err) {
-           console.error('Error sending file:', err);
-          res.send(`  <h1 style="text-align: center; font: 1em sans-serif; font-size: 50px; font-weight: 500;">
+  // Send the file to the client
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      console.error('Error sending file:', err);
+      res.send(`  <h1 style="text-align: center; font: 1em sans-serif; font-size: 50px; font-weight: 500;">
           404:Not Found
       </h1>`)
-       }
-   });
+    }
+  });
+}
+
+
+/** Function To Check Same Issue Present in That one Model Number */
+
+async function IsPresentSameIssue(modelnumber, othermodelnumber, otherissuetype, issuetype) {
+  // Define ModelNameQuery and IssueNameQuery to get ModelName and IssueName
+  let ModelNameQuery = `SELECT ModelName FROM ModelTypes WHERE ModelId = '${modelnumber}'`;
+  let ModelNameData = await queryAsync(ModelNameQuery);
+  let ModelName = ModelNameData[0]['ModelName'];
+
+  let IssueNameQuery = `SELECT Issue FROM IssuesType WHERE IssueId = '${issuetype}'`;
+  let IssueNameData = await queryAsync(IssueNameQuery);
+  let IssueName = IssueNameData[0]['Issue'];
+
+  // Define the QualityQuery to get Quality data
+  let QualityQuery = `SELECT Q.OtherIssueType, Q.OtherModelNumber, I.Issue, M.ModelName FROM Quality Q
+                      JOIN IssuesType I ON I.IssueId = Q.IssueType
+                      JOIN ModelTypes M ON M.ModelId = Q.ModelNumber
+                      WHERE Q.ModelNumber = '${modelnumber}';`;
+
+  console.log(IssueName, ModelName);
+  let Quality = await queryAsync(QualityQuery);
+  console.log(Quality);
+
+  // Iterate over Quality entries using for...of loop
+  for (const element of Quality) {
+      // Check if the model is 'Other'
+      if (ModelName === 'Other') {
+          // Check the conditions for 'Other' model number and issue type
+          if (element['OtherModelNumber'] === othermodelnumber &&
+              IssueName === 'Other' &&
+              otherissuetype.toUpperCase() === element['OtherIssueType'].toUpperCase()) {
+              return true;
+          }
+
+          if (element['OtherModelNumber'] === othermodelnumber && IssueName!== 'Other' &&
+              IssueName === element['Issue']) {
+              return true;
+          }
+      } else {
+          // Check the conditions for the provided issue name
+          if (IssueName === 'Other' && otherissuetype.toUpperCase() === element['OtherIssueType'].toUpperCase()) {
+              return true;
+          }
+          if (IssueName!=='Other' && IssueName === element['Issue']) {
+            
+              return true;
+          }
+      }
+  }
+
+  // Return false if no match was found in Quality data
+  return false;
 }
 
 module.exports = { IssueTypes, GetModelListing, AddQuality, UploadModuleImage, GetModuleImage, QualityListing }
