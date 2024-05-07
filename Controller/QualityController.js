@@ -153,7 +153,7 @@ const QualityListing = async (req, res) => {
      })
      
     
-    res.send({ data,a})
+    res.send({ data})
   } catch (err) {
     console.log(err);
     res.send({ err })
