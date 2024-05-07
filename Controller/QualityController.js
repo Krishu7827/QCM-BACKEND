@@ -16,7 +16,9 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 
 const IssueTypes = async (req, res) => {
   try {
-    let query = `SELECT IssueId, Issue FROM IssuesType ORDER BY Issue ASC;`
+    let query = `SELECT IssueId, Issue FROM IssuesType 
+    WHERE IssueId <> '9f00c67d-0b99-11ef-8005-52549f6cc694' 
+    ORDER BY Issue ASC;`
 
     let Issues = await queryAsync(query);
     console.log(Issues);
@@ -31,7 +33,11 @@ const IssueTypes = async (req, res) => {
 
 const GetModelListing = async (req, res) => {
   try {
-    let query = `SELECT ModelId, ModelName FROM ModelTypes ORDER BY ModelName ASC;`
+    let query = `SELECT ModelId, ModelName
+    FROM ModelTypes
+    WHERE ModelId <> '8634275c-0b99-11ef-8005-52549f6cc694'
+    ORDER BY ModelName ASC;
+    `
 
     let Models = await queryAsync(query);
     console.log(Models);
@@ -184,6 +190,7 @@ const GetModuleImage = async (req, res) => {
 
 async function IsPresentSameIssue(modelnumber, othermodelnumber, otherissuetype, issuetype) {
   // Define ModelNameQuery and IssueNameQuery to get ModelName and IssueName
+  try{
   let ModelNameQuery = `SELECT ModelName FROM ModelTypes WHERE ModelId = '${modelnumber}'`;
   let ModelNameData = await queryAsync(ModelNameQuery);
   let ModelName = ModelNameData[0]['ModelName'];
@@ -231,6 +238,9 @@ async function IsPresentSameIssue(modelnumber, othermodelnumber, otherissuetype,
 
   // Return false if no match was found in Quality data
   return false;
+}catch(err){
+  throw err
+}
 }
 
 module.exports = { IssueTypes, GetModelListing, AddQuality, UploadModuleImage, GetModuleImage, QualityListing }
