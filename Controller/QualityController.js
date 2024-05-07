@@ -131,27 +131,28 @@ const UploadModuleImage = async (req, res) => {
 const QualityListing = async (req, res) => {
 
   try {
-    let query = `SELECT Q.QualityId,Q.Shift,Q.ShiftInChargeName,Q.ShiftInChargePreLime,Q.ShiftInChargePostLim,Q.ProductBarCode,Q.Wattage, Q.Stage, Q.ResposiblePerson,Q.ReasonOfIssue,Q.IssueComeFrom,Q.ActionTaken,Q.OtherIssueType,Q.ModulePicture, Q.OtherModelNumber, I.Issue, M.ModelName FROM Quality Q
+    let query = `SELECT Q.QualityId,Q.Shift,Q.ShiftInChargeName,Q.ShiftInChargePreLime,Q.ShiftInChargePostLim,Q.ProductBarCode,Q.CreatedOn,P.Name AS CreatedBy,Q.Wattage, Q.Stage, Q.ResposiblePerson,Q.ReasonOfIssue,Q.IssueComeFrom,Q.ActionTaken,Q.OtherIssueType,Q.ModulePicture, Q.OtherModelNumber, I.Issue, M.ModelName FROM Quality Q
     JOIN IssuesType I ON I.IssueId = Q.IssueType
+    JOIN Person P ON P.PersonID = Q.CreatedBy
     JOIN ModelTypes M ON M.ModelId = Q.ModelNumber ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
     let data = await queryAsync(query);
 
      data.forEach((el)=>{
       if(el['Issue'] == 'Other'){
         el['Issue'] = el['OtherIssueType']
-        
-
+      
       }
 
       if(el['ModelName'] == 'Other'){
         el['ModelName'] = el['OtherModelNumber']
         
-
       }
       delete el['OtherIssueType'];
       delete el['OtherModelNumber'];
+      el['CreatedOn'] = el['CreatedOn'].split(' ')[0];
      })
      
+    
     res.send({ data,a})
   } catch (err) {
     console.log(err);
