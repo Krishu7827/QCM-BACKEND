@@ -79,7 +79,7 @@ const PersonRegister = async (req, res) => {
       await transport.sendMail({
         from: 'iqc.gautamsolar@gmail.com',
         cc: 'bhanu.galo@gmail.com',
-        to: 'quality@gautamsolar.com',
+        to: 'krishukumar535@gmail.com',
         subject: 'Enrollment in Gautam Solar Private Limited',
         html: `<div style="position: relative; padding: 5px;">
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://galo.co.in/wp-content/uploads/2024/01/Galo-Energy-Logo-06.png'); background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0.3; z-index: -1;"></div>
