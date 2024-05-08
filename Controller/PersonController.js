@@ -77,7 +77,7 @@ const PersonRegister = async (req, res) => {
       })
       /** Sending A Email to Admin */
       await transport.sendMail({
-        from: 'iqc@gautamsolar.com',
+        from: 'iqc.gautamsolar@gmail.com',
         cc: 'bhanu.galo@gmail.com',
         to: 'quality@gautamsolar.com',
         subject: 'Enrollment in Gautam Solar Private Limited',
