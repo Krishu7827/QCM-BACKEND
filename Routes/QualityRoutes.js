@@ -1,6 +1,6 @@
 const express = require('express');
 const QualityRoute = express.Router();
-const {IssueTypes:GetIssueTypes,GetModelListing,AddQuality,UploadModuleImage, GetModuleImage, QualityListing} = require('../Controller/QualityController')
+const {IssueTypes:GetIssueTypes,GetModelListing,AddQuality,UploadModuleImage, GetModuleImage, QualityListing,GetQualityExcel} = require('../Controller/QualityController')
 const {upload} = require('../Middleware/IPQC.Middleware')
 
 
@@ -22,5 +22,8 @@ QualityRoute.get('/File/:filename',GetModuleImage);
 
 /**Router to Get Listing of Quality  */
 QualityRoute.get('/QualityList',QualityListing);
+
+/**Router to Get Quality Excel Report */
+QualityRoute.post('/GetQualityReportExcel',GetQualityExcel);
 
 module.exports = {QualityRoute}

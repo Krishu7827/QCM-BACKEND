@@ -4,6 +4,7 @@ const util = require('util');
 const fs = require('fs');
 const Path = require('path');
 const { getCurrentDateTime, s3, ExcelGenerate } = require('../Utilis/IQCSolarCellUtilis');
+const {QualityExcelGenerate} = require('../Utilis/QualityUtilis')
 require('dotenv').config()
 const PORT = process.env.PORT || 8080
 
@@ -241,6 +242,48 @@ async function IsPresentSameIssue(modelnumber, othermodelnumber, otherissuetype,
 }catch(err){
   throw err
 }
+};
+
+const GetQualityExcel = async(req,res)=>{
+  const { FromDate, ToDate, CurrentUser} = req.body;
+  const UUID = v4()
+  try{
+   let query = `SELECT Q.QualityId, Q.Shift, Q.ShiftInChargeName, Q.ShiftInChargePreLime, Q.ShiftInChargePostLim, Q.ProductBarCode, Q.CreatedOn, P.Name AS CreatedBy, Q.Wattage, Q.Stage, Q.ResposiblePerson, Q.ReasonOfIssue, Q.IssueComeFrom, Q.ActionTaken, Q.OtherIssueType, Q.ModulePicture, Q.OtherModelNumber, I.Issue, M.ModelName
+   FROM Quality Q
+   JOIN IssuesType I ON I.IssueId = Q.IssueType
+   JOIN Person P ON P.PersonID = Q.CreatedBy
+   JOIN ModelTypes M ON M.ModelId = Q.ModelNumber
+   WHERE STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') BETWEEN STR_TO_DATE('${FromDate}', '%d-%m-%Y') AND STR_TO_DATE('${ToDate}', '%d-%m-%Y')
+   ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
+
+   const Quality = await queryAsync(query);
+   
+   let QualityExcelBytes = await QualityExcelGenerate(Quality,FromDate,ToDate);
+
+   // Define the folder path
+   const folderPath = Path.join('Quality-Upload');
+
+   // Create the folder if it doesn't exist
+   if (!fs.existsSync(folderPath)) {
+
+     fs.mkdirSync(folderPath, { recursive: true });
+   }
+
+   // Define the file path, including the desired file name and format
+   const fileName = `${UUID}.xlsx`;
+   const filePath = Path.join(folderPath, fileName);
+   
+    // Save the file buffer to the specified file path
+    fs.writeFileSync(filePath, QualityExcelBytes);
+
+  query = `INSERT INTO QualityReportExcel(ExcelId,FromDate,ToDate,ExcelURL,CreatedBy,CreatedOn)
+                                    VALUES('${UUID}','${FromDate}','${ToDate}','http://srv515471.hstgr.cloud:${PORT}/Quality/File/${fileName}','${CurrentUser}','${getCurrentDateTime()}');`
+    await queryAsync(query);
+  res.send({URL:`http://srv515471.hstgr.cloud:${PORT}/Quality/File/${fileName}`})
+  }catch(err){
+   console.log(err)
+   res.send({err});
+  }
 }
 
-module.exports = { IssueTypes, GetModelListing, AddQuality, UploadModuleImage, GetModuleImage, QualityListing }
+module.exports = { IssueTypes, GetModelListing, AddQuality, UploadModuleImage, GetModuleImage, QualityListing, GetQualityExcel }
