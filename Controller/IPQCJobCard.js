@@ -194,19 +194,19 @@ const JobCardList = async (req, res) => {
   try {
 
     if (Designation == 'Admin' || Designation == 'Super Admin') {
-      query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,jcd.JobCardDetailID,jcd.ModuleNo,jcd.Type,jcd.ReferencePdf,jcd.CreatedOn,jcd.UpdatedOn FROM Person p
+      query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location, jcd.JobCardDetailID,jcd.ModuleNo,jcd.Type,jcd.ReferencePdf,jcd.CreatedOn,jcd.UpdatedOn FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN JobCardDetails jcd ON p.PersonID = jcd.CreatedBy
 WHERE jcd.Status = '${Status}'
 ORDER BY STR_TO_DATE(jcd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
-      BomQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,bd.BOMDetailId,bd.PONo,bd.Type,bd.ReferencePdf, bd.CreatedOn,bd.UpdatedOn FROM Person p
+      BomQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location, bd.BOMDetailId,bd.PONo,bd.Type,bd.ReferencePdf, bd.CreatedOn,bd.UpdatedOn FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN BOMVerificationDetails bd ON p.PersonID = bd.CheckedBy
 WHERE bd.Status = '${Status}'
 ORDER BY STR_TO_DATE(bd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
-      PreLamQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,PD.PreLamDetailId,PD.PONo,PD.Line,PD.Shift,PD.Type,PD.PreLamPdf, PD.CreatedOn, PD.UpdatedOn FROM Person p
+      PreLamQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location, PD.PreLamDetailId,PD.PONo,PD.Line,PD.Shift,PD.Type,PD.PreLamPdf, PD.CreatedOn, PD.UpdatedOn FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN PreLamDetail PD ON p.PersonID = PD.CheckedBy
 WHERE PD.Status = '${Status}'
@@ -219,7 +219,7 @@ WHERE SPT.Status = '${Status}'
 ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
     } else {
-      query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,jcd.JobCardDetailID,jcd.ModuleNo,jcd.Type,jcd.ReferencePdf,jcd.CreatedOn,jcd.UpdatedOn  FROM Person p
+      query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location, jcd.JobCardDetailID,jcd.ModuleNo,jcd.Type,jcd.ReferencePdf,jcd.CreatedOn,jcd.UpdatedOn  FROM Person p
     JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
     JOIN JobCardDetails jcd ON p.PersonID = jcd.CreatedBy
     WHERE jcd.Status = '${Status}' AND p.PersonID = '${PersonID}'
@@ -231,7 +231,7 @@ JOIN BOMVerificationDetails bd ON p.PersonID = bd.CheckedBy
 WHERE bd.Status = '${Status}' AND p.PersonID = '${PersonID}'
 ORDER BY STR_TO_DATE(bd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
-      PreLamQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,PD.PreLamDetailId,PD.PONo,PD.Line,PD.Shift,PD.Type,PD.PreLamPdf, PD.CreatedOn,PD.UpdatedOn FROM Person p
+      PreLamQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,  PD.PreLamDetailId,PD.PONo,PD.Line,PD.Shift,PD.Type,PD.PreLamPdf, PD.CreatedOn,PD.UpdatedOn FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN PreLamDetail PD ON p.PersonID = PD.CheckedBy
 WHERE PD.Status = '${Status}' AND p.PersonID = '${PersonID}'
@@ -249,6 +249,11 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
     const BomList = await queryAsync(BomQuery);
     const PreLamList = await queryAsync(PreLamQuery);
     const SolderingPeelTestList = await queryAsync(SolderingPeelTestQuery)
+
+    JobCardList.forEach((Card)=>{
+      
+      Card['Date'] = Card['CreatedOn'].split(' ')[0];
+    })
     /** Function to parse the date string into a Date object for comparison **/
     const parseDate = dateString => {
       const [date, time] = dateString.split(' ');
@@ -268,6 +273,7 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
             delete BOM[key]
           }
         }
+        BOM['Date'] = BOM['CreatedOn'].split(' ')[0];
         JobCardList.push(BOM)
       })
 
@@ -323,7 +329,8 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
           }
         }
         delete BOM['Line'];
-        delete BOM['PONo']
+        delete BOM['PONo'];
+        BOM['Date'] = BOM['CreatedOn'].split(' ')[0];
         JobCardList.push(BOM);
       })
 
@@ -341,6 +348,7 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
             delete Test[key]
           }
         }
+        Test['Date'] = Test['CreatedOn'].split(' ')[0];
         JobCardList.push(Test);
       })
 
@@ -364,6 +372,7 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
             delete BOM[key]
           }
         }
+        BOM['Date'] = BOM['CreatedOn'].split(' ')[0];
         JobCardList.push(BOM)
       })
 
@@ -418,7 +427,8 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
           }
         }
         delete BOM['Line'];
-        delete BOM['PONo']
+        delete BOM['PONo'];
+        BOM['Date'] = BOM['CreatedOn'].split(' ')[0];
         JobCardList.push(BOM);
       });
 
@@ -436,6 +446,7 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
             delete Test[key]
           }
         }
+        Test['Date'] = Test['CreatedOn'].split(' ')[0];
         JobCardList.push(Test);
       })
 
@@ -459,7 +470,7 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
             delete BOM[key]
           }
         }
-
+        BOM['Date'] = BOM['CreatedOn'].split(' ')[0];
         JobCardList.push(BOM)
       })
 
@@ -517,7 +528,8 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
           }
         }
         delete BOM['Line'];
-        delete BOM['PONo']
+        delete BOM['PONo'];
+        BOM['Date'] = BOM['CreatedOn'].split(' ')[0];
         JobCardList.push(BOM);
       })
 
@@ -535,6 +547,7 @@ ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
             delete Test[key]
           }
         }
+        Test['Date'] = Test['CreatedOn'].split(' ')[0];
         JobCardList.push(Test);
       })
 
