@@ -348,19 +348,30 @@ async function ExcelGenerate(IQC, ApproveData) {
     worksheet.getCell(`F${Row}`).value = Material['AcceptanceCriteria'];
     worksheet.getCell(`F${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10, } };
     worksheet.getCell(`F${Row}`).border = Border;
+  
+
+    if(Material['Sampling'] == 'Whole Lot'){
+
+      worksheet.mergeCells(`G${Row}:N${Row}`);
+      worksheet.getCell(`G${Row}`).value = Material['Samples'][0]['SampleRemarks'];
+      worksheet.getCell(`G${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 15, } }
+      worksheet.getCell(`G${Row}`).border = Border;
+      worksheet.getCell(`N${Row}`).border = Border;
+
+    }else{
 
     var startCharCode = 'G'.charCodeAt(0);
     var endCharCode = 'N'.charCodeAt(0);
     let index = 0;
     for (var i = startCharCode; i <= endCharCode; i++) {
-      console.log(Material['Samples'][index]);
+      //console.log(Material['Samples'][index]);
       // console.log(JSON.parse(Material['Samples']));
-      worksheet.getCell(`${String.fromCharCode(i)}${Row}`).value = Material['Samples'][index] ? Material['Samples'][index]['SampleTest'] ? 'Pass' : 'Fail' : '';
-      worksheet.getCell(`${String.fromCharCode(i)}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 12, } }
+      worksheet.getCell(`${String.fromCharCode(i)}${Row}`).value = Material['Samples'][index] ? Material['Samples'][index]['SampleTest'] ? Material['Samples'][index]['SampleRemarks'] ? Material['Samples'][index]['SampleRemarks']:'Pass' : 'Fail' : '';
+      worksheet.getCell(`${String.fromCharCode(i)}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 12 } }
       worksheet.getCell(`${String.fromCharCode(i)}${Row}`).border = Border;
       index++;
-    }
-
+    };
+  };
     Row++;
   })
 
