@@ -353,7 +353,7 @@ async function ExcelGenerate(IQC, ApproveData) {
     if(Material['Sampling'] == 'Whole Lot'){
 
       worksheet.mergeCells(`G${Row}:N${Row}`);
-      worksheet.getCell(`G${Row}`).value = Material['Samples'][0]['SampleRemarks'];
+      worksheet.getCell(`G${Row}`).value = Material['Samples'][0]['SampleTest']?'Pass':'Fail';
       worksheet.getCell(`G${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 15, } }
       worksheet.getCell(`G${Row}`).border = Border;
       worksheet.getCell(`N${Row}`).border = Border;
@@ -465,6 +465,15 @@ async function ExcelGenerate(IQC, ApproveData) {
     worksheet.getCell(`A${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10, } };
     worksheet.getCell(`A${Row}`).border = Border;
 
+if(Material['Sampling'] == 'Whole Lot'){
+console.log(Material['Sampling'],Row)
+  worksheet.mergeCells(`B${Row}:N${Row}`);
+  worksheet.getCell(`B${Row}`).value = Material['Samples'][0]['SampleTest']?'':Material['Samples'][0]['SampleRemarks'];
+  worksheet.getCell(`B${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 15, } }
+  worksheet.getCell(`B${Row}`).border = Border;
+  worksheet.getCell(`N${Row}`).border = Border;
+}else{
+
     var startCharCode = 'B'.charCodeAt(0);
     var endCharCode = 'N'.charCodeAt(0);
     let index = 0;
@@ -476,6 +485,7 @@ async function ExcelGenerate(IQC, ApproveData) {
       worksheet.getCell(`${String.fromCharCode(i)}${Row}`).border = Border;
       index++;
     }
+  }
     Row++;
   })
 
