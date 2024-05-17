@@ -366,7 +366,7 @@ async function ExcelGenerate(IQC, ApproveData) {
     for (var i = startCharCode; i <= endCharCode; i++) {
       //console.log(Material['Samples'][index]);
       // console.log(JSON.parse(Material['Samples']));
-      worksheet.getCell(`${String.fromCharCode(i)}${Row}`).value = Material['Samples'][index] ? Material['Samples'][index]['SampleTest'] ? Material['Samples'][index]['SampleRemarks'] ? Material['Samples'][index]['SampleRemarks']:'Pass' : 'Fail' : '';
+      worksheet.getCell(`${String.fromCharCode(i)}${Row}`).value = Material['Samples'][index] ? Material['Samples'][index]['SampleTest'] ? Material['Samples'][index]['SampleRemarks'] ? `Pass (${Material['Samples'][index]['SampleRemarks']})`:'Pass' : 'Fail' : '';
       worksheet.getCell(`${String.fromCharCode(i)}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 12 } }
       worksheet.getCell(`${String.fromCharCode(i)}${Row}`).border = Border;
       index++;
@@ -471,7 +471,7 @@ async function ExcelGenerate(IQC, ApproveData) {
     for (var i = startCharCode; i <= endCharCode; i++) {
       console.log(Material['Samples'][index])
       //Material['Samples'] = JSON.parse(Material['Samples']);
-      worksheet.getCell(`${String.fromCharCode(i)}${Row}`).value = Material['Samples'][index] ? Material['Samples'][index]['SampleRemarks'] ? Material['Samples'][index]['SampleRemarks'] : '' : '';
+      worksheet.getCell(`${String.fromCharCode(i)}${Row}`).value = Material['Samples'][index] && !Material['Samples'][index]['SampleTest']? Material['Samples'][index]['SampleRemarks'] ? Material['Samples'][index]['SampleRemarks'] : '' : '';
       worksheet.getCell(`${String.fromCharCode(i)}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 12, } }
       worksheet.getCell(`${String.fromCharCode(i)}${Row}`).border = Border;
       index++;
