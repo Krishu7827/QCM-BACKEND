@@ -71,7 +71,7 @@ const AddQuality = async (req, res) => {
     shiftinchargepostlime, shiftinchargeprelime,
     issuetype, otherissuetype,
     modelnumber, othermodelnumber, reasonofissue, responsibleperson,
-    stage, wattage, productBarcode, issuecomefrom, actiontaken } = req.body;
+    stage, wattage, productBarcode, issuecomefrom, actiontaken, status } = req.body;
 
   let UUID = v4();
   let IsPresent = await IsPresentSameIssue(modelnumber, othermodelnumber, otherissuetype, issuetype);
@@ -80,8 +80,8 @@ const AddQuality = async (req, res) => {
     try {
 
 
-      const query = `INSERT INTO Quality(QualityId,Shift,ShiftInChargeName,ShiftInChargePreLime,ShiftInChargePostLim,ProductBarCode,Wattage,ModelNumber,OtherModelNumber,IssueType,OtherIssueType,Stage,ResposiblePerson,ReasonOfIssue,IssueComeFrom,ActionTaken,CreatedBy,CreatedOn)
-              VALUES('${UUID}','${shift}','${shiftinchargename}','${shiftinchargeprelime}','${shiftinchargepostlime}','${productBarcode}','${wattage}','${modelnumber}','${othermodelnumber}','${issuetype}','${otherissuetype}','${stage}','${responsibleperson}','${reasonofissue}','${issuecomefrom}','${actiontaken}','${currentuser}','${getCurrentDateTime()}');`;
+      const query = `INSERT INTO Quality(QualityId,Shift,ShiftInChargeName,ShiftInChargePreLime,ShiftInChargePostLim,ProductBarCode,Wattage,ModelNumber,OtherModelNumber,IssueType,OtherIssueType,Stage,ResposiblePerson,ReasonOfIssue,IssueComeFrom,ActionTaken,CreatedBy,CreatedOn,Status)
+              VALUES('${UUID}','${shift}','${shiftinchargename}','${shiftinchargeprelime}','${shiftinchargepostlime}','${productBarcode}','${wattage}','${modelnumber}','${othermodelnumber}','${issuetype}','${otherissuetype}','${stage}','${responsibleperson}','${reasonofissue}','${issuecomefrom}','${actiontaken}','${currentuser}','${getCurrentDateTime()}','${status}');`;
 
       await queryAsync(query);
       res.send({ msg: "data inserted Succesfully", UUID });
@@ -145,7 +145,7 @@ const QualityListing = async (req, res) => {
     JOIN Person P ON P.PersonID = Q.CreatedBy
     JOIN ModelTypes M ON M.ModelId = Q.ModelNumber ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`:
 
-    `SELECT Q.QualityId,Q.Shift,Q.ShiftInChargeName,Q.ShiftInChargePreLime,Q.ShiftInChargePostLim,Q.ProductBarCode,Q.CreatedOn,P.Name AS CreatedBy,Q.Wattage, Q.Stage, Q.ResposiblePerson,Q.ReasonOfIssue,Q.IssueComeFrom,Q.ActionTaken,Q.OtherIssueType,Q.ModulePicture, Q.OtherModelNumber, I.Issue, M.ModelName FROM Quality Q
+    `SELECT Q.QualityId,Q.Shift,Q.ShiftInChargeName,Q.ShiftInChargePreLime,Q.ShiftInChargePostLim,Q.ProductBarCode,Q.CreatedOn,P.Name AS CreatedBy,Q.Wattage, Q.Stage, Q.ResposiblePerson,Q.ReasonOfIssue,Q.IssueComeFrom,Q.ActionTaken,Q.OtherIssueType,Q.ModulePicture, Q.OtherModelNumber, I.Issue, M.ModelName, Q.Status FROM Quality Q
     JOIN IssuesType I ON I.IssueId = Q.IssueType
     JOIN Person P ON P.PersonID = Q.CreatedBy
     JOIN ModelTypes M ON M.ModelId = Q.ModelNumber WHERE QualityId = '${QualityId}';`;
@@ -164,7 +164,7 @@ const QualityListing = async (req, res) => {
         el['ModelName'] = el['OtherModelNumber']
         
       }
-      
+
       delete el['OtherIssueType'];
       delete el['OtherModelNumber'];
       el['CreatedOn'] = el['CreatedOn'].split(' ')[0];
