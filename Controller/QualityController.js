@@ -197,7 +197,7 @@ const QualityListing = async (req, res) => {
     JOIN ModelTypes M ON M.ModelId = Q.ModelNumber WHERE QualityId = '${QualityId}';`;
 
     let data = await queryAsync(query);
-
+   console.log(data)
     if(!QualityId){
 
      data.forEach((el)=>{
