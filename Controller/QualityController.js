@@ -185,19 +185,96 @@ const QualityListing = async (req, res) => {
    let query;
   try {
     query = !QualityId ?
-    `SELECT Q.QualityId,Q.Shift,Q.ShiftInChargeName,Q.ShiftInChargePreLime,Q.ShiftInChargePostLim,Q.ProductBarCode,Q.CreatedOn,P.Name AS CreatedBy,Q.Wattage, Q.Stage, Q.ResposiblePerson,Q.ReasonOfIssue,Q.IssueComeFrom,Q.ActionTaken,Q.OtherIssueType,Q.ModulePicture, Q.OtherModelNumber, I.Issue, Q.Status, M.ModelName FROM Quality Q
-    JOIN IssuesType I ON I.IssueId = Q.IssueType
+    `SELECT Q.QualityId,Q.Shift,Q.ShiftInChargeName,Q.ShiftInChargePreLime,Q.ShiftInChargePostLim,Q.ProductBarCode,Q.CreatedOn,P.Name AS CreatedBy,Q.Wattage, Q.Stage, Q.ResposiblePerson,Q.ReasonOfIssue,Q.IssueComeFrom,Q.ActionTaken,Q.OtherIssueType,Q.ModulePicture,Q.ModelNumber,Q.IssueType, Q.OtherModelNumber,Q.Status FROM Quality Q
     JOIN Person P ON P.PersonID = Q.CreatedBy
-    JOIN ModelTypes M ON M.ModelId = Q.ModelNumber
     WHERE Q.Status = '${Status}' ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`:
 
     `SELECT Q.QualityId,Q.Shift,Q.ShiftInChargeName,Q.ShiftInChargePreLime,Q.ShiftInChargePostLim,Q.ProductBarCode,Q.CreatedOn,P.Name AS CreatedBy,Q.Wattage, Q.Stage, Q.ResposiblePerson,Q.ReasonOfIssue,Q.IssueComeFrom,Q.ActionTaken,Q.OtherIssueType,Q.ModulePicture, Q.OtherModelNumber, Q.IssueType, Q.ModelNumber, Q.Status FROM Quality Q
-    JOIN IssuesType I ON I.IssueId = Q.IssueType
-    JOIN Person P ON P.PersonID = Q.CreatedBy
-    JOIN ModelTypes M ON M.ModelId = Q.ModelNumber WHERE QualityId = '${QualityId}';`;
+    JOIN Person P ON P.PersonID = Q.CreatedBy WHERE QualityId = '${QualityId}';`;
 
     let data = await queryAsync(query);
-   console.log(data)
+
+    let Data =  [
+      {
+          "QualityId": "6ee162d3-0488-46fd-a2c0-94297ac68b6c",
+          "Shift": "Night",
+          "ShiftInChargeName": "shiftinchargename",
+          "ShiftInChargePreLime": "shiftinchargeprelime",
+          "ShiftInChargePostLim": "shiftinchargepostlime",
+          "ProductBarCode": "90-87987856767",
+          "CreatedOn": "20-05-2024",
+          "CreatedBy": "Bhanu",
+          "Wattage": "wattage",
+          "Stage": "stage",
+          "ResposiblePerson": "responsibleperson",
+          "ReasonOfIssue": "reasonofissue",
+          "IssueComeFrom": "issuecomefrom",
+          "ActionTaken": "actiontaken",
+          "ModulePicture": null,
+          "ModelNumber": "8634275c-0b99-11ef-8005-52549f6cc694",
+          "IssueType": ""
+      },
+      {
+          "QualityId": "d5707fe9-a9a4-48af-be02-20ddf725711b",
+          "Shift": "Night",
+          "ShiftInChargeName": "shiftinchargename",
+          "ShiftInChargePreLime": "shiftinchargeprelime",
+          "ShiftInChargePostLim": "shiftinchargepostlime",
+          "ProductBarCode": "90-87987856767",
+          "CreatedOn": "20-05-2024",
+          "CreatedBy": "Bhanu",
+          "Wattage": "wattage",
+          "Stage": "stage",
+          "ResposiblePerson": "responsibleperson",
+          "ReasonOfIssue": "reasonofissue",
+          "IssueComeFrom": "issuecomefrom",
+          "ActionTaken": "actiontaken",
+          "ModulePicture": null,
+          "ModelNumber": "8634275c-0b99-11ef-8005-52549f6cc694",
+          "IssueType": "9f00c67d-0b99-11ef-8005-52549f6cc694"
+      },
+      {
+          "QualityId": "cd9a7318-5060-4fae-9169-5567ced81c70",
+          "Shift": "Night",
+          "ShiftInChargeName": "shiftinchargename",
+          "ShiftInChargePreLime": "shiftinchargeprelime",
+          "ShiftInChargePostLim": "shiftinchargepostlime",
+          "ProductBarCode": "90-87987856767",
+          "CreatedOn": "20-05-2024",
+          "CreatedBy": "Bhanu",
+          "Wattage": "wattage",
+          "Stage": "stage",
+          "ResposiblePerson": "responsibleperson",
+          "ReasonOfIssue": "reasonofissue",
+          "IssueComeFrom": "issuecomefrom",
+          "ActionTaken": "actiontaken",
+          "ModulePicture": null,
+          "ModelNumber": "8634275c-0b99-11ef-8005-52549f6cc694",
+          "IssueType": ""
+      }]
+      
+      if(!QualityId){
+      for (const Quality of data) {
+        if (Quality['ModelNumber']) {
+            let ModelName = await queryAsync(`SELECT ModelName FROM ModelTypes WHERE ModelId = '${Quality['ModelNumber']}'`);
+            Quality['ModelName'] = ModelName[0]['ModelName'];
+        }else{
+          Quality['ModelName'] = '';
+
+        }
+    
+        if (Quality['IssueType']) {
+            let IssueName = await queryAsync(`SELECT Issue FROM IssuesType WHERE IssueId = '${Quality['IssueType']}'`);
+            Quality['Issue'] = IssueName[0]['Issue'];
+        }else{
+          Quality['Issue'] = '';
+
+        }
+        delete Quality['ModelNumber'];
+        delete Quality['IssueType'];
+    }
+  }
+      //console.log(data)
     if(!QualityId){
 
      data.forEach((el)=>{
@@ -217,6 +294,7 @@ const QualityListing = async (req, res) => {
      })
      
     }
+    
     res.send({ data})
   } catch (err) {
     console.log(err);
