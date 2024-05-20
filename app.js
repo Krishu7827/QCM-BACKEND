@@ -9,7 +9,7 @@ const { IPQC } = require('./Routes/IPQCRoute')
 const app = express()
 const cors = require('cors')
 const PORT = process.env.PORT || 8080
-const ExcelJS = require('exceljs');
+//const ExcelJS = require('exceljs');
 require('dotenv').config()
 app.use(express.json())
 app.use(cors())
@@ -60,6 +60,7 @@ app.get("/getFile", (req, res) => {
   const pathfile = path.join(__dirname, 'check.png');
   res.download(pathfile);
 });
+
 app.listen(PORT, async () => {
   try {
     console.log('server is running')

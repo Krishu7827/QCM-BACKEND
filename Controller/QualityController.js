@@ -136,13 +136,23 @@ const UploadModuleImage = async (req, res) => {
 }
 
 const QualityListing = async (req, res) => {
-
+   const {QualityId} = req.body;
+   let query;
   try {
-    let query = `SELECT Q.QualityId,Q.Shift,Q.ShiftInChargeName,Q.ShiftInChargePreLime,Q.ShiftInChargePostLim,Q.ProductBarCode,Q.CreatedOn,P.Name AS CreatedBy,Q.Wattage, Q.Stage, Q.ResposiblePerson,Q.ReasonOfIssue,Q.IssueComeFrom,Q.ActionTaken,Q.OtherIssueType,Q.ModulePicture, Q.OtherModelNumber, I.Issue, M.ModelName FROM Quality Q
+    query = !QualityId ?
+    `SELECT Q.QualityId,Q.Shift,Q.ShiftInChargeName,Q.ShiftInChargePreLime,Q.ShiftInChargePostLim,Q.ProductBarCode,Q.CreatedOn,P.Name AS CreatedBy,Q.Wattage, Q.Stage, Q.ResposiblePerson,Q.ReasonOfIssue,Q.IssueComeFrom,Q.ActionTaken,Q.OtherIssueType,Q.ModulePicture, Q.OtherModelNumber, I.Issue, M.ModelName FROM Quality Q
     JOIN IssuesType I ON I.IssueId = Q.IssueType
     JOIN Person P ON P.PersonID = Q.CreatedBy
-    JOIN ModelTypes M ON M.ModelId = Q.ModelNumber ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
+    JOIN ModelTypes M ON M.ModelId = Q.ModelNumber ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`:
+
+    `SELECT Q.QualityId,Q.Shift,Q.ShiftInChargeName,Q.ShiftInChargePreLime,Q.ShiftInChargePostLim,Q.ProductBarCode,Q.CreatedOn,P.Name AS CreatedBy,Q.Wattage, Q.Stage, Q.ResposiblePerson,Q.ReasonOfIssue,Q.IssueComeFrom,Q.ActionTaken,Q.OtherIssueType,Q.ModulePicture, Q.OtherModelNumber, I.Issue, M.ModelName FROM Quality Q
+    JOIN IssuesType I ON I.IssueId = Q.IssueType
+    JOIN Person P ON P.PersonID = Q.CreatedBy
+    JOIN ModelTypes M ON M.ModelId = Q.ModelNumber WHERE QualityId = '${QualityId}';`;
+
     let data = await queryAsync(query);
+
+    if(!QualityId){
 
      data.forEach((el)=>{
       if(el['Issue'] == 'Other'){
@@ -154,12 +164,13 @@ const QualityListing = async (req, res) => {
         el['ModelName'] = el['OtherModelNumber']
         
       }
+      
       delete el['OtherIssueType'];
       delete el['OtherModelNumber'];
       el['CreatedOn'] = el['CreatedOn'].split(' ')[0];
      })
      
-    
+    }
     res.send({ data})
   } catch (err) {
     console.log(err);

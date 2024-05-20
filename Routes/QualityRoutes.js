@@ -21,7 +21,7 @@ QualityRoute.post('/UploadModuleImage',upload.single('ModuleImage'),UploadModule
 QualityRoute.get('/File/:filename',GetModuleImage);
 
 /**Router to Get Listing of Quality  */
-QualityRoute.get('/QualityList',QualityListing);
+QualityRoute.post('/QualityList',QualityListing);
 
 /**Router to Get Quality Excel Report */
 QualityRoute.post('/GetQualityReportExcel',GetQualityExcel);
