@@ -67,15 +67,17 @@ let a = {
   "actiontaken": "actiontaken",
 }
 const AddQuality = async (req, res) => {
-  const { currentuser, shiftinchargename, shift,
+  const { qualityid,currentuser, shiftinchargename, shift,
     shiftinchargepostlime, shiftinchargeprelime,
     issuetype, otherissuetype,
     modelnumber, othermodelnumber, reasonofissue, responsibleperson,
     stage, wattage, productBarcode, issuecomefrom, actiontaken, status } = req.body;
 
   let UUID = v4();
-  let IsPresent = await IsPresentSameIssue(modelnumber, othermodelnumber, otherissuetype, issuetype);
+  let IsPresent = await IsPresentSameIssue(qualityid, productBarcode,otherissuetype, issuetype);
   console.log(IsPresent)
+  if(!qualityid){
+
   if (!IsPresent) {
     try {
 
@@ -92,6 +94,49 @@ const AddQuality = async (req, res) => {
   } else {
     res.status(400).send({ msg: 'This Issue Already exists in this Model Number' });
   }
+
+
+}else{
+    if (!IsPresent) {
+    try {
+
+
+      const query = `
+      UPDATE Quality
+      SET 
+          Shift = '${shift}',
+          ShiftInChargeName = '${shiftinchargename}',
+          ShiftInChargePreLime = '${shiftinchargeprelime}',
+          ShiftInChargePostLim = '${shiftinchargepostlime}',
+          ProductBarCode = '${productBarcode}',
+          Wattage = '${wattage}',
+          ModelNumber = '${modelnumber}',
+          OtherModelNumber = '${othermodelnumber}',
+          IssueType = '${issuetype}',
+          OtherIssueType = '${otherissuetype}',
+          Stage = '${stage}',
+          ResposiblePerson = '${responsibleperson}',
+          ReasonOfIssue = '${reasonofissue}',
+          IssueComeFrom = '${issuecomefrom}',
+          ActionTaken = '${actiontaken}',
+          CreatedBy = '${currentuser}',
+          CreatedOn = '${getCurrentDateTime()}',
+          Status = '${status}'
+      WHERE QualityId = '${qualityid}';
+  `;
+  
+
+      await queryAsync(query);
+      res.send({ msg: "data inserted Succesfully", UUID:qualityid });
+    } catch (err) {
+      console.log(err);
+      res.send({ err });
+    }
+  } else {
+    res.status(400).send({ msg: 'This Issue Already exists in this Model Number' });
+  }
+
+}
 }
 
 const UploadModuleImage = async (req, res) => {
@@ -200,53 +245,55 @@ const GetModuleImage = async (req, res) => {
 
 /** Function To Check Same Issue Present in That one Model Number */
 
-async function IsPresentSameIssue(modelnumber, othermodelnumber, otherissuetype, issuetype) {
+async function IsPresentSameIssue(qualityid, ProductBarCode, otherissuetype, issuetype) {
   // Define ModelNameQuery and IssueNameQuery to get ModelName and IssueName
+  
   try{
-  let ModelNameQuery = `SELECT ModelName FROM ModelTypes WHERE ModelId = '${modelnumber}'`;
-  let ModelNameData = await queryAsync(ModelNameQuery);
-  let ModelName = ModelNameData[0]['ModelName'];
-
+  
   let IssueNameQuery = `SELECT Issue FROM IssuesType WHERE IssueId = '${issuetype}'`;
   let IssueNameData = await queryAsync(IssueNameQuery);
-  let IssueName = IssueNameData[0]['Issue'];
+  let IssueName = IssueNameData.length? IssueNameData[0]['Issue']:'';
 
   // Define the QualityQuery to get Quality data
-  let QualityQuery = `SELECT Q.OtherIssueType, Q.OtherModelNumber, I.Issue, M.ModelName FROM Quality Q
-                      JOIN IssuesType I ON I.IssueId = Q.IssueType
-                      JOIN ModelTypes M ON M.ModelId = Q.ModelNumber
-                      WHERE Q.ModelNumber = '${modelnumber}';`;
+   let QualityQuery = qualityid? 
+   /** if Quality id is Defined */
+   IssueName == 'Other'? `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
+   JOIN IssuesType I ON I.IssueId = Q.IssueType
+   WHERE Q.ProductBarCode = '${ProductBarCode}' AND Q.QualityId != '${qualityid}';`:
 
-  console.log(IssueName, ModelName);
+  `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
+   JOIN IssuesType I ON I.IssueId = Q.IssueType
+   WHERE Q.ProductBarCode = '${ProductBarCode}' AND Q.IssueType = '${issuetype}' AND Q.QualityId != '${qualityid}';`:
+
+  /** if Qualityid is not Defined */
+  IssueName == 'Other'? `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
+  JOIN IssuesType I ON I.IssueId = Q.IssueType
+  WHERE Q.ProductBarCode = '${ProductBarCode}';`:
+
+  `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
+   JOIN IssuesType I ON I.IssueId = Q.IssueType
+   WHERE Q.ProductBarCode = '${ProductBarCode}' AND Q.IssueType = '${issuetype}';`
+
+
+  console.log(IssueName);
   let Quality = await queryAsync(QualityQuery);
   console.log(Quality);
 
-  // Iterate over Quality entries using for...of loop
+ if(IssueName == 'Other'){
+   // Iterate over Quality entries using for...of loop
   for (const element of Quality) {
-      // Check if the model is 'Other'
-      if (ModelName === 'Other') {
-          // Check the conditions for 'Other' model number and issue type
-          if (element['OtherModelNumber'] === othermodelnumber &&
-              IssueName === 'Other' &&
-              otherissuetype.toUpperCase() === element['OtherIssueType'].toUpperCase()) {
-              return true;
-          }
+    
+    // Check the conditions for the provided issue name
+    if (IssueName === 'Other' && otherissuetype.toUpperCase() === element['OtherIssueType'].toUpperCase()) {
+        return true;
+    }
 
-          if (element['OtherModelNumber'] === othermodelnumber && IssueName!== 'Other' &&
-              IssueName === element['Issue']) {
-              return true;
-          }
-      } else {
-          // Check the conditions for the provided issue name
-          if (IssueName === 'Other' && otherissuetype.toUpperCase() === element['OtherIssueType'].toUpperCase()) {
-              return true;
-          }
-          if (IssueName!=='Other' && IssueName === element['Issue']) {
-            
-              return true;
-          }
-      }
-  }
+}
+ }else if(Quality.length){
+      return true;
+      
+ }
+  
 
   // Return false if no match was found in Quality data
   return false;
