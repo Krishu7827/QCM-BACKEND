@@ -75,7 +75,13 @@ const AddQuality = async (req, res) => {
 
   let UUID = v4();
   let IsPresent = await IsPresentSameIssue(qualityid, productBarcode,otherissuetype, issuetype);
-  console.log(IsPresent)
+  console.log(IsPresent);
+  /**Checking Duplicate Product Barcode */
+  
+  let temp = productBarcode?await queryAsync(`SELECT ProductBarCode FROM Quality WHERE ProductBarCode = '${productBarcode}'`):[];
+
+  temp.length?res.status(409).send({msg:'This Product Barcode is already recorded'}):'';
+
   if(!qualityid){
 
   if (!IsPresent) {
