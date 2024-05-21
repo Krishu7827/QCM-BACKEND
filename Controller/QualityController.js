@@ -74,17 +74,18 @@ const AddQuality = async (req, res) => {
     stage, wattage, productBarcode, issuecomefrom, actiontaken, status } = req.body;
 
   let UUID = v4();
-  let IsPresent = await IsPresentSameIssue(qualityid, productBarcode, otherissuetype, issuetype);
-  console.log(IsPresent);
+  //let IsPresent = await IsPresentSameIssue(qualityid, productBarcode, otherissuetype, issuetype);
+  //console.log(IsPresent);
   /**Checking Duplicate Product Barcode */
 
   let temp = productBarcode ? await queryAsync(`SELECT ProductBarCode FROM Quality WHERE ProductBarCode = '${productBarcode}' AND Status != 'Inprogress'`) : [];
 
-  temp.length ? res.status(409).send({ msg: 'This Product Barcode is already recorded' }) : '';
+  if(temp.length){
+    res.status(409).send({ msg: 'This Product Barcode is already recorded' })
+  };
 
   if (!qualityid) {
 
-    if (!IsPresent) {
       try {
 
 
@@ -97,16 +98,10 @@ const AddQuality = async (req, res) => {
         console.log(err);
         res.send({ err });
       }
-    } else {
-      res.status(400).send({ msg: 'This Issue Already exists in this Model Number' });
-    }
-
-
+    
   } else {
     
-    if (!IsPresent) {
       try {
-
 
         const query = `
       UPDATE Quality
@@ -139,10 +134,7 @@ const AddQuality = async (req, res) => {
         console.log(err);
         res.send({ err });
       }
-    } else {
-      res.status(400).send({ msg: 'This Issue Already exists in this Model Number' });
-    }
-
+   
   }
 }
 
@@ -338,62 +330,62 @@ const GetModuleImage = async (req, res) => {
 
 /** Function To Check Same Issue Present in That one Model Number */
 
-async function IsPresentSameIssue(qualityid, ProductBarCode, otherissuetype, issuetype) {
-  // Define ModelNameQuery and IssueNameQuery to get ModelName and IssueName
+// async function IsPresentSameIssue(qualityid, ProductBarCode, otherissuetype, issuetype) {
+//   // Define ModelNameQuery and IssueNameQuery to get ModelName and IssueName
 
-  try {
+//   try {
 
-    let IssueNameQuery = `SELECT Issue FROM IssuesType WHERE IssueId = '${issuetype}'`;
-    let IssueNameData = await queryAsync(IssueNameQuery);
-    let IssueName = IssueNameData.length ? IssueNameData[0]['Issue'] : '';
+//     let IssueNameQuery = `SELECT Issue FROM IssuesType WHERE IssueId = '${issuetype}'`;
+//     let IssueNameData = await queryAsync(IssueNameQuery);
+//     let IssueName = IssueNameData.length ? IssueNameData[0]['Issue'] : '';
 
-    // Define the QualityQuery to get Quality data
-    let QualityQuery = qualityid ?
-      /** if Quality id is Defined */
-      IssueName == 'Other' ? `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
-   JOIN IssuesType I ON I.IssueId = Q.IssueType
-   WHERE Q.QualityId != '${qualityid}' AND Q.Status != 'Inprogress';` :
+//     // Define the QualityQuery to get Quality data
+//     let QualityQuery = qualityid ?
+//       /** if Quality id is Defined */
+//       IssueName == 'Other' ? `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
+//    JOIN IssuesType I ON I.IssueId = Q.IssueType
+//    WHERE Q.QualityId != '${qualityid}' AND Q.Status != 'Inprogress';` :
 
-        `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
-   JOIN IssuesType I ON I.IssueId = Q.IssueType
-   WHERE Q.IssueType = '${issuetype}' AND Q.QualityId != '${qualityid}' AND Q.Status != 'Inprogress';` :
+//         `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
+//    JOIN IssuesType I ON I.IssueId = Q.IssueType
+//    WHERE Q.QualityId != '${qualityid}' AND Q.Status != 'Inprogress';` :
 
-      /** if Qualityid is not Defined */
-      IssueName == 'Other' ? `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
-  JOIN IssuesType I ON I.IssueId = Q.IssueType
-  WHERE Q.Status != 'Inprogress'; ` :
+//       /** if Qualityid is not Defined */
+//       IssueName == 'Other' ? `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
+//   JOIN IssuesType I ON I.IssueId = Q.IssueType
+//   WHERE Q.Status != 'Inprogress'; ` :
 
-        `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
-   JOIN IssuesType I ON I.IssueId = Q.IssueType
-   WHERE Q.Status != 'Inprogress' AND Q.IssueType = '${issuetype}';`
-
-
-    console.log(IssueName);
-    let Quality = await queryAsync(QualityQuery);
-    console.log(Quality);
-
-    if (IssueName == 'Other') {
-      // Iterate over Quality entries using for...of loop
-      for (const element of Quality) {
-
-        // Check the conditions for the provided issue name
-        if (IssueName === 'Other' && otherissuetype.toUpperCase() === element['OtherIssueType'].toUpperCase()) {
-          return true;
-        }
-
-      }
-    } else if (Quality.length) {
-      return true;
-
-    }
+//         `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
+//    JOIN IssuesType I ON I.IssueId = Q.IssueType
+//    WHERE Q.Status != 'Inprogress';`
 
 
-    // Return false if no match was found in Quality data
-    return false;
-  } catch (err) {
-    throw err
-  }
-};
+//     console.log(IssueName);
+//     let Quality = await queryAsync(QualityQuery);
+//     console.log(Quality);
+
+//     if (IssueName == 'Other') {
+//       // Iterate over Quality entries using for...of loop
+//       for (const element of Quality) {
+
+//         // Check the conditions for the provided issue name
+//         if (IssueName === 'Other' && otherissuetype.toUpperCase() === element['OtherIssueType'].toUpperCase()) {
+//           return true;
+//         }
+
+//       }
+//     } else if (Quality.length) {
+//       return true;
+
+//     }
+
+
+//     // Return false if no match was found in Quality data
+//     return false;
+//   } catch (err) {
+//     throw err
+//   }
+// };
 
 const GetQualityExcel = async (req, res) => {
   const { FromDate, ToDate, CurrentUser } = req.body;
