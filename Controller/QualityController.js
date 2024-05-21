@@ -394,16 +394,42 @@ const GetQualityExcel = async (req, res) => {
   const { FromDate, ToDate, CurrentUser, Status } = req.body;
   const UUID = v4()
   try {
-    let query = `SELECT Q.CreatedOn, Q.QualityId, Q.Shift, Q.ShiftInChargeName, Q.ShiftInChargePreLime, Q.ShiftInChargePostLim, Q.ProductBarCode, P.Name AS CreatedBy, Q.Wattage, Q.Stage, Q.ResposiblePerson, Q.ReasonOfIssue, Q.IssueComeFrom, Q.ActionTaken, Q.OtherIssueType, Q.ModulePicture, Q.OtherModelNumber, I.Issue, M.ModelName
-   FROM Quality Q
-   JOIN IssuesType I ON I.IssueId = Q.IssueType
-   JOIN Person P ON P.PersonID = Q.CreatedBy
-   JOIN ModelTypes M ON M.ModelId = Q.ModelNumber
-   WHERE Q.Status = '${Status}' AND STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') BETWEEN STR_TO_DATE('${FromDate} 00:00:00', '%d-%m-%Y %H:%i:%s') AND STR_TO_DATE('${ToDate} 23:59:59', '%d-%m-%Y %H:%i:%s')
-   ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
+    let query = `SELECT Q.CreatedOn, Q.QualityId, Q.Shift, Q.ShiftInChargeName, Q.ShiftInChargePreLime, Q.ShiftInChargePostLim, Q.ProductBarCode, P.Name AS CreatedBy, Q.Wattage, Q.Stage, Q.ResposiblePerson, Q.ReasonOfIssue, Q.IssueComeFrom, Q.ActionTaken, Q.OtherIssueType, Q.ModulePicture,Q.Status, Q.OtherModelNumber,Q.IssueType,Q.ModelNumber
+    FROM Quality Q
+    JOIN Person P ON P.PersonID = Q.CreatedBy
+    WHERE Q.Status = '${Status}' AND STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') BETWEEN STR_TO_DATE('20-05-2024 00:00:00', '%d-%m-%Y %H:%i:%s') AND STR_TO_DATE('22-05-2024 23:59:59', '%d-%m-%Y %H:%i:%s')
+    ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
+
+  //  let query = `SELECT Q.CreatedOn, Q.QualityId, Q.Shift, Q.ShiftInChargeName, Q.ShiftInChargePreLime, Q.ShiftInChargePostLim, Q.ProductBarCode, P.Name AS CreatedBy, Q.Wattage, Q.Stage, Q.ResposiblePerson, Q.ReasonOfIssue, Q.IssueComeFrom, Q.ActionTaken, Q.OtherIssueType, Q.ModulePicture, Q.OtherModelNumber, I.Issue, M.ModelName
+  //  FROM Quality Q
+  //  JOIN IssuesType I ON I.IssueId = Q.IssueType
+  //  JOIN Person P ON P.PersonID = Q.CreatedBy
+  //  JOIN ModelTypes M ON M.ModelId = Q.ModelNumber
+  //  WHERE Q.Status = '${Status}' AND STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') BETWEEN STR_TO_DATE('${FromDate} 00:00:00', '%d-%m-%Y %H:%i:%s') AND STR_TO_DATE('${ToDate} 23:59:59', '%d-%m-%Y %H:%i:%s')
+  //  ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
 
     const Quality = await queryAsync(query);
 
+    for (const Quality of data) {
+      if (Quality['ModelNumber']) {
+        let ModelName = await queryAsync(`SELECT ModelName FROM ModelTypes WHERE ModelId = '${Quality['ModelNumber']}'`);
+        Quality['ModelName'] = ModelName[0]['ModelName'];
+      } else {
+        Quality['ModelName'] = '';
+
+      }
+
+      if (Quality['IssueType']) {
+        let IssueName = await queryAsync(`SELECT Issue FROM IssuesType WHERE IssueId = '${Quality['IssueType']}'`);
+        Quality['Issue'] = IssueName[0]['Issue'];
+      } else {
+        Quality['Issue'] = '';
+
+      }
+      delete Quality['ModelNumber'];
+      delete Quality['IssueType'];
+    }
+    
     Quality.forEach((el) => {
       if (el['Issue'] == 'Other') {
         el['Issue'] = el['OtherIssueType']
