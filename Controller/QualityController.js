@@ -411,24 +411,24 @@ const GetQualityExcel = async (req, res) => {
 
     const Quality = await queryAsync(query);
 
-    for (const Quality of data) {
-      if (Quality['ModelNumber']) {
-        let ModelName = await queryAsync(`SELECT ModelName FROM ModelTypes WHERE ModelId = '${Quality['ModelNumber']}'`);
-        Quality['ModelName'] = ModelName[0]['ModelName'];
+    for (const data of Quality) {
+      if (data['ModelNumber']) {
+        let ModelName = await queryAsync(`SELECT ModelName FROM ModelTypes WHERE ModelId = '${data['ModelNumber']}'`);
+        data['ModelName'] = ModelName[0]['ModelName'];
       } else {
-        Quality['ModelName'] = '';
+        data['ModelName'] = '';
 
       }
 
-      if (Quality['IssueType']) {
-        let IssueName = await queryAsync(`SELECT Issue FROM IssuesType WHERE IssueId = '${Quality['IssueType']}'`);
-        Quality['Issue'] = IssueName[0]['Issue'];
+      if (data['IssueType']) {
+        let IssueName = await queryAsync(`SELECT Issue FROM IssuesType WHERE IssueId = '${data['IssueType']}'`);
+        data['Issue'] = IssueName[0]['Issue'];
       } else {
-        Quality['Issue'] = '';
+        data['Issue'] = '';
 
       }
-      delete Quality['ModelNumber'];
-      delete Quality['IssueType'];
+      delete data['ModelNumber'];
+      delete data['IssueType'];
     }
 
     Quality.forEach((el) => {
