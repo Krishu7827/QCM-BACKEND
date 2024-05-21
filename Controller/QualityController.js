@@ -81,7 +81,7 @@ const AddQuality = async (req, res) => {
   let temp = productBarcode ? await queryAsync(`SELECT ProductBarCode FROM Quality WHERE ProductBarCode = '${productBarcode}' AND Status != 'Inprogress'`) : [];
 
   if(temp.length){
-    res.status(409).send({ msg: 'This Product Barcode is already recorded' })
+   return res.status(409).send({ msg: 'This Product Barcode is already recorded' })
   };
 
   if (!qualityid) {
@@ -93,10 +93,12 @@ const AddQuality = async (req, res) => {
               VALUES('${UUID}','${shift}','${shiftinchargename}','${shiftinchargeprelime}','${shiftinchargepostlime}','${productBarcode}','${wattage}','${modelnumber}','${othermodelnumber}','${issuetype}','${otherissuetype}','${stage}','${responsibleperson}','${reasonofissue}','${issuecomefrom}','${actiontaken}','${currentuser}','${getCurrentDateTime()}','${status}');`;
 
         await queryAsync(query);
-        res.send({ msg: "data inserted Succesfully", UUID });
+       return res.send({ msg: "data inserted Succesfully", UUID });
+
       } catch (err) {
+
         console.log(err);
-        res.send({ err });
+       return res.send({ err });
       }
     
   } else {
@@ -129,10 +131,11 @@ const AddQuality = async (req, res) => {
 
 
         await queryAsync(query);
-        res.send({ msg: "data inserted Succesfully", UUID: qualityid });
+      return  res.send({ msg: "data inserted Succesfully", UUID: qualityid });
       } catch (err) {
+        
         console.log(err);
-        res.send({ err });
+       return res.send({ err });
       }
    
   }
