@@ -184,6 +184,7 @@ const UploadModuleImage = async (req, res) => {
 
 const QualityListing = async (req, res) => {
   const { QualityId, Status, PersonID, Designation } = req.body;
+  console.log(req.body);
   let query;
   try {
 
@@ -429,7 +430,7 @@ const GetQualityExcel = async (req, res) => {
       delete Quality['ModelNumber'];
       delete Quality['IssueType'];
     }
-    
+
     Quality.forEach((el) => {
       if (el['Issue'] == 'Other') {
         el['Issue'] = el['OtherIssueType']
