@@ -391,7 +391,7 @@ const GetModuleImage = async (req, res) => {
 // };
 
 const GetQualityExcel = async (req, res) => {
-  const { FromDate, ToDate, CurrentUser } = req.body;
+  const { FromDate, ToDate, CurrentUser, Status } = req.body;
   const UUID = v4()
   try {
     let query = `SELECT Q.CreatedOn, Q.QualityId, Q.Shift, Q.ShiftInChargeName, Q.ShiftInChargePreLime, Q.ShiftInChargePostLim, Q.ProductBarCode, P.Name AS CreatedBy, Q.Wattage, Q.Stage, Q.ResposiblePerson, Q.ReasonOfIssue, Q.IssueComeFrom, Q.ActionTaken, Q.OtherIssueType, Q.ModulePicture, Q.OtherModelNumber, I.Issue, M.ModelName
@@ -399,7 +399,7 @@ const GetQualityExcel = async (req, res) => {
    JOIN IssuesType I ON I.IssueId = Q.IssueType
    JOIN Person P ON P.PersonID = Q.CreatedBy
    JOIN ModelTypes M ON M.ModelId = Q.ModelNumber
-   WHERE STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') BETWEEN STR_TO_DATE('${FromDate} 00:00:00', '%d-%m-%Y %H:%i:%s') AND STR_TO_DATE('${ToDate} 23:59:59', '%d-%m-%Y %H:%i:%s')
+   WHERE Status = '${Status}' AND STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') BETWEEN STR_TO_DATE('${FromDate} 00:00:00', '%d-%m-%Y %H:%i:%s') AND STR_TO_DATE('${ToDate} 23:59:59', '%d-%m-%Y %H:%i:%s')
    ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
     const Quality = await queryAsync(query);
