@@ -181,13 +181,20 @@ const UploadModuleImage = async (req, res) => {
 }
 
 const QualityListing = async (req, res) => {
-   const {QualityId, Status} = req.body;
+   const {QualityId, Status, PersonID, Designation} = req.body;
    let query;
   try {
+    
     query = !QualityId ?
+    Designation == 'Super Admin'?
     `SELECT Q.QualityId,Q.Shift,Q.ShiftInChargeName,Q.ShiftInChargePreLime,Q.ShiftInChargePostLim,Q.ProductBarCode,Q.CreatedOn,P.Name AS CreatedBy,Q.Wattage, Q.Stage, Q.ResposiblePerson,Q.ReasonOfIssue,Q.IssueComeFrom,Q.ActionTaken,Q.OtherIssueType,Q.ModulePicture,Q.ModelNumber,Q.IssueType, Q.OtherModelNumber,Q.Status FROM Quality Q
     JOIN Person P ON P.PersonID = Q.CreatedBy
     WHERE Q.Status = '${Status}' ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`:
+
+    `SELECT Q.QualityId,Q.Shift,Q.ShiftInChargeName,Q.ShiftInChargePreLime,Q.ShiftInChargePostLim,Q.ProductBarCode,Q.CreatedOn,P.Name AS CreatedBy,Q.Wattage, Q.Stage, Q.ResposiblePerson,Q.ReasonOfIssue,Q.IssueComeFrom,Q.ActionTaken,Q.OtherIssueType,Q.ModulePicture,Q.ModelNumber,Q.IssueType, Q.OtherModelNumber,Q.Status FROM Quality Q
+    JOIN Person P ON P.PersonID = Q.CreatedBy
+    WHERE Q.Status = '${Status}' AND Q.CreatedBy = '${PersonID}'
+    ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`:
 
     `SELECT Q.QualityId,Q.Shift,Q.ShiftInChargeName,Q.ShiftInChargePreLime,Q.ShiftInChargePostLim,Q.ProductBarCode,Q.CreatedOn,P.Name AS CreatedBy,Q.Wattage, Q.Stage, Q.ResposiblePerson,Q.ReasonOfIssue,Q.IssueComeFrom,Q.ActionTaken,Q.OtherIssueType,Q.ModulePicture, Q.OtherModelNumber, Q.IssueType, Q.ModelNumber, Q.Status FROM Quality Q
     JOIN Person P ON P.PersonID = Q.CreatedBy WHERE QualityId = '${QualityId}';`;
@@ -294,7 +301,7 @@ const QualityListing = async (req, res) => {
      })
      
     }
-    
+
     res.send({ data})
   } catch (err) {
     console.log(err);
