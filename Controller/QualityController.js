@@ -443,7 +443,7 @@ const GetQualityExcel = async (req, res) => {
     res.send({ URL: `http://srv515471.hstgr.cloud:${PORT}/Quality/File/${fileName}` })
   } catch (err) {
     console.log(err)
-    res.send({ err });
+    res.status(400).send({ err });
   }
 }
 
