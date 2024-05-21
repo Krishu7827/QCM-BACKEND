@@ -78,7 +78,7 @@ const AddQuality = async (req, res) => {
   console.log(IsPresent);
   /**Checking Duplicate Product Barcode */
 
-  let temp = productBarcode ? await queryAsync(`SELECT ProductBarCode FROM Quality WHERE ProductBarCode = '${productBarcode}'`) : [];
+  let temp = productBarcode ? await queryAsync(`SELECT ProductBarCode FROM Quality WHERE ProductBarCode = '${productBarcode}' AND Status != 'Inprogress'`) : [];
 
   temp.length ? res.status(409).send({ msg: 'This Product Barcode is already recorded' }) : '';
 
@@ -352,20 +352,20 @@ async function IsPresentSameIssue(qualityid, ProductBarCode, otherissuetype, iss
       /** if Quality id is Defined */
       IssueName == 'Other' ? `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
    JOIN IssuesType I ON I.IssueId = Q.IssueType
-   WHERE Q.ProductBarCode = '${ProductBarCode}' AND Q.QualityId != '${qualityid}';` :
+   WHERE Q.QualityId != '${qualityid}' AND Q.Status != 'Inprogress';` :
 
         `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
    JOIN IssuesType I ON I.IssueId = Q.IssueType
-   WHERE Q.ProductBarCode = '${ProductBarCode}' AND Q.IssueType = '${issuetype}' AND Q.QualityId != '${qualityid}';` :
+   WHERE Q.IssueType = '${issuetype}' AND Q.QualityId != '${qualityid}' AND Q.Status != 'Inprogress';` :
 
       /** if Qualityid is not Defined */
       IssueName == 'Other' ? `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
   JOIN IssuesType I ON I.IssueId = Q.IssueType
-  WHERE Q.ProductBarCode = '${ProductBarCode}';` :
+  WHERE Q.Status != 'Inprogress'; ` :
 
         `SELECT Q.OtherIssueType, Q.ProductBarCode, I.Issue FROM Quality Q
    JOIN IssuesType I ON I.IssueId = Q.IssueType
-   WHERE Q.ProductBarCode = '${ProductBarCode}' AND Q.IssueType = '${issuetype}';`
+   WHERE Q.Status != 'Inprogress' AND Q.IssueType = '${issuetype}';`
 
 
     console.log(IssueName);
