@@ -4,9 +4,9 @@ const util = require('util');
 const fs = require('fs');
 const Path = require('path');
 const { getCurrentDateTime, s3, ExcelGenerate } = require('../Utilis/IQCSolarCellUtilis');
-const {QualityExcelGenerate} = require('../Utilis/QualityUtilis')
+const { QualityExcelGenerate } = require('../Utilis/QualityUtilis')
 require('dotenv').config()
-const PORT = process.env.PORT || 9090
+const PORT = process.env.PORT || 8080
 
 /** Making Sync To Query to Loop */
 const queryAsync = util.promisify(dbConn.query).bind(dbConn);
@@ -204,6 +204,65 @@ const QualityListing = async (req, res) => {
 
     let data = await queryAsync(query);
 
+    let Data = [
+      {
+        "QualityId": "6ee162d3-0488-46fd-a2c0-94297ac68b6c",
+        "Shift": "Night",
+        "ShiftInChargeName": "shiftinchargename",
+        "ShiftInChargePreLime": "shiftinchargeprelime",
+        "ShiftInChargePostLim": "shiftinchargepostlime",
+        "ProductBarCode": "90-87987856767",
+        "CreatedOn": "20-05-2024",
+        "CreatedBy": "Bhanu",
+        "Wattage": "wattage",
+        "Stage": "stage",
+        "ResposiblePerson": "responsibleperson",
+        "ReasonOfIssue": "reasonofissue",
+        "IssueComeFrom": "issuecomefrom",
+        "ActionTaken": "actiontaken",
+        "ModulePicture": null,
+        "ModelNumber": "8634275c-0b99-11ef-8005-52549f6cc694",
+        "IssueType": ""
+      },
+      {
+        "QualityId": "d5707fe9-a9a4-48af-be02-20ddf725711b",
+        "Shift": "Night",
+        "ShiftInChargeName": "shiftinchargename",
+        "ShiftInChargePreLime": "shiftinchargeprelime",
+        "ShiftInChargePostLim": "shiftinchargepostlime",
+        "ProductBarCode": "90-87987856767",
+        "CreatedOn": "20-05-2024",
+        "CreatedBy": "Bhanu",
+        "Wattage": "wattage",
+        "Stage": "stage",
+        "ResposiblePerson": "responsibleperson",
+        "ReasonOfIssue": "reasonofissue",
+        "IssueComeFrom": "issuecomefrom",
+        "ActionTaken": "actiontaken",
+        "ModulePicture": null,
+        "ModelNumber": "8634275c-0b99-11ef-8005-52549f6cc694",
+        "IssueType": "9f00c67d-0b99-11ef-8005-52549f6cc694"
+      },
+      {
+        "QualityId": "cd9a7318-5060-4fae-9169-5567ced81c70",
+        "Shift": "Night",
+        "ShiftInChargeName": "shiftinchargename",
+        "ShiftInChargePreLime": "shiftinchargeprelime",
+        "ShiftInChargePostLim": "shiftinchargepostlime",
+        "ProductBarCode": "90-87987856767",
+        "CreatedOn": "20-05-2024",
+        "CreatedBy": "Bhanu",
+        "Wattage": "wattage",
+        "Stage": "stage",
+        "ResposiblePerson": "responsibleperson",
+        "ReasonOfIssue": "reasonofissue",
+        "IssueComeFrom": "issuecomefrom",
+        "ActionTaken": "actiontaken",
+        "ModulePicture": null,
+        "ModelNumber": "8634275c-0b99-11ef-8005-52549f6cc694",
+        "IssueType": ""
+      }]
+
     if (!QualityId) {
       for (const Quality of data) {
         if (Quality['ModelNumber']) {
@@ -342,7 +401,15 @@ const GetQualityExcel = async (req, res) => {
     WHERE Q.Status = '${Status}' AND STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') BETWEEN STR_TO_DATE('20-05-2024 00:00:00', '%d-%m-%Y %H:%i:%s') AND STR_TO_DATE('22-05-2024 23:59:59', '%d-%m-%Y %H:%i:%s')
     ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
-   const Quality = await queryAsync(query);
+  //  let query = `SELECT Q.CreatedOn, Q.QualityId, Q.Shift, Q.ShiftInChargeName, Q.ShiftInChargePreLime, Q.ShiftInChargePostLim, Q.ProductBarCode, P.Name AS CreatedBy, Q.Wattage, Q.Stage, Q.ResposiblePerson, Q.ReasonOfIssue, Q.IssueComeFrom, Q.ActionTaken, Q.OtherIssueType, Q.ModulePicture, Q.OtherModelNumber, I.Issue, M.ModelName
+  //  FROM Quality Q
+  //  JOIN IssuesType I ON I.IssueId = Q.IssueType
+  //  JOIN Person P ON P.PersonID = Q.CreatedBy
+  //  JOIN ModelTypes M ON M.ModelId = Q.ModelNumber
+  //  WHERE Q.Status = '${Status}' AND STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') BETWEEN STR_TO_DATE('${FromDate} 00:00:00', '%d-%m-%Y %H:%i:%s') AND STR_TO_DATE('${ToDate} 23:59:59', '%d-%m-%Y %H:%i:%s')
+  //  ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
+
+    const Quality = await queryAsync(query);
 
     for (const data of Quality) {
       if (data['ModelNumber']) {
@@ -370,34 +437,34 @@ const GetQualityExcel = async (req, res) => {
 
       }
 
-    if(el['ModelName'] == 'Other'){
-      el['ModelName'] = el['OtherModelNumber']
-      
+      if (el['ModelName'] == 'Other') {
+        el['ModelName'] = el['OtherModelNumber']
+
+      }
+      delete el['OtherIssueType'];
+      delete el['OtherModelNumber'];
+      el['CreatedOn'] = el['CreatedOn'].split(' ')[0];
+    })
+
+    let QualityExcelBytes = await QualityExcelGenerate(Quality, FromDate, ToDate);
+
+    // Define the folder path
+    const folderPath = Path.join('Quality-Upload');
+
+    // Create the folder if it doesn't exist
+    if (!fs.existsSync(folderPath)) {
+
+      fs.mkdirSync(folderPath, { recursive: true });
     }
-    delete el['OtherIssueType'];
-    delete el['OtherModelNumber'];
-    el['CreatedOn'] = el['CreatedOn'].split(' ')[0];
-   })
 
-   let QualityExcelBytes = await QualityExcelGenerate(Quality,FromDate,ToDate);
+    // Define the file path, including the desired file name and format
+    const fileName = `${UUID}.xlsx`;
+    const filePath = Path.join(folderPath, fileName);
 
-   // Define the folder path
-   const folderPath = Path.join('Quality-Upload');
-
-   // Create the folder if it doesn't exist
-   if (!fs.existsSync(folderPath)) {
-
-     fs.mkdirSync(folderPath, { recursive: true });
-   }
-
-   // Define the file path, including the desired file name and format
-   const fileName = `${UUID}.xlsx`;
-   const filePath = Path.join(folderPath, fileName);
-   
     // Save the file buffer to the specified file path
     fs.writeFileSync(filePath, QualityExcelBytes);
 
-  query = `INSERT INTO QualityReportExcel(ExcelId,FromDate,ToDate,ExcelURL,CreatedBy,CreatedOn)
+    query = `INSERT INTO QualityReportExcel(ExcelId,FromDate,ToDate,ExcelURL,CreatedBy,CreatedOn)
                                     VALUES('${UUID}','${FromDate}','${ToDate}','http://srv515471.hstgr.cloud:${PORT}/Quality/File/${fileName}','${CurrentUser}','${getCurrentDateTime()}');`
     await queryAsync(query);
     res.send({ URL: `http://srv515471.hstgr.cloud:${PORT}/Quality/File/${fileName}` })
