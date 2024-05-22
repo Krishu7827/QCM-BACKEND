@@ -204,65 +204,6 @@ const QualityListing = async (req, res) => {
 
     let data = await queryAsync(query);
 
-    let Data = [
-      {
-        "QualityId": "6ee162d3-0488-46fd-a2c0-94297ac68b6c",
-        "Shift": "Night",
-        "ShiftInChargeName": "shiftinchargename",
-        "ShiftInChargePreLime": "shiftinchargeprelime",
-        "ShiftInChargePostLim": "shiftinchargepostlime",
-        "ProductBarCode": "90-87987856767",
-        "CreatedOn": "20-05-2024",
-        "CreatedBy": "Bhanu",
-        "Wattage": "wattage",
-        "Stage": "stage",
-        "ResposiblePerson": "responsibleperson",
-        "ReasonOfIssue": "reasonofissue",
-        "IssueComeFrom": "issuecomefrom",
-        "ActionTaken": "actiontaken",
-        "ModulePicture": null,
-        "ModelNumber": "8634275c-0b99-11ef-8005-52549f6cc694",
-        "IssueType": ""
-      },
-      {
-        "QualityId": "d5707fe9-a9a4-48af-be02-20ddf725711b",
-        "Shift": "Night",
-        "ShiftInChargeName": "shiftinchargename",
-        "ShiftInChargePreLime": "shiftinchargeprelime",
-        "ShiftInChargePostLim": "shiftinchargepostlime",
-        "ProductBarCode": "90-87987856767",
-        "CreatedOn": "20-05-2024",
-        "CreatedBy": "Bhanu",
-        "Wattage": "wattage",
-        "Stage": "stage",
-        "ResposiblePerson": "responsibleperson",
-        "ReasonOfIssue": "reasonofissue",
-        "IssueComeFrom": "issuecomefrom",
-        "ActionTaken": "actiontaken",
-        "ModulePicture": null,
-        "ModelNumber": "8634275c-0b99-11ef-8005-52549f6cc694",
-        "IssueType": "9f00c67d-0b99-11ef-8005-52549f6cc694"
-      },
-      {
-        "QualityId": "cd9a7318-5060-4fae-9169-5567ced81c70",
-        "Shift": "Night",
-        "ShiftInChargeName": "shiftinchargename",
-        "ShiftInChargePreLime": "shiftinchargeprelime",
-        "ShiftInChargePostLim": "shiftinchargepostlime",
-        "ProductBarCode": "90-87987856767",
-        "CreatedOn": "20-05-2024",
-        "CreatedBy": "Bhanu",
-        "Wattage": "wattage",
-        "Stage": "stage",
-        "ResposiblePerson": "responsibleperson",
-        "ReasonOfIssue": "reasonofissue",
-        "IssueComeFrom": "issuecomefrom",
-        "ActionTaken": "actiontaken",
-        "ModulePicture": null,
-        "ModelNumber": "8634275c-0b99-11ef-8005-52549f6cc694",
-        "IssueType": ""
-      }]
-
     if (!QualityId) {
       for (const Quality of data) {
         if (Quality['ModelNumber']) {
@@ -398,7 +339,7 @@ const GetQualityExcel = async (req, res) => {
     let query = `SELECT Q.CreatedOn, Q.QualityId, Q.Shift, Q.ShiftInChargeName, Q.ShiftInChargePreLime, Q.ShiftInChargePostLim, Q.ProductBarCode, P.Name AS CreatedBy, Q.Wattage, Q.Stage, Q.ResposiblePerson, Q.ReasonOfIssue, Q.IssueComeFrom, Q.ActionTaken, Q.OtherIssueType, Q.ModulePicture,Q.Status, Q.OtherModelNumber,Q.IssueType,Q.ModelNumber
     FROM Quality Q
     JOIN Person P ON P.PersonID = Q.CreatedBy
-    WHERE Q.Status = '${Status}' AND STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') BETWEEN STR_TO_DATE('20-05-2024 00:00:00', '%d-%m-%Y %H:%i:%s') AND STR_TO_DATE('22-05-2024 23:59:59', '%d-%m-%Y %H:%i:%s')
+    WHERE Q.Status = '${Status}' AND STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') BETWEEN STR_TO_DATE('${FromDate} 00:00:00', '%d-%m-%Y %H:%i:%s') AND STR_TO_DATE('${ToDate} 23:59:59', '%d-%m-%Y %H:%i:%s')
     ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
   //  let query = `SELECT Q.CreatedOn, Q.QualityId, Q.Shift, Q.ShiftInChargeName, Q.ShiftInChargePreLime, Q.ShiftInChargePostLim, Q.ProductBarCode, P.Name AS CreatedBy, Q.Wattage, Q.Stage, Q.ResposiblePerson, Q.ReasonOfIssue, Q.IssueComeFrom, Q.ActionTaken, Q.OtherIssueType, Q.ModulePicture, Q.OtherModelNumber, I.Issue, M.ModelName
