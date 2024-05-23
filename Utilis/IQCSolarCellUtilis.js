@@ -322,7 +322,7 @@ async function ExcelGenerate(IQC, ApproveData) {
   let Row = 14;
   IQC.forEach((Material) => {
     /**Check Type */
-    worksheet.getRow(Row).height = 50;
+    worksheet.getRow(Row).height = 69.75;
 
     worksheet.getCell(`A${Row}`).value = Material['CheckType'];
     worksheet.getCell(`A${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10, } };
@@ -353,7 +353,7 @@ async function ExcelGenerate(IQC, ApproveData) {
     if(Material['Sampling'] == 'Whole Lot'){
 
       worksheet.mergeCells(`G${Row}:N${Row}`);
-      worksheet.getCell(`G${Row}`).value = Material['Samples'][0]['SampleTest']?`Pass (${Material['Samples'][0]['SampleRemarks']})`:`Fail ${Material['Samples'][0]['SampleRemarks']}`;
+      worksheet.getCell(`G${Row}`).value = Material['Samples'][0]['SampleTest']?`Pass ${Material['Samples'][0]['SampleRemarks']?`(${Material['Samples'][0]['SampleRemarks']})`:''}`:`Fail ${Material['Samples'][0]['SampleRemarks']?`(${Material['Samples'][0]['SampleRemarks']})`:''}`;
       worksheet.getCell(`G${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 15, } }
       worksheet.getCell(`G${Row}`).border = Border;
       worksheet.getCell(`N${Row}`).border = Border;
@@ -369,6 +369,7 @@ async function ExcelGenerate(IQC, ApproveData) {
       worksheet.getCell(`${String.fromCharCode(i)}${Row}`).value = Material['Samples'][index] ? Material['Samples'][index]['SampleTest'] ? Material['Samples'][index]['SampleRemarks'] ? `Pass (${Material['Samples'][index]['SampleRemarks']})`:'Pass' : `Fail (${Material['Samples'][index]['SampleRemarks']})` : '';
       worksheet.getCell(`${String.fromCharCode(i)}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 12 } }
       worksheet.getCell(`${String.fromCharCode(i)}${Row}`).border = Border;
+      worksheet.getColumn(`${String.fromCharCode(i)}`).width = 21.71
       index++;
     };
   };
@@ -376,20 +377,49 @@ async function ExcelGenerate(IQC, ApproveData) {
   })
 
   let Column = 'A';
-  worksheet.getRow(Row).height = 58;
-  worksheet.mergeCells(`${Column}${Row}:${'B'}${Row}`);
-  worksheet.getCell(`${Column}${Row}`).value = 'DEVIATION/REJECTION REASON:';
+  worksheet.getRow(Row).height = 30;
+  // worksheet.mergeCells(`${Column}${Row}:${'B'}${Row}`);
+  worksheet.getCell(`${Column}${Row}`).value = 'Rejection Check Types';
   worksheet.getCell(`${Column}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10 } };
   worksheet.getCell(`${Column}${Row}`).border = Border;
-  worksheet.getCell(`${'B'}${Row}`).border = Border;
+  // worksheet.getCell(`${'B'}${Row}`).border = Border;
 
+  let Stages = '';
+ IQC[0]['CheckTypes'].forEach((check,i)=>{
+  Stages+=check['Packaging']?' Packaging |':'';
+  Stages+=check['Visual']?' Visual |':'';
+  Stages+=check['Physical']?' Physical |':'';
+  Stages+=check['FrontBus']?' FrontBus |':'';
+  Stages+=check['Verification']?' Verification |':'';
+  Stages+=check['Electrical']?' Electrical |':'';
+  Stages+=check['Performance']?' Performance |':''; 
+ })
 
-  Column = 'C'
+  Column = 'B';
   worksheet.mergeCells(`${Column}${Row}:${'N'}${Row}`);
-  worksheet.getCell(`${Column}${Row}`).value = IQC[0]['Status'] == 'Rejected' ? IQC[0]['ApproveReason'] : "";
+  worksheet.getCell(`${Column}${Row}`).value = Stages;
+  worksheet.getCell(`${Column}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 12, bold:true } };
+  worksheet.getCell(`${Column}${Row}`).border = Border;
+  worksheet.getCell(`${'N'}${Row}`).border = Border;
+
+  Row++;
+
+   Column = 'A';
+  worksheet.getRow(Row).height = 30;
+  // worksheet.mergeCells(`${Column}${Row}:${'B'}${Row}`);
+  worksheet.getCell(`${Column}${Row}`).value = 'Rejection Reason';
+  worksheet.getCell(`${Column}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10 } };
+  worksheet.getCell(`${Column}${Row}`).border = Border;
+
+  
+  Column = 'B';
+  worksheet.mergeCells(`${Column}${Row}:${'N'}${Row}`);
+  worksheet.getCell(`${Column}${Row}`).value = IQC[0]['Reason'];
   worksheet.getCell(`${Column}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10 } };
   worksheet.getCell(`${Column}${Row}`).border = Border;
   worksheet.getCell(`${'N'}${Row}`).border = Border;
+
+
 
   Row++;
 
@@ -421,8 +451,25 @@ async function ExcelGenerate(IQC, ApproveData) {
   worksheet.getCell(`${Column}${Row}`).border = Border;
   worksheet.getCell(`${'N'}${Row + 1}`).border = Border;
 
-  // Row++;
-  // Row++;
+  Row++;
+  Row++;
+
+  if(IQC[0]['Status'] == 'Rejected'){
+
+    Column = 'A';
+    worksheet.getRow(Row).height = 30;
+    // worksheet.mergeCells(`${Column}${Row}:${'B'}${Row}`);
+    worksheet.getCell(`${Column}${Row}`).value = 'Rejection Reason';
+    worksheet.getCell(`${Column}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10 } };
+    worksheet.getCell(`${Column}${Row}`).border = Border;
+
+    Column = 'B';
+    worksheet.mergeCells(`${Column}${Row}:${'N'}${Row}`);
+    worksheet.getCell(`${Column}${Row}`).value = IQC[0]['ApproveReason'];
+    worksheet.getCell(`${Column}${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10 } };
+    worksheet.getCell(`${Column}${Row}`).border = Border;
+    worksheet.getCell(`${'N'}${Row}`).border = Border;
+  }
   // worksheet.mergeCells(`A${Row}:A${Row + 1}`)
   // worksheet.getCell(`A${Row}`).value = 'Check Type';
   // worksheet.getCell(`A${Row}`).style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true }, font: { size: 10, bold: true }, };

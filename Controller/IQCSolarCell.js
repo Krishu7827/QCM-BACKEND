@@ -417,9 +417,10 @@ const UpdateStatus = async (req, res) => {
     const ApproveData = await queryAsync(ApproveTableQuery);
     ExcelData.forEach((data) => {
       data['Samples'] = JSON.parse(data['Samples']);
+      data['CheckTypes'] = JSON.parse(data['CheckTypes']);
     })
 
-    console.log(ExcelData.length)
+   // console.log(ExcelData)
     try{
    let ExcelFileName = await ExcelGenerate(ExcelData, ApproveData);
    console.log(ExcelFileName);
