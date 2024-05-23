@@ -410,7 +410,7 @@ const UpdateStatus = async (req, res) => {
     WHERE id.SolarDetailID = '${SolarDetailID}';`;
 
     const ApproveTableQuery = `select p.Name from IQCSolarDetails id
-    join Person p on p.PersonID = id.UpdatedBy
+    JOIN Person p on p.PersonID = id.UpdatedBy
     where id.SolarDetailID = '${SolarDetailID}';`;
 
     const ExcelData = await queryAsync(ExcelQuery);
