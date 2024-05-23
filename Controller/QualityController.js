@@ -351,19 +351,36 @@ const GetQualityExcel = async (req, res) => {
   //  ORDER BY STR_TO_DATE(Q.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`
 
     const Quality = await queryAsync(query);
+   let ModelQuery = `SELECT ModelName, ModelId FROM ModelTypes;`
+   let IssueQuery = `SELECT Issue, IssueId FROM IssuesType;`
+   let ModelNames = await queryAsync(ModelQuery);
+   let IssueNames = await queryAsync(IssueQuery);
+   /** To Find name Function  */
+   const findName = (Type, Id)=>{
+          Type == 'Model'?ModelNames.forEach((data)=>{
+             if(data['ModelId'] == Id){
+              return data['ModelName'];
 
+             }
+          }):IssueNames.forEach((data)=>{
+            if(data['IssueId'] == Id){
+              return data['Issue'];
+
+             }
+          })
+   }
     for (const data of Quality) {
       if (data['ModelNumber']) {
-        let ModelName = await queryAsync(`SELECT ModelName FROM ModelTypes WHERE ModelId = '${data['ModelNumber']}'`);
-        data['ModelName'] = ModelName[0]['ModelName'];
+        data['ModelName'] = findName('Model',data['ModelNumber']);
+
       } else {
         data['ModelName'] = '';
 
       }
 
       if (data['IssueType']) {
-        let IssueName = await queryAsync(`SELECT Issue FROM IssuesType WHERE IssueId = '${data['IssueType']}'`);
-        data['Issue'] = IssueName[0]['Issue'];
+        data['Issue'] = findName('Issue',data['IssueType']);
+
       } else {
         data['Issue'] = '';
 
