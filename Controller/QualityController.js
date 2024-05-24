@@ -359,6 +359,7 @@ const GetQualityExcel = async (req, res) => {
    const findName = (Type, Id)=>{
           Type == 'Model'?ModelNames.forEach((data)=>{
              if(data['ModelId'] == Id){
+              console.log('Modellllllllllllllllllllllllllllllllll',data['ModelName']);
               return data['ModelName'];
 
              }
