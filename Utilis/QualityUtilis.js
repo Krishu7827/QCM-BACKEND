@@ -41,13 +41,13 @@ async function QualityExcelGenerate(Quality, FromDate, ToDate, Status) {
         worksheet.mergeCells('A3:N3');
   
         /** width of row */
-        worksheet.getRow(3).height = 10
+        worksheet.getRow(3).height = 24
         /**Put Value in Cell */
     worksheet.getCell('A3').value = `Quality Type: ${Status}`;
 
      /** Apply header styling */
      worksheet.getCell('A3').style = {
-      alignment: { horizontal: 'center', vertical: 'middle' }, font: { size: 10, bold: true }, fill: {
+      alignment: { horizontal: 'center', vertical: 'middle' }, font: { size: 12, bold: true }, fill: {
         type: 'pattern',
         pattern: 'solid',
         fgColor: { argb: 'FFF6DC' } // Yellow background color
@@ -55,20 +55,30 @@ async function QualityExcelGenerate(Quality, FromDate, ToDate, Status) {
     };
 
     /**Apply Borders */
-    worksheet.getCell('A1').border = Border;
-    worksheet.getCell('N2').border = Border;
-
+    worksheet.getCell('A1').border = {
+      top: { style: 'thin' },
+      left:{ style: 'thin' },
+      right: { style: 'thin' }
+    
+    };
+    worksheet.getCell('N2').border = {
+      top: { style: 'thin' },
+      left:{ style: 'thin' },
+      right: { style: 'thin' }
+    
+    };
      /**Apply Borders */
      worksheet.getCell('A3').border = {
-     
+      right: { style: 'thin' },
+      left:{ style: 'thin' },
       bottom: { style: 'thin' },
-      left: { style: 'thin' },
+     
      
     };
      worksheet.getCell('N3').border = {
-     
+      right:{ style: 'thin' },
       bottom: { style: 'thin' },
-      right: { style: 'thin' },
+      left:{ style: 'thin' },
      
     };;
   
