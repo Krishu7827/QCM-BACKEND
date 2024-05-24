@@ -202,28 +202,50 @@ const QualityListing = async (req, res) => {
       `SELECT Q.QualityId,Q.Shift,Q.ShiftInChargeName,Q.ShiftInChargePreLime,Q.ShiftInChargePostLim,Q.ProductBarCode,Q.CreatedOn,P.Name AS CreatedBy,Q.Wattage, Q.Stage, Q.ResposiblePerson,Q.ReasonOfIssue,Q.IssueComeFrom,Q.ActionTaken,Q.OtherIssueType,Q.ModulePicture, Q.OtherModelNumber, Q.IssueType, Q.ModelNumber, Q.Status FROM Quality Q
     JOIN Person P ON P.PersonID = Q.CreatedBy WHERE QualityId = '${QualityId}';`;
 
+    let ModelQuery = `SELECT ModelName, ModelId FROM ModelTypes;`
+    let IssueQuery = `SELECT Issue, IssueId FROM IssuesType;`
+    let ModelNames = await queryAsync(ModelQuery);
+    let IssueNames = await queryAsync(IssueQuery);
+
+    /** To Find name Function  */
+    const findName = (Type, Id) => {
+     if (Type === 'Model') {
+       const model = ModelNames.find(data => data['ModelId'] === Id);
+       if (model) {
+         return model['ModelName'];
+       }
+     } else {
+       const issue = IssueNames.find(data => data['IssueId'] === Id);
+       if (issue) {
+         return issue['Issue'];
+       }
+     }
+     return undefined; // If no match is found, return undefined
+   };
+   
+ 
     let data = await queryAsync(query);
 
     if (!QualityId) {
       for (const Quality of data) {
         if (Quality['ModelNumber']) {
-          let ModelName = await queryAsync(`SELECT ModelName FROM ModelTypes WHERE ModelId = '${Quality['ModelNumber']}'`);
-          Quality['ModelName'] = ModelName[0]['ModelName'];
+         Quality['ModelName'] = findName('Model',Quality['ModelNumber']);
+  
         } else {
-          Quality['ModelName'] = '';
-
+         Quality['ModelName'] = '';
+  
         }
-
+  
         if (Quality['IssueType']) {
-          let IssueName = await queryAsync(`SELECT Issue FROM IssuesType WHERE IssueId = '${Quality['IssueType']}'`);
-          Quality['Issue'] = IssueName[0]['Issue'];
+         Quality['Issue'] = findName('Issue',Quality['IssueType']);
+  
         } else {
-          Quality['Issue'] = '';
-
+         Quality['Issue'] = '';
+  
         }
-        delete Quality['ModelNumber'];
-        delete Quality['IssueType'];
-      }
+        delete data['ModelNumber'];
+        delete data['IssueType'];
+      };
     }
     //console.log(data)
     if (!QualityId) {
