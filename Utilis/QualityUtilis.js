@@ -35,16 +35,47 @@ async function QualityExcelGenerate(Quality, FromDate, ToDate, Status) {
         pattern: 'solid',
         fgColor: { argb: 'FFF6DC' } // Yellow background color
       }
-    }
+    };
+
+        /**Merge Cells */
+        worksheet.mergeCells('A3:N3');
   
+        /** width of row */
+        worksheet.getRow(3).height = 10
+        /**Put Value in Cell */
+    worksheet.getCell('A3').value = `Quality Type: ${Status}`;
+
+     /** Apply header styling */
+     worksheet.getCell('A3').style = {
+      alignment: { horizontal: 'center', vertical: 'middle' }, font: { size: 10, bold: true }, fill: {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFF6DC' } // Yellow background color
+      }
+    };
+
     /**Apply Borders */
     worksheet.getCell('A1').border = Border;
     worksheet.getCell('N2').border = Border;
+
+     /**Apply Borders */
+     worksheet.getCell('A3').border = {
+     
+      bottom: { style: 'thin' },
+      left: { style: 'thin' },
+     
+    };
+     worksheet.getCell('N3').border = {
+     
+      bottom: { style: 'thin' },
+      right: { style: 'thin' },
+     
+    };;
   
     /** Set The Column Names in Excel */
     var startCharCode = 'A'.charCodeAt(0);
     var endCharCode = 'N'.charCodeAt(0);
-    let row = 3;
+    let row = 4;
     worksheet.getRow(row).height = 40;
   
     let index = 0;
