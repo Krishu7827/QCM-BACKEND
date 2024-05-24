@@ -1,5 +1,5 @@
 const { v4: uuidv4, v4 } = require('uuid');
-const { getCurrentDateTime, s3 } = require('../Utilis/IPQCJobCardUtilis')
+const { getCurrentDateTime, s3, ExcelGenerate } = require('../Utilis/IPQCJobCardUtilis')
 const util = require('util')
 const fs = require('fs');
 const Path = require('path')
@@ -666,6 +666,17 @@ const UpdateJobCardStatus = async (req, res) => {
                         jd.UpdatedOn = '${getCurrentDateTime()}'
                     WHERE jd.JobCardDetailID = '${JobCardDetailId}'`
     let JobCardDetail = await queryAsync(query)
+
+    let Name = await  queryAsync(`SELECT Name FROM Person WHERE PersonID = '${CurrentUser}';`)
+    
+    query = `SELECT *FROM JobCardDetails jcd
+    JOIN JobCard jc ON jcd.JobCardDetailID = jc.JobCardDetailID
+    JOIN Person P on jcd.CreatedBy = P.PersonID
+    WHERE jcd.JobCardDetailID = '${JobCardDetailId}';`
+    let JobCardData = await queryAsync(query);
+    JobCardData[0]['ApprovedBy'] = Name.length?Name[0]['Name']:'';
+     
+    await ExcelGenerate(JobCardData);
     res.send({ ApprovalStatus, JobCardDetail })
   } catch (err) {
     console.log(err)
