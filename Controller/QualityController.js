@@ -356,23 +356,23 @@ const GetQualityExcel = async (req, res) => {
    let ModelNames = await queryAsync(ModelQuery);
    let IssueNames = await queryAsync(IssueQuery);
    /** To Find name Function  */
-   const findName = (Type, Id)=>{
-          Type == 'Model'?ModelNames.forEach((data)=>{
-             if(data['ModelId'] == Id){
-              console.log('Modellllllllllllllllllllllllllllllllll',data['ModelName']);
-              return data['ModelName'];
-
-             }
-          }):IssueNames.forEach((data)=>{
-            if(data['IssueId'] == Id){
-              return data['Issue'];
-
-             }
-          })
-   }
+   const findName = (Type, Id) => {
+    if (Type === 'Model') {
+      const model = ModelNames.find(data => data['ModelId'] === Id);
+      if (model) {
+        return model['ModelName'];
+      }
+    } else {
+      const issue = IssueNames.find(data => data['IssueId'] === Id);
+      if (issue) {
+        return issue['Issue'];
+      }
+    }
+    return undefined; // If no match is found, return undefined
+  };
+  
     for (const data of Quality) {
       if (data['ModelNumber']) {
-        console.log("Model Numberrrrrrrrrrrrrrr",findName('Model',data['ModelNumber']))
         data['ModelName'] = findName('Model',data['ModelNumber']);
 
       } else {
