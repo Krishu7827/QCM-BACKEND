@@ -112,9 +112,9 @@ const AddIQCSolarCell = async (req, res) => {
   const SolarCellDetail = data['SolarCellDetails']
   const SolarCel = data['SolarCell']
   const Rejected = data['Rejected']
-console.log(SolarCellDetail)
-console.log(SolarCel)
-console.log(Rejected)
+// console.log(SolarCellDetail)
+// console.log(SolarCel)
+// console.log(Rejected)
 
   if (!SolarDetailId) {
 

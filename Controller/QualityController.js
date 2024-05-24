@@ -371,6 +371,7 @@ const GetQualityExcel = async (req, res) => {
    }
     for (const data of Quality) {
       if (data['ModelNumber']) {
+        console.log(findName('Model',data['ModelNumber']))
         data['ModelName'] = findName('Model',data['ModelNumber']);
 
       } else {
