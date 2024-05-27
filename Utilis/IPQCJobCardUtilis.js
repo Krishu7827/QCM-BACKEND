@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk');
 const ExcelJS = require('exceljs');
+const nodemailer = require('nodemailer')
 const fs = require('fs');
 require('aws-sdk/lib/maintenance_mode_message').suppress = true;
 require('dotenv').config()
@@ -32,6 +33,15 @@ AWS.config.credentials = new AWS.Credentials({
 
 /* Create S3 instance **/
 const s3 = new AWS.S3();
+
+/** Nodemailer Configuration */
+var transport = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'ipqc.gautamsolar@gmail.com',
+    pass: 'pyzn knth igdb cjtc'
+  }
+});
 
 async function ExcelGenerate(Data) {
 
@@ -272,7 +282,7 @@ worksheet.getCell(`F${Row}`).style = {
 
 
   await transport.sendMail({
-    from: 'iqc.gautamsolar@gmail.com',
+    from: 'ipqc.gautamsolar@gmail.com',
     cc: 'bhanu.galo@gmail.com',
     to: 'krishukumar535@gmail.com',
     subject: `IPQC Job Card Report: Module No. ${Data[0]['ModuleNo']}`,
