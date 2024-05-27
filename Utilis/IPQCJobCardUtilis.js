@@ -315,7 +315,7 @@ worksheet.getCell(`F${Row}`).style = {
       fs.writeFileSync(ExcelFilePath, excelBuffer);
      
   }catch(err){
-    
+    console.log(err)
    throw err;
   }
   return `${Data[0]['JobCardDetailID']}.xlsx`;

@@ -689,8 +689,9 @@ const UpdateJobCardStatus = async (req, res) => {
       res.send({URL:`http://srv515471.hstgr.cloud:${PORT}/IQCSolarCell/Excel/${ExcelFileName}`})
 
        }catch(err){
+        console.log(err)
          res.status(400).send(err)
-         
+
        }
   } catch (err) {
     console.log(err)
