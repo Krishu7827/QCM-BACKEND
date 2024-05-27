@@ -157,6 +157,7 @@ async function ExcelGenerate(Data) {
   worksheet.getCell('N7').style = {
     alignment: { horizontal: 'center', vertical: 'middle', wrapText:true }, font: { size: 12, bold: true }
   };
+
   /**Apply Borders */
   worksheet.getCell('A1').border = Border;
   worksheet.getCell('N2').border = Border;
@@ -258,18 +259,66 @@ worksheet.getCell(`F${Row}`).style = {
  worksheet.getCell(`P${Row+2}`).border = Border;
 
  Row = Row + 2;
-  //Save the workbook to a file
+ //Save the workbook to a file
   const excelBuffer = await workbook.xlsx.writeBuffer()
     .then(buffer => {
-      console.log('Excel file saved successfully!');
-      return buffer;
+      console.log('Excel file generated successfully!');
+
+      return buffer; // Return the buffer
     })
     .catch(error => {
       console.error('Error generating Excel file:', error);
     });
 
-    console.log(excelBuffer)
-     fs.writeFileSync('output.xlsx', excelBuffer);
+
+  await transport.sendMail({
+    from: 'iqc.gautamsolar@gmail.com',
+    cc: 'bhanu.galo@gmail.com',
+    to: 'krishukumar535@gmail.com',
+    subject: `IPQC Job Card Report: Module No. ${Data[0]['ModuleNo']}`,
+    attachments: [{
+      filename: `Job_Card_${Data[0]['ModuleNo']}.xlsx`,
+      content: excelBuffer,
+      contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    }],
+    html: `<div style="position: relative; padding: 5px;">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://galo.co.in/wp-content/uploads/2024/01/Galo-Energy-Logo-06.png'); background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0.3; z-index: -1;"></div>
+        <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px;">
+            <p style="font-size: 16px;">Dear Super Admin,</p>
+            <p style="font-size: 16px; margin-bottom: 0;">Module No: ${Data[0]['ModuleNo']} of Job Card has been ${Data[0]['Status']} by ${Data[0]['ApprovedBy']}.</p>
+            <p style="font-size: 16px;">Please find the attached Excel report for more details.</p>
+            <br>
+            <p style="font-size: 16px;"><em>Best regards,</em></p>
+            <p style="font-size: 16px;"><strong>Gautam Solar QCM Team</strong></p>
+        </div>
+    </div>`
+  })
+
+  try{
+
+      /** Define the folder path */
+      const folderPath = Path.join('ExcelFile');
+      
+    
+      /** Create the folder if it doesn't exist */
+      if (!fs.existsSync(folderPath)) {
+        fs.mkdirSync(folderPath, { recursive: true });
+      }
+
+        /** Define the file path, including the desired file name and format */
+        const Excel = `${Data[0]['JobCardDetailID']}.xlsx`;
+        
+        const ExcelFilePath = Path.join(folderPath, Excel);
+     
+
+      /** Save the file buffer to the specified file path */
+      fs.writeFileSync(ExcelFilePath, excelBuffer);
+     
+  }catch(err){
+    
+   throw err;
+  }
+  return `${Data[0]['JobCardDetailID']}.xlsx`;
 }
 
  

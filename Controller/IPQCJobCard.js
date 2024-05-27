@@ -673,11 +673,25 @@ const UpdateJobCardStatus = async (req, res) => {
     JOIN JobCard jc ON jcd.JobCardDetailID = jc.JobCardDetailID
     JOIN Person P on jcd.CreatedBy = P.PersonID
     WHERE jcd.JobCardDetailID = '${JobCardDetailId}';`
+
     let JobCardData = await queryAsync(query);
     JobCardData[0]['ApprovedBy'] = Name.length?Name[0]['Name']:'';
      
-    await ExcelGenerate(JobCardData);
-    res.send({ ApprovalStatus, JobCardDetail })
+    try{
+      let ExcelFileName = await ExcelGenerate(JobCardData);
+      
+      let URL = `http://srv515471.hstgr.cloud:${PORT}/IQCSolarCell/Excel/${ExcelFileName}`
+      let ExcelQuery = `UPDATE JobCardDetails JD
+      set JD.ExcelURL = '${URL}'
+      WHERE JobCardDetailID = '${JobCardDetailId}';`
+
+      await queryAsync(ExcelQuery);
+      res.send({URL:`http://srv515471.hstgr.cloud:${PORT}/IQCSolarCell/Excel/${ExcelFileName}`})
+
+       }catch(err){
+         res.status(400).send(err)
+         
+       }
   } catch (err) {
     console.log(err)
     res.status(400).send(err)
