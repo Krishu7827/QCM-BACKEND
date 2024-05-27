@@ -242,7 +242,7 @@ worksheet.getCell(`N${intialRow}`).border = Border;
 
  /** Employee id & Sign */
 worksheet.mergeCells(`C${intialRow}:E${Row-1}`)
-worksheet.getCell(`C${intialRow}`).value = Job['Comments'];
+worksheet.getCell(`C${intialRow}`).value = Job['EmployeeID'];
 worksheet.getCell(`C${intialRow}`).style = {
  alignment: { horizontal: 'center', vertical: 'middle', wrapText:true }, font: { size: 12}
 };
