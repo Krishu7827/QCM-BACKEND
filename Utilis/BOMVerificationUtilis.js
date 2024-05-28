@@ -35,6 +35,15 @@ AWS.config.credentials = new AWS.Credentials({
 /* Create S3 instance **/
 const s3 = new AWS.S3();
 
+/** Nodemailer Configuration */
+var transport = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'ipqc.gautamsolar@gmail.com',
+    pass: 'pyzn knth igdb cjtc'
+  }
+});
+
 const BOMExcelGenerate = async(Data)=>{
 
   //   let Data = [
