@@ -1,4 +1,8 @@
 const AWS = require('aws-sdk');
+const ExcelJS = require('exceljs');
+const nodemailer = require('nodemailer')
+const Path = require('path');
+const fs = require('fs');
 require('aws-sdk/lib/maintenance_mode_message').suppress = true;
 require('dotenv').config()
 
