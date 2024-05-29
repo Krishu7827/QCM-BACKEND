@@ -454,7 +454,7 @@ let Data = [
   
   }
 
-BOMExcelGenerate()
+//BOMExcelGenerate()
 app.get("/getFile", (req, res) => {
   const pathfile = path.join(__dirname, 'check.png');
   res.download(pathfile);
