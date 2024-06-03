@@ -1680,6 +1680,7 @@ worksheet.getCell('L4').border = Border;
   worksheet.getCell('A7').border = Border;
   worksheet.getCell('A8').border = Border;
 
+  
   worksheet.mergeCells('B7:G8')
   worksheet.getCell('B7').value = `Glue uniformity & countinuity in frame groove`
   worksheet.getCell('B7').style = Style(({size:13,bold:true}));
