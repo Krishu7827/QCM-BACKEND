@@ -475,6 +475,424 @@ const BOMExcelGenerate = async () => {
 
 
 //BOMExcelGenerate()
+const SolderingGenerate = async () => {
+
+  let Data = [
+    {
+      "TestDetailId": "cb1886b3-8c38-45bf-89e3-f33b0583e070",
+      "DocNo": "GSPL/IPQC/GP/005",
+      "RevNo": "1.0 & 12.08.2023",
+      "RibbonMake": "",
+      "CellSize": "",
+      "RibbonSize": "fg",
+      "Date": "2024-05-10",
+      "Line": "XXXXX0008",
+      "Shift": "Day Shift",
+      "MachineNo": "",
+      "OperatorName": "dpk",
+      "CellMake": "",
+      "Status": "Pending",
+      "CreatedBy": "08326670-ed04-11ee-b439-0ac93defbbf1",
+      "UpdatedBy": null,
+      "CreatedOn": "10-05-2024 08:59:53",
+      "UpdatedOn": null,
+      "BussingStage": "Auto",
+      "BusBarWidth": "vv",
+      "Remarks": "vv",
+      "Type": "Busbar",
+      "Pdf": "http://srv515471.hstgr.cloud:8080/IPQC/Pdf/cb1886b3-8c38-45bf-89e3-f33b0583e070.pdf",
+      "TestDetailId": "cb1886b3-8c38-45bf-89e3-f33b0583e070",
+      "TestId": "466c98f6-8319-46f4-8d19-7fc8eada71a8",
+      "Track": "Sample1",
+      "TrackData": "[{\"sampleAControllers1\":\"cc\"},{\"sampleAControllers2\":\"cf\"}]",
+      "PersonID": "08326670-ed04-11ee-b439-0ac93defbbf1",
+      "EmployeeID": "Emp003",
+      "Name": "Bhanu",
+      "LoginID": "QCM",
+      "Password": "Bhanu@3813",
+      "WorkLocation": "fc9c8db9-e817-11ee-b439-0ac93defbbf1",
+      "Email": "krishukumar7827@gmail.com",
+      "Department": "84949eb1-e816-11ee-b439-0ac93defbbf1",
+      "ProfileImg": "http://srv515471.hstgr.cloud:8080/Employee/Profile/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg",
+      "Desgination": "d66db440-e2ab-11ee-974e-12d6db81f661",
+      "Status": "Active",
+      "CreatedBy": null,
+      "UpdatedBy": "08326670-ed04-11ee-b439-0ac93defbbf1",
+      "CreatedOn": null,
+      "UpdatedOn": "21-05-2024 08:35:04",
+      "CreadtedBy": null,
+      "ReviewedBy": "Ajay Kumar"
+    },
+    {
+      "TestDetailId": "cb1886b3-8c38-45bf-89e3-f33b0583e070",
+      "DocNo": "GSPL/IPQC/GP/005",
+      "RevNo": "1.0 & 12.08.2023",
+      "RibbonMake": "",
+      "CellSize": "",
+      "RibbonSize": "fg",
+      "Date": "2024-05-10",
+      "Line": "XXXXX0008",
+      "Shift": "Day Shift",
+      "MachineNo": "",
+      "OperatorName": "dpk",
+      "CellMake": "",
+      "Status": "Pending",
+      "CreatedBy": "08326670-ed04-11ee-b439-0ac93defbbf1",
+      "UpdatedBy": null,
+      "CreatedOn": "10-05-2024 08:59:53",
+      "UpdatedOn": null,
+      "BussingStage": "Auto",
+      "BusBarWidth": "vv",
+      "Remarks": "vv",
+      "Type": "Busbar",
+      "Pdf": "http://srv515471.hstgr.cloud:8080/IPQC/Pdf/cb1886b3-8c38-45bf-89e3-f33b0583e070.pdf",
+      "TestDetailId": "cb1886b3-8c38-45bf-89e3-f33b0583e070",
+      "TestId": "bf5d8acf-1f8f-4c69-85cb-f32098fd1d02",
+      "Track": "Sample2",
+      "TrackData": "[{\"sampleBControllers1\":\"vv\"},{\"sampleBControllers2\":\"vv\"}]",
+      "PersonID": "08326670-ed04-11ee-b439-0ac93defbbf1",
+      "EmployeeID": "Emp003",
+      "Name": "Bhanu",
+      "LoginID": "QCM",
+      "Password": "Bhanu@3813",
+      "WorkLocation": "fc9c8db9-e817-11ee-b439-0ac93defbbf1",
+      "Email": "krishukumar7827@gmail.com",
+      "Department": "84949eb1-e816-11ee-b439-0ac93defbbf1",
+      "ProfileImg": "http://srv515471.hstgr.cloud:8080/Employee/Profile/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg",
+      "Desgination": "d66db440-e2ab-11ee-974e-12d6db81f661",
+      "Status": "Active",
+      "CreatedBy": null,
+      "UpdatedBy": "08326670-ed04-11ee-b439-0ac93defbbf1",
+      "CreatedOn": null,
+      "UpdatedOn": "21-05-2024 08:35:04",
+      "CreadtedBy": null,
+      "ReviewedBy": "Ajay Kumar"
+    }]
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet('Soldering Peel Test Report');
+  let Style = {
+    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+    font: {
+      size: 22, bold: true, italic: true
+    }
+  }
+
+  let MatrixData = [{
+    'Date': Data[0]['Date'],
+    'Line': Data[0]['Line'],
+    'Ribbon Make': Data[0]['RibbonMake'],
+  },
+  {
+    'Shift': Data[0]['Shift'],
+    'Machine No': Data[0]['MachineNo'],
+    'Cell Size': Data[0]['CellSize'],
+  },
+  {
+    'Operator Name': Data[0]['OperatorName'],
+    'Cell Make': Data[0]['CellMake'],
+    'Reabon Size': Data[0]['RibbonSize'],
+  }]
+  let Border = {
+    top: { style: 'thin' },
+    bottom: { style: 'thin' },
+    left: { style: 'thin' },
+    right: { style: 'thin' }
+  }
+
+  let row = 4;
+
+
+  /**Merging Cells */
+  worksheet.mergeCells('A1:D2')
+  worksheet.mergeCells('E1:F1')
+  worksheet.mergeCells('A3:D3')
+  worksheet.mergeCells('E2:F2')
+  worksheet.mergeCells('E3:F3')
+  // worksheet.mergeCells('C7:D7')
+  // worksheet.mergeCells('E7:F7')
+  worksheet.mergeCells('A7:F7')
+
+
+
+  /**putting value in cell */
+  worksheet.getCell('E1').value = 'Page No.1';
+  worksheet.getCell('A1').value = 'Gautam Solar Pvt. Ltd';
+  worksheet.getCell('A3').value = `Soldering Peel Test Report`;
+  worksheet.getCell('E2').value = `Doc No. ${Data[0]['DocNo']}`;
+  worksheet.getCell('E3').value = `Rev No. ${Data[0]['RevNo']}`;
+  worksheet.getCell('A7').value = 'Acceptance criteria: ≥ 0.5 N, effective Soldering Area should be ≥70%';
+  // worksheet.getCell('B7').value = 'Ribbon No';
+  // worksheet.getCell('C7').value = 'Peel Value(N)';
+  // worksheet.getCell('E7').value = 'Remarks';
+
+
+  /**Giving Style to Cell */
+  worksheet.getCell('E1').style = {
+    alignment: { horizontal: 'center', vertical: 'middle' },
+    font: {
+      size: 11, bold: true, italic: true
+    }
+  }
+
+  worksheet.getCell('A3').style = {
+    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+    font: {
+      size: 15, bold: true, italic: true
+    }
+  }
+
+  worksheet.getCell('A1').style = {
+    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+    font: {
+      size: 22, bold: true, italic: true
+    }
+  }
+
+  worksheet.getCell('E2').style = {
+    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+    font: {
+      size: 11, bold: true, italic: true
+    }
+  }
+  worksheet.getCell('E3').style = {
+    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+    font: {
+      size: 11, bold: true, italic: true
+    }
+  }
+  worksheet.getCell('A7').style = {
+    alignment: { horizontal: 'center', vertical: 'middle' },
+    font: {
+      size: 11, bold: true
+    }
+  }
+  worksheet.getCell('B7').style = {
+    alignment: { horizontal: 'center', vertical: 'middle' },
+    font: {
+      size: 11, bold: true
+    }
+  }
+  worksheet.getCell('C7').style = {
+    alignment: { horizontal: 'center', vertical: 'middle' },
+    font: {
+      size: 11, bold: true
+    }
+  }
+  worksheet.getCell('E7').style = {
+    alignment: { horizontal: 'center', vertical: 'middle' },
+    font: {
+      size: 11, bold: true
+    }
+  }
+
+
+  /**Giving Border to Cell */
+  worksheet.getCell('A1').border = Border
+
+  worksheet.getCell('D2').border = Border
+
+  worksheet.getCell('E1').border = {
+    top: { style: 'thin' },
+    bottom: { style: 'thin' }
+  }
+
+  worksheet.getCell('F1').border = {
+    top: { style: 'thin' },
+    right: { style: 'thin' },
+    bottom: { style: 'thin' }
+  }
+
+  worksheet.getCell('A3').border = Border;
+  worksheet.getCell('D3').border = Border;
+  worksheet.getCell('E2').border = Border;
+  worksheet.getCell('F2').border = Border;
+  worksheet.getCell('E3').border = Border;
+  worksheet.getCell('F3').border = Border;
+  worksheet.getCell('A7').border = Border;
+  worksheet.getCell('B7').border = Border;
+  worksheet.getCell('C7').border = Border;
+  worksheet.getCell('D7').border = Border;
+  worksheet.getCell('E7').border = Border;
+  worksheet.getCell('F7').border = Border;
+
+
+
+
+  /**Height */
+  worksheet.getRow(1).height = 15;
+  worksheet.getRow(2).height = 27;
+  worksheet.getRow(3).height = 33;
+  worksheet.getRow(row).height = 40;
+  worksheet.getRow(7).height = 25.75;
+
+  worksheet.getColumn('F').width = 16.86;
+  worksheet.getColumn('C').width = 23;
+  worksheet.getColumn('D').width = 23;
+
+  var startCharCode = 'A'.charCodeAt(0); // 1
+  var endCharCode = 'B'.charCodeAt(0); //3
+
+  for (var i = startCharCode; i <= endCharCode; i++) {
+
+    worksheet.getColumn(`${String.fromCharCode(i)}`).width = 21.75
+
+  };
+
+  // worksheet.getColumn('A').width = 28.40 
+  MatrixData.forEach((data) => {
+    worksheet.getRow(row).height = 25;
+
+    let length = 0;
+    for (let key in data) {
+      length++;
+    }
+
+    //2
+    //[{"date":"3323","k":"kd","Rev":"fg"},{"date":"3323","k":"kd","Rev":"fg"}]//1
+    let index = 0;
+    var i = 'A'.charCodeAt(0);
+    for (let key in data) {
+
+      if (index == length - 1) {
+
+        worksheet.mergeCells(`C${row}:F${row}`)
+        worksheet.getCell(`C${row}`).value = `${key}: ${data[key]}`;
+
+      } else {
+        worksheet.getCell(`${String.fromCharCode(i)}${row}`).value = `${key}: ${data[key]}`
+        worksheet.getColumn(`${String.fromCharCode(i)}`).width = 28.40
+        // worksheet.getCell(`B${row}`).value = `${key}: ${data[key]}`
+      }
+
+      /**Style */
+      worksheet.getCell(`C${row}`).style = {
+        alignment: { horizontal: 'left', vertical: 'middle', wrapText: true },
+        font: {
+          size: 12, bold: true
+        }
+      }
+      worksheet.getCell(`C${row}`).border = Border;
+      worksheet.getCell(`${String.fromCharCode(i)}${row}`).style = {
+        alignment: { horizontal: 'left', vertical: 'middle', wrapText: true },
+        font: {
+          size: 12, bold: true
+        }
+      }
+      worksheet.getCell(`${String.fromCharCode(i)}${row}`).border = Border
+
+
+
+
+      index++;
+      i++
+    }
+    row++;
+  })
+
+  row++;
+  let RibbonNo = 1
+  Data.forEach((data, i) => {
+    data['TrackData'] = JSON.parse(data['TrackData']);
+
+    let SampleAControllerNo = 1;
+    let firstRow = row;
+    data['TrackData'].forEach((Track) => {
+      //mergehhhhhh
+      worksheet.getRow(row).height = 35.27;
+      worksheet.getCell(`B${row}`).value = `R${RibbonNo}`
+      worksheet.mergeCells(`C${row}:D${row}`)
+      worksheet.mergeCells(`E${row}:F${row}`)
+      worksheet.getCell(`C${row}`).value = Track[`sampleAControllers${SampleAControllerNo}`] || Track[`sampleBControllers${SampleAControllerNo}`]
+      worksheet.getCell(`E${row}`).value = data['Remarks'];
+
+      worksheet.getCell(`B${row}`).style = {
+        alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+        font: {
+          size: 12, bold: false
+        }
+      }
+
+      worksheet.getCell(`C${row}`).style = {
+        alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+        font: {
+          size: 12, bold: false
+        }
+      }
+
+      worksheet.getCell(`E${row}`).style = {
+        alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+        font: {
+          size: 12, bold: false
+        }
+      }
+
+      worksheet.getCell(`B${row}`).border = Border;
+      worksheet.getCell(`C${row}`).border = Border;
+      worksheet.getCell(`D${row}`).border = Border;
+      worksheet.getCell(`E${row}`).border = Border;
+      worksheet.getCell(`F${row}`).border = Border;
+
+      RibbonNo++;
+      SampleAControllerNo++;
+      row++;
+    })
+
+    worksheet.mergeCells(`A${firstRow}:A${row - 1}`);
+    worksheet.getCell(`A${firstRow}`).value = `Sample ${i + 1}`;
+
+    worksheet.getCell(`A${firstRow}`).style = {
+      alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+      font: {
+        size: 12, bold: true,
+      }
+    }
+
+    worksheet.getCell(`A${firstRow}`).border = Border;
+    worksheet.getCell(`A${row - 1}`).border = Border;
+  })
+
+  worksheet.getRow(row).height = 38
+  worksheet.mergeCells(`A${row}:C${row}`);
+  worksheet.mergeCells(`D${row}:F${row}`);
+
+  worksheet.getCell(`A${row}`).value = `Tested By: ${Data[0]['Name']}`
+  worksheet.getCell(`D${row}`).value = `Reviewed By: ${Data[0]['ReviewedBy']}`
+
+  worksheet.getCell(`A${row}`).style = {
+    alignment: { horizontal: 'left', vertical: 'middle', wrapText: true },
+    font: {
+      size: 12, bold: true,
+    }
+  }
+
+  worksheet.getCell(`D${row}`).style = {
+    alignment: { horizontal: 'left', vertical: 'middle', wrapText: true },
+    font: {
+      size: 12, bold: true,
+    }
+  }
+
+  worksheet.getCell(`A${row}`).border = Border;
+  worksheet.getCell(`C${row}`).border = Border;
+  worksheet.getCell(`D${row}`).border = Border;
+  worksheet.getCell(`F${row}`).border = Border;
+
+  //Save the workbook to a file
+  const excelBuffer = await workbook.xlsx.writeBuffer()
+    .then(buffer => {
+      console.log('Excel file generated successfully!');
+
+      return buffer; // Return the buffer
+    })
+    .catch(error => {
+      console.error('Error generating Excel file:', error);
+    });
+
+
+  fs.writeFileSync('output.xlsx', excelBuffer)
+
+}
+SolderingGenerate();
 
 const PreLamExcel = async () => {
 
@@ -1491,19 +1909,32 @@ Row++
 }
 
 //StingerExcel()
-const FramingExcel = async() =>{
-  let Data = [{"FramingId":"d8445c68-46d0-4aff-aad8-37c65796abd3", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "Sample":"123", "FramingObservation":"43", "FramingDimension":"{\"x1\":\"54\",\"x2\":\"54\",\"y1\":\"54\",\"y2\":\"54\",\"l1\":\"\",\"l2\":\"54\",\"w1\":\"54\",\"w2\":\"54\"}", "Stage":"1", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "DocNo":"GSPL\/IPQC\/AF\/011", "RevNo":"1.0\/12.08.2023", "Date":"2024-05-02", "Shift":"Day Shift", "Line":"", "PONo":null, "CheckedBy":"ad320aa6-f3f2-11ee-b439-0ac93defbbf1", "CreatedBy":"", "UpdatedBy":null, "CreatedOn":"02-05-2024 08:18:19", "UpdatedOn":null, "Status":"Pending", "Type":"Framing", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2fa5d654-b7ef-4153-8209-b96573fc6fdc.pdf", "Location":null, "PersonID":"", "EmployeeID":null, "Name":null, "LoginID":null, "Password":null, "WorkLocation":null, "Email":null, "Department":null, "ProfileImg":null, "Desgination":null, "Status":null, "CreatedBy":null, "UpdatedBy":null, "CreatedOn":null, "UpdatedOn":null, "CreadtedBy":null},
-  {"FramingId":"018d0a36-e4c7-495b-9773-eef5ececc89f", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "Sample":"325", "FramingObservation":"47", "FramingDimension":"{\"x1\":\"6\",\"x2\":\"98\",\"y1\":\"oi\",\"y2\":\"y\",\"l1\":\"r\",\"l2\":\"54\",\"w1\":\"12\",\"w2\":\"43\"}", "Stage":"5", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "DocNo":"GSPL\/IPQC\/AF\/011", "RevNo":"1.0\/12.08.2023", "Date":"2024-05-02", "Shift":"Day Shift", "Line":"", "PONo":null, "CheckedBy":"ad320aa6-f3f2-11ee-b439-0ac93defbbf1", "CreatedBy":"", "UpdatedBy":null, "CreatedOn":"02-05-2024 08:18:19", "UpdatedOn":null, "Status":"Pending", "Type":"Framing", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2fa5d654-b7ef-4153-8209-b96573fc6fdc.pdf", "Location":null, "PersonID":"", "EmployeeID":null, "Name":null, "LoginID":null, "Password":null, "WorkLocation":null, "Email":null, "Department":null, "ProfileImg":null, "Desgination":null, "Status":null, "CreatedBy":null, "UpdatedBy":null, "CreatedOn":null, "UpdatedOn":null, "CreadtedBy":null},
-  {"FramingId":"a268b527-7d93-489f-9726-201c36ff0b26", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "Sample":"12", "FramingObservation":"32", "FramingDimension":"{\"x1\":\"435\",\"x2\":\"65\",\"y1\":\"657\",\"y2\":\"6\",\"l1\":\"87\",\"l2\":\"87\",\"w1\":\"98\",\"w2\":\"98\"}", "Stage":"2", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "DocNo":"GSPL\/IPQC\/AF\/011", "RevNo":"1.0\/12.08.2023", "Date":"2024-05-02", "Shift":"Day Shift", "Line":"", "PONo":null, "CheckedBy":"ad320aa6-f3f2-11ee-b439-0ac93defbbf1", "CreatedBy":"", "UpdatedBy":null, "CreatedOn":"02-05-2024 08:18:19", "UpdatedOn":null, "Status":"Pending", "Type":"Framing", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2fa5d654-b7ef-4153-8209-b96573fc6fdc.pdf", "Location":null, "PersonID":"", "EmployeeID":null, "Name":null, "LoginID":null, "Password":null, "WorkLocation":null, "Email":null, "Department":null, "ProfileImg":null, "Desgination":null, "Status":null, "CreatedBy":null, "UpdatedBy":null, "CreatedOn":null, "UpdatedOn":null, "CreadtedBy":null},
-  {"FramingId":"b46e01ea-dec0-4dea-9b5e-137c2a5be540", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "Sample":"435", "FramingObservation":"4", "FramingDimension":"{\"x1\":\"87\",\"x2\":\"98\",\"y1\":\"12\",\"y2\":\"5\",\"l1\":\"769\",\"l2\":\"8\",\"w1\":\"09\",\"w2\":\"65\"}", "Stage":"4", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "DocNo":"GSPL\/IPQC\/AF\/011", "RevNo":"1.0\/12.08.2023", "Date":"2024-05-02", "Shift":"Day Shift", "Line":"", "PONo":null, "CheckedBy":"ad320aa6-f3f2-11ee-b439-0ac93defbbf1", "CreatedBy":"", "UpdatedBy":null, "CreatedOn":"02-05-2024 08:18:19", "UpdatedOn":null, "Status":"Pending", "Type":"Framing", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2fa5d654-b7ef-4153-8209-b96573fc6fdc.pdf", "Location":null, "PersonID":"", "EmployeeID":null, "Name":null, "LoginID":null, "Password":null, "WorkLocation":null, "Email":null, "Department":null, "ProfileImg":null, "Desgination":null, "Status":null, "CreatedBy":null, "UpdatedBy":null, "CreatedOn":null, "UpdatedOn":null, "CreadtedBy":null},
-  {"FramingId":"ec0579a3-66eb-41f1-9da6-43a451f55a63", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "Sample":"76", "FramingObservation":"65", "FramingDimension":"{\"x1\":\"65\",\"x2\":\"76\",\"y1\":\"76\",\"y2\":\"6\",\"l1\":\"767\",\"l2\":\"6\",\"w1\":\"87\",\"w2\":\"34\"}", "Stage":"3", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "DocNo":"GSPL\/IPQC\/AF\/011", "RevNo":"1.0\/12.08.2023", "Date":"2024-05-02", "Shift":"Day Shift", "Line":"", "PONo":null, "CheckedBy":"ad320aa6-f3f2-11ee-b439-0ac93defbbf1", "CreatedBy":"", "UpdatedBy":null, "CreatedOn":"02-05-2024 08:18:19", "UpdatedOn":null, "Status":"Pending", "Type":"Framing", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2fa5d654-b7ef-4153-8209-b96573fc6fdc.pdf", "Location":null, "PersonID":"", "EmployeeID":null, "Name":null, "LoginID":null, "Password":null, "WorkLocation":null, "Email":null, "Department":null, "ProfileImg":null, "Desgination":null, "Status":null, "CreatedBy":null, "UpdatedBy":null, "CreatedOn":null, "UpdatedOn":null, "CreadtedBy":null}]
-  
+
+
+
+const LaminatorExcel = async() =>{
+  let Data = [{"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"987d820f-3207-4bec-b735-9e3f2b017341", "Parameter":"Laminator-2(sec)", "Specification":"Specification (0-10)| Tolerance None", "ObservedValueA":"nj", "ObservedValueB":"nn", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null},
+  {"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"5a6cab7b-24fd-453d-8915-ed356d0370b4", "Parameter":"EVA Make", "Specification":"Specification | Tolerance | None", "ObservedValueA":"vv", "ObservedValueB":"hh", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null},
+  {"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"88d7c63a-e36a-4238-b9c4-c6e7d030c1c4", "Parameter":"Upper Vent-3(kpa)", "Specification":"Specification(-20 to 0)|Tolerance None", "ObservedValueA":"nn", "ObservedValueB":"nn", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null},
+  {"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"f7756ec0-2472-462d-9572-fe8ebcbb3d4b", "Parameter":"Total Vaccum", "Specification":"Specification 300 | Tolerance (+40,-20)", "ObservedValueA":"nn", "ObservedValueB":"nn", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null},
+  {"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"93b0c037-ffb7-4579-9129-81d9ca3c103e", "Parameter":"EVA Model", "Specification":"Specification | Tolerance | None", "ObservedValueA":"hh", "ObservedValueB":"jj", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null},
+  {"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"79dada94-1d29-4786-9529-30b31e07bf27", "Parameter":"Laminator-3(sec)", "Specification":"Specification 100| Tolerance +50,0", "ObservedValueA":"nn", "ObservedValueB":"nn", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null},
+  {"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"442d5673-df78-4cc7-a1b5-9893074c1de5", "Parameter":"Laminator-1(sec)", "Specification":"Specification (0-10)| Tolerance None", "ObservedValueA":"nn", "ObservedValueB":"nn", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null},
+  {"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"1d4e81cd-b647-47b9-bd5f-2fbe42a7e785", "Parameter":"Upper Vaccum Delay(sec)", "Specification":"Specification  0-10| Tolerance -None", "ObservedValueA":"jj", "ObservedValueB":"jj", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null},
+  {"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"f8a75728-5dcb-41af-a77b-3e2ac80383c8", "Parameter":"Upper Vent-2(kpa)", "Specification":"Specification(-40 to 0)|Tolerance None", "ObservedValueA":"nn", "ObservedValueB":"bn", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null},
+  {"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"dc85174b-1894-4e7b-b6de-0f323d8cacf2", "Parameter":"Upper Vent-1(kpa)", "Specification":"Specification(-60 to 0)|Tolerance -None", "ObservedValueA":"nn", "ObservedValueB":"nn", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null},
+  {"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"74569f1d-0d72-4693-b22b-d1f9c4c7118a", "Parameter":"Default Low Vaccum Time(sec)", "Specification":"Specification 9999| Tolerance 0", "ObservedValueA":"nn", "ObservedValueB":"nn", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null},
+  {"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"0f95f09a-7cf3-4f54-96ba-f0b84bd20035", "Parameter":"Temp Setting(0c)", "Specification":"Specification 150| Tolerance None", "ObservedValueA":"nn", "ObservedValueB":"nn", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null},
+  {"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"fc8948aa-0885-4551-869e-5bd07a9330e3", "Parameter":"vent Time(sec)", "Specification":"Specification 20| Tolerance 0+-5", "ObservedValueA":"nn", "ObservedValueB":"nn", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null},
+  {"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"08f188cf-be1a-4f16-8791-b8bd810743d1", "Parameter":"Temp Lower limit (0c)", "Specification":"Specification 140| Tolerance None", "ObservedValueA":"nn", "ObservedValueB":"nn", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null},
+  {"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"67b73838-0c8d-49e2-872b-328fc3dfbd32", "Parameter":"Lam Count(Membrane cycle)", "Specification":"Specification (max 15000-20000)| Tolerance None", "ObservedValueA":"nn", "ObservedValueB":"nn", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null},
+  {"PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "LaminatorId":"4d4691f7-4e71-444c-acc7-2acab7def897", "Parameter":"Temp Upper limit(0c)", "Specification":"Specification 160| Tolerance None", "ObservedValueA":"nn", "ObservedValueB":"nn", "PreLamDetailId":"2151326b-4412-4727-bf08-472e0779a3e3", "DocNo":"GSPL\/IPQC\/LM\/008", "RevNo":"1.0 dated 12.08.2023", "Date":"2024-05-10", "Shift":"Day Shift", "Line":null, "PONo":null, "CheckedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":"10-05-2024 09:09:18", "UpdatedOn":"10-05-2024 09:09:33", "Status":"Approved", "Type":"Laminator1", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2151326b-4412-4727-bf08-472e0779a3e3.pdf", "Location":"[{\"Locationfield\":\"bbn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"},{\"Locationfield\":\"nn\"}]", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null}]
   
   
   
 
   const workbook = new ExcelJS.Workbook();
-  const worksheet = workbook.addWorksheet('Framing');
+  const worksheet = workbook.addWorksheet('Laminator');
   let Style = ({size, bold, horizontal = 'center', vertical = 'middle'})=>{
 
    let style =  {
@@ -1560,17 +1991,17 @@ const FramingExcel = async() =>{
   /**putting value in cell */
   worksheet.getCell('J1').value = 'Page No.1';
   worksheet.getCell('A1').value = 'Gautam Solar Pvt. Ltd';
-  worksheet.getCell('A3').value = `Framing Measurement CheckSheet`;
+  worksheet.getCell('A3').value = `${Data[0]['Type']}`;
   worksheet.getCell('J2').value = `Doc No. ${Data[0]['DocNo']}`;
   worksheet.getCell('J3').value = `Rev No. ${Data[0]['RevNo']}`;
-  worksheet.getCell('E4').value = `Line No: ${Data[0]['Line']}`;
+  worksheet.getCell('E4').value = `Laminator`;
 
 
   /**Giving Style to Cell */
   worksheet.getCell('J1').style = {
     alignment: { horizontal: 'center', vertical: 'middle' },
     font: {
-      size: 12, bold: true, italic: false
+      size: 11, bold: true, italic: false
     }
   }
 
@@ -1591,20 +2022,20 @@ const FramingExcel = async() =>{
   worksheet.getCell('J2').style = {
     alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
     font: {
-      size: 12, bold: true
+      size: 11, bold: true
     }
   }
   worksheet.getCell('J3').style = {
     alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
     font: {
-      size: 12, bold: true
+      size: 11, bold: true
     }
   }
 
   worksheet.getCell('E4').style = {
     alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
     font: {
-      size: 12, bold: true
+      size: 10, bold: true
     }
   }
   
@@ -1637,8 +2068,8 @@ worksheet.getCell('L4').border = Border;
 
 
 
-  worksheet.getCell('A4').style = Style({size:12,bold:true});
-  worksheet.getCell('C4').style = Style({size:12,bold:true})
+  worksheet.getCell('A4').style = Style({size:'10',bold:true});
+  worksheet.getCell('C4').style = Style({size:'10',bold:true})
 
 
 
@@ -1650,126 +2081,144 @@ worksheet.getCell('L4').border = Border;
 
  
 
-  worksheet.getColumn('C').width = 10;
-  worksheet.getColumn('D').width = 10;
-  
-  worksheet.getRow(5).height = 31
+  worksheet.getColumn('C').width = 20;
+  worksheet.getColumn('D').width = 20;
+  worksheet.getColumn('D').width = 20;
 
-  worksheet.mergeCells('A5:G5')
-  worksheet.getCell('A5').value = `Sample Check Qty`
-  worksheet.getCell('A5').style = Style(({size:14,bold:true}));
-  worksheet.getCell('A5').border = Border;
-  worksheet.getCell('F5').border = Border;
+ worksheet.mergeCells('A5:B6')
+ worksheet.getCell('A5').value = 'Parameter';
+ worksheet.getCell('A5').style = Style({bold:true,size:10})
+ worksheet.getCell('A5').border = Border;
+ worksheet.getCell('B6').border = Border;
+
+ worksheet.mergeCells('C5:C6')
+ worksheet.getCell('C5').value = 'Specification';
+ worksheet.getCell('C5').style = Style({bold:true,size:10})
+ worksheet.getCell('C5').border = Border;
+ worksheet.getCell('C6').border = Border;
+
+ worksheet.mergeCells('D5:D6')
+ worksheet.getCell('D5').value = 'Tolerance';
+ worksheet.getCell('D5').style = Style({bold:true,size:10})
+ worksheet.getCell('D5').border = Border;
+ worksheet.getCell('D6').border = Border;
+
+ worksheet.mergeCells('E5:L5')
+ worksheet.getCell('E5').value = 'Observed Value';
+ worksheet.getCell('E5').style = Style({bold:true,size:11})
+ worksheet.getCell('E5').border = Border;
+ worksheet.getCell('L5').border = Border;
+
+ worksheet.mergeCells('E6:H6')
+ worksheet.getCell('E6').value = 'A';
+ worksheet.getCell('E6').style = Style({bold:true,size:11})
+ worksheet.getCell('E6').border = Border;
+ worksheet.getCell('H6').border = Border;
+
+ worksheet.mergeCells('I6:L6')
+ worksheet.getCell('I6').value = 'B';
+ worksheet.getCell('I6').style = Style({bold:true,size:11})
+ worksheet.getCell('I6').border = Border;
+ worksheet.getCell('L6').border = Border;
  
-  worksheet.getRow(6).height = 31
 
-  worksheet.mergeCells('A6:G6')
-  worksheet.getCell('A6').value = `Module ID`
-  worksheet.getCell('A6').style = Style(({size:14,bold:true}));
-  worksheet.getCell('A6').border = Border;
-  worksheet.getCell('F6').border = Border;
 
-  worksheet.getColumn('A').width = 21
-  
-  worksheet.getRow(7).height = 36.23
-  worksheet.getRow(8).height = 36.23
+ let Row = 7;
 
-  worksheet.mergeCells('A7:A8')
-  worksheet.getCell('A7').value = `Framing Observation(v)/(x)`
-  worksheet.getCell('A7').style = Style(({size:12,bold:true}));
-  worksheet.getCell('A7').border = Border;
-  worksheet.getCell('A8').border = Border;
+ Data.forEach((data)=>{
+   worksheet.getRow(Row).height = 29
 
-  worksheet.mergeCells('B7:G8')
-  worksheet.getCell('B7').value = `Glue uniformity & countinuity in frame groove`
-  worksheet.getCell('B7').style = Style(({size:13,bold:true}));
-  worksheet.getCell('B7').border = Border;
-  worksheet.getCell('C8').border = Border;
-
-  let FramingDimensionValue = ['Mounting Hole x1 pitch','Mounting Hole x2 pitch','Mounting Hole y1 pitch','Mounting Hole y2 pitch','Length L1','Length L2','Width w1','Width w2']
-
-  let Row = 9
-  let IntialRow = Row;
-
-  FramingDimensionValue.forEach((value)=>{
-    worksheet.getRow(Row).height = 32.23
-   
-    
-  worksheet.mergeCells(`B${Row}:G${Row}`)
-  worksheet.getCell(`B${Row}`).value = value;
-  worksheet.getCell(`B${Row}`).style = Style(({size:13,bold:true}));
+  worksheet.mergeCells(`A${Row}:B${Row}`)
+  worksheet.getCell(`A${Row}`).value = data['Parameter'];
+  worksheet.getCell(`A${Row}`).style = Style({bold:true,size:11})
+  worksheet.getCell(`A${Row}`).border = Border;
   worksheet.getCell(`B${Row}`).border = Border;
-  worksheet.getCell(`G${Row}`).border = Border;
+
+  worksheet.mergeCells(`C${Row}:C${Row}`)
+  worksheet.getCell(`C${Row}`).value = data['Specification'].split('|')[0];
+  worksheet.getCell(`C${Row}`).style = Style({bold:true,size:11})
+  worksheet.getCell(`C${Row}`).border = Border;
+  worksheet.getCell(`C${Row}`).border = Border;
+
+  worksheet.mergeCells(`D${Row}:D${Row}`)
+  worksheet.getCell(`D${Row}`).value = data['Specification'].split('|')[1];
+  worksheet.getCell(`D${Row}`).style = Style({bold:true,size:11})
+  worksheet.getCell(`D${Row}`).border = Border;
+  worksheet.getCell(`D${Row}`).border = Border;
+
+  worksheet.mergeCells(`E${Row}:H${Row}`)
+  worksheet.getCell(`E${Row}`).value = data['ObservedValueA'];
+  worksheet.getCell(`E${Row}`).style = Style({bold:false,size:11})
+  worksheet.getCell(`E${Row}`).border = Border;
+  worksheet.getCell(`H${Row}`).border = Border;
+
+  worksheet.mergeCells(`I${Row}:L${Row}`)
+  worksheet.getCell(`I${Row}`).value = data['ObservedValueB'];
+  worksheet.getCell(`I${Row}`).style = Style({bold:false,size:11})
+  worksheet.getCell(`I${Row}`).border = Border;
+  worksheet.getCell(`L${Row}`).border = Border;
+Row++
+ })
+
+ worksheet.getRow(Row).height = 22;
+ worksheet.mergeCells(`A${Row}:L${Row}`)
+ worksheet.getCell(`A${Row}`).style = Style({size:12, bold:true});
+ worksheet.getCell(`A${Row}`).value = "Laminator Thermocouple Reading";
+ worksheet.getCell(`A${Row}`).border = Border;
+ worksheet.getCell(`L${Row}`).border = Border;
+
+ Row++;
+ worksheet.getRow(Row).height = 24;
+
+ worksheet.mergeCells(`A${Row}:D${Row}`)
+ worksheet.getCell(`A${Row}`).style = Style({size:12, bold:true});
+ worksheet.getCell(`A${Row}`).value = "Location";
+ worksheet.getCell(`A${Row}`).border = Border;
+ worksheet.getCell(`D${Row}`).border = Border;
  
-  Row++;
+ worksheet.mergeCells(`E${Row}:L${Row}`)
+ worksheet.getCell(`E${Row}`).style = Style({size:12, bold:true});
+ worksheet.getCell(`E${Row}`).value = "Location Name";
+ worksheet.getCell(`E${Row}`).border = Border;
+ worksheet.getCell(`L${Row}`).border = Border;
+//  worksheet.getCell('A${Row}').value = "Laminator Thermocouple Reading"; 
 
-  })
+Row++;
+Data[0]['Location'] = JSON.parse(Data[0]['Location']);
 
-  worksheet.mergeCells(`A${IntialRow}:A${Row-1}`)
-  worksheet.getCell(`A${IntialRow}`).value = `Framing Dimension(mm)`
-  worksheet.getCell(`A${IntialRow}`).style = Style(({size:12,bold:true}));
-  worksheet.getCell(`A${IntialRow}`).border = Border;
-  worksheet.getCell(`A${Row-1}`).border = Border;
+let LocationNumber = 1;
+ Data[0]['Location'].forEach((data)=>{
+  worksheet.getRow(Row).height = 22;
 
-  let startCharCode = 'H'.charCodeAt(0); // 1
-  let endCharCode = 'L'.charCodeAt(0); //3
- let number = 1;
-  for(let i = startCharCode; i<=endCharCode; i++){
-  worksheet.getColumn(`${String.fromCharCode(i)}`).width = 25
-    
-    worksheet.getCell(`${String.fromCharCode(i)}5`).value = `${number}`
-  worksheet.getCell(`${String.fromCharCode(i)}5`).style = Style(({size:12,bold:true}));
-  worksheet.getCell(`${String.fromCharCode(i)}5`).border = Border;
+  worksheet.mergeCells(`A${Row}:D${Row}`)
+  worksheet.getCell(`A${Row}`).style = Style({size:12, bold:true});
+  worksheet.getCell(`A${Row}`).value = `Location${LocationNumber}`;
+  worksheet.getCell(`A${Row}`).border = Border;
+  worksheet.getCell(`D${Row}`).border = Border;
 
-  number++;
-  }
+  worksheet.mergeCells(`E${Row}:L${Row}`)
+ worksheet.getCell(`E${Row}`).style = Style({size:12, bold:false});
+ worksheet.getCell(`E${Row}`).value = data['Locationfield'];
+ worksheet.getCell(`E${Row}`).border = Border;
+ worksheet.getCell(`L${Row}`).border = Border;
 
-Data.forEach((data)=>{
-  data['Stage'] = Number(data['Stage'])
-  data['FramingDimension'] = JSON.parse(data['FramingDimension'])
-})
+ LocationNumber++;
+ Row++;
+ })
+ worksheet.getRow(Row).height = 24;
 
-Data.sort((a,b)=> a.Stage - b.Stage);
-
- startCharCode = 'H'.charCodeAt(0);
-Data.forEach((data)=>{
-
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}6`).value = data['Sample'];
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}6`).style = Style(({size:12,bold:false}));
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}6`).border = Border;
-  
-  worksheet.mergeCells(`${String.fromCharCode(startCharCode)}7:${String.fromCharCode(startCharCode)}8`)
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}7`).value = data['FramingObservation'];
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}7`).style = Style(({size:12,bold:false}));
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}7`).border = Border;
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}8`).border = Border;
-
-  let innerRow = 9;
- for(let key in data['FramingDimension']){
-     
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}${innerRow}`).value = data['FramingDimension'][key];
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}${innerRow}`).style = Style(({size:12,bold:false}));
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}${innerRow}`).border = Border;
-  innerRow++;
- }
-  startCharCode++;
-})
-
-worksheet.getRow(17).height = 30;
-
-worksheet.mergeCells(`A17:H17`)
-worksheet.getCell('A17').value = `Done By: ${Data[0]['Name']}`
-worksheet.getCell('A17').style = Style(({size:13,bold:true, horizontal:'left'}));
-worksheet.getCell('A17').border = Border;
-worksheet.getCell('H17').border = Border;
+ worksheet.mergeCells(`A${Row}:D${Row}`)
+ worksheet.getCell(`A${Row}`).style = Style({size:12, bold:true});
+ worksheet.getCell(`A${Row}`).value = `Checked By: ${Data[0]['Name']}`;
+ worksheet.getCell(`A${Row}`).border = Border;
+ worksheet.getCell(`D${Row}`).border = Border;
 
 
-worksheet.mergeCells(`I17:L17`)
-worksheet.getCell('I17').value = `Reviewed By: ${Data[0]['ReviewedBy'] || 'Unknown'}`
-worksheet.getCell('I17').style = Style(({size:13,bold:true, horizontal:'left'}));
-worksheet.getCell('I17').border = Border;
-worksheet.getCell('L17').border = Border;
-
+ worksheet.mergeCells(`E${Row}:L${Row}`)
+ worksheet.getCell(`E${Row}`).style = Style({size:12, bold:true});
+ worksheet.getCell(`E${Row}`).value = `Reviewed  By: ${Data[0]['ReviewedBy'] || 'Unknown'}`;
+ worksheet.getCell(`E${Row}`).border = Border;
+ worksheet.getCell(`L${Row}`).border = Border;
     //Save the workbook to a file
     const excelBuffer = await workbook.xlsx.writeBuffer()
     .then(buffer => {
@@ -1784,8 +2233,10 @@ worksheet.getCell('L17').border = Border;
 
   fs.writeFileSync('output.xlsx', excelBuffer)
 }
+
+// 
+//LaminatorExcel()
   
-//FramingExcel();
 app.get("/getFile", (req, res) => {
   const pathfile = path.join(__dirname, 'check.png');
   res.download(pathfile);
