@@ -1491,7 +1491,301 @@ Row++
 }
 
 //StingerExcel()
+const FramingExcel = async() =>{
+  let Data = [{"FramingId":"d8445c68-46d0-4aff-aad8-37c65796abd3", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "Sample":"123", "FramingObservation":"43", "FramingDimension":"{\"x1\":\"54\",\"x2\":\"54\",\"y1\":\"54\",\"y2\":\"54\",\"l1\":\"\",\"l2\":\"54\",\"w1\":\"54\",\"w2\":\"54\"}", "Stage":"1", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "DocNo":"GSPL\/IPQC\/AF\/011", "RevNo":"1.0\/12.08.2023", "Date":"2024-05-02", "Shift":"Day Shift", "Line":"", "PONo":null, "CheckedBy":"ad320aa6-f3f2-11ee-b439-0ac93defbbf1", "CreatedBy":"", "UpdatedBy":null, "CreatedOn":"02-05-2024 08:18:19", "UpdatedOn":null, "Status":"Pending", "Type":"Framing", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2fa5d654-b7ef-4153-8209-b96573fc6fdc.pdf", "Location":null, "PersonID":"", "EmployeeID":null, "Name":null, "LoginID":null, "Password":null, "WorkLocation":null, "Email":null, "Department":null, "ProfileImg":null, "Desgination":null, "Status":null, "CreatedBy":null, "UpdatedBy":null, "CreatedOn":null, "UpdatedOn":null, "CreadtedBy":null},
+  {"FramingId":"018d0a36-e4c7-495b-9773-eef5ececc89f", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "Sample":"325", "FramingObservation":"47", "FramingDimension":"{\"x1\":\"6\",\"x2\":\"98\",\"y1\":\"oi\",\"y2\":\"y\",\"l1\":\"r\",\"l2\":\"54\",\"w1\":\"12\",\"w2\":\"43\"}", "Stage":"5", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "DocNo":"GSPL\/IPQC\/AF\/011", "RevNo":"1.0\/12.08.2023", "Date":"2024-05-02", "Shift":"Day Shift", "Line":"", "PONo":null, "CheckedBy":"ad320aa6-f3f2-11ee-b439-0ac93defbbf1", "CreatedBy":"", "UpdatedBy":null, "CreatedOn":"02-05-2024 08:18:19", "UpdatedOn":null, "Status":"Pending", "Type":"Framing", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2fa5d654-b7ef-4153-8209-b96573fc6fdc.pdf", "Location":null, "PersonID":"", "EmployeeID":null, "Name":null, "LoginID":null, "Password":null, "WorkLocation":null, "Email":null, "Department":null, "ProfileImg":null, "Desgination":null, "Status":null, "CreatedBy":null, "UpdatedBy":null, "CreatedOn":null, "UpdatedOn":null, "CreadtedBy":null},
+  {"FramingId":"a268b527-7d93-489f-9726-201c36ff0b26", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "Sample":"12", "FramingObservation":"32", "FramingDimension":"{\"x1\":\"435\",\"x2\":\"65\",\"y1\":\"657\",\"y2\":\"6\",\"l1\":\"87\",\"l2\":\"87\",\"w1\":\"98\",\"w2\":\"98\"}", "Stage":"2", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "DocNo":"GSPL\/IPQC\/AF\/011", "RevNo":"1.0\/12.08.2023", "Date":"2024-05-02", "Shift":"Day Shift", "Line":"", "PONo":null, "CheckedBy":"ad320aa6-f3f2-11ee-b439-0ac93defbbf1", "CreatedBy":"", "UpdatedBy":null, "CreatedOn":"02-05-2024 08:18:19", "UpdatedOn":null, "Status":"Pending", "Type":"Framing", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2fa5d654-b7ef-4153-8209-b96573fc6fdc.pdf", "Location":null, "PersonID":"", "EmployeeID":null, "Name":null, "LoginID":null, "Password":null, "WorkLocation":null, "Email":null, "Department":null, "ProfileImg":null, "Desgination":null, "Status":null, "CreatedBy":null, "UpdatedBy":null, "CreatedOn":null, "UpdatedOn":null, "CreadtedBy":null},
+  {"FramingId":"b46e01ea-dec0-4dea-9b5e-137c2a5be540", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "Sample":"435", "FramingObservation":"4", "FramingDimension":"{\"x1\":\"87\",\"x2\":\"98\",\"y1\":\"12\",\"y2\":\"5\",\"l1\":\"769\",\"l2\":\"8\",\"w1\":\"09\",\"w2\":\"65\"}", "Stage":"4", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "DocNo":"GSPL\/IPQC\/AF\/011", "RevNo":"1.0\/12.08.2023", "Date":"2024-05-02", "Shift":"Day Shift", "Line":"", "PONo":null, "CheckedBy":"ad320aa6-f3f2-11ee-b439-0ac93defbbf1", "CreatedBy":"", "UpdatedBy":null, "CreatedOn":"02-05-2024 08:18:19", "UpdatedOn":null, "Status":"Pending", "Type":"Framing", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2fa5d654-b7ef-4153-8209-b96573fc6fdc.pdf", "Location":null, "PersonID":"", "EmployeeID":null, "Name":null, "LoginID":null, "Password":null, "WorkLocation":null, "Email":null, "Department":null, "ProfileImg":null, "Desgination":null, "Status":null, "CreatedBy":null, "UpdatedBy":null, "CreatedOn":null, "UpdatedOn":null, "CreadtedBy":null},
+  {"FramingId":"ec0579a3-66eb-41f1-9da6-43a451f55a63", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "Sample":"76", "FramingObservation":"65", "FramingDimension":"{\"x1\":\"65\",\"x2\":\"76\",\"y1\":\"76\",\"y2\":\"6\",\"l1\":\"767\",\"l2\":\"6\",\"w1\":\"87\",\"w2\":\"34\"}", "Stage":"3", "PreLamDetailId":"2fa5d654-b7ef-4153-8209-b96573fc6fdc", "DocNo":"GSPL\/IPQC\/AF\/011", "RevNo":"1.0\/12.08.2023", "Date":"2024-05-02", "Shift":"Day Shift", "Line":"", "PONo":null, "CheckedBy":"ad320aa6-f3f2-11ee-b439-0ac93defbbf1", "CreatedBy":"", "UpdatedBy":null, "CreatedOn":"02-05-2024 08:18:19", "UpdatedOn":null, "Status":"Pending", "Type":"Framing", "PreLamPdf":"http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/2fa5d654-b7ef-4153-8209-b96573fc6fdc.pdf", "Location":null, "PersonID":"", "EmployeeID":null, "Name":null, "LoginID":null, "Password":null, "WorkLocation":null, "Email":null, "Department":null, "ProfileImg":null, "Desgination":null, "Status":null, "CreatedBy":null, "UpdatedBy":null, "CreatedOn":null, "UpdatedOn":null, "CreadtedBy":null}]
   
+  
+  
+  
+
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet('Framing');
+  let Style = ({size, bold, horizontal = 'center', vertical = 'middle'})=>{
+
+   let style =  {
+      alignment: { horizontal: horizontal, vertical: vertical, wrapText: true },
+      font: {
+        size: size, bold: bold
+      }
+    }
+    return style;
+  }
+
+  let Style2 = {
+    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+    font: {
+      size: 22, bold: false
+    }
+  }
+
+  let MatrixData = [{
+    'Date': Data[0]['Date'],
+    'Shift': Data[0]['Shift'],
+    'Acceptance Crieteria': ">-4N"
+  },
+  {
+    'Line': Data[0]['Line'],
+    'Buusing Stage': Data[0]['BussingStage'],
+    'Operator Name': Data[0]['OperatorName'],
+  },
+  {
+    'Ribbon Width': Data[0]['Line'],
+    'Busbar Width': Data[0]['BussingStage'],
+    'Result': "NA",
+  }]
+  let Border = {
+    top: { style: 'thin' },
+    bottom: { style: 'thin' },
+    left: { style: 'thin' },
+    right: { style: 'thin' }
+  }
+
+
+
+
+  /**Merging Cells */
+  worksheet.mergeCells('A1:I2')
+  worksheet.mergeCells('J1:L1')
+  worksheet.mergeCells('A3:I3')
+  worksheet.mergeCells('J2:L2')
+  worksheet.mergeCells('J3:L3')
+  worksheet.mergeCells('E4:L4')
+
+
+
+  /**putting value in cell */
+  worksheet.getCell('J1').value = 'Page No.1';
+  worksheet.getCell('A1').value = 'Gautam Solar Pvt. Ltd';
+  worksheet.getCell('A3').value = `Framing Measurement CheckSheet`;
+  worksheet.getCell('J2').value = `Doc No. ${Data[0]['DocNo']}`;
+  worksheet.getCell('J3').value = `Rev No. ${Data[0]['RevNo']}`;
+  worksheet.getCell('E4').value = `Line No: ${Data[0]['Line']}`;
+
+
+  /**Giving Style to Cell */
+  worksheet.getCell('J1').style = {
+    alignment: { horizontal: 'center', vertical: 'middle' },
+    font: {
+      size: 12, bold: true, italic: false
+    }
+  }
+
+  worksheet.getCell('A3').style = {
+    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+    font: {
+      size: 15, bold: true
+    }
+  }
+
+  worksheet.getCell('A1').style = {
+    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+    font: {
+      size: 22, bold: true
+    }
+  }
+
+  worksheet.getCell('J2').style = {
+    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+    font: {
+      size: 12, bold: true
+    }
+  }
+  worksheet.getCell('J3').style = {
+    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+    font: {
+      size: 12, bold: true
+    }
+  }
+
+  worksheet.getCell('E4').style = {
+    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+    font: {
+      size: 12, bold: true
+    }
+  }
+  
+/**Border */
+worksheet.getCell('A1').border = Border;
+worksheet.getCell('I2').border = Border;
+worksheet.getCell('J1').border = Border;
+worksheet.getCell('L1').border = Border;
+worksheet.getCell('J2').border = Border;
+worksheet.getCell('L2').border = Border;
+worksheet.getCell('J3').border = Border;
+worksheet.getCell('L3').border = Border;
+worksheet.getCell('A3').border = Border;
+worksheet.getCell('I3').border = Border;
+worksheet.getCell('E4').border = Border;
+worksheet.getCell('L4').border = Border;
+  /**Height */
+  worksheet.getRow(1).height = 15;
+  worksheet.getRow(2).height = 27;
+  worksheet.getRow(3).height = 24;
+  worksheet.getRow(4).height = 25;
+  worksheet.getRow(5).height = 20;
+
+  worksheet.mergeCells('A4:B4')
+  worksheet.mergeCells('C4:D4')
+
+
+  worksheet.getCell('A4').value = `Date: ${Data[0]['Date']}`;
+  worksheet.getCell('C4').value = `Shift: ${Data[0]['Shift']}`;
+
+
+
+  worksheet.getCell('A4').style = Style({size:12,bold:true});
+  worksheet.getCell('C4').style = Style({size:12,bold:true})
+
+
+
+  worksheet.getCell('A4').border = Border;
+  worksheet.getCell('C4').border = Border;
+  worksheet.getCell('B4').border = Border;
+  worksheet.getCell('D4').border = Border;
+
+
+ 
+
+  worksheet.getColumn('C').width = 10;
+  worksheet.getColumn('D').width = 10;
+  
+  worksheet.getRow(5).height = 31
+
+  worksheet.mergeCells('A5:G5')
+  worksheet.getCell('A5').value = `Sample Check Qty`
+  worksheet.getCell('A5').style = Style(({size:14,bold:true}));
+  worksheet.getCell('A5').border = Border;
+  worksheet.getCell('F5').border = Border;
+ 
+  worksheet.getRow(6).height = 31
+
+  worksheet.mergeCells('A6:G6')
+  worksheet.getCell('A6').value = `Module ID`
+  worksheet.getCell('A6').style = Style(({size:14,bold:true}));
+  worksheet.getCell('A6').border = Border;
+  worksheet.getCell('F6').border = Border;
+
+  worksheet.getColumn('A').width = 21
+  
+  worksheet.getRow(7).height = 36.23
+  worksheet.getRow(8).height = 36.23
+
+  worksheet.mergeCells('A7:A8')
+  worksheet.getCell('A7').value = `Framing Observation(v)/(x)`
+  worksheet.getCell('A7').style = Style(({size:12,bold:true}));
+  worksheet.getCell('A7').border = Border;
+  worksheet.getCell('A8').border = Border;
+
+  worksheet.mergeCells('B7:G8')
+  worksheet.getCell('B7').value = `Glue uniformity & countinuity in frame groove`
+  worksheet.getCell('B7').style = Style(({size:13,bold:true}));
+  worksheet.getCell('B7').border = Border;
+  worksheet.getCell('C8').border = Border;
+
+  let FramingDimensionValue = ['Mounting Hole x1 pitch','Mounting Hole x2 pitch','Mounting Hole y1 pitch','Mounting Hole y2 pitch','Length L1','Length L2','Width w1','Width w2']
+
+  let Row = 9
+  let IntialRow = Row;
+
+  FramingDimensionValue.forEach((value)=>{
+    worksheet.getRow(Row).height = 32.23
+   
+    
+  worksheet.mergeCells(`B${Row}:G${Row}`)
+  worksheet.getCell(`B${Row}`).value = value;
+  worksheet.getCell(`B${Row}`).style = Style(({size:13,bold:true}));
+  worksheet.getCell(`B${Row}`).border = Border;
+  worksheet.getCell(`G${Row}`).border = Border;
+ 
+  Row++;
+
+  })
+
+  worksheet.mergeCells(`A${IntialRow}:A${Row-1}`)
+  worksheet.getCell(`A${IntialRow}`).value = `Framing Dimension(mm)`
+  worksheet.getCell(`A${IntialRow}`).style = Style(({size:12,bold:true}));
+  worksheet.getCell(`A${IntialRow}`).border = Border;
+  worksheet.getCell(`A${Row-1}`).border = Border;
+
+  let startCharCode = 'H'.charCodeAt(0); // 1
+  let endCharCode = 'L'.charCodeAt(0); //3
+ let number = 1;
+  for(let i = startCharCode; i<=endCharCode; i++){
+  worksheet.getColumn(`${String.fromCharCode(i)}`).width = 25
+    
+    worksheet.getCell(`${String.fromCharCode(i)}5`).value = `${number}`
+  worksheet.getCell(`${String.fromCharCode(i)}5`).style = Style(({size:12,bold:true}));
+  worksheet.getCell(`${String.fromCharCode(i)}5`).border = Border;
+
+  number++;
+  }
+
+Data.forEach((data)=>{
+  data['Stage'] = Number(data['Stage'])
+  data['FramingDimension'] = JSON.parse(data['FramingDimension'])
+})
+
+Data.sort((a,b)=> a.Stage - b.Stage);
+
+ startCharCode = 'H'.charCodeAt(0);
+Data.forEach((data)=>{
+
+  worksheet.getCell(`${String.fromCharCode(startCharCode)}6`).value = data['Sample'];
+  worksheet.getCell(`${String.fromCharCode(startCharCode)}6`).style = Style(({size:12,bold:false}));
+  worksheet.getCell(`${String.fromCharCode(startCharCode)}6`).border = Border;
+  
+  worksheet.mergeCells(`${String.fromCharCode(startCharCode)}7:${String.fromCharCode(startCharCode)}8`)
+  worksheet.getCell(`${String.fromCharCode(startCharCode)}7`).value = data['FramingObservation'];
+  worksheet.getCell(`${String.fromCharCode(startCharCode)}7`).style = Style(({size:12,bold:false}));
+  worksheet.getCell(`${String.fromCharCode(startCharCode)}7`).border = Border;
+  worksheet.getCell(`${String.fromCharCode(startCharCode)}8`).border = Border;
+
+  let innerRow = 9;
+ for(let key in data['FramingDimension']){
+     
+  worksheet.getCell(`${String.fromCharCode(startCharCode)}${innerRow}`).value = data['FramingDimension'][key];
+  worksheet.getCell(`${String.fromCharCode(startCharCode)}${innerRow}`).style = Style(({size:12,bold:false}));
+  worksheet.getCell(`${String.fromCharCode(startCharCode)}${innerRow}`).border = Border;
+  innerRow++;
+ }
+  startCharCode++;
+})
+
+worksheet.getRow(17).height = 30;
+
+worksheet.mergeCells(`A17:H17`)
+worksheet.getCell('A17').value = `Done By: ${Data[0]['Name']}`
+worksheet.getCell('A17').style = Style(({size:13,bold:true, horizontal:'left'}));
+worksheet.getCell('A17').border = Border;
+worksheet.getCell('H17').border = Border;
+
+
+worksheet.mergeCells(`I17:L17`)
+worksheet.getCell('I17').value = `Reviewed By: ${Data[0]['ReviewedBy'] || 'Unknown'}`
+worksheet.getCell('I17').style = Style(({size:13,bold:true, horizontal:'left'}));
+worksheet.getCell('I17').border = Border;
+worksheet.getCell('L17').border = Border;
+
+    //Save the workbook to a file
+    const excelBuffer = await workbook.xlsx.writeBuffer()
+    .then(buffer => {
+      console.log('Excel file generated successfully!');
+
+      return buffer; // Return the buffer
+    })
+    .catch(error => {
+      console.error('Error generating Excel file:', error);
+    });
+
+
+  fs.writeFileSync('output.xlsx', excelBuffer)
+}
+  
+//FramingExcel();
 app.get("/getFile", (req, res) => {
   const pathfile = path.join(__dirname, 'check.png');
   res.download(pathfile);
