@@ -2703,9 +2703,9 @@ return `${Data[0]['PreLamDetailId']}.xlsx`;
      from: 'ipqc.gautamsolar@gmail.com',
      cc: 'bhanu.galo@gmail.com',
      to: 'krishukumar535@gmail.com',
-     subject: `IPQC Soldering Peel Report: Line No. ${Data[0]['Line']}`,
+     subject: `IPQC ${Data[0]['Type']} : Line No. ${Data[0]['Line']}`,
      attachments: [{
-       filename: `Framing_Report_${Data[0]['Sample']}.xlsx`,
+       filename: `${Data[0]['Type']}_Report_${Data[0]['Line']}.xlsx`,
        content: excelBuffer,
        contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
      }],
