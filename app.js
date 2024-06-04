@@ -479,77 +479,76 @@ const SolderingGenerate = async () => {
 
   let Data = [
     {
-      "TestDetailId": "cb1886b3-8c38-45bf-89e3-f33b0583e070",
-      "DocNo": "GSPL/IPQC/GP/005",
-      "RevNo": "1.0 & 12.08.2023",
-      "RibbonMake": "",
-      "CellSize": "",
-      "RibbonSize": "fg",
-      "Date": "2024-05-10",
-      "Line": "XXXXX0008",
-      "Shift": "Day Shift",
-      "MachineNo": "",
-      "OperatorName": "dpk",
-      "CellMake": "",
-      "Status": "Pending",
-      "CreatedBy": "08326670-ed04-11ee-b439-0ac93defbbf1",
-      "UpdatedBy": null,
-      "CreatedOn": "10-05-2024 08:59:53",
-      "UpdatedOn": null,
-      "BussingStage": "Auto",
-      "BusBarWidth": "vv",
-      "Remarks": "vv",
-      "Type": "Busbar",
-      "Pdf": "http://srv515471.hstgr.cloud:8080/IPQC/Pdf/cb1886b3-8c38-45bf-89e3-f33b0583e070.pdf",
-      "TestDetailId": "cb1886b3-8c38-45bf-89e3-f33b0583e070",
-      "TestId": "466c98f6-8319-46f4-8d19-7fc8eada71a8",
-      "Track": "Sample1",
-      "TrackData": "[{\"sampleAControllers1\":\"cc\"},{\"sampleAControllers2\":\"cf\"}]",
-      "PersonID": "08326670-ed04-11ee-b439-0ac93defbbf1",
-      "EmployeeID": "Emp003",
-      "Name": "Bhanu",
-      "LoginID": "QCM",
-      "Password": "Bhanu@3813",
-      "WorkLocation": "fc9c8db9-e817-11ee-b439-0ac93defbbf1",
-      "Email": "krishukumar7827@gmail.com",
-      "Department": "84949eb1-e816-11ee-b439-0ac93defbbf1",
-      "ProfileImg": "http://srv515471.hstgr.cloud:8080/Employee/Profile/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg",
-      "Desgination": "d66db440-e2ab-11ee-974e-12d6db81f661",
-      "Status": "Active",
-      "CreatedBy": null,
-      "UpdatedBy": "08326670-ed04-11ee-b439-0ac93defbbf1",
-      "CreatedOn": null,
-      "UpdatedOn": "21-05-2024 08:35:04",
-      "CreadtedBy": null,
-      "ReviewedBy": "Ajay Kumar"
+        "TestDetailId": "7dc28b20-078d-4f5b-9c40-b1e89e39cf81",
+        "TestId": "58eb44b9-5dc5-4aa7-9065-55088998eb6a",
+        "Track": "Sample1",
+        "TrackData": "[{\"FrontController\":\"12\",\"BackController\":\"221\"},{\"FrontController\":\"32\",\"BackController\":\"45\"}]",
+        "TestDetailId": "7dc28b20-078d-4f5b-9c40-b1e89e39cf81",
+        "DocNo": "GSPL\/IPQC\/GP\/005",
+        "RevNo": "1.0 & 12.08.2023",
+        "RibbonMake": "54",
+        "CellSize": "54",
+        "RibbonSize": "654",
+        "Date": "2024-05-01",
+        "Line": "12",
+        "Shift": "Day Shift",
+        "MachineNo": "32",
+        "OperatorName": "54",
+        "CellMake": "1",
+        "Status": "Approved",
+        "CreatedBy": "08326670-ed04-11ee-b439-0ac93defbbf1",
+        "UpdatedBy": "08326670-ed04-11ee-b439-0ac93defbbf1",
+        "CreatedOn": "01-05-2024 09:51:51",
+        "UpdatedOn": "01-05-2024 11:32:08",
+        "BussingStage": "",
+        "BusBarWidth": "",
+        "Remarks": "",
+        "Type": "Soldering",
+        "Pdf": "http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/7dc28b20-078d-4f5b-9c40-b1e89e39cf81.pdf",
+        "PersonID": "08326670-ed04-11ee-b439-0ac93defbbf1",
+        "EmployeeID": "Emp003",
+        "Name": "Bhanu",
+        "LoginID": "QCM",
+        "Password": "Bhanu@3813",
+        "WorkLocation": "fc9c8db9-e817-11ee-b439-0ac93defbbf1",
+        "Email": "krishukumar7827@gmail.com",
+        "Department": "84949eb1-e816-11ee-b439-0ac93defbbf1",
+        "ProfileImg": "http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg",
+        "Desgination": "d66db440-e2ab-11ee-974e-12d6db81f661",
+        "Status": "Active",
+        "CreatedBy": null,
+        "UpdatedBy": "08326670-ed04-11ee-b439-0ac93defbbf1",
+        "CreatedOn": null,
+        "UpdatedOn": "21-05-2024 08:35:04",
+        "CreadtedBy": null
     },
     {
-      "TestDetailId": "cb1886b3-8c38-45bf-89e3-f33b0583e070",
-      "DocNo": "GSPL/IPQC/GP/005",
+      "TestDetailId": "7dc28b20-078d-4f5b-9c40-b1e89e39cf81",
+      "TestId": "58eb44b9-5dc5-4aa7-9065-55088998eb6a",
+      "Track": "Sample1",
+      "TrackData": "[{\"FrontController\":\"Rahul\",\"BackController\":\"Viney\"},{\"FrontController\":\"32\",\"BackController\":\"45\"},{\"FrontController\":\"Rahul\",\"BackController\":\"Viney\"}]",
+      "TestDetailId": "7dc28b20-078d-4f5b-9c40-b1e89e39cf81",
+      "DocNo": "GSPL\/IPQC\/GP\/005",
       "RevNo": "1.0 & 12.08.2023",
-      "RibbonMake": "",
-      "CellSize": "",
-      "RibbonSize": "fg",
-      "Date": "2024-05-10",
-      "Line": "XXXXX0008",
+      "RibbonMake": "54",
+      "CellSize": "54",
+      "RibbonSize": "654",
+      "Date": "2024-05-01",
+      "Line": "12",
       "Shift": "Day Shift",
-      "MachineNo": "",
-      "OperatorName": "dpk",
-      "CellMake": "",
-      "Status": "Pending",
+      "MachineNo": "32",
+      "OperatorName": "54",
+      "CellMake": "1",
+      "Status": "Approved",
       "CreatedBy": "08326670-ed04-11ee-b439-0ac93defbbf1",
-      "UpdatedBy": null,
-      "CreatedOn": "10-05-2024 08:59:53",
-      "UpdatedOn": null,
-      "BussingStage": "Auto",
-      "BusBarWidth": "vv",
-      "Remarks": "vv",
-      "Type": "Busbar",
-      "Pdf": "http://srv515471.hstgr.cloud:8080/IPQC/Pdf/cb1886b3-8c38-45bf-89e3-f33b0583e070.pdf",
-      "TestDetailId": "cb1886b3-8c38-45bf-89e3-f33b0583e070",
-      "TestId": "bf5d8acf-1f8f-4c69-85cb-f32098fd1d02",
-      "Track": "Sample2",
-      "TrackData": "[{\"sampleBControllers1\":\"vv\"},{\"sampleBControllers2\":\"vv\"}]",
+      "UpdatedBy": "08326670-ed04-11ee-b439-0ac93defbbf1",
+      "CreatedOn": "01-05-2024 09:51:51",
+      "UpdatedOn": "01-05-2024 11:32:08",
+      "BussingStage": "",
+      "BusBarWidth": "",
+      "Remarks": "",
+      "Type": "Soldering",
+      "Pdf": "http:\/\/srv515471.hstgr.cloud:8080\/IPQC\/Pdf\/7dc28b20-078d-4f5b-9c40-b1e89e39cf81.pdf",
       "PersonID": "08326670-ed04-11ee-b439-0ac93defbbf1",
       "EmployeeID": "Emp003",
       "Name": "Bhanu",
@@ -558,16 +557,16 @@ const SolderingGenerate = async () => {
       "WorkLocation": "fc9c8db9-e817-11ee-b439-0ac93defbbf1",
       "Email": "krishukumar7827@gmail.com",
       "Department": "84949eb1-e816-11ee-b439-0ac93defbbf1",
-      "ProfileImg": "http://srv515471.hstgr.cloud:8080/Employee/Profile/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg",
+      "ProfileImg": "http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg",
       "Desgination": "d66db440-e2ab-11ee-974e-12d6db81f661",
       "Status": "Active",
       "CreatedBy": null,
       "UpdatedBy": "08326670-ed04-11ee-b439-0ac93defbbf1",
       "CreatedOn": null,
       "UpdatedOn": "21-05-2024 08:35:04",
-      "CreadtedBy": null,
-      "ReviewedBy": "Ajay Kumar"
-    }]
+      "CreadtedBy": null
+  }
+]
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet('Soldering Peel Test Report');
   let Style = {
@@ -726,8 +725,8 @@ const SolderingGenerate = async () => {
   worksheet.getRow(7).height = 25.75;
 
   worksheet.getColumn('F').width = 16.86;
-  worksheet.getColumn('C').width = 23;
-  worksheet.getColumn('D').width = 23;
+  worksheet.getColumn('C').width = 15;
+  worksheet.getColumn('D').width = 9.23;
 
   var startCharCode = 'A'.charCodeAt(0); // 1
   var endCharCode = 'B'.charCodeAt(0); //3
@@ -788,13 +787,63 @@ const SolderingGenerate = async () => {
     }
     row++;
   })
+row++;
+
+/**Columns of track, Ribbon No , FrontPeel, BackPeel */
+/** Track */
+worksheet.getRow(row).height = 25;
+
+worksheet.getCell(`A${row}`).value = 'Track';
+      worksheet.getCell(`A${row}`).style = {
+        alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+        font: {
+          size: 11, bold: true
+        }
+      }
+worksheet.getCell(`A${row}`).border = Border;
+
+/** Ribbon No*/
+worksheet.getCell(`B${row}`).value = 'Ribbon No.';
+      worksheet.getCell(`B${row}`).style = {
+        alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+        font: {
+          size: 11, bold: true
+        }
+      }
+worksheet.getCell(`B${row}`).border = Border;
+
+/**FrontPreel Value */
+worksheet.mergeCells(`C${row}:D${row}`)
+worksheet.getCell(`C${row}`).value = 'Front Peel(N)';
+      worksheet.getCell(`C${row}`).style = {
+        alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+        font: {
+          size: 11, bold: true
+        }
+      }
+worksheet.getCell(`C${row}`).border = Border;
+worksheet.getCell(`D${row}`).border = Border;
+
+/**Back Peel */
+
+worksheet.mergeCells(`E${row}:F${row}`)
+worksheet.getCell(`E${row}`).value = 'Back Peel(N)';
+      worksheet.getCell(`E${row}`).style = {
+        alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+        font: {
+          size: 11, bold: true
+        }
+      }
+worksheet.getCell(`E${row}`).border = Border;
+worksheet.getCell(`F${row}`).border = Border;
 
   row++;
-  let RibbonNo = 1
+  
   Data.forEach((data, i) => {
     data['TrackData'] = JSON.parse(data['TrackData']);
 
     let SampleAControllerNo = 1;
+    let RibbonNo = 1
     let firstRow = row;
     data['TrackData'].forEach((Track) => {
       //mergehhhhhh
@@ -802,8 +851,8 @@ const SolderingGenerate = async () => {
       worksheet.getCell(`B${row}`).value = `R${RibbonNo}`
       worksheet.mergeCells(`C${row}:D${row}`)
       worksheet.mergeCells(`E${row}:F${row}`)
-      worksheet.getCell(`C${row}`).value = Track[`sampleAControllers${SampleAControllerNo}`] || Track[`sampleBControllers${SampleAControllerNo}`]
-      worksheet.getCell(`E${row}`).value = data['Remarks'];
+      worksheet.getCell(`C${row}`).value = Track[`FrontController`];
+      worksheet.getCell(`E${row}`).value = Track['BackController'];
 
       worksheet.getCell(`B${row}`).style = {
         alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
@@ -892,7 +941,7 @@ const SolderingGenerate = async () => {
   fs.writeFileSync('output.xlsx', excelBuffer)
 
 }
-SolderingGenerate();
+//SolderingGenerate();
 
 const PreLamExcel = async () => {
 
