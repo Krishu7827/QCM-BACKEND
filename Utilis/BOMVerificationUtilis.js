@@ -2191,7 +2191,7 @@ cc: 'bhanu.galo@gmail.com',
 to: 'krishukumar535@gmail.com',
 subject: `IPQC Laminator Report: Sample. ${Data[0]['Shift']}`,
 attachments: [{
-  filename: `Framing_Report_${Data[0]['Sample']}.xlsx`,
+  filename: `Laminator_Report_${Data[0]['Shift']}.xlsx`,
   content: excelBuffer,
   contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 }],
