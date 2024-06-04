@@ -220,14 +220,14 @@ const UpdateSolderingPeelTestStatus = async(req,res)=>{
     WHERE TestDetailId = '${JobCardDetailId}';`
 
     await queryAsync(ExcelQuery);
-    res.send({URL:`http://srv515471.hstgr.cloud:${PORT}/IQCSolarCell/Excel/${ExcelFileName}`});
+ return   res.send({URL:`http://srv515471.hstgr.cloud:${PORT}/IQCSolarCell/Excel/${ExcelFileName}`});
 
      }catch(err){
       console.log(err)
-       res.status(400).send(err)
+      return res.status(400).send(err)
 
      }
-       res.send({status:true,data:UpdateStatus});
+    
      }catch(err){
        console.log(err)
        res.status(400).send({status:false,err})
