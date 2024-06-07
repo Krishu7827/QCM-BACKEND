@@ -2311,7 +2311,10 @@ worksheet.getCell('L4').border = Border;
 
 
   worksheet.getCell('A4').style = Style({size:12,bold:true});
-  worksheet.getCell('C4').style = Style({size:12,bold:true})
+  worksheet.getCell('C4').style = Style({size:12,bold:true});
+  worksheet.getCell('D4').style = Style({size:12,bold:true});
+  worksheet.getCell('H4').style = Style({size:12,bold:true});
+  worksheet.getCell('A6').style = Style({size:12,bold:true});
 
 
 
@@ -2518,6 +2521,27 @@ Data.forEach((data)=>{
   
 
 })
+worksheet.getRow('9').height = 35;
+worksheet.mergeCells('A9:H9');
+worksheet.mergeCells('I9:L9');
+worksheet.getCell('A9').value = `Tested by : Krishna`;
+worksheet.getCell('I9').value = `Reviewed By : Saif`;
+worksheet.getCell('A9').style = Style({size:12,bold:true});
+worksheet.getCell('I9').style = Style({size:12,bold:true});
+worksheet.getCell('A9').border = Border;
+worksheet.getCell('B9').border = Border;
+worksheet.getCell('C9').border = Border;
+worksheet.getCell('D9').border = Border;
+worksheet.getCell('E9').border = Border;
+worksheet.getCell('F9').border = Border;
+worksheet.getCell('G9').border = Border;
+worksheet.getCell('H9').border = Border;
+worksheet.getCell('I9').border = Border;
+worksheet.getCell('J9').border = Border;
+worksheet.getCell('K9').border = Border;
+worksheet.getCell('L9').border = Border;
+
+
 
 
 
