@@ -4195,7 +4195,7 @@ page.drawRectangle({
  borderWidth: 1
 });
 
-page.drawText(`${Sample2['otherParameterS3TestValue230']}`, {
+page.drawText(`${Sample2['otherParameterS4TestValue230']}`, {
  x: 20+70+100+100+120+80+70+70+70+7 ,
  y: 1500 - Y+10,
  size: 10,
@@ -4211,7 +4211,59 @@ page.drawRectangle({
  borderWidth: 1
 });
 
-page.drawText(`${Sample2['otherParameterS3RemarksControllers230']}`, {
+page.drawText(`${Sample2['otherParameterS4RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/**Row 11 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS4TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS4RemarksControllers230']}`, {
  x: 20+70+100+100+120+80+70+70+70+50+7 ,
  y: 1500 - Y+10,
  size: 10,
