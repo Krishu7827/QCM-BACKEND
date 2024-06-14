@@ -2166,6 +2166,7 @@ app.use('/Quality', QualityRoute)
 // }
 
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
+const chalk =  import('chalk');
 const fontkit = require('fontkit');
 
 
@@ -4269,12 +4270,987 @@ page.drawText(`${Sample2['otherParameterS4RemarksControllers230']}`, {
  size: 10,
  font:boldFont
 });
+
+/**Row 12 */
+/**Row 11 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS4TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS4RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/**Row 13 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS5TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS5RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/**Row 15 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS6TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS6RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/**Row 14 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS7TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS7RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/** S3(6:45) */
+/**ROW 1 */
+Y = 210;
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS1TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS1RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/** Row 2 */
+Y += 25;
+
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS2TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS2RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 3 */
+Y+=25;
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS3TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS3RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 4 */
+Y+=25
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS4TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS4RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 5 */
+Y+=25;
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['moduleRatingParameterS1TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['moduleRatingParameterS1RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 6 */
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['moduleRatingParameterS2TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['moduleRatingParameterS2RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 7 */
+Y+=25;
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS1TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS1RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+
+/**Row 8 */
+Y+=25;
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS2TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS2RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**9 */
+Y+=25;
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS3TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS3RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 10 */
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS4TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS4RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 11 */
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS5TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS5RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 12 */
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS6TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS6RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 13 */
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS7TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS7RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 14 */
+Y+=25;
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS8TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS8RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 15 */
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS9TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS9RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 5,
+  font:boldFont
+});
+
+
+
+
   // Serialize the PDFDocument to bytes (a Uint8Array)
   const pdfBytes = await pdfDoc.save();
 
   // Write the bytes to a file
   fs.writeFileSync('output.pdf', pdfBytes);
-  console.log('PDF created successfully!');
+  console.log((await chalk).default.green('PDF created successfully!'))
+  
 };
 
 createPDF().catch(err => console.log(err));
@@ -4290,8 +5266,9 @@ app.get("/getFile", (req, res) => {
 
 app.listen(PORT, async () => {
   try {
-    console.log('server is running')
-    console.log('Database is connecting....')
+    console.log((await chalk).default.green('server is running'));
+    console.log((await chalk).default.yellow('Database is connecting....'))
+  
     dbConn
   } catch (err) {
     console.log(err)

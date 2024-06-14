@@ -1,5 +1,5 @@
 const mysql = require('mysql')
-
+const chalk = import('chalk')
 
 
 const dbConn = mysql.createPool({
@@ -8,12 +8,13 @@ const dbConn = mysql.createPool({
     password: 'QCMDev@123',
     database: 'QCMDev',
        })
-  
-  dbConn.getConnection(function (error) {
+    
+  dbConn.getConnection(async(error)=> {
+    const c =  await chalk
     if (error) {
       console.log(error, "ERROR");
     }else{
-    console.log("Database Connected Successfully!!!");
+      console.log(c.default.blue('Database Connected Succesfully !'))
     }
   });
   
