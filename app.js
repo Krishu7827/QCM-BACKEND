@@ -441,7 +441,7 @@ app.use('/Quality', QualityRoute)
 //       worksheet.getCell(`B${row}`).style = {
 //         alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
 //         font: {
-//           size: 12, bold: false
+//           size: 12, bold: true
 //         }
 //       }
 
