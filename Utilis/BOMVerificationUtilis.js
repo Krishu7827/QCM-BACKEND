@@ -3,6 +3,8 @@ const ExcelJS = require('exceljs');
 const nodemailer = require('nodemailer')
 const Path = require('path');
 const fs = require('fs');
+const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
+const fontkit = require('fontkit');
 require('aws-sdk/lib/maintenance_mode_message').suppress = true;
 require('dotenv').config()
 
@@ -2750,289 +2752,3137 @@ return `${Data[0]['PreLamDetailId']}.xlsx`;
   
   }
 
-const FQCExcel = async() =>{
-  let Data = [{"FQCDetailId":"1609573a-14ba-4997-aa80-f318492dae75", "ProductSpecs":"?????", "ProductBatchNo":"888888", "PartyName":"Bjp", "PackingDate":"2024-05-02", "ReportNumber":"ddddd", "DateOfQualityCheck":"2024-05-02", "DocumentNo":"GSPL\/FQC\/PDI\/002", "RevNo":"Ver1.0\/12-08-2023", "Status":"Inprogress", "Pdf":null, "CreatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "UpdatedBy":null, "CreatedOn":"02-05-2024 05:24:59", "UpdatedOn":null, "Result":"Fail", "CheckTypes":"[{\"S1\":false},{\"S2\":false},{\"S3\":false}]", "Reason":"", "Product":"PV Module", "Type":"FQC", "ApprovalStatusReason":null, "FQCId":"8ba9709a-5340-401b-8a94-1d6dacfa3690", "FQCDetailId":"1609573a-14ba-4997-aa80-f318492dae75", "Sample1":"{\"visualParametersController930\":\"Visual Parameters\",\"visualParameterCrietrion1Controller930\":\"Should be neat and clean\",\"visualParameterS1Controller930\":\"ddkkf\",\"visualParameterS1TestValue930\":false,\"visualParameterS1RemarksControllers930\":\"vhj\",\"visualParameterCrietrion2Controller930\":\"No breakage allowed\",\"visualParameterS2Controller930\":\"ddfk\",\"visualParameterS2TestValue930\":false,\"visualParameterS2RemarksControllers930\":\"hkkl\",\"visualParameterCrietrion3Controller930\":\"Packing Condition\",\"visualParameterS3Controller930\":\"cjjk\",\"visualParameterS3TestValue930\":false,\"visualParameterS3RemarksControllers930\":\"4679\",\"visualParameterCrietrion4Controller930\":\"Framing Condition\",\"visualParameterS4Controller930\":\"46789\",\"visualParameterS4TestValue930\":false,\"visualParameterS4RemarksControllers930\":\"\",\"moduleRatingParameters1Controller930\":\"Module Wattage\",\"moduleRatingParameterCrietrion1Controller930\":\"Should be as per job no \/ Client\",\"moduleRatingParameterS1Controller930\":\"\",\"moduleRatingParameterS1TestValue930\":false,\"moduleRatingParameterS1RemarksControllers930\":\"\",\"moduleRatingParameters2Controller930\":\"Rated Voltage\",\"moduleRatingParameterCrietrion2Controller930\":\"Should be as per job no \/ Client\",\"moduleRatingParameterS2Controller930\":\"\",\"moduleRatingParameterS2TestValue930\":false,\"moduleRatingParameterS2RemarksControllers930\":\"\",\"otherParameters1Controller930\":\"QC Sticker\",\"otherParameterCrietrion1Controller930\":\"Should be oasted\",\"otherParameterS1Controller930\":\"\",\"otherParameterS1TestValue930\":false,\"otherParameterS1RemarksControllers930\":\"\",\"otherParameters2Controller930\":\"Module info Label\",\"otherParameterCrietrion2Controller930\":\"Should be as per job no \/ Test Result\",\"otherParameterS2Controller930\":\"\",\"otherParameterS2TestValue930\":false,\"otherParameterS2RemarksControllers930\":\"\",\"otherParameters3Controller930\":\"RFID\",\"otherParameterCrietrion3Controller930\":\"Should be oasted\",\"otherParameterS3Controller930\":\"\",\"otherParameterS3TestValue930\":false,\"otherParameterS3RemarksControllers930\":\"\",\"otherParameters4Controller930\":\"Company Logo\",\"otherParameterCrietrion4Controller930\":\"Should be Pasted\",\"otherParameterS4Controller930\":\"\",\"otherParameterS4TestValue930\":false,\"otherParameterS4RemarksControllers930\":\"\",\"otherParameters5Controller930\":\"Junction Box\",\"otherParameterCrietrion5Controller930\":\"Should be Pasted\",\"otherParameterS5Controller930\":\"\",\"otherParameterS5TestValue930\":false,\"otherParameterS5RemarksControllers930\":\"\",\"otherParameters6Controller930\":\"Cable and MC4 Connector\",\"otherParameterCrietrion6Controller930\":\"Should be provided with JB\",\"otherParameterS6Controller930\":\"\",\"otherParameterS6TestValue930\":false,\"otherParameterS6RemarksControllers930\":\"\",\"otherParameters7Controller930\":\"Module Serial Number\",\"otherParameterCrietrion7Controller930\":\"Serial no should be provided\",\"otherParameterS7Controller930\":\"\",\"otherParameterS7TestValue930\":false,\"otherParameterS7RemarksControllers930\":\"\",\"otherParameters8Controller930\":\"Framing Condition\",\"otherParameterCrietrion8Controller930\":\"N\/A\",\"otherParameterS8Controller930\":\"\",\"otherParameterS8TestValue930\":false,\"otherParameterS8RemarksControllers930\":\"\",\"otherParameters9Controller930\":\"HIPOT\",\"otherParameterCrietrion9Controller930\":\"N\/A\",\"otherParameterS9Controller930\":\"\",\"otherParameterS9TestValue930\":false,\"otherParameterS9RemarksControllers930\":\"\"}", "Sample2":"{\"visualParametersController230\":\"Visual Parameters\",\"visualParameterCrietrion1Controller230\":\"Should be neat and clean\",\"visualParameterS1Controller230\":\"\",\"visualParameterS1TestValue230\":false,\"visualParameterS1RemarksControllers230\":\"\",\"visualParameterCrietrion2Controller230\":\"No breakage allowed\",\"visualParameterS2Controller230\":\"\",\"visualParameterS2TestValue230\":false,\"visualParameterS2RemarksControllers230\":\"\",\"visualParameterCrietrion3Controller230\":\"Packing Condition\",\"visualParameterS3Controller230\":\"\",\"visualParameterS3TestValue230\":false,\"visualParameterS3RemarksControllers230\":\"\",\"visualParameterCrietrion4Controller230\":\"Framing Condition\",\"visualParameterS4Controller230\":\"\",\"visualParameterS4TestValue230\":false,\"visualParameterS4RemarksControllers230\":\"\",\"moduleRatingParameters1Controller230\":\"Module Wattage\",\"moduleRatingParameterCrietrion1Controller230\":\"Should be as per job no \/ Client\",\"moduleRatingParameterS1Controller230\":\"\",\"moduleRatingParameterS1TestValue230\":false,\"moduleRatingParameterS1RemarksControllers230\":\"\",\"moduleRatingParameters2Controller230\":\"Rated Voltage\",\"moduleRatingParameterCrietrion2Controller230\":\"Should be as per job no \/ Client\",\"moduleRatingParameterS2Controller230\":\"\",\"moduleRatingParameterS2TestValue230\":false,\"moduleRatingParameterS2RemarksControllers230\":\"\",\"otherParameters1Controller230\":\"QC Sticker\",\"otherParameterCrietrion1Controller230\":\"Should be oasted\",\"otherParameterS1Controller230\":\"\",\"otherParameterS1TestValue230\":false,\"otherParameterS1RemarksControllers230\":\"\",\"otherParameters2Controller230\":\"Module info Label\",\"otherParameterCrietrion2Controller230\":\"Should be as per job no \/ Test Result\",\"otherParameterS2Controller230\":\"\",\"otherParameterS2TestValue230\":false,\"otherParameterS2RemarksControllers230\":\"\",\"otherParameters3Controller230\":\"RFID\",\"otherParameterCrietrion3Controller230\":\"Should be oasted\",\"otherParameterS3Controller230\":\"\",\"otherParameterS3TestValue230\":false,\"otherParameterS3RemarksControllers230\":\"\",\"otherParameters4Controller230\":\"Company Logo\",\"otherParameterCrietrion4Controller230\":\"Should be Pasted\",\"otherParameterS4Controller230\":\"\",\"otherParameterS4TestValue230\":false,\"otherParameterS4RemarksControllers230\":\"\",\"otherParameters5Controller230\":\"Junction Box\",\"otherParameterCrietrion5Controller230\":\"Should be Pasted\",\"otherParameterS5Controller230\":\"\",\"otherParameterS5TestValue230\":false,\"otherParameterS5RemarksControllers230\":\"\",\"otherParameters6Controller230\":\"Cable and MC4 Connector\",\"otherParameterCrietrion6Controller230\":\"Should be provided with JB\",\"otherParameterS6Controller230\":\"\",\"otherParameterS6TestValue230\":false,\"otherParameterS6RemarksControllers230\":\"\",\"otherParameters7Controller230\":\"Module Serial Number\",\"otherParameterCrietrion7Controller230\":\"Serial no should be provided\",\"otherParameterS7Controller230\":\"\",\"otherParameterS7TestValue230\":false,\"otherParameterS7RemarksControllers230\":\"\",\"otherParameters8Controller230\":\"Framing Condition\",\"otherParameterCrietrion8Controller230\":\"N\/A\",\"otherParameterS8Controller230\":\"\",\"otherParameterS8TestValue230\":false,\"otherParameterS8RemarksControllers230\":\"\",\"otherParameters9Controller230\":\"HIPOT\",\"otherParameterCrietrion9Controller230\":\"N\/A\",\"otherParameterS9Controller230\":\"\",\"otherParameterS9TestValue230\":false,\"otherParameterS9RemarksControllers230\":\"\"}", "Sample3":"{\"visualParametersController645\":\"Visual Parameters\",\"visualParameterCrietrion1Controller645\":\"Should be neat and clean\",\"visualParameterS1Controller645\":\"\",\"visualParameterS1TestValue645\":false,\"visualParameterS1RemarksControllers645\":\"\",\"visualParameterCrietrion2Controller645\":\"No breakage allowed\",\"visualParameterS2Controller645\":\"\",\"visualParameterS2TestValue645\":false,\"visualParameterS2RemarksControllers645\":\"\",\"visualParameterCrietrion3Controller645\":\"Packing Condition\",\"visualParameterS3Controller645\":\"\",\"visualParameterS3TestValue645\":false,\"visualParameterS3RemarksControllers645\":\"\",\"visualParameterCrietrion4Controller645\":\"Framing Condition\",\"visualParameterS4Controller645\":\"\",\"visualParameterS4TestValue645\":false,\"visualParameterS4RemarksControllers645\":\"\",\"moduleRatingParameters1Controller645\":\"Module Wattage\",\"moduleRatingParameterCrietrion1Controller645\":\"Should be as per job no \/ Client\",\"moduleRatingParameterS1Controller645\":\"\",\"moduleRatingParameterS1TestValue645\":false,\"moduleRatingParameterS1RemarksControllers645\":\"\",\"moduleRatingParameters2Controller645\":\"Rated Voltage\",\"moduleRatingParameterCrietrion2Controller645\":\"Should be as per job no \/ Client\",\"moduleRatingParameterS2Controller645\":\"\",\"moduleRatingParameterS2TestValue645\":false,\"moduleRatingParameterS2RemarksControllers645\":\"\",\"otherParameters1Controller645\":\"QC Sticker\",\"otherParameterCrietrion1Controller645\":\"Should be oasted\",\"otherParameterS1Controller645\":\"\",\"otherParameterS1TestValue645\":false,\"otherParameterS1RemarksControllers645\":\"\",\"otherParameters2Controller645\":\"Module info Label\",\"otherParameterCrietrion2Controller645\":\"Should be as per job no \/ Test Result\",\"otherParameterS2Controller645\":\"\",\"otherParameterS2TestValue645\":false,\"otherParameterS2RemarksControllers645\":\"\",\"otherParameters3Controller645\":\"RFID\",\"otherParameterCrietrion3Controller645\":\"Should be oasted\",\"otherParameterS3Controller645\":\"\",\"otherParameterS3TestValue645\":false,\"otherParameterS3RemarksControllers645\":\"\",\"otherParameters4Controller645\":\"Company Logo\",\"otherParameterCrietrion4Controller645\":\"Should be Pasted\",\"otherParameterS4Controller645\":\"\",\"otherParameterS4TestValue645\":false,\"otherParameterS4RemarksControllers645\":\"\",\"otherParameters5Controller645\":\"Junction Box\",\"otherParameterCrietrion5Controller645\":\"Should be Pasted\",\"otherParameterS5Controller645\":\"\",\"otherParameterS5TestValue645\":false,\"otherParameterS5RemarksControllers645\":\"\",\"otherParameters6Controller645\":\"Cable and MC4 Connector\",\"otherParameterCrietrion6Controller645\":\"Should be provided with JB\",\"otherParameterS6Controller645\":\"\",\"otherParameterS6TestValue645\":false,\"otherParameterS6RemarksControllers645\":\"\",\"otherParameters7Controller645\":\"Module Serial Number\",\"otherParameterCrietrion7Controller645\":\"Serial no should be provided\",\"otherParameterS7Controller645\":\"\",\"otherParameterS7TestValue645\":false,\"otherParameterS7RemarksControllers645\":\"\",\"otherParameters8Controller645\":\"Framing Condition\",\"otherParameterCrietrion8Controller645\":\"N\/A\",\"otherParameterS8Controller645\":\"\",\"otherParameterS8TestValue645\":false,\"otherParameterS8RemarksControllers645\":\"\",\"otherParameters9Controller645\":\"HIPOT\",\"otherParameterCrietrion9Controller645\":\"N\/A\",\"otherParameterS9Controller645\":\"\",\"otherParameterS9TestValue645\":false,\"otherParameterS9RemarksControllers645\":\"\"}", "PersonID":"08326670-ed04-11ee-b439-0ac93defbbf1", "EmployeeID":"Emp003", "Name":"Bhanu", "LoginID":"QCM", "Password":"Bhanu@3813", "WorkLocation":"fc9c8db9-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"84949eb1-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:8080\/Employee\/Profile\/08326670-ed04-11ee-b439-0ac93defbbf1Bhanu1716280504105294.jpg", "Desgination":"d66db440-e2ab-11ee-974e-12d6db81f661", "Status":"Active", "CreatedBy":null, "UpdatedBy":"08326670-ed04-11ee-b439-0ac93defbbf1", "CreatedOn":null, "UpdatedOn":"21-05-2024 08:35:04", "CreadtedBy":null}]
-
-
-
-
-
-
-  const workbook = new ExcelJS.Workbook();
-  const worksheet = workbook.addWorksheet('PRE-DISPATCH INSPECTION REPORT');
-  let Style = ({size, bold, horizontal = 'center', vertical = 'middle'})=>{
-
-   let style =  {
-      alignment: { horizontal: horizontal, vertical: vertical, wrapText: true },
-      font: {
-        size: size, bold: bold
-      }
-    }
-    return style;
-} 
-
-  let MatrixData = [{
-    'Date': Data[0]['Date'],
-    'Shift': Data[0]['Shift'],
-    'Acceptance Crieteria': ">-4N"
-  }, 
-  {
-    'Line': Data[0]['Line'],
-    'Buusing Stage': Data[0]['BussingStage'],
-    'Operator Name': Data[0]['OperatorName'],
-  },
-  {
-    'Ribbon Width': Data[0]['Line'],
-    'Busbar Width': Data[0]['BussingStage'],
-    'Result': "NA",
-  }]
-  let Border = {
-    top: { style: 'thin' },
-    bottom: { style: 'thin' },
-    left: { style: 'thin' },
-    right: { style: 'thin' }
-  }
-
-
-
-
-  /**Merging Cells */
-  worksheet.mergeCells('A1:I2')
-  worksheet.mergeCells('J1:L1')
-  worksheet.mergeCells('A3:I3')
-  worksheet.mergeCells('J2:L2')
-  worksheet.mergeCells('J3:L3')
-  worksheet.mergeCells('E4:L4')
-
-
-
-  /**putting value in cell */
-  worksheet.getCell('J1').value = 'Page No.1';
-  worksheet.getCell('A1').value = 'Gautam Solar Pvt. Ltd';
-  worksheet.getCell('A3').value = `Framing Measurement CheckSheet`;
-  worksheet.getCell('J2').value = `Doc No. ${Data[0]['DocNo']}`;
-  worksheet.getCell('J3').value = `Rev No. ${Data[0]['RevNo']}`;
-  worksheet.getCell('E4').value = `Line No: ${Data[0]['Line']}`;
-
-
-  /**Giving Style to Cell */
-  worksheet.getCell('J1').style = {
-    alignment: { horizontal: 'center', vertical: 'middle' },
-    font: {
-      size: 12, bold: true, italic: false
-    }
-  }
-
-  worksheet.getCell('A3').style = {
-    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
-    font: {
-      size: 15, bold: true
-    }
-  }
-
-  worksheet.getCell('A1').style = {
-    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
-    font: {
-      size: 22, bold: true
-    }
-  }
-
-  worksheet.getCell('J2').style = {
-    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
-    font: {
-      size: 12, bold: true
-    }
-  }
-  worksheet.getCell('J3').style = {
-    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
-    font: {
-      size: 12, bold: true
-    }
-  }
-
-  worksheet.getCell('E4').style = {
-    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
-    font: {
-      size: 12, bold: true
-    }
-  }
-
-/**Border */
-worksheet.getCell('A1').border = Border;
-worksheet.getCell('I2').border = Border;
-worksheet.getCell('J1').border = Border;
-worksheet.getCell('L1').border = Border;
-worksheet.getCell('J2').border = Border;
-worksheet.getCell('L2').border = Border;
-worksheet.getCell('J3').border = Border;
-worksheet.getCell('L3').border = Border;
-worksheet.getCell('A3').border = Border;
-worksheet.getCell('I3').border = Border;
-worksheet.getCell('E4').border = Border;
-worksheet.getCell('L4').border = Border;
-  /**Height */
-  worksheet.getRow(1).height = 15;
-  worksheet.getRow(2).height = 27;
-  worksheet.getRow(3).height = 24;
-  worksheet.getRow(4).height = 25;
-  worksheet.getRow(5).height = 20;
-
-  worksheet.mergeCells('A4:B4')
-  worksheet.mergeCells('C4:D4')
-
-
-  worksheet.getCell('A4').value = `Date: ${Data[0]['Date']}`;
-  worksheet.getCell('C4').value = `Shift: ${Data[0]['Shift']}`;
-
-
-
-  worksheet.getCell('A4').style = Style({size:12,bold:true});
-  worksheet.getCell('C4').style = Style({size:12,bold:true})
-
-
-
-  worksheet.getCell('A4').border = Border;
-  worksheet.getCell('C4').border = Border;
-  worksheet.getCell('B4').border = Border;
-  worksheet.getCell('D4').border = Border;
-
-
-
-
-  worksheet.getColumn('C').width = 10;
-  worksheet.getColumn('D').width = 10;
-
-  worksheet.getRow(5).height = 31
-
-  worksheet.mergeCells('A5:G5')
-  worksheet.getCell('A5').value = `Sample Check Qty`
-  worksheet.getCell('A5').style = Style(({size:14,bold:true}));
-  worksheet.getCell('A5').border = Border;
-  worksheet.getCell('F5').border = Border;
-
-  worksheet.getRow(6).height = 31
-
-  worksheet.mergeCells('A6:G6')
-  worksheet.getCell('A6').value = `Module ID`
-  worksheet.getCell('A6').style = Style(({size:14,bold:true}));
-  worksheet.getCell('A6').border = Border;
-  worksheet.getCell('F6').border = Border;
-
-  worksheet.getColumn('A').width = 21
-
-  worksheet.getRow(7).height = 36.23
-  worksheet.getRow(8).height = 36.23
-
-  worksheet.mergeCells('A7:A8')
-  worksheet.getCell('A7').value = `Framing Observation(v)/(x)`
-  worksheet.getCell('A7').style = Style(({size:12,bold:true}));
-  worksheet.getCell('A7').border = Border;
-  worksheet.getCell('A8').border = Border;
-
-  worksheet.mergeCells('B7:G8')
-  worksheet.getCell('B7').value = `Glue uniformity & countinuity in frame groove`
-  worksheet.getCell('B7').style = Style(({size:13,bold:true}));
-  worksheet.getCell('B7').border = Border;
-  worksheet.getCell('C8').border = Border;
-
-  let FramingDimensionValue = ['Mounting Hole x1 pitch','Mounting Hole x2 pitch','Mounting Hole y1 pitch','Mounting Hole y2 pitch','Length L1','Length L2','Width w1','Width w2']
-
-  let Row = 9
-  let IntialRow = Row;
-
-  FramingDimensionValue.forEach((value)=>{
-    worksheet.getRow(Row).height = 32.23
-
-
-  worksheet.mergeCells(`B${Row}:G${Row}`)
-  worksheet.getCell(`B${Row}`).value = value;
-  worksheet.getCell(`B${Row}`).style = Style(({size:13,bold:true}));
-  worksheet.getCell(`B${Row}`).border = Border;
-  worksheet.getCell(`G${Row}`).border = Border;
-
-  Row++;
-
-  })
-
-  worksheet.mergeCells(`A${IntialRow}:A${Row-1}`)
-  worksheet.getCell(`A${IntialRow}`).value = `Framing Dimension(mm)`
-  worksheet.getCell(`A${IntialRow}`).style = Style(({size:12,bold:true}));
-  worksheet.getCell(`A${IntialRow}`).border = Border;
-  worksheet.getCell(`A${Row-1}`).border = Border;
-
-  let startCharCode = 'H'.charCodeAt(0); // 1
-  let endCharCode = 'L'.charCodeAt(0); //3
- let number = 1;
-  for(let i = startCharCode; i<=endCharCode; i++){
-  worksheet.getColumn(`${String.fromCharCode(i)}`).width = 25
-
-    worksheet.getCell(`${String.fromCharCode(i)}5`).value = `${number}`
-  worksheet.getCell(`${String.fromCharCode(i)}5`).style = Style(({size:12,bold:true}));
-  worksheet.getCell(`${String.fromCharCode(i)}5`).border = Border;
-
-  number++;
-  }
-
-Data.forEach((data)=>{
-  data['Stage'] = Number(data['Stage'])
-  data['FramingDimension'] = JSON.parse(data['FramingDimension'])
-})
-
-Data.sort((a,b)=> a.Stage - b.Stage);
-
- startCharCode = 'H'.charCodeAt(0);
-Data.forEach((data)=>{
-
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}6`).value = data['Sample'];
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}6`).style = Style(({size:12,bold:false}));
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}6`).border = Border;
-
-  worksheet.mergeCells(`${String.fromCharCode(startCharCode)}7:${String.fromCharCode(startCharCode)}8`)
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}7`).value = data['FramingObservation'];
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}7`).style = Style(({size:12,bold:false}));
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}7`).border = Border;
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}8`).border = Border;
-
-  let innerRow = 9;
- for(let key in data['FramingDimension']){
-
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}${innerRow}`).value = data['FramingDimension'][key];
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}${innerRow}`).style = Style(({size:12,bold:false}));
-  worksheet.getCell(`${String.fromCharCode(startCharCode)}${innerRow}`).border = Border;
-  innerRow++;
- }
-  startCharCode++;
-})
-
-worksheet.getRow(17).height = 30;
-
-worksheet.mergeCells(`A17:H17`)
-worksheet.getCell('A17').value = `Done By: ${Data[0]['Name']}`
-worksheet.getCell('A17').style = Style(({size:13,bold:true, horizontal:'left'}));
-worksheet.getCell('A17').border = Border;
-worksheet.getCell('H17').border = Border;
-
-
-worksheet.mergeCells(`I17:L17`)
-worksheet.getCell('I17').value = `Reviewed By: ${Data[0]['ReviewedBy'] || 'Unknown'}`
-worksheet.getCell('I17').style = Style(({size:13,bold:true, horizontal:'left'}));
-worksheet.getCell('I17').border = Border;
-worksheet.getCell('L17').border = Border;
-
-    //Save the workbook to a file
-    const excelBuffer = await workbook.xlsx.writeBuffer()
-    .then(buffer => {
-      console.log('Excel file generated successfully!');
-
-      return buffer; // Return the buffer
-    })
-    .catch(error => {
-      console.error('Error generating Excel file:', error);
-    });
-
-
-  fs.writeFileSync('output.xlsx', excelBuffer)
+const FQCExcel = async(Data) =>{
+
+// let Data = [{"FQCDetailId":"845fbe59-e748-401d-bfd1-9e381f6ebcaa", "ProductSpecs":"GS03702M125", "ProductBatchNo":"M125", "PartyName":"Gautam Solar", "PackingDate":"2024-05-07", "ReportNumber":"1", "DateOfQualityCheck":"2024-05-07", "DocumentNo":"GSPL\/FQC\/PDI\/002", "RevNo":"Ver1.0\/12-08-2023", "Status":"Inprogress", "Pdf":null, "CreatedBy":"242eb8c2-0b9c-11ef-8005-52549f6cc694", "UpdatedBy":null, "CreatedOn":"07-05-2024 18:14:09", "UpdatedOn":null, "Result":"Fail", "CheckTypes":"[{\"S1\":false},{\"S2\":false},{\"S3\":false}]", "Reason":"", "Product":"PV Module", "Type":"FQC", "ApprovalStatusReason":null, "FQCId":"01f380b7-b3ff-49fc-815e-41368b2855e7", "FQCDetailId":"845fbe59-e748-401d-bfd1-9e381f6ebcaa", "Sample1":"{\"visualParametersController930\":\"Visual Parameters\",\"visualParameterCrietrion1Controller930\":\"Should be neat and clean\",\"visualParameterS1Controller930\":\"\",\"visualParameterS1TestValue930\":false,\"visualParameterS1RemarksControllers930\":\"\",\"visualParameterCrietrion2Controller930\":\"No breakage allowed\",\"visualParameterS2Controller930\":\"\",\"visualParameterS2TestValue930\":false,\"visualParameterS2RemarksControllers930\":\"\",\"visualParameterCrietrion3Controller930\":\"Packing Condition\",\"visualParameterS3Controller930\":\"\",\"visualParameterS3TestValue930\":false,\"visualParameterS3RemarksControllers930\":\"\",\"visualParameterCrietrion4Controller930\":\"Framing Condition\",\"visualParameterS4Controller930\":\"\",\"visualParameterS4TestValue930\":false,\"visualParameterS4RemarksControllers930\":\"\",\"moduleRatingParameters1Controller930\":\"Module Wattage\",\"moduleRatingParameterCrietrion1Controller930\":\"Should be as per job no \/ Client\",\"moduleRatingParameterS1Controller930\":\"\",\"moduleRatingParameterS1TestValue930\":false,\"moduleRatingParameterS1RemarksControllers930\":\"\",\"moduleRatingParameters2Controller930\":\"Rated Voltage\",\"moduleRatingParameterCrietrion2Controller930\":\"Should be as per job no \/ Client\",\"moduleRatingParameterS2Controller930\":\"\",\"moduleRatingParameterS2TestValue930\":false,\"moduleRatingParameterS2RemarksControllers930\":\"\",\"otherParameters1Controller930\":\"QC Sticker\",\"otherParameterCrietrion1Controller930\":\"Should be oasted\",\"otherParameterS1Controller930\":\"\",\"otherParameterS1TestValue930\":false,\"otherParameterS1RemarksControllers930\":\"\",\"otherParameters2Controller930\":\"Module info Label\",\"otherParameterCrietrion2Controller930\":\"Should be as per job no \/ Test Result\",\"otherParameterS2Controller930\":\"\",\"otherParameterS2TestValue930\":false,\"otherParameterS2RemarksControllers930\":\"\",\"otherParameters3Controller930\":\"RFID\",\"otherParameterCrietrion3Controller930\":\"Should be oasted\",\"otherParameterS3Controller930\":\"\",\"otherParameterS3TestValue930\":false,\"otherParameterS3RemarksControllers930\":\"\",\"otherParameters4Controller930\":\"Company Logo\",\"otherParameterCrietrion4Controller930\":\"Should be Pasted\",\"otherParameterS4Controller930\":\"\",\"otherParameterS4TestValue930\":false,\"otherParameterS4RemarksControllers930\":\"\",\"otherParameters5Controller930\":\"Junction Box\",\"otherParameterCrietrion5Controller930\":\"Should be Pasted\",\"otherParameterS5Controller930\":\"\",\"otherParameterS5TestValue930\":false,\"otherParameterS5RemarksControllers930\":\"\",\"otherParameters6Controller930\":\"Cable and MC4 Connector\",\"otherParameterCrietrion6Controller930\":\"Should be provided with JB\",\"otherParameterS6Controller930\":\"\",\"otherParameterS6TestValue930\":false,\"otherParameterS6RemarksControllers930\":\"\",\"otherParameters7Controller930\":\"Module Serial Number\",\"otherParameterCrietrion7Controller930\":\"Serial no should be provided\",\"otherParameterS7Controller930\":\"\",\"otherParameterS7TestValue930\":false,\"otherParameterS7RemarksControllers930\":\"\",\"otherParameters8Controller930\":\"Framing Condition\",\"otherParameterCrietrion8Controller930\":\"N\/A\",\"otherParameterS8Controller930\":\"\",\"otherParameterS8TestValue930\":false,\"otherParameterS8RemarksControllers930\":\"\",\"otherParameters9Controller930\":\"HIPOT\",\"otherParameterCrietrion9Controller930\":\"N\/A\",\"otherParameterS9Controller930\":\"\",\"otherParameterS9TestValue930\":false,\"otherParameterS9RemarksControllers930\":\"\"}", "Sample2":"{\"visualParametersController230\":\"Visual Parameters\",\"visualParameterCrietrion1Controller230\":\"Should be neat and clean\",\"visualParameterS1Controller230\":\"\",\"visualParameterS1TestValue230\":false,\"visualParameterS1RemarksControllers230\":\"\",\"visualParameterCrietrion2Controller230\":\"No breakage allowed\",\"visualParameterS2Controller230\":\"\",\"visualParameterS2TestValue230\":false,\"visualParameterS2RemarksControllers230\":\"\",\"visualParameterCrietrion3Controller230\":\"Packing Condition\",\"visualParameterS3Controller230\":\"\",\"visualParameterS3TestValue230\":false,\"visualParameterS3RemarksControllers230\":\"\",\"visualParameterCrietrion4Controller230\":\"Framing Condition\",\"visualParameterS4Controller230\":\"\",\"visualParameterS4TestValue230\":false,\"visualParameterS4RemarksControllers230\":\"\",\"moduleRatingParameters1Controller230\":\"Module Wattage\",\"moduleRatingParameterCrietrion1Controller230\":\"Should be as per job no \/ Client\",\"moduleRatingParameterS1Controller230\":\"\",\"moduleRatingParameterS1TestValue230\":false,\"moduleRatingParameterS1RemarksControllers230\":\"\",\"moduleRatingParameters2Controller230\":\"Rated Voltage\",\"moduleRatingParameterCrietrion2Controller230\":\"Should be as per job no \/ Client\",\"moduleRatingParameterS2Controller230\":\"\",\"moduleRatingParameterS2TestValue230\":false,\"moduleRatingParameterS2RemarksControllers230\":\"\",\"otherParameters1Controller230\":\"QC Sticker\",\"otherParameterCrietrion1Controller230\":\"Should be oasted\",\"otherParameterS1Controller230\":\"\",\"otherParameterS1TestValue230\":false,\"otherParameterS1RemarksControllers230\":\"\",\"otherParameters2Controller230\":\"Module info Label\",\"otherParameterCrietrion2Controller230\":\"Should be as per job no \/ Test Result\",\"otherParameterS2Controller230\":\"\",\"otherParameterS2TestValue230\":false,\"otherParameterS2RemarksControllers230\":\"\",\"otherParameters3Controller230\":\"RFID\",\"otherParameterCrietrion3Controller230\":\"Should be oasted\",\"otherParameterS3Controller230\":\"\",\"otherParameterS3TestValue230\":false,\"otherParameterS3RemarksControllers230\":\"\",\"otherParameters4Controller230\":\"Company Logo\",\"otherParameterCrietrion4Controller230\":\"Should be Pasted\",\"otherParameterS4Controller230\":\"\",\"otherParameterS4TestValue230\":false,\"otherParameterS4RemarksControllers230\":\"\",\"otherParameters5Controller230\":\"Junction Box\",\"otherParameterCrietrion5Controller230\":\"Should be Pasted\",\"otherParameterS5Controller230\":\"\",\"otherParameterS5TestValue230\":false,\"otherParameterS5RemarksControllers230\":\"\",\"otherParameters6Controller230\":\"Cable and MC4 Connector\",\"otherParameterCrietrion6Controller230\":\"Should be provided with JB\",\"otherParameterS6Controller230\":\"\",\"otherParameterS6TestValue230\":false,\"otherParameterS6RemarksControllers230\":\"\",\"otherParameters7Controller230\":\"Module Serial Number\",\"otherParameterCrietrion7Controller230\":\"Serial no should be provided\",\"otherParameterS7Controller230\":\"\",\"otherParameterS7TestValue230\":false,\"otherParameterS7RemarksControllers230\":\"\",\"otherParameters8Controller230\":\"Framing Condition\",\"otherParameterCrietrion8Controller230\":\"N\/A\",\"otherParameterS8Controller230\":\"\",\"otherParameterS8TestValue230\":false,\"otherParameterS8RemarksControllers230\":\"\",\"otherParameters9Controller230\":\"HIPOT\",\"otherParameterCrietrion9Controller230\":\"N\/A\",\"otherParameterS9Controller230\":\"\",\"otherParameterS9TestValue230\":false,\"otherParameterS9RemarksControllers230\":\"\"}", "Sample3":"{\"visualParametersController645\":\"Visual Parameters\",\"visualParameterCrietrion1Controller645\":\"Should be neat and clean\",\"visualParameterS1Controller645\":\"\",\"visualParameterS1TestValue645\":false,\"visualParameterS1RemarksControllers645\":\"\",\"visualParameterCrietrion2Controller645\":\"No breakage allowed\",\"visualParameterS2Controller645\":\"\",\"visualParameterS2TestValue645\":false,\"visualParameterS2RemarksControllers645\":\"\",\"visualParameterCrietrion3Controller645\":\"Packing Condition\",\"visualParameterS3Controller645\":\"\",\"visualParameterS3TestValue645\":false,\"visualParameterS3RemarksControllers645\":\"\",\"visualParameterCrietrion4Controller645\":\"Framing Condition\",\"visualParameterS4Controller645\":\"\",\"visualParameterS4TestValue645\":false,\"visualParameterS4RemarksControllers645\":\"\",\"moduleRatingParameters1Controller645\":\"Module Wattage\",\"moduleRatingParameterCrietrion1Controller645\":\"Should be as per job no \/ Client\",\"moduleRatingParameterS1Controller645\":\"\",\"moduleRatingParameterS1TestValue645\":false,\"moduleRatingParameterS1RemarksControllers645\":\"\",\"moduleRatingParameters2Controller645\":\"Rated Voltage\",\"moduleRatingParameterCrietrion2Controller645\":\"Should be as per job no \/ Client\",\"moduleRatingParameterS2Controller645\":\"\",\"moduleRatingParameterS2TestValue645\":false,\"moduleRatingParameterS2RemarksControllers645\":\"\",\"otherParameters1Controller645\":\"QC Sticker\",\"otherParameterCrietrion1Controller645\":\"Should be oasted\",\"otherParameterS1Controller645\":\"\",\"otherParameterS1TestValue645\":false,\"otherParameterS1RemarksControllers645\":\"\",\"otherParameters2Controller645\":\"Module info Label\",\"otherParameterCrietrion2Controller645\":\"Should be as per job no \/ Test Result\",\"otherParameterS2Controller645\":\"\",\"otherParameterS2TestValue645\":false,\"otherParameterS2RemarksControllers645\":\"\",\"otherParameters3Controller645\":\"RFID\",\"otherParameterCrietrion3Controller645\":\"Should be oasted\",\"otherParameterS3Controller645\":\"\",\"otherParameterS3TestValue645\":false,\"otherParameterS3RemarksControllers645\":\"\",\"otherParameters4Controller645\":\"Company Logo\",\"otherParameterCrietrion4Controller645\":\"Should be Pasted\",\"otherParameterS4Controller645\":\"\",\"otherParameterS4TestValue645\":false,\"otherParameterS4RemarksControllers645\":\"\",\"otherParameters5Controller645\":\"Junction Box\",\"otherParameterCrietrion5Controller645\":\"Should be Pasted\",\"otherParameterS5Controller645\":\"\",\"otherParameterS5TestValue645\":false,\"otherParameterS5RemarksControllers645\":\"\",\"otherParameters6Controller645\":\"Cable and MC4 Connector\",\"otherParameterCrietrion6Controller645\":\"Should be provided with JB\",\"otherParameterS6Controller645\":\"\",\"otherParameterS6TestValue645\":false,\"otherParameterS6RemarksControllers645\":\"\",\"otherParameters7Controller645\":\"Module Serial Number\",\"otherParameterCrietrion7Controller645\":\"Serial no should be provided\",\"otherParameterS7Controller645\":\"\",\"otherParameterS7TestValue645\":false,\"otherParameterS7RemarksControllers645\":\"\",\"otherParameters8Controller645\":\"Framing Condition\",\"otherParameterCrietrion8Controller645\":\"N\/A\",\"otherParameterS8Controller645\":\"\",\"otherParameterS8TestValue645\":false,\"otherParameterS8RemarksControllers645\":\"\",\"otherParameters9Controller645\":\"HIPOT\",\"otherParameterCrietrion9Controller645\":\"N\/A\",\"otherParameterS9Controller645\":\"\",\"otherParameterS9TestValue645\":false,\"otherParameterS9RemarksControllers645\":\"\"}", "PersonID":"242eb8c2-0b9c-11ef-8005-52549f6cc694", "EmployeeID":"930", "Name":"danish ali", "LoginID":"danish2", "Password":"danish@4738", "WorkLocation":"fc9c906b-e817-11ee-b439-0ac93defbbf1", "Email":"krishukumar7827@gmail.com", "Department":"849684af-e816-11ee-b439-0ac93defbbf1", "ProfileImg":"http:\/\/srv515471.hstgr.cloud:9090\/Employee\/Profile\/242eb8c2-0b9c-11ef-8005-52549f6cc694danish ali1714995074755747.jpg", "Desgination":"1af9d9f7-e817-11ee-b439-0ac93defbbf1", "Status":"Active", "UpdatedBy":null, "UpdatedOn":null, "CreatedBy":"b570e501-f8c7-11ee-b439-0ac93defbbf1", "CreatedOn":"06-05-2024 11:31:12"}]
+
+  const pdfDoc = await PDFDocument.create();
+  pdfDoc.registerFontkit(fontkit);
+  const page = pdfDoc.addPage([1000, 1500]);
+ 
+  // Load the bold font file
+const loadFontMedium = async (pdfDoc) => {
+  const fontBytes = fs.readFileSync('../Roboto/Roboto-Medium.ttf');
+  return await pdfDoc.embedFont(fontBytes);
+};
+
+const loadFontBold = async (pdfDoc) => {
+  const fontBytes = fs.readFileSync('../Roboto/Roboto-Bold.ttf');
+  return await pdfDoc.embedFont(fontBytes);
+};
+
+const MediumFont = await loadFontMedium(pdfDoc);
+const boldFont = await loadFontBold(pdfDoc)
+  // Draw a rectangle
+  page.drawRectangle({
+      x: 20,
+      y:  1460,
+      width: 960,
+      height: 30,
+      borderColor: rgb(0, 0, 0),
+      borderWidth: 1,
+      
+  });
+
+  page.drawRectangle({
+    x: 20,
+    y:  1430,
+    width: 960,
+    height: 30,
+    borderColor: rgb(0, 0, 0),
+    borderWidth: 1,
+  
+});
+
+page.drawRectangle({
+  x: 20,
+  y:  1415,
+  width: 960,
+  height: 15,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1,
+
+});
+
+
+  // Add some text
+  page.drawText('Gautam Solar Pvt. Ltd.', {
+      x: 450,
+      y: 1470,
+      size: 15,
+      font:boldFont
+  });
+
+  page.drawText('PRE-DISPATCH INSPECTION REPORT', {
+    x: 400,
+    y: 1440,
+    size: 15,
+    font:boldFont
+});
+
+page.drawText('Document No: GSPL/FQC/PDI/002 Rev. No. & Dated 1.0 & 12.08.2023', {
+  x: 400,
+  y: 1420,
+  size: 7,
+  font:MediumFont
+});
+page.drawRectangle({
+  x: 20,
+  y:  1500 - 110,
+  width: 400,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1,
+
+});
+
+page.drawRectangle({
+  x: 420,
+  y:  1500 - 110,
+  width: 60,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1,
+
+});
+
+page.drawRectangle({
+  x: 480,
+  y:  1500 - 110,
+  width: 150,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1,
+
+});
+page.drawText(`${Data[0]['DateOfQualityCheck']}`, {
+  x: 480+10,
+  y: 1500 - 100,
+  size: 11,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 480+150,
+  y:  1500 - 110,
+  width: 960-610,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1,
+
+});
+
+page.drawText(`Product Specs: ${Data[0]['ProductSpecs']}`, {
+  x: 480+150+13,
+  y: 1500 - 100,
+  size: 11,
+  font:boldFont
+});
+
+
+
+page.drawText(`Date`, {
+  x: 420+7,
+  y: 1500 - 100,
+  size: 11,
+  font:boldFont
+});
+
+page.drawText(`Party Name: ${Data[0]['PartyName']}`, {
+  x: 70,
+  y: 1500 - 100,
+  size: 10,
+  font:boldFont
+});
+
+page.drawText(`Report No:`, {
+  x: 70,
+  y: 1500 - 125,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20,
+  y:  1500 - 135,
+  width: 200,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1,
+
+});
+
+/**value of Report No */
+page.drawRectangle({
+  x: 200+20,
+  y:  1500 - 135,
+  width: 300,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1,
+
+});
+
+page.drawText(`${Data[0]['ReportNumber']}`, {
+  x: 200+20+90,
+  y: 1500 - 125,
+  size: 10,
+  font:boldFont
+});
+
+
+page.drawRectangle({
+  x: 200+20+300,
+  y:  1500 - 135,
+  width: 300,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1,
+
+});
+
+page.drawText(`Product Batch/Lot No:`, {
+  x: 200+20+300+40,
+  y: 1500 - 125,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 200+20+300+300,
+  y:  1500 - 135,
+  width: 160,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1,
+
+});
+
+page.drawText(`${Data[0]['ProductBatchNo']}`, {
+  x: 200+20+300+300+40,
+  y: 1500 - 125,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20,
+  y:  1500 - 160,
+  width: 960,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1,
+
+});
+
+page.drawText(`DESCRIPTION OF MATERIAL:  ${Data[0]['DateOfQualityCheck']}`, {
+  x: 350,
+  y: 1500 - 150,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20,
+  y:  1500 - 185,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1,
+
+});
+
+page.drawText(`SR. NO.`, {
+  x: 30,
+  y: 1500 - 175,
+  size: 10,
+  font:boldFont
+});
+
+
+page.drawRectangle({
+  x: 20+70,
+  y:  1500 - 185,
+  width: 100,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1,
+
+});
+
+page.drawText(`PARAMETERS`, {
+  x: 20+70+25,
+  y: 1500 - 175,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100,
+  y:  1500 - 185,
+  width: 100,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1,
+
+});
+
+page.drawText(`CRIETION`, {
+  x: 20+70+100+25,
+  y: 1500 - 175,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - 185,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`BATCH SERIAL NUMBER`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - 175,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - 185,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S1(9:30am)`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - 175,
+  size: 10,
+  font:boldFont
+});
+
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - 185,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`RESULT`, {
+  x: 20+70+100+100+120+70+18 ,
+  y: 1500 - 175,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - 185,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`REMARK`, {
+  x: 20+70+100+100+120+70+70+18 ,
+  y: 1500 - 175,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70,
+  y:  1500 - 185,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S2(2:30am)`, {
+  x: 20+70+100+100+120+80+70+70+10 ,
+  y: 1500 - 175,
+  size: 10,
+  font:boldFont
+});
+
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70,
+  y:  1500 - 185,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`RESULT`, {
+  x: 20+70+100+100+120+80+70+70+70+7 ,
+  y: 1500 - 175,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50,
+  y:  1500 - 185,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`REMARK`, {
+  x: 20+70+100+100+120+80+70+70+70+50+7 ,
+  y: 1500 - 175,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - 185,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - 175,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - 185,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`RESULT`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - 175,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - 185,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`REMARK`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - 175,
+  size: 10,
+  font:boldFont
+});
+
+let Parameter = {
+  'Visual Parameters':['Should be neat and Clean','No breakage allowed','Packing Condition', 'Framing Condition'],
+'Module Wattage':['Should be as per job no./Client','Should be as per job no./Client'],
+'QC Sticker':['Should be pasted'],
+'Module Info Label':['Should be as per Test results'],
+'RFID':['Should be pasted'],
+'Company logo':['Should be pasted'],
+'Junction Box':['Should be provided'],
+'Cable and MC4 connector':['Should be provided with JB'],
+'Module Serial Number':['Serial No. Should be provided'],
+'Framing Condition':[''],
+'HIPOT':['']
 }
 
-module.exports = {getCurrentDateTime,s3, BOMExcelGenerate, StingerExcel, LaminatorExcel, SolderingGenerate, FramingExcel, PostLamExcel, PreLamExcel};
+
+let Sample1 = JSON.parse(Data[0]['Sample1'])
+let Sample2 = JSON.parse(Data[0]['Sample2'])
+let Sample3 = JSON.parse(Data[0]['Sample3'])
+console.log(Sample1)
+console.log(Sample2)
+console.log(Sample3)
+let Y = 210;
+let srno = 1;
+for(let key in Parameter){
+  let Data = Parameter[key]
+
+  Data.forEach((data,i)=>{
+  page.drawRectangle({
+    x: 20,
+    y:  1500 - Y,
+    width: 70,
+    height: 25,
+    borderColor: rgb(0, 0, 0),
+    borderWidth: 1
+  });
+
+  page.drawText(`${srno}`, {
+    x: 50,
+    y: 1500 - Y+10,
+    size: 10,
+    font:boldFont
+  });
+  page.drawRectangle({
+    x: 20+70,
+    y:  1500 - Y,
+    width: 100,
+    height: 25,
+    borderColor: rgb(0, 0, 0),
+    borderWidth: 1,
+  
+  });
+
+  page.drawText(`${key}`, {
+    x: 20+70+5,
+    y: 1500 - Y+10,
+    size: 8,
+    font:MediumFont
+  });
+
+  page.drawRectangle({
+    x: 20+70+100,
+    y:  1500 - Y,
+    width: 100,
+    height: 25,
+    borderColor: rgb(0, 0, 0),
+    borderWidth: 1,
+  
+  });
+  
+  page.drawText(`${data}`, {
+    x: 20+70+100+2,
+    y: 1500 - Y+10,
+    size: 7,
+    font:MediumFont
+  });
+
+  Y+=25
+  srno++;
+})
+
+}
+
+Y = 210
+
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - Y,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`Not Filled`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`9:30am`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - 200,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['visualParameterS1TestValue930']}`, {
+  x: 20+70+100+100+120+80+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['visualParameterS1RemarksControllers930']}`, {
+  x: 20+70+100+100+120+80+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+Y += 25;
+
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - Y,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`Not Filled`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`9:30am`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['visualParameterS2TestValue930']}`, {
+  x: 20+70+100+100+120+80+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['visualParameterS2RemarksControllers930']}`, {
+  x: 20+70+100+100+120+80+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - Y,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`Not Filled`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`9:30am`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['visualParameterS3TestValue930']}`, {
+  x: 20+70+100+100+120+80+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['visualParameterS3RemarksControllers930']}`, {
+  x: 20+70+100+100+120+80+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - Y,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`Not Filled`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`9:30am`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['visualParameterS4TestValue930']}`, {
+  x: 20+70+100+100+120+80+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['visualParameterS4RemarksControllers930']}`, {
+  x: 20+70+100+100+120+80+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+Y+=25;
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - Y,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`Not Filled`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`9:30am`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['moduleRatingParameterS1TestValue930']}`, {
+  x: 20+70+100+100+120+80+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['moduleRatingParameterS1RemarksControllers930']}`, {
+  x: 20+70+100+100+120+80+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - Y,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`Not Filled`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`9:30am`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['moduleRatingParameterS2TestValue930']}`, {
+  x: 20+70+100+100+120+80+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['moduleRatingParameterS2RemarksControllers930']}`, {
+  x: 20+70+100+100+120+80+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - Y,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`Not Filled`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`9:30am`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS1TestValue930']}`, {
+  x: 20+70+100+100+120+80+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS1RemarksControllers930']}`, {
+  x: 20+70+100+100+120+80+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - Y,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`Not Filled`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`9:30am`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS2TestValue930']}`, {
+  x: 20+70+100+100+120+80+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS2RemarksControllers930']}`, {
+  x: 20+70+100+100+120+80+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - Y,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`Not Filled`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`9:30am`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS3TestValue930']}`, {
+  x: 20+70+100+100+120+80+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS3RemarksControllers930']}`, {
+  x: 20+70+100+100+120+80+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - Y,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`Not Filled`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`9:30am`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS4TestValue930']}`, {
+  x: 20+70+100+100+120+80+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS4RemarksControllers930']}`, {
+  x: 20+70+100+100+120+80+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - Y,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`Not Filled`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`9:30am`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS5TestValue930']}`, {
+  x: 20+70+100+100+120+80+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS5RemarksControllers930']}`, {
+  x: 20+70+100+100+120+80+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - Y,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`Not Filled`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`9:30am`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS6TestValue930']}`, {
+  x: 20+70+100+100+120+80+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS6RemarksControllers930']}`, {
+  x: 20+70+100+100+120+80+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - Y,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`Not Filled`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`9:30am`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS7TestValue930']}`, {
+  x: 20+70+100+100+120+80+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS7RemarksControllers930']}`, {
+  x: 20+70+100+100+120+80+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+
+Y+=25;
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - Y,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`Not Filled`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`9:30am`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS8TestValue930']}`, {
+  x: 20+70+100+100+120+80+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS8RemarksControllers930']}`, {
+  x: 20+70+100+100+120+80+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100,
+  y:  1500 - Y,
+  width: 120,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`Not Filled`, {
+  x: 20+70+100+100+5 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`9:30am`, {
+  x: 20+70+100+100+120+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS9TestValue930']}`, {
+  x: 20+70+100+100+120+80+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample1['otherParameterS9RemarksControllers930']}`, {
+  x: 20+70+100+100+120+80+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:MediumFont
+});
+
+
+
+
+/**S2 */
+Y = 210;
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+  x: 20+70+100+100+120+80+70+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample2['visualParameterS1TestValue230']}`, {
+  x: 20+70+100+100+120+80+70+70+70+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample2['visualParameterS1RemarksControllers230']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+
+/**Row 2 */
+Y += 25;
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+  x: 20+70+100+100+120+80+70+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample2['visualParameterS2TestValue230']}`, {
+  x: 20+70+100+100+120+80+70+70+70+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample2['visualParameterS2RemarksControllers230']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+
+/** Row 3  */
+ Y += 25;
+
+ page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70,
+  y:  1500 - Y,
+  width: 70,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+  x: 20+70+100+100+120+80+70+70+10 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample2['visualParameterS3TestValue230']}`, {
+  x: 20+70+100+100+120+80+70+70+70+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample2['visualParameterS3RemarksControllers230']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/** Row 4 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['visualParameterS4TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['visualParameterS4RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/**Row 5 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['moduleRatingParameterS1TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['moduleRatingParameterS1RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/**Row 6 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['moduleRatingParameterS2TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['moduleRatingParameterS2RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/**Row 7 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS1TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS1RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/**Row 8 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS2TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS2RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/**Row 9 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS3TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS3RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/**Row 10 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS4TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS4RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/**Row 11 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS4TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS4RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/**Row 12 */
+/**Row 11 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS4TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS4RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/**Row 13 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS5TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS5RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/**Row 15 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS6TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS6RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/**Row 14 */
+Y += 25;
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70,
+ y:  1500 - Y,
+ width: 70,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`2:30am`, {
+ x: 20+70+100+100+120+80+70+70+10 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS7TestValue230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+page.drawRectangle({
+ x: 20+70+100+100+120+80+70+70+70+50,
+ y:  1500 - Y,
+ width: 50,
+ height: 25,
+ borderColor: rgb(0, 0, 0),
+ borderWidth: 1
+});
+
+page.drawText(`${Sample2['otherParameterS7RemarksControllers230']}`, {
+ x: 20+70+100+100+120+80+70+70+70+50+7 ,
+ y: 1500 - Y+10,
+ size: 10,
+ font:boldFont
+});
+
+/** S3(6:45) */
+/**ROW 1 */
+Y = 210;
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS1TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS1RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/** Row 2 */
+Y += 25;
+
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS2TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS2RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 3 */
+Y+=25;
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS3TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS3RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 4 */
+Y+=25
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS4TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['visualParameterS4RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 5 */
+Y+=25;
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['moduleRatingParameterS1TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['moduleRatingParameterS1RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 6 */
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['moduleRatingParameterS2TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['moduleRatingParameterS2RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 7 */
+Y+=25;
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS1TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS1RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+
+/**Row 8 */
+Y+=25;
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS2TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS2RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**9 */
+Y+=25;
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS3TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS3RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 10 */
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS4TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS4RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 11 */
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS5TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS5RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 12 */
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS6TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS6RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 13 */
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS7TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS7RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 14 */
+Y+=25;
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS8TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS8RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+/**Row 15 */
+Y+=25;
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`S3(6:45)`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50,
+  y:  1500 - Y,
+  width: 50,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS9TestValue645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 10,
+  font:boldFont
+});
+
+page.drawRectangle({
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50,
+  y:  1500 - Y,
+  width: 80,
+  height: 25,
+  borderColor: rgb(0, 0, 0),
+  borderWidth: 1
+});
+
+page.drawText(`${Sample3['otherParameterS9RemarksControllers645']}`, {
+  x: 20+70+100+100+120+80+70+70+70+50+50+50+50+7 ,
+  y: 1500 - Y+10,
+  size: 5,
+  font:boldFont
+});
+
+
+
+
+  // Serialize the PDFDocument to bytes (a Uint8Array)
+  const pdfBytes = await pdfDoc.save();
+
+   await transport.sendMail({  
+   from: 'ipqc.gautamsolar@gmail.com',
+   cc: 'bhanu.galo@gmail.com',
+   to: 'krishukumar535@gmail.com',
+   subject: `IPQC ${Data[0]['Type']} : Line No. ${Data[0]['RevNo']}`,
+   attachments: [{
+     filename: `${Data[0]['Type']}_Report_${Data[0]['Line']}.xlsx`,
+     content: pdfBytes,
+     contentType: 'application/pdf'
+   }],
+   html: `<div style="position: relative; padding: 5px;">
+       <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://galo.co.in/wp-content/uploads/2024/01/Galo-Energy-Logo-06.png'); background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0.3; z-index: -1;"></div>
+       <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px;">
+           <p style="font-size: 16px;">Dear Super Admin,</p>
+           <p style="font-size: 16px; margin-bottom: 0;">Line No: ${Data[0]['Line']} of ${Data[0]['Type']} has been Reviewed by ${Data[0]['ReviewedBy']}.</p>
+           <p style="font-size: 16px;">Please find the attached Excel report for more details.</p>
+           <br>
+           <p style="font-size: 16px;"><em>Best regards,</em></p>
+           <p style="font-size: 16px;"><strong>Gautam Solar QCM Team</strong></p>
+       </div>
+   </div>`
+   })
+   
+   try{
+   
+     /** Define the folder path */
+     const folderPath = Path.join('ExcelFile');
+     
+   
+     /** Create the folder if it doesn't exist */
+     if (!fs.existsSync(folderPath)) {
+       fs.mkdirSync(folderPath, { recursive: true });
+     }
+   
+       /** Define the file path, including the desired file name and format */
+       const Excel = `${Data[0]['FQCDetailId']}.pdf`;
+       
+       const ExcelFilePath = Path.join(folderPath, Excel);
+    
+   
+     /** Save the file buffer to the specified file path */
+     fs.writeFileSync(ExcelFilePath, pdfBytes);
+    
+   }catch(err){
+   console.log(err)
+   throw err;
+   }
+   return `${Data[0]['FQCDetailId']}.pdf`;
+  // // Write the bytes to a file
+  // fs.writeFileSync('output.pdf', pdfBytes);
+  // console.log((await chalk).default.green('PDF created successfully! 🎉'))
+}
+
+
+
+module.exports = {getCurrentDateTime, BOMExcelGenerate, StingerExcel, LaminatorExcel, SolderingGenerate, FramingExcel, PostLamExcel, PreLamExcel, FQCExcel};
   

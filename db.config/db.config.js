@@ -9,12 +9,12 @@ const dbConn = mysql.createPool({
     database: 'QCMDev',
        })
     
-  dbConn.getConnection(async(error)=> {
+  dbConn.getConnection(async(error)=> { 
     const c =  await chalk
     if (error) {
       console.log(error, "ERROR");
     }else{
-      console.log(c.default.blue('Database Connected Succesfully !'))
+      console.log(c.default.blue('Database Connected Succesfully🎉 !'))
     }
   });
   
