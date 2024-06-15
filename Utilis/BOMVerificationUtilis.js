@@ -46,6 +46,14 @@ var transport = nodemailer.createTransport({
   }
 });
 
+var FQCTransport = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'fqc.gautamsolar@gmail.com',
+    pass: 'mmoi rfzo xdko oyic'
+  }
+});
+
 const BOMExcelGenerate = async(Data)=>{
 
   //   let Data = [
@@ -3059,7 +3067,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S1(9:30am)`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - 175,
   size: 10,
@@ -3108,7 +3116,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S2(2:30am)`, {
+page.drawText(`2:30PM`, {
   x: 20+70+100+100+120+80+70+70+10 ,
   y: 1500 - 175,
   size: 10,
@@ -3157,7 +3165,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - 175,
   size: 10,
@@ -3305,7 +3313,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`9:30am`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - 200,
   size: 10,
@@ -3371,7 +3379,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`9:30am`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -3438,7 +3446,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`9:30am`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -3505,7 +3513,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`9:30am`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -3570,7 +3578,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`9:30am`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -3637,7 +3645,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`9:30am`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -3704,7 +3712,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`9:30am`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -3771,7 +3779,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`9:30am`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -3837,7 +3845,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`9:30am`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -3904,7 +3912,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`9:30am`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -3971,7 +3979,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`9:30am`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -4038,7 +4046,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`9:30am`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -4105,7 +4113,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`9:30am`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -4171,7 +4179,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`9:30am`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -4238,7 +4246,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`9:30am`, {
+page.drawText(`9:30AM`, {
   x: 20+70+100+100+120+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -4291,7 +4299,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`2:30am`, {
+page.drawText(`2:30PM`, {
   x: 20+70+100+100+120+80+70+70+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -4344,7 +4352,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`2:30am`, {
+page.drawText(`2:30PM`, {
   x: 20+70+100+100+120+80+70+70+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -4397,7 +4405,7 @@ page.drawText(`${Sample2['visualParameterS2RemarksControllers230']}`, {
   borderWidth: 1
 });
 
-page.drawText(`2:30am`, {
+page.drawText(`2:30PM`, {
   x: 20+70+100+100+120+80+70+70+10 ,
   y: 1500 - Y+10,
   size: 10,
@@ -4449,7 +4457,7 @@ page.drawRectangle({
  borderWidth: 1
 });
 
-page.drawText(`2:30am`, {
+page.drawText(`2:30PM`, {
  x: 20+70+100+100+120+80+70+70+10 ,
  y: 1500 - Y+10,
  size: 10,
@@ -4501,7 +4509,7 @@ page.drawRectangle({
  borderWidth: 1
 });
 
-page.drawText(`2:30am`, {
+page.drawText(`2:30PM`, {
  x: 20+70+100+100+120+80+70+70+10 ,
  y: 1500 - Y+10,
  size: 10,
@@ -4553,7 +4561,7 @@ page.drawRectangle({
  borderWidth: 1
 });
 
-page.drawText(`2:30am`, {
+page.drawText(`2:30PM`, {
  x: 20+70+100+100+120+80+70+70+10 ,
  y: 1500 - Y+10,
  size: 10,
@@ -4605,7 +4613,7 @@ page.drawRectangle({
  borderWidth: 1
 });
 
-page.drawText(`2:30am`, {
+page.drawText(`2:30PM`, {
  x: 20+70+100+100+120+80+70+70+10 ,
  y: 1500 - Y+10,
  size: 10,
@@ -4657,7 +4665,7 @@ page.drawRectangle({
  borderWidth: 1
 });
 
-page.drawText(`2:30am`, {
+page.drawText(`2:30PM`, {
  x: 20+70+100+100+120+80+70+70+10 ,
  y: 1500 - Y+10,
  size: 10,
@@ -4709,7 +4717,7 @@ page.drawRectangle({
  borderWidth: 1
 });
 
-page.drawText(`2:30am`, {
+page.drawText(`2:30PM`, {
  x: 20+70+100+100+120+80+70+70+10 ,
  y: 1500 - Y+10,
  size: 10,
@@ -4761,7 +4769,7 @@ page.drawRectangle({
  borderWidth: 1
 });
 
-page.drawText(`2:30am`, {
+page.drawText(`2:30PM`, {
  x: 20+70+100+100+120+80+70+70+10 ,
  y: 1500 - Y+10,
  size: 10,
@@ -4813,7 +4821,7 @@ page.drawRectangle({
  borderWidth: 1
 });
 
-page.drawText(`2:30am`, {
+page.drawText(`2:30PM`, {
  x: 20+70+100+100+120+80+70+70+10 ,
  y: 1500 - Y+10,
  size: 10,
@@ -4866,7 +4874,7 @@ page.drawRectangle({
  borderWidth: 1
 });
 
-page.drawText(`2:30am`, {
+page.drawText(`2:30PM`, {
  x: 20+70+100+100+120+80+70+70+10 ,
  y: 1500 - Y+10,
  size: 10,
@@ -4918,7 +4926,7 @@ page.drawRectangle({
  borderWidth: 1
 });
 
-page.drawText(`2:30am`, {
+page.drawText(`2:30PM`, {
  x: 20+70+100+100+120+80+70+70+10 ,
  y: 1500 - Y+10,
  size: 10,
@@ -4970,7 +4978,7 @@ page.drawRectangle({
  borderWidth: 1
 });
 
-page.drawText(`2:30am`, {
+page.drawText(`2:30PM`, {
  x: 20+70+100+100+120+80+70+70+10 ,
  y: 1500 - Y+10,
  size: 10,
@@ -5022,7 +5030,7 @@ page.drawRectangle({
  borderWidth: 1
 });
 
-page.drawText(`2:30am`, {
+page.drawText(`2:30PM`, {
  x: 20+70+100+100+120+80+70+70+10 ,
  y: 1500 - Y+10,
  size: 10,
@@ -5075,7 +5083,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - Y+10,
   size: 10,
@@ -5127,7 +5135,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - Y+10,
   size: 10,
@@ -5177,7 +5185,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - Y+10,
   size: 10,
@@ -5227,7 +5235,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - Y+10,
   size: 10,
@@ -5277,7 +5285,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - Y+10,
   size: 10,
@@ -5328,7 +5336,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - Y+10,
   size: 10,
@@ -5378,7 +5386,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - Y+10,
   size: 10,
@@ -5429,7 +5437,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - Y+10,
   size: 10,
@@ -5479,7 +5487,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - Y+10,
   size: 10,
@@ -5530,7 +5538,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - Y+10,
   size: 10,
@@ -5581,7 +5589,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - Y+10,
   size: 10,
@@ -5632,7 +5640,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - Y+10,
   size: 10,
@@ -5683,7 +5691,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - Y+10,
   size: 10,
@@ -5733,7 +5741,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - Y+10,
   size: 10,
@@ -5784,7 +5792,7 @@ page.drawRectangle({
   borderWidth: 1
 });
 
-page.drawText(`S3(6:45)`, {
+page.drawText(`6:45PM`, {
   x: 20+70+100+100+120+80+70+70+70+50+50+7 ,
   y: 1500 - Y+10,
   size: 10,
@@ -5824,18 +5832,18 @@ page.drawText(`${Sample3['otherParameterS9RemarksControllers645']}`, {
 });
 
 
-
+//mmoi rfzo xdko oyic
 
   // Serialize the PDFDocument to bytes (a Uint8Array)
   const pdfBytes = await pdfDoc.save();
 
-   await transport.sendMail({  
-   from: 'ipqc.gautamsolar@gmail.com',
+   await FQCTransport.sendMail({  
+   from: 'fqc.gautamsolar@gmail.com',
    cc: 'bhanu.galo@gmail.com',
    to: 'krishukumar535@gmail.com',
-   subject: `IPQC ${Data[0]['Type']} : Line No. ${Data[0]['RevNo']}`,
+   subject: `${Data[0]['Type']} : Rev No. ${Data[0]['RevNo']}`,
    attachments: [{
-     filename: `${Data[0]['Type']}_Report_${Data[0]['Line']}.xlsx`,
+     filename: `${Data[0]['Type']}_Report_${Data[0]['RevNo']}.pdf`,
      content: pdfBytes,
      contentType: 'application/pdf'
    }],
@@ -5843,8 +5851,8 @@ page.drawText(`${Sample3['otherParameterS9RemarksControllers645']}`, {
        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://galo.co.in/wp-content/uploads/2024/01/Galo-Energy-Logo-06.png'); background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0.3; z-index: -1;"></div>
        <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px;">
            <p style="font-size: 16px;">Dear Super Admin,</p>
-           <p style="font-size: 16px; margin-bottom: 0;">Line No: ${Data[0]['Line']} of ${Data[0]['Type']} has been Reviewed by ${Data[0]['ReviewedBy']}.</p>
-           <p style="font-size: 16px;">Please find the attached Excel report for more details.</p>
+           <p style="font-size: 16px; margin-bottom: 0;">Line No: ${Data[0]['RevNo']} of ${Data[0]['Type']} has been Reviewed by ${Data[0]['ReviewedBy']}.</p>
+           <p style="font-size: 16px;">Please find the attached PDF report for more details.</p>
            <br>
            <p style="font-size: 16px;"><em>Best regards,</em></p>
            <p style="font-size: 16px;"><strong>Gautam Solar QCM Team</strong></p>
@@ -5871,7 +5879,7 @@ page.drawText(`${Sample3['otherParameterS9RemarksControllers645']}`, {
    
      /** Save the file buffer to the specified file path */
      fs.writeFileSync(ExcelFilePath, pdfBytes);
-    
+    console.log('Exampleeeeeeeeeeeeeee')
    }catch(err){
    console.log(err)
    throw err;

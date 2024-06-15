@@ -32,6 +32,7 @@
     "mysql": "^2.18.1",
     "mysql-import": "^5.0.21",
     "mysql2": "^3.9.2",
+    "node-cron": "^3.0.3",
     "nodemailer": "^6.9.12",
     "nodemon": "^3.1.0",
     "pdf-lib": "^1.17.1",
