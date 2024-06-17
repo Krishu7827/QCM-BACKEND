@@ -7,6 +7,7 @@ const { QualityRoute } = require('./Routes/QualityRoutes');
 const {getCurrentDateTime} = require('./Utilis/IQCSolarCellUtilis')
 const Path = require('path');
 const { v4: uuidv4, v4 } = require('uuid');
+const {transport} = require('./Utilis/IPQCJobCardUtilis')
 const {QualityExcelGenerate} = require('./Utilis/QualityUtilis')
 const cron = require('node-cron');
 const util = require('util');
@@ -2281,6 +2282,29 @@ const QualityExcelShedule = async(Status)=>{
     query = `INSERT INTO QualityReportExcel(ExcelId,FromDate,ToDate,ExcelURL,CreatedBy,CreatedOn)
                                     VALUES('${UUID}','${formattedPreviousDate}','${formattedCurrentDate}','http://srv515471.hstgr.cloud:${PORT}/Quality/File/${fileName}','','${getCurrentDateTime()}');`
     await queryAsync(query);
+
+    await transport.sendMail({
+      from: 'ipqc.gautamsolar@gmail.com',
+      cc: 'bhanu.galo@gmail.com',
+      to: 'krishukumar535@gmail.com',
+      subject: `Quality Report ${formattedPreviousDate} To ${formattedCurrentDate}`,
+      attachments: [{
+        filename: `Quality_Report_${UUID}.xlsx`,
+        content: QualityExcelBytes,
+        contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      }],
+      html: `<div style="position: relative; padding: 5px;">
+          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://galo.co.in/wp-content/uploads/2024/01/Galo-Energy-Logo-06.png'); background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0.3; z-index: -1;"></div>
+          <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px;">
+              <p style="font-size: 16px;">Dear Super Admin,</p>
+              <p style="font-size: 16px; margin-bottom: 0;">As Per Your Request, Quality Report generated, You will have data between ${formattedPreviousDate} and ${formattedCurrentDate} in Excel.</p>
+              <p style="font-size: 16px;">Please find the attached Excel report for more details.</p>
+              <br>
+              <p style="font-size: 16px;"><em>Best regards,</em></p>
+              <p style="font-size: 16px;"><strong>Gautam Solar QCM Team</strong></p>
+          </div>
+      </div>`
+    })
     return `Sent it Email Succesfully of ${Status} Quality Report🚀`
   } catch (err) {
     console.log(err)

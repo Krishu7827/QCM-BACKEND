@@ -344,4 +344,4 @@ let a = {"Avaibility of WI":"gfg","Physical verification of Union trimming & Bla
  
 // )
 
-module.exports = { getCurrentDateTime, s3, ExcelGenerate };
+module.exports = { getCurrentDateTime, s3, ExcelGenerate, transport };
