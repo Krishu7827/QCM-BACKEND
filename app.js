@@ -2281,7 +2281,7 @@ const QualityExcelShedule = async(Status)=>{
     query = `INSERT INTO QualityReportExcel(ExcelId,FromDate,ToDate,ExcelURL,CreatedBy,CreatedOn)
                                     VALUES('${UUID}','${formattedPreviousDate}','${formattedCurrentDate}','http://srv515471.hstgr.cloud:${PORT}/Quality/File/${fileName}','','${getCurrentDateTime()}');`
     await queryAsync(query);
-    return `Sent it Email Succesfully`
+    return `Sent it Email Succesfully of ${Status} Quality Report🚀`
   } catch (err) {
     console.log(err)
     return err
@@ -2291,7 +2291,7 @@ const QualityExcelShedule = async(Status)=>{
 
 
 app.get("/getFile", (req, res) => {
-  const pathfile = path.join(__dirname, 'check.png');
+  const pathfile = Path.join(__dirname, 'check.png');
   res.download(pathfile);
 });
 
@@ -2299,9 +2299,24 @@ app.get("/getFile", (req, res) => {
 cron.schedule('0 10 * * *', async () => {
   try {
    
-    let result1 =  await QualityExcelShedule('Inprogress');
-   let result2 =   await QualityExcelGenerate('Completed');
-   console.log((await chalk).default.green(result1));
+    let result =  await QualityExcelShedule('Inprogress');
+   console.log((await chalk).default.blueBright(result));
+
+  } catch (error) {
+    console.error((await chalk).default.red('Error in cron job:', error));
+    //console.error('Error in cron job:', error);
+  }
+}, {
+  timezone: 'Asia/Kolkata' 
+});
+
+
+
+cron.schedule('4 10 * * *', async () => {
+  try {
+   
+    let result=  await QualityExcelShedule('Completed');
+   console.log((await chalk).default.green(result));
 
   } catch (error) {
     console.error((await chalk).default.red('Error in cron job:', error));
