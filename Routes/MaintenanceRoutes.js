@@ -1,6 +1,6 @@
 const express = require('express');
 const MaintenanceRouter = express.Router()
-const {AddMachineData} = require('../Controller/MachineController');
+const {AddMachineData,MachineDetailById} = require('../Controller/MachineController');
 const {AddParty} = require('../Controller/PartyController');
 
 
@@ -13,5 +13,7 @@ MaintenanceRouter.post('/AddParty',AddParty);
 MaintenanceRouter.post('/AddMachine',AddMachineData);
 
 
+/**Router To Get Machine Detail By Id */
+MaintenanceRouter.post('/MachineDetailById',MachineDetailById);
 
 module.exports = {MaintenanceRouter}

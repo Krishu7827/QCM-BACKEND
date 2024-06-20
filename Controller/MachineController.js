@@ -43,6 +43,32 @@ const AddMachineData = async (req, res) => {
 
 }
 
+/**Controller To Get MachineId & MachineName */
+const MachineDetailById = async (req, res) => {
+    const { MachineId } = req.body;
 
 
-module.exports = { AddMachineData }
+    try {
+      
+
+      let query =  MachineId?`SELECT MachineModelNumber FROM Machine WHERE MachineId = '${MachineId}';`:`SELECT MachineId, MachineName FROM Machine;`
+
+       let data =  await queryAsync(query)
+
+        res.send({ data });
+
+    } catch (err) {
+
+        console.log(err)
+        res.status(400).send({ err })
+
+    }
+
+
+
+}
+
+
+
+
+module.exports = { AddMachineData, MachineDetailById }
