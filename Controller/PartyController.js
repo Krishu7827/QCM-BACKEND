@@ -24,7 +24,7 @@ const AddParty = async (req, res) => {
 
         await queryAsync(query)
 
-        res.send({ msg: 'Inserted Succesfully!', MachineId: UUID });
+        res.send({ msg: 'Inserted Succesfully!', PartyNameId: UUID });
 
     } catch (err) {
 
