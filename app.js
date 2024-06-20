@@ -278,19 +278,19 @@ app.get("/getFile", (req, res) => {
 });
 
 
-cron.schedule('35 17 * * *', async () => {
-  try {
+// cron.schedule('35 17 * * *', async () => {
+//   try {
    
-    let result =  await QualityExcelShedule();
-   console.log((await chalk).default.blueBright(result));
+//     let result =  await QualityExcelShedule();
+//    console.log((await chalk).default.blueBright(result));
 
-  } catch (error) {
-    console.error((await chalk).default.red('Error in cron job:', error));
-    //console.error('Error in cron job:', error);
-  }
-}, {
-  timezone: 'Asia/Kolkata' 
-});
+//   } catch (error) {
+//     console.error((await chalk).default.red('Error in cron job:', error));
+//     //console.error('Error in cron job:', error);
+//   }
+// }, {
+//   timezone: 'Asia/Kolkata' 
+// });
 
 
 
