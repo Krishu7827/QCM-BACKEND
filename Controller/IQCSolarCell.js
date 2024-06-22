@@ -431,7 +431,8 @@ const UpdateStatus = async (req, res) => {
    WHERE SolarDetailID = '${SolarDetailID}';`
    await queryAsync(ExcelQuery);
     }catch(err){
-      res.status(500).send({ err })
+      console.log(err)
+      return res.status(500).send({ err })
     }
     res.send({ ExcelData, ApproveData })
   } catch (err) {
