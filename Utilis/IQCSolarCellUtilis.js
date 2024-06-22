@@ -178,6 +178,7 @@ async function ExcelGenerate(IQC, ApproveData) {
     for (let i = 0; i < IQC.length; i++) {
       let Material = IQC[i];
       if (Material['CheckType'] == 'Performance') {
+        console.log(Material['SampleSize'])
         return Material['SampleSize'];
       }
     }
