@@ -475,13 +475,13 @@ console.log(IQC)
 
   let Stages = '';
  IQC[0]['CheckTypes'].forEach((check,i)=>{
-  Stages+=check['Packaging']?` ${check['Stage']} |`:'';
-  Stages+=check['Visual']?` ${check['Stage']} |`:'';
-  Stages+=check['Physical']?` ${check['Stage']} |`:'';
-  Stages+=check['FrontBus']?` ${check['Stage']} |`:'';
-  Stages+=check['Verification']?` ${check['Stage']} |`:'';
-  Stages+=check['Electrical']?` ${check['Stage']} |`:'';
-  Stages+=check['Performance']?` ${check['Stage']} |`:''; 
+  Stages+=check['Packaging']?' Packaging |':'';
+  Stages+=check['Visual']?' Visual |':'';
+  Stages+=check['Physical']?' Physical |':'';
+  Stages+=check['FrontBus']?' FrontBus |':'';
+  Stages+=check['Verification']?' Verification |':'';
+  Stages+=check['Electrical']?' Electrical |':'';
+  Stages+=check['Performance']?' Performance |':''; 
  })
 
   Column = 'B';
