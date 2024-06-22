@@ -197,6 +197,14 @@ async function ExcelGenerate(IQC, ApproveData) {
       }
      })
   
+   }else if(MaterialName == 'Solar Cell'){
+    IQC.forEach((Material,i)=>{
+      if(Material['CheckType'] == 'Visual'){
+        return Material['SampleSize'];
+
+      }
+     })
+  
    } 
   
  }
