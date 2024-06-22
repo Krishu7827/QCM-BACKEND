@@ -136,78 +136,68 @@ async function ExcelGenerate(IQC, ApproveData) {
  }
 
  
- function SampleToBeChecked(){
-   
-  if(MaterialName == 'Solar Glass'){
-    IQC.forEach((Material,i)=>{
-       if(Material['CheckType'] == 'Visual'){
-         return Material['SampleSize'];
-         
-       }
-     })
-  
-   }else if(MaterialName == 'Backsheet'){
-    IQC.forEach((Material,i)=>{
-      if(Material['CheckType'] == 'Physical'){
+ function SampleToBeChecked() {
+  if (MaterialName == 'Solar Glass') {
+    for (let i = 0; i < IQC.length; i++) {
+      let Material = IQC[i];
+      if (Material['CheckType'] == 'Visual') {
         return Material['SampleSize'];
+      }
+    }
+  } else if (MaterialName == 'Backsheet') {
+    for (let i = 0; i < IQC.length; i++) {
+      let Material = IQC[i];
+      if (Material['CheckType'] == 'Physical') {
+        return Material['SampleSize'];
+      }
+    }
+  } else if (MaterialName == 'Flux') {
+    return '';
+  } else if (MaterialName == 'EVA(Encapsulant)') {
+    for (let i = 0; i < IQC.length; i++) {
+      let Material = IQC[i];
+      if (Material['CheckType'] == 'Physical') {
+        return Material['SampleSize'];
+      }
+    }
+  } else if (MaterialName == 'PV Ribbon') {
+    for (let i = 0; i < IQC.length; i++) {
+      let Material = IQC[i];
+      if (Material['CheckType'] == 'Physical') {
+        return Material['SampleSize'];
+      }
+    }
+  } else if (MaterialName == 'Aluminium Frame') {
+    for (let i = 0; i < IQC.length; i++) {
+      let Material = IQC[i];
+      if (Material['CheckType'] == 'Visual') {
+        return Material['SampleSize'];
+      }
+    }
+  } else if (MaterialName == 'Sealant/Coating') {
+    for (let i = 0; i < IQC.length; i++) {
+      let Material = IQC[i];
+      if (Material['CheckType'] == 'Performance') {
+        return Material['SampleSize'];
+      }
+    }
+  } else if (MaterialName == 'Junction Box') {
+    for (let i = 0; i < IQC.length; i++) {
+      let Material = IQC[i];
+      if (Material['CheckType'] == 'Physical') {
+        return Material['SampleSize'];
+      }
+    }
+  } else if (MaterialName == 'Solar Cell') {
+    for (let i = 0; i < IQC.length; i++) {
+      let Material = IQC[i];
+      if (Material['CheckType'] == 'Visual') {
+        return Material['SampleSize'];
+      }
+    }
+  }
+}
 
-      }
-     })
-  
-   }else if(MaterialName == 'Flux'){
-    return ''
-  
-   }else if(MaterialName == 'EVA(Encapsulant)'){
-    IQC.forEach((Material,i)=>{
-      if(Material['CheckType'] == 'Physical'){
-        return Material['SampleSize'];
-
-      }
-     })
-  
-   }else if(MaterialName == 'PV Ribbon'){
-    IQC.forEach((Material,i)=>{
-      if(Material['CheckType'] == 'Physical'){
-        return Material['SampleSize'];
-
-      }
-     })
-  
-   }else if(MaterialName == 'Aluminium Frame'){
-    IQC.forEach((Material,i)=>{
-      if(Material['CheckType'] == 'Visual'){
-        return Material['SampleSize'];
-        
-      }
-     })
-  
-   }else if(MaterialName == 'Sealant/Poating'){
-    IQC.forEach((Material,i)=>{
-      if(Material['CheckType'] == 'Performance'){
-        return Material['SampleSize'];
-        
-      }
-     })
-  
-   }else if(MaterialName == 'Junction Box'){
-    IQC.forEach((Material,i)=>{
-      if(Material['CheckType'] == 'Physical'){
-        return Material['SampleSize'];
-
-      }
-     })
-  
-   }else if(MaterialName == 'Solar Cell'){
-    IQC.forEach((Material,i)=>{
-      if(Material['CheckType'] == 'Visual'){
-        return Material['SampleSize'];
-
-      }
-     })
-  
-   } 
-  
- }
  
 
   let exceldata = [{ "column": "Lot Size", "value": IQC[0]['LotSize'] },
