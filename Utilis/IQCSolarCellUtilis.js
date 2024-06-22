@@ -136,6 +136,71 @@ async function ExcelGenerate(IQC, ApproveData) {
  }
 
  
+ function SampleToBeChecked(){
+   
+  if(MaterialName == 'Solar Glass'){
+    IQC.forEach((Material,i)=>{
+       if(Material['CheckType'] == 'Visual'){
+         return Material['SampleSize'];
+         
+       }
+     })
+  
+   }else if(MaterialName == 'Backsheet'){
+    IQC.forEach((Material,i)=>{
+      if(Material['CheckType'] == 'Physical'){
+        return Material['SampleSize'];
+
+      }
+     })
+  
+   }else if(MaterialName == 'Flux'){
+    return ''
+  
+   }else if(MaterialName == 'EVA(Encapsulant)'){
+    IQC.forEach((Material,i)=>{
+      if(Material['CheckType'] == 'Physical'){
+        return Material['SampleSize'];
+
+      }
+     })
+  
+   }else if(MaterialName == 'PV Ribbon'){
+    IQC.forEach((Material,i)=>{
+      if(Material['CheckType'] == 'Physical'){
+        return Material['SampleSize'];
+
+      }
+     })
+  
+   }else if(MaterialName == 'Aluminium Frame'){
+    IQC.forEach((Material,i)=>{
+      if(Material['CheckType'] == 'Visual'){
+        return Material['SampleSize'];
+        
+      }
+     })
+  
+   }else if(MaterialName == 'Sealant/Poating'){
+    IQC.forEach((Material,i)=>{
+      if(Material['CheckType'] == 'Performance'){
+        return Material['SampleSize'];
+        
+      }
+     })
+  
+   }else if(MaterialName == 'Junction Box'){
+    IQC.forEach((Material,i)=>{
+      if(Material['CheckType'] == 'Physical'){
+        return Material['SampleSize'];
+
+      }
+     })
+  
+   } 
+  
+ }
+ 
 
   let exceldata = [{ "column": "Lot Size", "value": IQC[0]['LotSize'] },
   { "column": "Material Name", "value": IQC[0]['MaterialName'] },
@@ -144,7 +209,7 @@ async function ExcelGenerate(IQC, ApproveData) {
   { "column": "Raw Material Specs", "value": IQC[0]['RawMaterialSpecs'] }
   ]
 
-  let rightexceldata = [{ "column": "No. of Samples to be checked", "value": '' },
+  let rightexceldata = [{ "column": "No. of Samples to be checked", "value": SampleToBeChecked() },
   { "column": "Sample to be checked", "value": "AS PER SIL S1 AQL 4.0" },
   { "column": "Suppliers'RM Batch No.:", "value": IQC[0]['SupplierRMBatchNo'] },
   { "column": "Invoice No.:", "value": IQC[0]['InvoiceNo'] },
