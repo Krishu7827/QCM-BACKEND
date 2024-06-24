@@ -77,6 +77,8 @@ const AddPreLam = async (req, res) => {
   const PreLamDetail = req.body[0];
   const PreLam = req.body[1];
   const PreLamDetailId = PreLamDetail['PreLamDetailId']
+  console.log(PreLamDetail)
+  console.log(PreLam)
   const UUID = v4();
   if (!PreLamDetailId) {
     try {
