@@ -610,7 +610,7 @@ const BOMExcelGenerate = async(Data)=>{
         let Timing = ['10:00','12:00','02:00','04:00','06:00']
          temp.forEach((el,i)=>{
           for(key in el){
-             string+=`TS (${Timing[i]}): ${el[key]} |`;
+             string+=`TS (Time:${Timing[i]}): ${el[key]} |`;
           } 
           
          })
@@ -1085,7 +1085,7 @@ const BOMExcelGenerate = async(Data)=>{
         let Timing = ['10:00','12:00','02:00','04:00','06:00']
         let i = 0
           for(key in temp){
-             string+=`Obs ${Timing[i]}: ${temp[key]} | `;
+             string+=`Obs (Time:${Timing[i]}): ${temp[key]} | `;
              i++;
           } 
           
