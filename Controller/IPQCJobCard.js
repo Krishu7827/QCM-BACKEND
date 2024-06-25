@@ -194,50 +194,50 @@ const JobCardList = async (req, res) => {
   try {
 
     if (Designation == 'Admin' || Designation == 'Super Admin') {
-      query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location, jcd.JobCardDetailID,jcd.ModuleNo,jcd.Type,jcd.ReferencePdf,jcd.CreatedOn,jcd.UpdatedOn FROM Person p
+      query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location, jcd.JobCardDetailID,jcd.ModuleNo,jcd.Type,jcd.ReferencePdf,jcd.ExcelURL,jcd.CreatedOn,jcd.UpdatedOn FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN JobCardDetails jcd ON p.PersonID = jcd.CreatedBy
 WHERE jcd.Status = '${Status}'
 ORDER BY STR_TO_DATE(jcd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
-      BomQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location, bd.BOMDetailId,bd.PONo,bd.Type,bd.ReferencePdf, bd.CreatedOn,bd.UpdatedOn FROM Person p
+      BomQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location, bd.BOMDetailId,bd.PONo,bd.Type,bd.ReferencePdf, bd.ExcelURL, bd.CreatedOn,bd.UpdatedOn FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN BOMVerificationDetails bd ON p.PersonID = bd.CheckedBy
 WHERE bd.Status = '${Status}'
 ORDER BY STR_TO_DATE(bd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
-      PreLamQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location, PD.PreLamDetailId,PD.PONo,PD.Line,PD.Shift,PD.Type,PD.PreLamPdf, PD.CreatedOn, PD.UpdatedOn FROM Person p
+      PreLamQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location, PD.PreLamDetailId,PD.PONo,PD.Line,PD.Shift,PD.Type,PD.PreLamPdf, PD.ExcelURL, PD.CreatedOn, PD.UpdatedOn FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN PreLamDetail PD ON p.PersonID = PD.CheckedBy
 WHERE PD.Status = '${Status}'
 ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
-      SolderingPeelTestQuery = `  SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,SPT.TestDetailId,SPT.Line,SPT.Shift,SPT.Type,SPT.Pdf, SPT.CreatedOn, SPT.UpdatedOn FROM Person p
+      SolderingPeelTestQuery = `  SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,SPT.TestDetailId,SPT.Line,SPT.Shift,SPT.Type,SPT.Pdf, SPT.ExcelURL, SPT.CreatedOn, SPT.UpdatedOn FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN SolderingPeelTestDetail SPT ON p.PersonID = SPT.CreatedBy
 WHERE SPT.Status = '${Status}'
 ORDER BY STR_TO_DATE(SPT.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
     } else {
-      query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location, jcd.JobCardDetailID,jcd.ModuleNo,jcd.Type,jcd.ReferencePdf,jcd.CreatedOn,jcd.UpdatedOn  FROM Person p
+      query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location, jcd.JobCardDetailID,jcd.ModuleNo,jcd.Type,jcd.ExcelURL,jcd.ReferencePdf,jcd.CreatedOn,jcd.UpdatedOn  FROM Person p
     JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
     JOIN JobCardDetails jcd ON p.PersonID = jcd.CreatedBy
     WHERE jcd.Status = '${Status}' AND p.PersonID = '${PersonID}'
     ORDER BY STR_TO_DATE(jcd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
-      BomQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,bd.BOMDetailId,bd.PONo,bd.Type,bd.ReferencePdf, bd.CreatedOn, bd.UpdatedOn FROM Person p
+      BomQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,bd.BOMDetailId,bd.PONo,bd.Type,bd.ReferencePdf,bd.ExcelURL, bd.CreatedOn, bd.UpdatedOn FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN BOMVerificationDetails bd ON p.PersonID = bd.CheckedBy
 WHERE bd.Status = '${Status}' AND p.PersonID = '${PersonID}'
 ORDER BY STR_TO_DATE(bd.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
-      PreLamQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,  PD.PreLamDetailId,PD.PONo,PD.Line,PD.Shift,PD.Type,PD.PreLamPdf, PD.CreatedOn,PD.UpdatedOn FROM Person p
+      PreLamQuery = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,  PD.PreLamDetailId,PD.PONo,PD.Line,PD.Shift,PD.Type,PD.ExcelURL,PD.PreLamPdf, PD.CreatedOn,PD.UpdatedOn FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN PreLamDetail PD ON p.PersonID = PD.CheckedBy
 WHERE PD.Status = '${Status}' AND p.PersonID = '${PersonID}'
 ORDER BY STR_TO_DATE(PD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
 
-      SolderingPeelTestQuery = `  SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,SPT.TestDetailId,SPT.Line,SPT.Shift,SPT.Type,SPT.Pdf, SPT.CreatedOn, SPT.UpdatedOn FROM Person p
+      SolderingPeelTestQuery = `  SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,SPT.TestDetailId,SPT.Line,SPT.Shift,SPT.Type,SPT.Pdf,SPT.ExcelURL, SPT.CreatedOn, SPT.UpdatedOn FROM Person p
 JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
 JOIN SolderingPeelTestDetail SPT ON p.PersonID = SPT.CreatedBy
 WHERE SPT.Status = '${Status}' AND p.PersonID = '${PersonID}'
