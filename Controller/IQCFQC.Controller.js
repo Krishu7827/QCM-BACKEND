@@ -146,13 +146,13 @@ const GetFQCList = async (req, res) => {
     JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
     JOIN FQCDetails FD ON p.PersonID = FD.CreatedBy
     WHERE FD.Status = '${Status}'
-    ORDER BY STR_TO_DATE(FD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
+    ORDER BY STR_TO_DATE(FD.DateOfQualityCheck, '%Y-%m-%d') DESC;`;
         } else {
             query = `SELECT p.EmployeeID,  p.Name, p.ProfileImg, wl.Location,FD.FQCDetailId,FD.Product,FD.ProductBatchNo,FD.PartyName, FD.ExcelURL, FD.DateOfQualityCheck,FD.Pdf FROM Person p
             JOIN WorkLocation wl ON wl.LocationID = p.WorkLocation
             JOIN FQCDetails FD ON p.PersonID = FD.CreatedBy
             WHERE FD.Status = '${Status}' AND p.PersonID = '${PersonID}'
-            ORDER BY STR_TO_DATE(FD.CreatedOn, '%d-%m-%Y %H:%i:%s') DESC;`;
+            ORDER BY STR_TO_DATE(FD.DateOfQualityCheck, '%Y-%m-%d') DESC;`;
         }
 
         let data = await queryAsync(query);
