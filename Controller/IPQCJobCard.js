@@ -191,6 +191,7 @@ const JobCardList = async (req, res) => {
   let BomQuery;
   let PreLamQuery;
   let SolderingPeelTestQuery;
+  console.log(Designation)
   try {
 
     if (Designation == 'Admin' || Designation == 'Super Admin') {
