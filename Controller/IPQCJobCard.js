@@ -191,7 +191,7 @@ const JobCardList = async (req, res) => {
   let BomQuery;
   let PreLamQuery;
   let SolderingPeelTestQuery;
-  console.log(Designation)
+
   try {
 
     if (Designation == 'Admin' || Designation == 'Super Admin') {
@@ -341,15 +341,7 @@ WHERE SPT.Status = '${Status}' AND p.PersonID = '${PersonID}';`;
         Test['Date'] = Test['CreatedOn'].split(' ')[0];
         JobCardList.push(Test);
       })
-
-      /** Sort the array by the "CreatedOn" property in descending order */
-      JobCardList.sort((a, b) => {
-        const dateA = parseDate(a.CreatedOn);
-        const dateB = parseDate(b.CreatedOn);
-        return dateB - dateA; /** Compare dates in descending order */
-      });
-
-      res.send({ status: true, data: JobCardList })
+      
     } else if (Status == 'Approved') {
 
       BomList.forEach((BOM) => {
@@ -439,14 +431,6 @@ WHERE SPT.Status = '${Status}' AND p.PersonID = '${PersonID}';`;
         Test['Date'] = Test['CreatedOn'].split(' ')[0];
         JobCardList.push(Test);
       })
-
-      /** Sort the array by the "CreatedOn" property in descending order */
-      JobCardList.sort((a, b) => {
-        const dateA = parseDate(a.UpdatedOn);
-        const dateB = parseDate(b.UpdatedOn);
-        return dateB - dateA; /** Compare dates in descending order */
-      });
-      res.send({ status: true, data: JobCardList });
 
     } else {
 
@@ -549,7 +533,10 @@ WHERE SPT.Status = '${Status}' AND p.PersonID = '${PersonID}';`;
       const dateB = parseDate(b.InputDate);
       return dateB - dateA; /** Compare dates in descending order */
     });
-
+    JobCardList.forEach((Card)=>{
+      Card['Date'] = Card['InputDate'];
+    })
+console.log('responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
     console.log(JobCardList)
 
    return res.send({ status: true, data: JobCardList });
