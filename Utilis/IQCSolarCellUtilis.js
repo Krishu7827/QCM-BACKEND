@@ -83,7 +83,7 @@ async function ExcelGenerate(IQC, ApproveData) {
   // }
 console.log(IQC)
    let MaterialName = IQC[0]['MaterialName']
-   let CheckTypes = IQC[0]['CheckTypes'];
+
    
 
 /** re-assignening check types of Material (array) */
@@ -104,8 +104,7 @@ console.log(IQC)
  }else if(MaterialName == 'Backsheet'){
   IQC.forEach((Material,i)=>{
     Material['CheckType'] = BacksheetCheckTypes[i];
-     console.log('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
-   console.log(CheckTypes[i])
+   
     
    })
 
@@ -113,54 +112,41 @@ console.log(IQC)
   IQC.forEach((Material,i)=>{
     Material['CheckType'] = FluxCheckTypes[i];
 
-    for(let key in CheckTypes[i]){
-      CheckTypes['Stage'] = BacksheetCheckTypes[i]
-    }
    })
 
  }else if(MaterialName == 'EVA(Encapsulant)'){
   IQC.forEach((Material,i)=>{
     Material['CheckType'] = EVCheckTypes[i];
 
-    for(let key in CheckTypes[i]){
-      CheckTypes['Stage'] = BacksheetCheckTypes[i]
-    }
    })
 
  }else if(MaterialName == 'PV Ribbon'){
   IQC.forEach((Material,i)=>{
     Material['CheckType'] = PVRibbonCheckTypes[i];
 
-    for(let key in CheckTypes[i]){
-      CheckTypes['Stage'] = BacksheetCheckTypes[i]
-    }
    })
 
  }else if(MaterialName == 'Aluminium Frame'){
   IQC.forEach((Material,i)=>{
     Material['CheckType'] = AluminiumCheckTypes[i];
-    for(let key in CheckTypes[i]){
-      CheckTypes['Stage'] = BacksheetCheckTypes[i]
-    }
+  
    })
 
  }else if(MaterialName == 'Sealant/Poating'){
   IQC.forEach((Material,i)=>{
     Material['CheckType'] = SealentCheckTypes[i];
-    CheckTypes[i]['Stage'] = SealentCheckTypes[i];
+
    })
 
  }else if(MaterialName == 'Junction Box'){
   IQC.forEach((Material,i)=>{
     Material['CheckType'] = JunctionBox[i];
-    for(let key in CheckTypes[i]){
-      CheckTypes['Stage'] = BacksheetCheckTypes[i]
-    }
+  
    })
 
  }
 
- console.log(CheckTypes)
+
  function SampleToBeChecked() {
   if (MaterialName == 'Solar Glass') {
     for (let i = 0; i < IQC.length; i++) {
@@ -475,7 +461,7 @@ console.log(IQC)
 
   let Stages = '';
  IQC[0]['CheckTypes'].forEach((check,i)=>{
-  Stages+=check['Packaging']?' Packaging |':'';
+   Stages+=check['Packaging']?' Packaging |':'';
   Stages+=check['Visual']?' Visual |':'';
   Stages+=check['Physical']?' Physical |':'';
   Stages+=check['FrontBus']?' FrontBus |':'';
