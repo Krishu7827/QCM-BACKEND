@@ -434,10 +434,12 @@ const UpdateStatus = async (req, res) => {
       console.log(err)
       return res.status(500).send({ err })
     }
-    res.send({ ExcelData, ApproveData })
+   return res.send({ ExcelData, ApproveData })
+
   } catch (err) {
     console.log(err)
-    res.status(500).send({ err })
+    return res.status(500).send({ err })
+    
   }
 }
 
