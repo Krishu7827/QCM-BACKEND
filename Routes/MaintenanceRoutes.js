@@ -13,7 +13,7 @@ MaintenanceRouter.post('/AddParty',AddParty);
 MaintenanceRouter.post('/AddMachine',AddMachineData);
 
 /**Router To Get Machine Detail By Id */
-MaintenanceRouter.post('/MachineDetailById',MachineDetailById);
+MaintenanceRouter.get('/MachineDetailById',MachineDetailById);
 
 /**Router To Upload Image for Spare Parts */
 MaintenanceRouter.post('/SparePartsImage',upload,UploadImage)

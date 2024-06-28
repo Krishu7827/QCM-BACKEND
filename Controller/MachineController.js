@@ -50,12 +50,11 @@ const MachineDetailById = async (req, res) => {
 
     try {
       
-
       let query =  MachineId?`SELECT MachineModelNumber FROM Machine WHERE MachineId = '${MachineId}';`:`SELECT MachineId, MachineName FROM Machine;`
 
        let data =  await queryAsync(query)
 
-        res.send({ data });
+        res.send(data);
 
     } catch (err) {
 
