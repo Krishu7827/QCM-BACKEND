@@ -20,18 +20,20 @@ const AddSpareParts = async (req, res) => {
         Specification,
         BrandName,
         MachineName,
-        MachineModelNumber,
         Status,
         CurrentUser: CreatedBy } = req.body;
 
 
     const UUID = v4();
-
+    const MachineNameArray = JSON.parse(MachineName)
     try {
-        const query = `INSERT INTO SparePartName(SparPartId ,SparePartName,SpareNumber,Specification,BrandName,MachineName,MachineModelNumber, Status,CreatedBy,CreatedOn) VALUES
-                                     ('${UUID}','${SparePartName}','${SpareNumber}','${Specification}','${BrandName}','${MachineName}','${MachineModelNumber}','${Status}','${CreatedBy}','${getCurrentDateTime()}');`
+        MachineNameArray.forEach(async(MachineName)=>{
+            const query = `INSERT INTO SparePartName(SparPartId ,SparePartName,SpareNumber,Specification,BrandName,MachineName, Status,CreatedBy,CreatedOn) VALUES
+            ('${UUID}','${SparePartName}','${SpareNumber}','${Specification}','${BrandName}','${MachineName}','${Status}','${CreatedBy}','${getCurrentDateTime()}');`
 
-        await queryAsync(query)
+                  await queryAsync(query)
+        });
+       
 
         res.send({ msg: 'Inserted Succesfully!', SparePartId: UUID });
 
@@ -61,7 +63,7 @@ const UploadImage = async (req, res) => {
          let SparePartImage = req.files['SparePartImage'][0].originalname.split('.')
          let DrawingImage =  req.files['DrawingImage'][0].originalname.split('.')
          let SparePartFileFormat = SparePartImage[SparePartImage.length-1];
-         let DrawingFileFormat = DrawingImage[DrawingImage.length-1]
+         let DrawingFileFormat = DrawingImage[DrawingImage.length-1];
 
 
         /** Define the folder path */
