@@ -37,7 +37,7 @@ const AddSpareParts = async (req, res) => {
         MachineNameArray.forEach(async(MachineName)=>{
           let SpareMachineId = v4();
          let query = `INSERT INTO SparePartMachine(SparePartMachineId,SparePartId,MachineId,Status,CreatedBy,CreatedOn) VALUES
-                    ('${SpareMachineId}','${UUID}','${MachineName}','${Status}','${CreatedBy}','${getCurrentDateTime}');`
+                    ('${SpareMachineId}','${UUID}','${MachineName}','${Status}','${CreatedBy}','${getCurrentDateTime()}');`
         
                     await queryAsync(query)
         });
