@@ -26,7 +26,8 @@ const AddSpareParts = async (req, res) => {
 
     const UUID = v4();
     console.log(req.body)
-    const MachineNameArray = JSON.parse(MachineName)
+    console.log('typeeeeeeeeeeeeeeeee',typeof MachineName)
+    const MachineNameArray = MachineName
     try {
         MachineNameArray.forEach(async(MachineName)=>{
             const query = `INSERT INTO SparePartName(SparPartId ,SparePartName,SpareNumber,Specification,BrandName,MachineName, Status,CreatedBy,CreatedOn) VALUES
