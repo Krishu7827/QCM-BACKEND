@@ -37,22 +37,18 @@ const AddSpareParts = async (req, res) => {
         MachineNameArray.forEach(async(MachineName)=>{
           let SpareMachineId = v4();
          let query = `INSERT INTO SparePartMachine(SparePartMachineId,SparePartId,MachineId,Status,CreatedBy,CreatedOn) VALUES
-                    ('${SpareMachineId}','${UUID}','${MachineName}','${Status}','${CreatedBy}','${getCurrentDateTime}');`
+                    ('${SpareMachineId}','${UUID}','${MachineName}','${Status}','${CreatedBy}','${getCurrentDateTime()}');`
         
                     await queryAsync(query)
         });
           
  
-        res.send({ msg: 'Inserted Succesfully!', SparePartId: UUID });
+      return  res.send({ msg: 'Inserted Succesfully!', SparePartId: UUID });
 
     } catch (err) {
-       let query1 = `DELETE FROM SparePartName WHERE SparPartId = '${UUID}';`
-       let query2 = `DELETE FROM SparePartMachine WHERE SparePartId = '${UUID}';`
-       await queryAsync(query1);
-       await queryAsync(query2);
 
         console.log(err)
-        res.status(400).send({ err })
+     return   res.status(400).send({ err })
 
     }
 
