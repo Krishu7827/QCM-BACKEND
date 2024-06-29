@@ -299,8 +299,7 @@ app.listen(PORT, async () => {
   try {
     console.log((await chalk).default.green('server is running'));
     console.log((await chalk).default.yellow('Database is connecting....'))
-  
-    dbConn
+    dbConn;
   } catch (err) {
     console.log(err)
   }
