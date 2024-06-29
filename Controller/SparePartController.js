@@ -25,6 +25,7 @@ const AddSpareParts = async (req, res) => {
 
 
     const UUID = v4();
+    console.log(req.body)
     const MachineNameArray = JSON.parse(MachineName)
     try {
         MachineNameArray.forEach(async(MachineName)=>{
@@ -33,8 +34,8 @@ const AddSpareParts = async (req, res) => {
 
                   await queryAsync(query)
         });
-       
-
+          
+ 
         res.send({ msg: 'Inserted Succesfully!', SparePartId: UUID });
 
     } catch (err) {
