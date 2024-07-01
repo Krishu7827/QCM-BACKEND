@@ -1,12 +1,12 @@
 const mysql = require('mysql')
 const chalk = import('chalk')
-
+require('dotenv').config()
 
 const dbConn = mysql.createPool({
-    host: '93.127.167.249',
-    user: 'admin',
-    password: 'QCMDev@123',
-    database: 'QCMDev',
+    host: process.env.Host,
+    user: process.env.User,
+    password: process.env.Password,
+    database: process.env.Database,
        })
     
   dbConn.getConnection(async(error)=> { 
