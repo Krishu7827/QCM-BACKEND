@@ -274,9 +274,20 @@ const GetProfile = async(req,res)=>{
 }
 
 const Login = async (req, res) => {
-  const { loginid, password } = req.body
+  const { loginid, password, department } = req.body
 
-  const query = `SELECT Password FROM Person Where LoginID = '${loginid}' AND Status = 'Active'`
+ let getDeparmentQuery = `SELECT D.Department FROM Person P
+JOIN Department D ON D.DepartmentID = P.Department
+WHERE P.LoginID = '${loginid}';`;
+
+try{
+  let getDeparment = await queryAsync(getDeparmentQuery);
+
+  if(department == 'Machine Maintenance' && getDeparment[0]['Department']!=='Machine Maintenance'){
+  
+        return res.status(401).send({ msg: 'You are Not registered in this department' });
+  }
+  const query = `SELECT Password FROM Person Where LoginID = '${loginid}' AND Status = 'Active';`;
   try {
     const hashedPassword = await new Promise((resolve, reject) => {
       dbConn.query(query, (err, result) => {
@@ -308,19 +319,23 @@ const Login = async (req, res) => {
         let EnCodeData = PersonData[0];
         const token = JWT.sign({ PersonID: EnCodeData['PersonID'], Designation: EnCodeData['Designation'], Department: EnCodeData['Department'] }, process.env.SecretKey)
 
-        res.send({ status: true, msg: 'Login Successfull', token, PersonData })
+       return res.send({ status: true, msg: 'Login Successfull', token, PersonData })
       } else {
-        res.status(400).send({ msg: 'Wrong Password' })
+       return res.status(400).send({ msg: 'Wrong Password' })
       }
     } catch (err) {
       console.log(err)
-      res.status(400).send({ msg: 'Internal Error' })
+     return res.status(400).send({ msg: 'Internal Error' })
     }
 
   } catch (err) {
     console.log(err)
-    res.status(400).send({ msg: 'Wrong EmployeeId' });
+  return  res.status(400).send({ msg: 'Wrong EmployeeId' });
   }
+}catch(err){
+  console.log(err)
+  return  res.status(400).send({ msg: 'Wrong EmployeeId' });
+}
 
 }
 
