@@ -1,5 +1,5 @@
 const { v4: uuidv4, v4 } = require('uuid');
-const {getCurrentDateTime} = require('../Utilis/MaintenanceUtilis')
+const { getCurrentDateTime } = require('../Utilis/MaintenanceUtilis')
 const util = require('util');
 const fs = require('fs');
 const Path = require('path');
@@ -49,10 +49,10 @@ const MachineDetailById = async (req, res) => {
 
 
     try {
-      
-      let query =  MachineId?`SELECT MachineModelNumber FROM Machine WHERE MachineId = '${MachineId}';`:`SELECT MachineId, MachineName FROM Machine;`
 
-       let data =  await queryAsync(query)
+        let query = MachineId ? `SELECT MachineModelNumber FROM Machine WHERE MachineId = '${MachineId}';` : `SELECT MachineId, MachineName FROM Machine;`
+
+        let data = await queryAsync(query)
 
         res.send(data);
 
@@ -67,7 +67,25 @@ const MachineDetailById = async (req, res) => {
 
 }
 
+const GetMachineModelNumberById = async (req, res) => {
+    const { MachineId } = req.body;
 
 
+    try {
 
-module.exports = { AddMachineData, MachineDetailById }
+        let query = `SELECT MachineModelNumber FROM Machine WHERE MachineId = '${MachineId}';`;
+
+        let data = await queryAsync(query)
+
+        res.send(data);
+
+    } catch (err) {
+
+        console.log(err)
+        res.status(400).send({ err })
+
+    }
+}
+
+
+module.exports = { AddMachineData, MachineDetailById, GetMachineModelNumberById }
