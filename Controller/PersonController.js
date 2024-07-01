@@ -36,52 +36,52 @@ const PersonRegister = async (req, res) => {
         })
       })
       const Status = IsActive;
-      if (!Status.length) { 
-      const query = `CALL PersonRegister('${personid}','${employeeid}','${fullname}','${loginid}','${PlainPassword}', '${joblocation}','krishukumar7827@gmail.com','${department}','','${designation}','${getCurrentDateTime()}','${currentuser}' )`
+      if (!Status.length) {
+        const query = `CALL PersonRegister('${personid}','${employeeid}','${fullname}','${loginid}','${PlainPassword}', '${joblocation}','krishukumar7827@gmail.com','${department}','','${designation}','${getCurrentDateTime()}','${currentuser}' )`
 
-      const data = await new Promise((resolve, reject) => {
-        dbConn.query(query, (err, result) => {
-          if (err) {
-            reject(err)
-          } else {
+        const data = await new Promise((resolve, reject) => {
+          dbConn.query(query, (err, result) => {
+            if (err) {
+              reject(err)
+            } else {
 
-            resolve(result)
-          }
+              resolve(result)
+            }
+          })
         })
-      })
-      //    /** to Find Designation */
-      //     const DesignationQuery = `SELECT Designation FROM Designation WHERE DesignationID = '${designation}'`
-      //     const DesignationName = await new Promise((resolve,reject)=>{
-      //       dbConn.query(DesignationQuery,(err,result)=>{
-      //          if(err){
-      //             reject(err)
-      //          }else{
+        //    /** to Find Designation */
+        //     const DesignationQuery = `SELECT Designation FROM Designation WHERE DesignationID = '${designation}'`
+        //     const DesignationName = await new Promise((resolve,reject)=>{
+        //       dbConn.query(DesignationQuery,(err,result)=>{
+        //          if(err){
+        //             reject(err)
+        //          }else{
 
-      //            resolve(result)
-      //          }
-      //       })
-      //  })
+        //            resolve(result)
+        //          }
+        //       })
+        //  })
 
 
-      /** to Find Department */
-      const DepartmentQuery = `SELECT Department FROM Department WHERE DepartmentID = '${department}'`
-      const DepartmentName = await new Promise((resolve, reject) => {
-        dbConn.query(DepartmentQuery, (err, result) => {
-          if (err) {
-            reject(err)
-          } else {
+        /** to Find Department */
+        const DepartmentQuery = `SELECT Department FROM Department WHERE DepartmentID = '${department}'`
+        const DepartmentName = await new Promise((resolve, reject) => {
+          dbConn.query(DepartmentQuery, (err, result) => {
+            if (err) {
+              reject(err)
+            } else {
 
-            resolve(result)
-          }
+              resolve(result)
+            }
+          })
         })
-      })
-      /** Sending A Email to Admin */
-      await transport.sendMail({
-        from: 'iqc.gautamsolar@gmail.com',
-        cc: 'bhanu.galo@gmail.com',
-        to: 'krishukumar535@gmail.com',
-        subject: 'Enrollment in Gautam Solar Private Limited',
-        html: `<div style="position: relative; padding: 5px;">
+        /** Sending A Email to Admin */
+        await transport.sendMail({
+          from: 'iqc.gautamsolar@gmail.com',
+          cc: 'bhanu.galo@gmail.com',
+          to: 'krishukumar535@gmail.com',
+          subject: 'Enrollment in Gautam Solar Private Limited',
+          html: `<div style="position: relative; padding: 5px;">
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://galo.co.in/wp-content/uploads/2024/01/Galo-Energy-Logo-06.png'); background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0.3; z-index: -1;"></div>
         <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px;">
           <h3 style="color: #2f4f4f;">Welcome to Gautam Solar Private Limited!</h3>
@@ -100,56 +100,56 @@ const PersonRegister = async (req, res) => {
           <p style="font-size: 16px;"><strong>Gautam Solar QCM Team</strong></p>
         </div>
       </div>`
-      })
-
-      res.send({ msg: 'Employee Registered Succesfully', data })
-
-    }else if(Status[0]['Status']!=='Active'){
-      const query = `CALL PersonRegister('${personid}','${employeeid}','${fullname}','${loginid}','${PlainPassword}', '${joblocation}','krishukumar7827@gmail.com','${department}','','${designation}','${getCurrentDateTime()}','${currentuser}' )`
-
-      const data = await new Promise((resolve, reject) => {
-        dbConn.query(query, (err, result) => {
-          if (err) {
-            reject(err)
-          } else {
-
-            resolve(result)
-          }
         })
-      })
-      //    /** to Find Designation */
-      //     const DesignationQuery = `SELECT Designation FROM Designation WHERE DesignationID = '${designation}'`
-      //     const DesignationName = await new Promise((resolve,reject)=>{
-      //       dbConn.query(DesignationQuery,(err,result)=>{
-      //          if(err){
-      //             reject(err)
-      //          }else{
 
-      //            resolve(result)
-      //          }
-      //       })
-      //  })
+        res.send({ msg: 'Employee Registered Succesfully', data })
 
+      } else if (Status[0]['Status'] !== 'Active') {
+        const query = `CALL PersonRegister('${personid}','${employeeid}','${fullname}','${loginid}','${PlainPassword}', '${joblocation}','krishukumar7827@gmail.com','${department}','','${designation}','${getCurrentDateTime()}','${currentuser}' )`
 
-      /** to Find Department */
-      const DepartmentQuery = `SELECT Department FROM Department WHERE DepartmentID = '${department}'`
-      const DepartmentName = await new Promise((resolve, reject) => {
-        dbConn.query(DepartmentQuery, (err, result) => {
-          if (err) {
-            reject(err)
-          } else {
+        const data = await new Promise((resolve, reject) => {
+          dbConn.query(query, (err, result) => {
+            if (err) {
+              reject(err)
+            } else {
 
-            resolve(result)
-          }
+              resolve(result)
+            }
+          })
         })
-      })
-      /** Sending A Email to Admin */
-      await transport.sendMail({
-        from: 'bhanu.galo@gmail.com',
-        cc: 'bhanu.galo@gmail.com',
-        to: 'quality@gautamsolar.com',
-        subject: 'Enrollment in Gautam Solar Private Limited',
-        html: `<div style="position: relative; padding: 5px;">
+        //    /** to Find Designation */
+        //     const DesignationQuery = `SELECT Designation FROM Designation WHERE DesignationID = '${designation}'`
+        //     const DesignationName = await new Promise((resolve,reject)=>{
+        //       dbConn.query(DesignationQuery,(err,result)=>{
+        //          if(err){
+        //             reject(err)
+        //          }else{
+
+        //            resolve(result)
+        //          }
+        //       })
+        //  })
+
+
+        /** to Find Department */
+        const DepartmentQuery = `SELECT Department FROM Department WHERE DepartmentID = '${department}'`
+        const DepartmentName = await new Promise((resolve, reject) => {
+          dbConn.query(DepartmentQuery, (err, result) => {
+            if (err) {
+              reject(err)
+            } else {
+
+              resolve(result)
+            }
+          })
+        })
+        /** Sending A Email to Admin */
+        await transport.sendMail({
+          from: 'bhanu.galo@gmail.com',
+          cc: 'bhanu.galo@gmail.com',
+          to: 'quality@gautamsolar.com',
+          subject: 'Enrollment in Gautam Solar Private Limited',
+          html: `<div style="position: relative; padding: 5px;">
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://galo.co.in/wp-content/uploads/2024/01/Galo-Energy-Logo-06.png'); background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0.3; z-index: -1;"></div>
         <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px;">
           <h3 style="color: #2f4f4f;">Welcome to Gautam Solar Private Limited!</h3>
@@ -168,12 +168,12 @@ const PersonRegister = async (req, res) => {
           <p style="font-size: 16px;"><strong>Gautam Solar QCM Team</strong></p>
         </div>
       </div>`
-      })
+        })
 
-      res.send({ msg: 'Employee Registered Succesfully', data })
-    }else{
-      res.status(400).send({msg:'LoginId is already exists'})
-    }
+        res.send({ msg: 'Employee Registered Succesfully', data })
+      } else {
+        res.status(400).send({ msg: 'LoginId is already exists' })
+      }
     } catch (err) {
       console.log(err)
       res.status(500).send({ err })
@@ -220,95 +220,83 @@ const PersonRegister = async (req, res) => {
 /** Controller to Upload Profile Image */
 const UploadProfile = async (req, res) => {
   const { personid } = req.body;
-  if(req.file.size){
+  if (req.file.size) {
     /** making file in IPQC-Pdf-Folder*/
     try {
-       // Get the file buffer and the file format
-       const fileBuffer = req.file.buffer;
-      
-       // Define the folder path
-       const folderPath = Path.join('Employee-Profile-Folder');
-  
-       // Create the folder if it doesn't exist
-       if (!fs.existsSync(folderPath)) {
+      // Get the file buffer and the file format
+      const fileBuffer = req.file.buffer;
+
+      // Define the folder path
+      const folderPath = Path.join('Employee-Profile-Folder');
+
+      // Create the folder if it doesn't exist
+      if (!fs.existsSync(folderPath)) {
         console.log(folderPath)
-           fs.mkdirSync(folderPath, { recursive: true });
-       }
-       
-       // Define the file path, including the desired file name and format
-       const fileName = `${personid}${req.file.originalname}`;
-       const filePath = Path.join(folderPath, fileName);
-  
-       // Save the file buffer to the specified file path
-    fs.writeFileSync(filePath, fileBuffer);
-    const query = `UPDATE Person SET ProfileImg = 'http://srv515471.hstgr.cloud:${PORT}/Employee/Profile/${fileName}' WHERE PersonID = '${personid}'`;
-  const update = await queryAsync(query);
-  
-  // Send success response with the file URL
-  res.send({ msg: 'Data inserted successfully!', URL: `http://srv515471.hstgr.cloud:${PORT}/Employee/Profile/${fileName}` });
+        fs.mkdirSync(folderPath, { recursive: true });
+      }
+
+      // Define the file path, including the desired file name and format
+      const fileName = `${personid}${req.file.originalname}`;
+      const filePath = Path.join(folderPath, fileName);
+
+      // Save the file buffer to the specified file path
+      fs.writeFileSync(filePath, fileBuffer);
+      const query = `UPDATE Person SET ProfileImg = 'http://srv515471.hstgr.cloud:${PORT}/Employee/Profile/${fileName}' WHERE PersonID = '${personid}'`;
+      const update = await queryAsync(query);
+
+      // Send success response with the file URL
+      res.send({ msg: 'Data inserted successfully!', URL: `http://srv515471.hstgr.cloud:${PORT}/Employee/Profile/${fileName}` });
     } catch (err) {
       console.log(err);
       res.status(401).send(err);
     }
-  }else{
-    res.status(401).send({status:false,'err':'file is empty'})
+  } else {
+    res.status(401).send({ status: false, 'err': 'file is empty' })
   }
 }
 
 
-const GetProfile = async(req,res)=>{
+const GetProfile = async (req, res) => {
   const filename = req.params.filename;
-   // Define the absolute path to the IPQC-Pdf-Folder directory
-   const pdfFolderPath = Path.resolve('Employee-Profile-Folder');
+  // Define the absolute path to the IPQC-Pdf-Folder directory
+  const pdfFolderPath = Path.resolve('Employee-Profile-Folder');
 
-   // Construct the full file path to the requested file
-   const filePath = Path.join(pdfFolderPath, filename);
+  // Construct the full file path to the requested file
+  const filePath = Path.join(pdfFolderPath, filename);
 
-   // Send the file to the client
-   res.sendFile(filePath, (err) => {
-       if (err) {
-           console.error('Error sending file:', err);
-           res.status(404).send({ error: 'File not found' });
-       }
-   });
+  // Send the file to the client
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      console.error('Error sending file:', err);
+      res.status(404).send({ error: 'File not found' });
+    }
+  });
 }
 
 const Login = async (req, res) => {
   const { loginid, password, department } = req.body
 
- let getDeparmentQuery = `SELECT D.Department FROM Person P
+  let getDeparmentQuery = `SELECT D.Department FROM Person P
 JOIN Department D ON D.DepartmentID = P.Department
 WHERE P.LoginID = '${loginid}';`;
 
-try{
-  let getDeparment = await queryAsync(getDeparmentQuery);
-
-  if(department == 'Machine Maintenance' && getDeparment[0]['Department']!=='Machine Maintenance'){
-  
-        return res.status(401).send({ msg: 'You are Not registered in this department' });
-  }
-  const query = `SELECT Password FROM Person Where LoginID = '${loginid}' AND Status = 'Active';`;
   try {
-    const hashedPassword = await new Promise((resolve, reject) => {
-      dbConn.query(query, (err, result) => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(result)
-        }
-      })
-    })
-    try {
-      console.log(hashedPassword)
-      if (hashedPassword[0].Password == password) {
+    let getDeparment = await queryAsync(getDeparmentQuery);
 
-        const getdata = `SELECT p.PersonID,p.ProfileImg,p.Name,d1.Designation,d.Department FROM Person p
-      JOIN Department d ON p.Department = d.DepartmentID
-      JOIN Designation d1 ON p.Desgination = d1.DesignationID
-      WHERE p.LoginID = '${loginid}' AND Status = 'Active'; `
+    if (department == 'Machine Maintenance' && getDeparment[0]['Department'] !== 'Machine Maintenance') {
 
-        const PersonData = await new Promise((resolve, reject) => {
-          dbConn.query(getdata, (err, result) => {
+      return res.status(401).send({ msg: 'You are Not registered in this department' });
+
+    } else if (!department && getDeparment[0]['Department'] == 'Machine Maintenance') {
+
+      return res.status(401).send({ msg: 'You are Not registered in this department' });
+
+    } else {
+      const query = `SELECT Password FROM Person Where LoginID = '${loginid}' AND Status = 'Active';`;
+
+      try {
+        const hashedPassword = await new Promise((resolve, reject) => {
+          dbConn.query(query, (err, result) => {
             if (err) {
               reject(err)
             } else {
@@ -316,26 +304,46 @@ try{
             }
           })
         })
-        let EnCodeData = PersonData[0];
-        const token = JWT.sign({ PersonID: EnCodeData['PersonID'], Designation: EnCodeData['Designation'], Department: EnCodeData['Department'] }, process.env.SecretKey)
+        try {
+          console.log(hashedPassword)
+          if (hashedPassword[0].Password == password) {
 
-       return res.send({ status: true, msg: 'Login Successfull', token, PersonData })
-      } else {
-       return res.status(400).send({ msg: 'Wrong Password' })
+            const getdata = `SELECT p.PersonID,p.ProfileImg,p.Name,d1.Designation,d.Department FROM Person p
+      JOIN Department d ON p.Department = d.DepartmentID
+      JOIN Designation d1 ON p.Desgination = d1.DesignationID
+      WHERE p.LoginID = '${loginid}' AND Status = 'Active'; `
+
+            const PersonData = await new Promise((resolve, reject) => {
+              dbConn.query(getdata, (err, result) => {
+                if (err) {
+                  reject(err)
+                } else {
+                  resolve(result)
+                }
+              })
+            })
+            let EnCodeData = PersonData[0];
+            const token = JWT.sign({ PersonID: EnCodeData['PersonID'], Designation: EnCodeData['Designation'], Department: EnCodeData['Department'] }, process.env.SecretKey)
+
+            return res.send({ status: true, msg: 'Login Successfull', token, PersonData })
+          } else {
+            return res.status(400).send({ msg: 'Wrong Password' })
+          }
+        } catch (err) {
+          console.log(err)
+          return res.status(400).send({ msg: 'Internal Error' })
+        }
+
+      } catch (err) {
+        console.log(err)
+        return res.status(400).send({ msg: 'Wrong EmployeeId' });
       }
-    } catch (err) {
-      console.log(err)
-     return res.status(400).send({ msg: 'Internal Error' })
     }
-
   } catch (err) {
     console.log(err)
-  return  res.status(400).send({ msg: 'Wrong EmployeeId' });
+    return res.status(400).send({ msg: 'Wrong EmployeeId' });
   }
-}catch(err){
-  console.log(err)
-  return  res.status(400).send({ msg: 'Wrong EmployeeId' });
-}
+
 
 }
 
@@ -419,4 +427,4 @@ const UpdateStatus = async (req, res) => {
 
 
 
-module.exports = { PersonRegister, UploadProfile, Login, EmployeeList, GetSpecificEmployee, UpdateStatus,GetProfile }
+module.exports = { PersonRegister, UploadProfile, Login, EmployeeList, GetSpecificEmployee, UpdateStatus, GetProfile }
