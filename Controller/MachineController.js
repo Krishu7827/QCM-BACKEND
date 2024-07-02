@@ -25,6 +25,14 @@ const AddMachineData = async (req, res) => {
     const UUID = v4();
 
     try {
+        let getMachineNameQuery = `SELECT MachineName FROM Machine WHERE MachineName = '${MachineName}';`
+      let getMachineName = await queryAsync(getMachineNameQuery);
+
+      if(getMachineName.length){
+
+        return res.status(409).send({msg:'Duplicate Machine Name'});
+      }
+      
         let getMachineModelNumberQuery = `SELECT MachineModelNumber FROM Machine WHERE MachineModelNumber = '${MachineModelNumber}';`
       let getMachineModelNumbers = await queryAsync(getMachineModelNumberQuery);
 
@@ -33,13 +41,6 @@ const AddMachineData = async (req, res) => {
         return res.status(409).send({msg:'Duplicate Machine Model Number'})
       }
     
-      let getMachineNameQuery = `SELECT MachineName FROM Machine WHERE MachineName = '${MachineName}';`
-      let getMachineName = await queryAsync(getMachineNameQuery);
-
-      if(getMachineName.length){
-
-        return res.status(409).send({msg:'Duplicate Machine Name'});
-      }
         const query = `INSERT INTO Machine(MachineId,MachineName,MachineBrandName,MachineModelNumber,MachineNumber,Status,CreatedBy,CreatedOn) VALUES
                                      ('${UUID}','${MachineName}','${MachineBrandName}','${MachineModelNumber}','${MachineNumber}','${Status}','${CreatedBy}','${getCurrentDateTime()}');`
 
