@@ -22,7 +22,7 @@ const AddParty = async (req, res) => {
         let getPartyNameQuery = `SELECT PartyName FROM PartyName WHERE PartyName = '${PartyName}';`
         let getPartyName = await queryAsync(getPartyNameQuery);
   
-        if(!getPartyName.length){
+        if(getPartyName.length){
   
           return res.status(409).send({msg:'Duplicate Party Name'})
         }

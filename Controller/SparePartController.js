@@ -33,11 +33,11 @@ const AddSpareParts = async (req, res) => {
       let getSpareModelNumberQuery = `SELECT SpareNumber FROM SparePartName WHERE SpareNumber = '${SpareNumber}';`
       let getSpareModelNumbers = await queryAsync(getSpareModelNumberQuery);
 
-      if(!getSpareModelNumbers.length){
+      if(getSpareModelNumbers.length){
 
         return res.status(409).send({msg:'Duplicate Spare Model Number'})
       }
-      
+
       const query = `INSERT INTO SparePartName(SparPartId ,SparePartName,SpareNumber,Specification,BrandName,Status,CreatedBy,MasterSparePartName,CreatedOn) VALUES
             ('${UUID}','${SparePartName}','${SpareNumber}','${Specification}','${BrandName}','${Status}','${CreatedBy}','${MasterSparePartName}','${getCurrentDateTime()}');`
 

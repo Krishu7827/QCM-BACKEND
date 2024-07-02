@@ -28,7 +28,7 @@ const AddMachineData = async (req, res) => {
         let getMachineModelNumberQuery = `SELECT MachineModelNumber FROM Machine WHERE MachineModelNumber = '${MachineModelNumber}';`
       let getMachineModelNumbers = await queryAsync(getMachineModelNumberQuery);
 
-      if(!getMachineModelNumbers.length){
+      if(getMachineModelNumbers.length){
 
         return res.status(409).send({msg:'Duplicate Machine Model Number'})
       }
@@ -36,7 +36,7 @@ const AddMachineData = async (req, res) => {
       let getMachineNameQuery = `SELECT MachineName FROM Machine WHERE MachineName = '${MachineName}';`
       let getMachineName = await queryAsync(getMachineNameQuery);
 
-      if(!getMachineName.length){
+      if(getMachineName.length){
 
         return res.status(409).send({msg:'Duplicate Machine Name'});
       }
