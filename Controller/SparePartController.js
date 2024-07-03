@@ -146,7 +146,7 @@ const UploadImage = async (req, res) => {
        await queryAsync(query);
        return res.send({ msg: 'Data Inserted SuccesFully !' })
 
-    }else if(req.files['SparePartImage']){
+    }else if(req.files['DrawingImage']){
 
       const DrawingImageBuffer = req.files['DrawingImage'][0].buffer;
       let DrawingImage =  req.files['DrawingImage'][0].originalname.split('.');
