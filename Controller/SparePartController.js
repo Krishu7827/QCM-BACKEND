@@ -73,6 +73,8 @@ const UploadImage = async (req, res) => {
     /** Uploading PDF in Employee-Profile-Folder */
       try {
         /** Get the file buffer and the file format */
+        console.log(req.files['SparePartImage'])
+        console.log(req.files['DrawingImage'])
         const SparePartImageBuffer = req.files['SparePartImage'][0].buffer;
         const DrawingImageBuffer = req.files['DrawingImage'][0].buffer;
          let SparePartImage = req.files['SparePartImage'][0].originalname.split('.')
