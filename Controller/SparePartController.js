@@ -67,7 +67,7 @@ const AddSpareParts = async (req, res) => {
 
 
 const UploadImage = async (req, res) => {
-
+   console.log(req.files)
     const { SparePartId } = req.body;
 
     /** Uploading PDF in Employee-Profile-Folder */
