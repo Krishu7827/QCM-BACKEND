@@ -4,6 +4,7 @@ const util = require('util');
 const fs = require('fs');
 const Path = require('path');
 const { dbConn } = require('../db.config/db.config');
+const { json } = require('express');
 require('dotenv').config();
 const PORT = process.env.PORT || 8080;
 
@@ -117,7 +118,7 @@ const UploadImage = async (req, res) => {
         console.log(ImagesURL)
         const query = `UPDATE SparePartName id
         set id.SparePartDrawingImageURL = 'http://srv515471.hstgr.cloud:${PORT}/Maintenance/File/${COCFileName}',
-         id.SparePartImageURL = '[${ImagesURL}]'
+         id.SparePartImageURL = ${JSON.stringify(ImagesURL)}
        WHERE id.SparPartId = '${SparePartId}';`;
 
        let data = await new Promise((resolve, rejects) => {
@@ -204,20 +205,24 @@ const UploadImage = async (req, res) => {
 
 
   const GetImage = async(req,res)=>{
-    const filename = req.params.filename;
-     /** Define the absolute path to the IPQC-Pdf-Folder directory */
-     const pdfFolderPath = Path.resolve('SpartPartImage');
+    // const filename = req.params.filename;
+    //  /** Define the absolute path to the IPQC-Pdf-Folder directory */
+    //  const pdfFolderPath = Path.resolve('SpartPartImage');
   
-     /** Construct the full file path to the requested file */
-     const filePath = Path.join(pdfFolderPath, filename);
+    //  /** Construct the full file path to the requested file */
+    //  const filePath = Path.join(pdfFolderPath, filename);
   
-     /** Send the file to the client */
-     res.sendFile(filePath, (err) => {
-         if (err) {
-             console.error('Error sending file:', err);
-             res.status(404).send({ error: 'File not found' });
-         }
-     });
+    //  /** Send the file to the client */
+    //  res.sendFile(filePath, (err) => {
+    //      if (err) {
+    //          console.error('Error sending file:', err);
+    //          res.status(404).send({ error: 'File not found' });
+    //      }
+    //  });
+
+    let data = await queryAsync(`SELECT SparePartImageURL FROM SparePartName WHERE SparePartName = 'test1267';`)
+
+    res.send(JSON.parse(data[0]['SparePartImageURL']))
   }
 
 module.exports = {AddSpareParts, UploadImage, AddSpareParts, GetImage};
