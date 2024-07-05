@@ -25,8 +25,7 @@ MaintenanceRouter.post('/SparePartsImage',upload,UploadImage)
 MaintenanceRouter.post('/AddSparePart',AddSpareParts)
 
 // /**Router To Get Upload FIle FROM Spare Parts */
-// MaintenanceRouter.get('/File/:filename',GetImage)
+MaintenanceRouter.get('/File/:filename',GetImage)
 
-MaintenanceRouter.get('/File',GetImage);
 
 module.exports = {MaintenanceRouter}

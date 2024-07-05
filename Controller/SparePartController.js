@@ -134,10 +134,6 @@ const UploadImage = async (req, res) => {
 
     }else if(req.files['SparePartImage']){
 
-      const SparePartImageBuffer = req.files['SparePartImage'][0].buffer;
-      let SparePartImage = req.files['SparePartImage'][0].originalname.split('.');
-      let SparePartFileFormat = SparePartImage[SparePartImage.length-1];
-
        /** Define the folder path */
        const folderPath = Path.join('SpartPartImage');
   
@@ -146,16 +142,26 @@ const UploadImage = async (req, res) => {
          fs.mkdirSync(folderPath, { recursive: true });
        }
  
-       /** Define the file path, including the desired file name and format */
-       const InvoiceFileName = `${SparePartId}_Spart.${SparePartFileFormat}`;
+       let SparePartImages = req.files['SparePartImage']
+          
+       let ImagesURL =  SparePartImages.map((image)=>{
+            const UUID = v4()
+        const SparePartImageBuffer = image.buffer;
+        let SparePartImage = image.originalname.split('.');
+        let SparePartFileFormat = SparePartImage[SparePartImage.length-1];
 
-       const InvoceFilePath = Path.join(folderPath, InvoiceFileName);
-        
-        /** Save the file buffer to the specified file path */
-        fs.writeFileSync(InvoceFilePath, SparePartImageBuffer);
+        /** Define the file path, including the desired file name and format */
+        const InvoiceFileName = `${UUID}_SparePart.${SparePartFileFormat}`;
+        const InvoceFilePath = Path.join(folderPath, InvoiceFileName);
+
+         /** Save the file buffer to the specified file path */
+         fs.writeFileSync(InvoceFilePath, SparePartImageBuffer);
+
+         return `http://srv515471.hstgr.cloud:${PORT}/Maintenance/File/${InvoiceFileName}`;
+        })
         
         const query = `UPDATE SparePartName id
-        set id.SparePartImageURL = 'http://srv515471.hstgr.cloud:${PORT}/Maintenance/File/${InvoiceFileName}'
+        set id.SparePartImageURL = '${JSON.stringify(ImagesURL)}'
        WHERE id.SparPartId = '${SparePartId}';`;
 
        await queryAsync(query);
@@ -205,24 +211,20 @@ const UploadImage = async (req, res) => {
 
 
   const GetImage = async(req,res)=>{
-    // const filename = req.params.filename;
-    //  /** Define the absolute path to the IPQC-Pdf-Folder directory */
-    //  const pdfFolderPath = Path.resolve('SpartPartImage');
+    const filename = req.params.filename;
+     /** Define the absolute path to the IPQC-Pdf-Folder directory */
+     const pdfFolderPath = Path.resolve('SpartPartImage');
   
-    //  /** Construct the full file path to the requested file */
-    //  const filePath = Path.join(pdfFolderPath, filename);
+     /** Construct the full file path to the requested file */
+     const filePath = Path.join(pdfFolderPath, filename);
   
-    //  /** Send the file to the client */
-    //  res.sendFile(filePath, (err) => {
-    //      if (err) {
-    //          console.error('Error sending file:', err);
-    //          res.status(404).send({ error: 'File not found' });
-    //      }
-    //  });
-
-    let data = await queryAsync(`SELECT SparePartImageURL FROM SparePartName WHERE SparePartName = 'test1267';`)
-
-    res.send(JSON.parse(data[0]['SparePartImageURL']))
+     /** Send the file to the client */
+     res.sendFile(filePath, (err) => {
+         if (err) {
+             console.error('Error sending file:', err);
+             res.status(404).send({ error: 'File not found' });
+         }
+     });
   }
 
 module.exports = {AddSpareParts, UploadImage, AddSpareParts, GetImage};
