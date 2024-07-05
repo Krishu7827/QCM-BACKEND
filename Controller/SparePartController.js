@@ -99,13 +99,13 @@ const UploadImage = async (req, res) => {
         let SparePartImages = req.files['SparePartImage']
           
        let ImagesURL =  SparePartImages.map((image)=>{
-            
+            const UUID = v4()
         const SparePartImageBuffer = image.buffer;
         let SparePartImage = image.originalname.split('.');
         let SparePartFileFormat = SparePartImage[SparePartImage.length-1];
 
         /** Define the file path, including the desired file name and format */
-        const InvoiceFileName = `${SparePartId}_Spart_${image.originalname}.${SparePartFileFormat}`;
+        const InvoiceFileName = `${UUID}_SparePart.${SparePartFileFormat}`;
         const InvoceFilePath = Path.join(folderPath, InvoiceFileName);
 
          /** Save the file buffer to the specified file path */
