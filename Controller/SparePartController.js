@@ -69,16 +69,14 @@ const AddSpareParts = async (req, res) => {
 const UploadImage = async (req, res) => {
    console.log(req.files)
     const { SparePartId } = req.body;
-
+    
     /** Uploading PDF in Employee-Profile-Folder */
       try {
         /** Get the file buffer and the file format */
         if(req.files['SparePartImage'] && req.files['DrawingImage']){
-        const SparePartImageBuffer = req.files['SparePartImage'][0].buffer;
+
         const DrawingImageBuffer = req.files['DrawingImage'][0].buffer;
-         let SparePartImage = req.files['SparePartImage'][0].originalname.split('.')
-         let DrawingImage =  req.files['DrawingImage'][0].originalname.split('.')
-         let SparePartFileFormat = SparePartImage[SparePartImage.length-1];
+         let DrawingImage =  req.files['DrawingImage'][0].originalname.split('.');
          let DrawingFileFormat = DrawingImage[DrawingImage.length-1];
 
 
@@ -91,19 +89,35 @@ const UploadImage = async (req, res) => {
         }
   
         /** Define the file path, including the desired file name and format */
-        const InvoiceFileName = `${SparePartId}_Spart.${SparePartFileFormat}`;
         const COCFileName = `${SparePartId}_Drawing.${DrawingFileFormat}`;
 
-        const InvoceFilePath = Path.join(folderPath, InvoiceFileName);
         const COCFilePath = Path.join(folderPath,COCFileName);
   
         /** Save the file buffer to the specified file path */
-        fs.writeFileSync(InvoceFilePath, SparePartImageBuffer);
         fs.writeFileSync(COCFilePath, DrawingImageBuffer);
         
+        let SparePartImages = req.files['SparePartImage']
+          
+       let ImagesURL =  SparePartImages.map((image)=>{
+            
+        const SparePartImageBuffer = image.buffer;
+        let SparePartImage = image.originalname.split('.');
+        let SparePartFileFormat = SparePartImage[SparePartImage.length-1];
+
+        /** Define the file path, including the desired file name and format */
+        const InvoiceFileName = `${SparePartId}_Spart_${image.originalname}.${SparePartFileFormat}`;
+        const InvoceFilePath = Path.join(folderPath, InvoiceFileName);
+
+         /** Save the file buffer to the specified file path */
+         fs.writeFileSync(InvoceFilePath, SparePartImageBuffer);
+
+         return `http://srv515471.hstgr.cloud:${PORT}/Maintenance/File/${InvoiceFileName}`;
+        })
+        
+        console.log(ImagesURL)
         const query = `UPDATE SparePartName id
         set id.SparePartDrawingImageURL = 'http://srv515471.hstgr.cloud:${PORT}/Maintenance/File/${COCFileName}',
-         id.SparePartImageURL = 'http://srv515471.hstgr.cloud:${PORT}/Maintenance/File/${InvoiceFileName}'
+         id.SparePartImageURL = '${ImagesURL}'
        WHERE id.SparPartId = '${SparePartId}';`;
 
        let data = await new Promise((resolve, rejects) => {
