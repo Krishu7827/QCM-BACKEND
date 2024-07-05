@@ -233,26 +233,32 @@ const GetImage = async (req, res) => {
 
 const getEquivalent = async (req, res) => {
   const { SparePartName, MachineName } = req.body;
-  query = `SELECT SP.SparePartName, SP.SpareNumber FROM SparePartName SP
-    JOIN SparePartMachine SPM ON SPM.SparePartId = SP.SparPartId
-    WHERE SP.SparePartName = '${SparePartName}' AND`
+  let responseData = [];
   try {
+    const promises = MachineName.map(async (machine) => {
+      let query = `SELECT SP.SparePartName, SP.SpareNumber,SP.SparPartId AS SparePartId FROM SparePartName SP
+                   JOIN SparePartMachine SPM ON SPM.SparePartId = SP.SparPartId
+                   WHERE SP.SparePartName = '${SparePartName}' AND SPM.MachineId = '${machine}';`;
+      
+      let data = await queryAsync(query);
+      return data;
+    });
 
-    MachineName.forEach((machine, i) => {
+    const results = await Promise.all(promises);
+    results.forEach(data => {
+      data.forEach(eq => {
+        eq['Value'] = `${eq['SparePartName']} (${eq['SpareNumber']})`
+        responseData.push(eq);
+      });
+    });
 
-      if (MachineName.length - 1 == i) {
-        query += ` SP.MachineId = '${machine}';`
-      } else {
-        query += ` SP.MachineId = '${machine}' OR`
-      }
-
-    })
-    let data = await queryAsync(query);
-    res.send(data);
+    res.send(responseData);
   } catch (err) {
-res.send(err)
+    console.log(err);
+    res.status(400).send(err);
   }
-}
+};
 
 
-module.exports = { AddSpareParts, UploadImage, AddSpareParts, GetImage };
+
+module.exports = { AddSpareParts, UploadImage, AddSpareParts, GetImage,getEquivalent };
