@@ -117,7 +117,7 @@ const UploadImage = async (req, res) => {
         console.log(ImagesURL)
         const query = `UPDATE SparePartName id
         set id.SparePartDrawingImageURL = 'http://srv515471.hstgr.cloud:${PORT}/Maintenance/File/${COCFileName}',
-         id.SparePartImageURL = '${ImagesURL}'
+         id.SparePartImageURL = '[${ImagesURL}]'
        WHERE id.SparPartId = '${SparePartId}';`;
 
        let data = await new Promise((resolve, rejects) => {
