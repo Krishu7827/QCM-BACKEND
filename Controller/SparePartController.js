@@ -4,7 +4,6 @@ const util = require('util');
 const fs = require('fs');
 const Path = require('path');
 const { dbConn } = require('../db.config/db.config');
-const { json, query } = require('express');
 require('dotenv').config();
 const PORT = process.env.PORT || 8080;
 
