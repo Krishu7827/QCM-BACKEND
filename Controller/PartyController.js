@@ -28,7 +28,7 @@ const AddParty = async (req, res) => {
         }
 
         const query = `INSERT INTO PartyName(PartyNameId,PartyName,GSTNumber,PANNumber,Address,Country,State,Email,MobileNumber,PinCode,Status,CreatedBy,CreatedOn) VALUES
-                                     ('${UUID}','${PartyName}','${GSTNumber}','${PANNumber}','${Address}','${Country}','${State}','${Email}','${CountryCode}${MobileNumber}','${PinCode}','${Status}','${CreatedBy}','${getCurrentDateTime()}');`
+                                     ('${UUID}','${PartyName}','${GSTNumber}','${PANNumber}','${Address}','${Country}','${State}','${Email}','${CountryCode} ${MobileNumber}','${PinCode}','${Status}','${CreatedBy}','${getCurrentDateTime()}');`
 
         await queryAsync(query)
 
