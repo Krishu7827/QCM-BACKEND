@@ -27,8 +27,8 @@ const AddParty = async (req, res) => {
           return res.status(409).send({msg:'Duplicate Party Name'})
         }
 
-        const query = `INSERT INTO PartyName(PartyNameId,PartyName,GSTNumber,PANNumber,Address,Country,State,Email,MobileNumber,PinCode,CountryCode,Status,CreatedBy,CreatedOn) VALUES
-                                     ('${UUID}','${PartyName}','${GSTNumber}','${PANNumber}','${Address}','${Country}','${State}','${Email}','${MobileNumber}','${PinCode}','${CountryCode}','${Status}','${CreatedBy}','${getCurrentDateTime()}');`
+        const query = `INSERT INTO PartyName(PartyNameId,PartyName,GSTNumber,PANNumber,Address,Country,State,Email,MobileNumber,PinCode,Status,CreatedBy,CreatedOn) VALUES
+                                     ('${UUID}','${PartyName}','${GSTNumber}','${PANNumber}','${Address}','${Country}','${State}','${Email}','${CountryCode}${MobileNumber}','${PinCode}','${Status}','${CreatedBy}','${getCurrentDateTime()}');`
 
         await queryAsync(query)
 
