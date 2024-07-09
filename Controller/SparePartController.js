@@ -258,6 +258,34 @@ const getEquivalent = async (req, res) => {
   }
 };
 
+/**Spare Part List*/
+
+const SparePartList = async(req,res) =>{
+ const {MachineId, SparePartId, required} = req.body;
+  let query = required == 'Spare Part Name'?
+  /**Condition 1 */
+  `SELECT SP.SparePartName, SP.SparPartId FROM SparePartMachine S
+JOIN SparePartName SP ON SP.SparPartId = S.SparePartId
+WHERE S.MachineId = '${MachineId}';`:
+/**Condition 2 */
+required == 'Spare Part Brand Name'?
+`SELECT BrandName, SparPartId FROM SparePartName
+WHERE SparPartId = '${SparePartId}';`:
+/**Condition 3 */
+required == 'Spare Part Model No'?
+`SELECT SparPartId, SpareNumber AS SparePartModelNumber, Specification FROM SparePartName
+WHERE SparPartId = '${SparePartId}';`:'';
+
+ try{
+   let data = await queryAsync(query);
+   res.send({data});
+
+ }catch(err){
+   res.status(400).send({err})
+
+ }
+
+}
 
 
-module.exports = { AddSpareParts, UploadImage, AddSpareParts, GetImage,getEquivalent };
+module.exports = { AddSpareParts, UploadImage, AddSpareParts, GetImage,getEquivalent,SparePartList };
