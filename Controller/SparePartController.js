@@ -273,7 +273,10 @@ required == 'Spare Part Brand Name'?
 WHERE SparPartId = '${SparePartId}';`:
 /**Condition 3 */
 required == 'Spare Part Model No'?
-`SELECT SparPartId, SpareNumber AS SparePartModelNumber, Specification FROM SparePartName
+`SELECT SparPartId, SpareNumber AS SparePartModelNumber FROM SparePartName
+WHERE SparPartId = '${SparePartId}';`:
+required == 'Spare Part Specification'?
+`SELECT SparPartId, Specification FROM SparePartName
 WHERE SparPartId = '${SparePartId}';`:'';
 
  try{
