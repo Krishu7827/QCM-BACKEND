@@ -13,7 +13,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://http://srv515471.hstgr.cloud:8080', // Change this to your server URL
+        url: 'http://srv515471.hstgr.cloud:8080', // Change this to your server URL
       },
     ],
   },
