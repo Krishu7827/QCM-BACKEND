@@ -236,6 +236,9 @@
  *                   example: "Error message"
  */
 
+
+/** Machine Model Number */
+
 /**
  * @swagger
  * /Maintenance/GetMachineModelNumber:
@@ -260,14 +263,57 @@
  *         content:
  *           application/json:
  *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   MachineModelNumber:
+ *                     type: string
+ *                     example: "123ccvgdfgdfgerqw4w"
+ *       400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
  *               type: object
  *               properties:
- *                 msg:
+ *                 err:
  *                   type: string
- *                   example: "Inserted Successfully!"
- *                 MachineId:
- *                   type: string
- *                   example: "UUID"
+ *                   example: "Error message"
+ */
+
+
+
+/**Get Currency */
+/**
+ * @swagger
+ * /Maintenance/GetCurrency:
+ *   get:
+ *     summary: Retrieve Currency data
+ *     description: |
+ *       Endpoint Name is case-sensitive. 
+ *       Note: Key name is case-sensitive.
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   CurrencyId:
+ *                     type: string
+ *                     example: "123ccvgdfgdfgerqw4w"
+ *                   Currency:
+ *                     type: string
+ *                     enum: [₹,$,¥]
+ *                     example: "₹"
+ *                   Country:
+ *                     type: string
+ *                     enum: [India,China,USA]
+ *                     example: "India"
  *       400:
  *         description: Bad request
  *         content:

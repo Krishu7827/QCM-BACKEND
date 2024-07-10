@@ -1,5 +1,6 @@
 // swagger.js
-
+require('dotenv').config()
+const Port = process.env.PORT || 8080
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
@@ -13,7 +14,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://srv515471.hstgr.cloud:8080', // Change this to your server URL
+        url: `http://srv515471.hstgr.cloud:${Port}`, // Change this to your server URL
       },
     ],
   },
