@@ -53,7 +53,7 @@ const getCurrency = async(req, res)=>{
      let data = await queryAsync(query);
      res.send(data)
   }catch(err){
-    res.send({err})
+    res.status(400).send({err})
   }
 }
 

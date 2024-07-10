@@ -326,3 +326,174 @@
  *                   example: "Error message"
  */
 
+
+/**Api to Add Spare Part */
+/**
+ * @swagger
+ * /Maintenance/AddSparePart:
+ *   post:
+ *     summary: Add New Spare Part
+ *     description: Duplicate Spare Model Number is not allowed
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               SparePartName:
+ *                 type: string
+ *                 example: "gear"
+ *               SpareNumber:
+ *                 type: string
+ *                 example: "XXXX90"
+ *                 description: Here You have to Put Spare Model Number and it should be unique
+ *               Specification:
+ *                 type: string
+ *                 example: "Specification_gear"
+ *               BrandName:
+ *                 type: string
+ *                 example: "Zing Zang Pvt Ltd."
+ *               MachineName:
+ *                 type: string
+ *                 example: "UUID"
+ *               MasterSparePartName:
+ *                 type: string
+ *                 example: "Master Spare Part Name"
+ *               NumberOfPcs:
+ *                 type: string
+ *                 example: "8"
+ *               CycleTime:
+ *                 type: string
+ *                 example: "2"
+ *               Equivalent:
+ *                 type: array
+ *                 example: ["UUID1", "UUID2"]
+ *               CurrentUser:
+ *                 type: string
+ *                 example: "UUID"
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *                   example: "Inserted Succesfully!"
+ *                 SparePartId:
+ *                   type: string
+ *                   example: "UUID"
+ *       409:
+ *         description: Duplicate Spare Model Number Error
+ *         content:
+ *           application/json:
+ *            schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *                   example: "Duplicate Spare Model Number"
+ *       400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 err:
+ *                   type: string
+ *                   example: "Error message"
+ */
+
+
+
+/** Upload Spare Parts Image*/
+/**
+ * @swagger
+ * /Maintenance/SparePartsImage:
+ *   post:
+ *     summary: Upload Spare Part Image and its Drawing Image
+ *     description: |
+ *       Endpoint name is case-sensitive. 
+ *       Note: Key name is case-sensitive.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               SparePartId:
+ *                 type: string
+ *                 example: "Stringer"
+ *               SparePartImage:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *                 description: "Upload spare part images"
+ *               DrawingImage:
+ *                 type: file
+ *                 example: "Upload Pdf Here"
+ *                 description: "Upload drawing PDF"
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *                 type: object
+ *                 properties:
+ *                   msg:
+ *                     type: string
+ *                     example: "Data Inserted SuccesFully !"
+ *       401:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 err:
+ *                   type: string
+ *                   example: "Error message"
+ */
+
+
+/**equivalent data */
+/**
+ * @swagger
+ * /Maintenance/Equ:
+ *   get:
+ *     summary: Get Equivalent Spare Model Number and Name
+ *     description: Retrieve Equivalent Spare Model Number and Name.
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       MachineId:
+ *                         type: string
+ *                         example: "UUID1"
+ *       400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 err:
+ *                   type: string
+ *                   example: "Error message"
+ */
