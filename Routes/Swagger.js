@@ -497,3 +497,46 @@
  *                   type: string
  *                   example: "Error message"
  */
+
+
+/**Get All Party Name */
+/**
+ * @swagger
+ * /Maintenance/GetParty:
+ *   get:
+ *     summary: Retrieve ALL Party Names 
+ *     description: |
+ *       Endpoint Name is case-sensitive. 
+ *       Note: Key name is case-sensitive.
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   CurrencyId:
+ *                     type: string
+ *                     example: "123ccvgdfgdfgerqw4w"
+ *                   Currency:
+ *                     type: string
+ *                     enum: [₹,$,¥]
+ *                     example: "₹"
+ *                   Country:
+ *                     type: string
+ *                     enum: [India,China,USA]
+ *                     example: "India"
+ *       400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 err:
+ *                   type: string
+ *                   example: "Error message"
+ */
