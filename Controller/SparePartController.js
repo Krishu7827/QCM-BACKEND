@@ -262,7 +262,7 @@ const getEquivalent = async (req, res) => {
 
 const SparePartList = async(req,res) =>{
  const {MachineId, SparePartId, required} = req.body;
-  let query = required == 'Spare Part Name'?
+  let query = required == 'Spare Part Name By Machine'?
   /**Condition 1 */
   `SELECT SP.SparePartName, SP.SparPartId AS SparePartId FROM SparePartMachine S
 JOIN SparePartName SP ON SP.SparPartId = S.SparePartId
@@ -273,10 +273,9 @@ required == 'Spare Part Brand Name'?
 WHERE SparPartId = '${SparePartId}';`:
 /**Condition 3 */
 required == 'Spare Part Model No'?
-`SELECT SparPartId AS SparePartId, SpareNumber AS SparePartModelNumber FROM SparePartName
-WHERE SparPartId = '${SparePartId}';`:
-required == 'Spare Part Specification'?
-`SELECT SparPartId AS SparePartId, Specification FROM SparePartName
+`SELECT SparPartId AS SparePartId, SpareNumber AS SparePartModelNumber FROM SparePartName;`:
+required == 'Spare Part Name'?
+`SELECT SparPartId AS SparePartId, SparePartName FROM SparePartName
 WHERE SparPartId = '${SparePartId}';`:'';
 
  try{
