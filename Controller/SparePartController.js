@@ -276,7 +276,9 @@ required == 'Spare Part Model No'?
 `SELECT SparPartId AS SparePartId, SpareNumber AS SparePartModelNumber FROM SparePartName;`:
 required == 'Spare Part Name'?
 `SELECT SparPartId AS SparePartId, SparePartName FROM SparePartName
-WHERE SparPartId = '${SparePartId}';`:'';
+WHERE SparPartId = '${SparePartId}';`:
+required == 'Company Name'?
+`SELECT CompanyID, CompanyName FROM Company;`:'';
 
  try{
    let data = await queryAsync(query);
