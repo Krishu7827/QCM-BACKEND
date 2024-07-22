@@ -739,7 +739,7 @@
 /**
  * @swagger
  * /Maintenance/GetPurchaseOrderList:
- *   post:
+ *   get:
  *     summary: Retrieve Purchase Orders
  *     description: |
  *       Endpoint Name is case-sensitive.
