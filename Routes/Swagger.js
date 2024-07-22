@@ -738,7 +738,7 @@
 
 /**
  * @swagger
- * /Maintenance/GetPuru:
+ * /Maintenance/GetPurchaseOrderList:
  *   get:
  *     summary: Retrieve Purchase Orders
  *     description: |
