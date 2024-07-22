@@ -13,12 +13,13 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 let data = {
   PurchaseData: {
     series: "GST-2024-2025",
-    vochNo: "GST-2024-2025",
+    vochNo: "GST-2024-2025-01",
     purcType: "L/GST-12%",
-    PartyName: "0c270aeb-023b-4191-abd9-44da628131b0",
-    company: "Gautam Solar Private Limited Bhiwani",
-    narration: "",
+    PartyName: "0213fe0c-cae1-4a07-858b-aeeefdaabe0d",
+    company: "fd86454f-4365-11ef-b658-1a2cd4d9c0d1",
+    narration: "jjjjjjsdkfksd",
     currentDate: "Sat Jul 20 2024",
+    currentUser:'66494d8a-0786-11ef-8005-52549f6cc694'
   },
   BilingData: [
     {
@@ -67,6 +68,7 @@ let data = {
         unit: "gfd",
         price: "100",
         gst: "10",
+        amount:200,
         SparePartId: "10db5181-bed5-4a5d-b148-c0ce5a3f8822",
       },
       {
@@ -77,10 +79,11 @@ let data = {
         unit: "fgd",
         price: "100",
         gst: "5",
+        amount:200,
         SparePartId: "10db5181-bed5-4a5d-b148-c0ce5a3f8822",
       },
     ],
-    totalAmount: 965,
+    totalAmount: '965',
   },
   optionalData: {
     paymentTerm: "fsd",
@@ -92,20 +95,73 @@ let data = {
 };
 
 const AddPurchaseOrder = async (req, res) => {
-  const { PurchaseData, BilingData, tableData, optionalData } = data;
+  const { PurchaseData : P, BilingData : B, tableData:t, optionalData:o } = data;
   const UUID = v4();
 
   try{
+    /**
+     * ! Inserting Data into Purchase Table
+     */
     const PurchaseDataQuery = `INSERT INTO 
-    PurchaseOrder(Purchase_Order_Id, Voucher_Number, Series, Purchase_Type, Party_Name,Company_Name, Narration, 
+    PurchaseOrder(Purchase_Order_Id, Voucher_Number, Series, Purchase_Type, Party_Name, Company_Name, Narration, 
     Purchase_Date, Status, Created_On, Created_By )
-    VALUES('${UUID}', '${PurchaseData.vochNo}', '${PurchaseData.series}','${PurchaseData.purcType}')`
+    VALUES('${UUID}', '${P.vochNo}', '${P.series}','${P.purcType}',
+  '${P.PartyName}','${P.company}', '${P.narration}', '${P.currentDate}', 'Active', '${getCurrentDateTime()}','${P.currentUser}');`;
+
+     await queryAsync(PurchaseDataQuery);
+
+     /**
+      * ? Inserting Data into Order Items Table
+      */
+     t.items.forEach(async(data)=>{
+      const uuid = v4();
+      const query = `INSERT INTO
+    Purchase_Order_Items(Purchase_Order_Item_Id, Purchase_Order_Id, Spare_Part_Id, Quantity, Unit, Price_Rs,
+    GST, Amount, Total_Amount)
+    VALUES('${uuid}', '${UUID}', '${data.SparePartId}', '${data.qty}', '${data.unit}', '${data.price}', '${data.gst}', '${data.amount}','${t.totalAmount}');`;
+
+
+      await queryAsync(query);
+     })
+
+
+    /**
+   * ! INSERTING Data into Order Billing Table
+   */
+  B.forEach(async(data)=>{
+    const uuid = v4()
+      const query = `INSERT INTO 
+      Purchase_Order_Billing(Purchase_Order_Billing_Id, Purchase_Order_Id, Bill_Sundry, 
+      Narration, Percentage, Amount, Total_Amount)
+      VALUES('${uuid}','${UUID}', '${data.Bill_Sundry}', '${data.Narration}', '${data.Percentage}',
+            '${data.Amount}','${data.Total_Amount}');`;
+    await queryAsync(query)
+
+   })
+
+   /**
+    * ! Inserting Data into OPTIONAL Table
+    */
+   
+   const optionQuery = `INSERT INTO Purchase_Order_Optional_Field(Optional_Field_Id,Purchase_Order_Id,Payment_Terms,
+   Delivery_Terms, Contact_Person, Cell_Number, Warranty)
+   VALUES('${v4()}','${UUID}', '${o.paymentTerm}', '${o.deleveryTerm}','${o.contactPer}','${o.cellNo}','${o.warranty}');`
+
+   await queryAsync(optionQuery)
+
+   res.send({msg:'data Inserted Succesfully'})
   }catch(err){
     console.log(err)
+    res.status(400).send(err)
   }
-  
+
 };
 
+
+
+/**
+ * ! Get Voucher Number Controller
+ */
 const getVoucherNumber = async(req,res)=>{
     try{
     const query = `SELECT COUNT(Purchase_Order_Id)AS Voucher_Number FROM PurchaseOrder WHERE Status = 'Active';`
@@ -118,4 +174,4 @@ const getVoucherNumber = async(req,res)=>{
     }
 }
 
-module.exports = {getVoucherNumber}
+module.exports = {getVoucherNumber, AddPurchaseOrder}

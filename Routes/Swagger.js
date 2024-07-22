@@ -585,3 +585,148 @@
  *                   type: string
  *                   example: "Error message"
  */
+
+
+/**
+ * ! To Add Purchase Data
+ */
+/**
+ * @swagger
+ * /Maintenance/AddPurchaseOrder:
+ *   post:
+ *     summary: Insert Purchase Data
+ *     description: |
+ *       Endpoint Name is case-sensitive. 
+ *       Note: Key name is case-sensitive.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               PurchaseData:
+ *                 type: object
+ *                 properties:
+ *                   series:
+ *                     type: string
+ *                     example: "GST-2024-2025"
+ *                   vochNo:
+ *                     type: string
+ *                     example: "GST-2024-2025-01"
+ *                   purcType:
+ *                     type: string
+ *                     example: "L/GST-12%"
+ *                   PartyName:
+ *                     type: string
+ *                     example: "0213fe0c-cae1-4a07-858b-aeeefdaabe0d"
+ *                   company:
+ *                     type: string
+ *                     example: "fd86454f-4365-11ef-b658-1a2cd4d9c0d1"
+ *                   narration:
+ *                     type: string
+ *                     example: "jjjjjjsdkfksd"
+ *                   currentDate:
+ *                     type: string
+ *                     example: "Sat Jul 20 2024"
+ *                   currentUser:
+ *                     type: string
+ *                     example: "66494d8a-0786-11ef-8005-52549f6cc694"
+ *               BilingData:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     Bill_Sundry:
+ *                       type: string
+ *                       example: "Discount"
+ *                     Narration:
+ *                       type: string
+ *                       example: ""
+ *                     Percentage:
+ *                       type: string
+ *                       example: ""
+ *                     Amount:
+ *                       type: string
+ *                       example: "0.00"
+ *                     Total_Amount:
+ *                       type: string
+ *                       example: "1080.80"
+ *               tableData:
+ *                 type: object
+ *                 properties:
+ *                   items:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: integer
+ *                           example: 1
+ *                         spareName:
+ *                           type: string
+ *                           example: "fhgfgh"
+ *                         modelNumber:
+ *                           type: string
+ *                           example: "fghfgh"
+ *                         qty:
+ *                           type: string
+ *                           example: "4"
+ *                         unit:
+ *                           type: string
+ *                           example: "gfd"
+ *                         price:
+ *                           type: string
+ *                           example: "100"
+ *                         gst:
+ *                           type: string
+ *                           example: "10"
+ *                         amount:
+ *                           type: number
+ *                           example: 200
+ *                         SparePartId:
+ *                           type: string
+ *                           example: "10db5181-bed5-4a5d-b148-c0ce5a3f8822"
+ *                   totalAmount:
+ *                     type: string
+ *                     example: "965"
+ *               optionalData:
+ *                 type: object
+ *                 properties:
+ *                   paymentTerm:
+ *                     type: string
+ *                     example: "fsd"
+ *                   deleveryTerm:
+ *                     type: string
+ *                     example: "dgfs"
+ *                   contactPer:
+ *                     type: string
+ *                     example: "fdgs"
+ *                   cellNo:
+ *                     type: string
+ *                     example: "dfgs"
+ *                   warranty:
+ *                     type: string
+ *                     example: ""
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *                   example: "data Inserted Successfully"
+ *       400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 err:
+ *                   type: string
+ *                   example: "Error message"
+ */
