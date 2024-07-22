@@ -738,18 +738,12 @@
 
 /**
  * @swagger
- * /Maintenance/GetPurchaseOrderList:
+ * /Maintenance/GetPuru:
  *   get:
  *     summary: Retrieve Purchase Orders
  *     description: |
- *       Endpoint Name is case-sensitive.
+ *       This endpoint retrieves a list of purchase orders.
  *       Note: Key name is case-sensitive.
- *     requestBody:
- *       required: false
- *       content:
- *         application/json:
- *           schema:
- *             type: object
  *     responses:
  *       200:
  *         description: Successful response
@@ -793,5 +787,5 @@
  *               properties:
  *                 err:
  *                   type: string
- *                   example: "Error message"
+ *                   example: ""
  */
