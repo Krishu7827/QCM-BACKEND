@@ -730,3 +730,68 @@
  *                   type: string
  *                   example: "Error message"
  */
+
+
+/**
+ * ! Get Purchase ORder List
+ */
+
+/**
+ * @swagger
+ * /Maintenance/GetPurchaseOrderList:
+ *   post:
+ *     summary: Retrieve Purchase Orders
+ *     description: |
+ *       Endpoint Name is case-sensitive.
+ *       Note: Key name is case-sensitive.
+ *     requestBody:
+ *       required: false
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       Purchase_Order_Id:
+ *                         type: string
+ *                         example: "6c228229-3b0f-48fc-bd27-764d74b0ecd3"
+ *                       Voucher_Number:
+ *                         type: string
+ *                         example: "GST-2024-2025-04"
+ *                       PartyName:
+ *                         type: string
+ *                         example: "Gautam Solaraswdrda"
+ *                       CompanyName:
+ *                         type: string
+ *                         example: "Gautam Solar Private Limited UNIT II"
+ *                       Purchase_Date:
+ *                         type: string
+ *                         example: "Mon Jul 22 2024"
+ *                       Created_On:
+ *                         type: string
+ *                         example: "2024-07-22T09:42:17.000Z"
+ *                       Created_By:
+ *                         type: string
+ *                         example: "Bhanu"
+ *       400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 err:
+ *                   type: string
+ *                   example: "Error message"
+ */

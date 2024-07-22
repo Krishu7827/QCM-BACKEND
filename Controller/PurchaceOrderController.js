@@ -174,4 +174,26 @@ const getVoucherNumber = async(req,res)=>{
     }
 }
 
-module.exports = {getVoucherNumber, AddPurchaseOrder}
+/**
+ * get Purchase Order to List
+ */
+
+const getPurchaseOrderList = async(req,res)=>{
+
+  try{
+    const query = `SELECT PO.Purchase_Order_Id, PO.Voucher_Number, PN.PartyName, C.CompanyName, PO.Purchase_Date, PO.Created_On,P.Name AS Created_By FROM PurchaseOrder PO 
+JOIN PartyName PN ON PN.PartyNameId = PO.Party_Name 
+JOIN Company C ON C.CompanyID = PO.Company_Name JOIN Person P ON P.PersonID = PO.Created_By 
+WHERE PO.Status = 'Active'
+ORDER BY PO.Created_On DESC;`;
+
+  const data = await queryAsync(query);
+  res.send({data});
+
+  }catch(err){
+      console.log(err);
+      res.status(400).send({err});
+  }
+}
+
+module.exports = {getVoucherNumber, AddPurchaseOrder, getPurchaseOrderList}

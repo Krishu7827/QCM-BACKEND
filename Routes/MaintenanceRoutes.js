@@ -4,7 +4,7 @@ const {AddMachineData, MachineDetailById, GetMachineModelNumberById} = require('
 const {AddParty,getCurrency,getPartyNames} = require('../Controller/PartyController');
 const {UploadImage,AddSpareParts,GetImage,getEquivalent,SparePartList} = require('../Controller/SparePartController');
 const {upload} = require('../Middleware/Maintenance.middleware');
-const {getVoucherNumber,AddPurchaseOrder} = require('../Controller/PurchaceOrderController')
+const {getVoucherNumber,AddPurchaseOrder, getPurchaseOrderList} = require('../Controller/PurchaceOrderController')
 
 
 /**Route to Add Party */
@@ -45,5 +45,8 @@ MaintenanceRouter.get('/GetVoucherNumber',getVoucherNumber)
 
 /**Router to Add Purchase Data  */
 MaintenanceRouter.post('/AddPurchaseOrder', AddPurchaseOrder)
+
+/**Router to Get Purchase Order List */
+MaintenanceRouter.get('/GetPurchaseOrderList', getPurchaseOrderList)
 
 module.exports = {MaintenanceRouter}
