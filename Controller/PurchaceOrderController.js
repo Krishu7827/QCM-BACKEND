@@ -93,6 +93,16 @@ let data = {
 
 const AddPurchaseOrder = async (req, res) => {
   const { PurchaseData, BilingData, tableData, optionalData } = data;
+  const UUID = v4();
+
+  try{
+    const PurchaseDataQuery = `INSERT INTO 
+    PurchaseOrder(Purchase_Order_Id, Voucher_Number, Series, Purchase_Type, Party_Name,Company_Name, Narration, 
+    Purchase_Date, Status, Created_On, Created_By )
+    VALUES('${UUID}', '${PurchaseData.vochNo}', '${PurchaseData.series}','${PurchaseData.purcType}')`
+  }catch(err){
+    console.log(err)
+  }
   
 };
 

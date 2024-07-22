@@ -61,7 +61,7 @@ const getCurrency = async(req, res)=>{
 const getPartyNames = async(req, res)=>{
   
   try{
-    let data = await queryAsync(`SELECT PartyName, PartyNameId FROM PartyName`);
+    let data = await queryAsync(`SELECT PartyName, PartyNameId, Country FROM PartyName`);
     res.send(data)
   }catch(err){
     res.status(400).send({err})
