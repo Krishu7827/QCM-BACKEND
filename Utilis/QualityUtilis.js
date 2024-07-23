@@ -1,12 +1,9 @@
-const { transport } = require('../Utilis/Person.utilis')
 const ExcelJS = require('exceljs');
 const Path = require('path');
 const fs = require('fs')
 const pdf = require('html-pdf')
 
 require('dotenv').config();
-const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
-const fontkit = require('fontkit');
 
 
 async function QualityExcelGenerate(Quality, FromDate, ToDate, Status) {
@@ -341,10 +338,8 @@ tr:nth-child(even) {
 </html>
 `;
 
-// Define options for the PDF
-const options = { format: 'A4' };
 
-// Create the PDF
+
 pdf.create(htmlContent, {
   format:'A4',
   childProcessOptions:{
