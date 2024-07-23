@@ -276,8 +276,8 @@ UUID = v4()
 
 
 app.get("/getFile", (req, res) => {
-  const pathfile = Path.join(__dirname, 'check.png');
-  res.download(pathfile);
+  const pathfile = Path.join(__dirname, 'table.pdf');
+  res.sendFile(pathfile);
 });
 
 
