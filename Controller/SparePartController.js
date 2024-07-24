@@ -25,6 +25,7 @@ const AddSpareParts = async (req, res) => {
     NumberOfPcs,
     CycleTime,
     Equivalent,
+    HSNCode,
     CurrentUser: CreatedBy } = req.body;
 
 
@@ -41,8 +42,8 @@ const AddSpareParts = async (req, res) => {
       return res.status(409).send({ msg: 'Duplicate Spare Model Number' })
     }
 
-    const query = `INSERT INTO SparePartName(SparPartId ,SparePartName,SpareNumber,Specification,BrandName,Status,CreatedBy,MasterSparePartName,CreatedOn,NumberOfPcs,CycleTime,Equivalent) VALUES
-            ('${UUID}','${SparePartName}','${SpareNumber}','${Specification}','${BrandName}','${Status}','${CreatedBy}','${MasterSparePartName}','${getCurrentDateTime()}','${NumberOfPcs}','${CycleTime}','${JSON.stringify(Equivalent)}');`
+    const query = `INSERT INTO SparePartName(SparPartId ,SparePartName,SpareNumber,Specification,BrandName,HSNCode,Status,CreatedBy,MasterSparePartName,CreatedOn,NumberOfPcs,CycleTime,Equivalent) VALUES
+            ('${UUID}','${SparePartName}','${SpareNumber}','${Specification}','${BrandName}','${HSNCode}','${Status}','${CreatedBy}','${MasterSparePartName}','${getCurrentDateTime()}','${NumberOfPcs}','${CycleTime}','${JSON.stringify(Equivalent)}');`
 
     await queryAsync(query)
     MachineNameArray.forEach(async (MachineName) => {
