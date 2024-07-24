@@ -18,88 +18,146 @@ function getCurrentDateTime() {
 
 
   
-  const htmlContent1 = `
-  <!DOCTYPE html>
-  <html>
-  <head>
-  <style>
-  body {
-    font-family: arial, sans-serif;
-  }
-  
-  .watermark {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.1; /* Adjust the opacity as needed */
-    z-index: -1;
-    width: 80%; /* Adjust size as needed */
-  }
-  
-  .container {
-    display: table;
-    width: 100%;
-   
-    margin-top: 56px;
-    font-weight:medium;
-  }
-  
-  .row {
-    display: table-row;
-  }
-  
-  .cell {
-    display: table-cell;
-    padding-left: 5px;
-    width: 50%;
-    border: 1px solid black;
-    padding:5px
-  }
-  
-  .cell p {
-    margin: 0;
-    padding: 0;
-   
-  }
-  
-  .cell .company-name {
-    font-size: 12px;
-  }
-  
-  .cell .address {
-    font-size: 8px;
-  }
-  
-  </style>
-  </head>
-  <body>
-  
-  <div class="container">
-      <div class="row">
-          <div class="cell" style=" width: 50%;">
-              <p style="font-size: 15px">Party Details:</p>
-              <p class="company-name">Company Name</p>
-              <p class="address">Address</p>
-          </div>
-          <div class="cell" style=" width: 55%;>
-             <div>
-              <p  style="font-size: 12px;">Order No.</p>
-              <p style="font-size: 12px;">Dated</p>
-               <p style="font-size: 12px;">Payment Terms</p>
-                <p style="font-size: 12px;">Delivery Terms</p>
-                 <p style="font-size: 12px;">Contact Person</p>
-                 <p style="font-size: 12px;">Cell No</p>
-                 <p style="font-size: 12px;">Warranty</p>
-                 </div>
+  const htmlContent1 = `<html>
 
-             
-          </div>
-      </div>
-  </div>
-  
-  </body>
-  </html>
+<head>
+    <style>
+        body {
+            font-family: arial, sans-serif;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.1;
+            /* Adjust the opacity as needed */
+            z-index: -1;
+            width: 80%;
+            /* Adjust size as needed */
+        }
+
+        .container {
+            display: table;
+            width: 100%;
+            margin-top: 56px;
+            font-weight: medium;
+            padding:-10px;
+        }
+
+        .row {
+            display: table-row;
+        }
+
+        .cell {
+            display: table-cell;
+            padding-left: 5px;
+            width: 50%;
+            border: 1px solid black;
+            padding: 5px
+        }
+
+        .cell p {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        .cell .company-name {
+            font-size: 13px;
+        }
+
+        .cell .address {
+            font-size: 11px;
+        }
+        .empty-box{
+           margin-top:0px;
+            height: 20px;
+            width: 100%;
+           border-bottom: 1px solid black;
+            border-right: 1px solid black;
+            border-left: 1px solid black;
+        }
+
+          .empty-box1{
+           margin-top:-11px;
+           padding-left:5px;
+            height: 20px;
+            width: 99%;
+           border-bottom: 1px solid black;
+            border-right: 1px solid black;
+            border-left: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="cell" style=" width: 50%;">
+                <p style="font-size: 14px">Party Details:</p>
+                <p class="company-name">A-tech Pneumatics Pvt Ltd.</p>
+                <p class="address">209,2nd Floor Vardhaman Bee Pee Plaza , Plot No 1 sec -5 Dwarka New Delhi - 11007</p>
+                <br>
+                <br>
+                <span style="font-size: 14px;">GSTIN/UIN :</span> <span
+                    style=" font-size: 14px; margin-left:30px">07AAGCA1509H1Z0</span>
+            </div>
+
+            <!-- Second-->
+            <div class="cell" style=" width: 55%;">
+             <div style = " font-size:12px;">
+
+                <div>
+
+                    <div>
+                        <span style="font-size: 12px;">Order No. :</span><span
+                            style="font-size:12px; margin-left:32px;">GST 23</span>
+                    </div>
+                    <div>
+                        <span style="font-size: 12px;">Dated :</span><span
+                            style="font-size:12px; margin-left:52px;">20-01-2024</span>
+                    </div>
+                    <div>
+                        <span style="font-size: 12px;">Payment Terms :</span><span
+                            style="font-size:12px; margin-left:1px;">30 days credit</span>
+                    </div>
+                    <div>
+                        <span style="font-size: 12px;">Delivery Terms:</span><span
+                            style="font-size:12px; margin-left:10px;">Immediate</span>
+                    </div>
+                    <div>
+                        <span style="font-size: 12px;">Contact Person:</span><span
+                            style="font-size:12px; margin-left:10px;">Md Afroj</span>
+                    </div>
+                    <div>
+                        <span style="font-size: 12px;">Cell No:</span><span
+                            style="font-size:12px; margin-left:52px;">9999999999</span>
+                    </div>
+                    <div>
+                        <span style="font-size: 12px;">Warranty:</span><span
+                            style="font-size:12px; margin-left:44px;">9999999999</span>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="empty-box">
+          
+</div>
+<div class="empty-box1">
+  <p style="font-size:12px;">We are Pleased to place the order for the following items:</p>
+</div>
+</body>
+
+</html>
   `;
   
 // Define options for the PDF

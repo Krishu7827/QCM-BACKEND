@@ -1,31 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <style>
-        tr{
-  width: '20px';
-  font-size: small;
-  text-align: center;
-}
+        body {
+            font-family: arial, sans-serif;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.1;
+            /* Adjust the opacity as needed */
+            z-index: -1;
+            width: 80%;
+            /* Adjust size as needed */
+        }
+
+        .container {
+            display: table;
+            width: 100%;
+            margin-top: 56px;
+            font-weight: medium;
+        }
+
+        .row {
+            display: table-row;
+        }
+
+        .cell {
+            display: table-cell;
+            padding-left: 5px;
+            width: 50%;
+            border: 1px solid black;
+            padding: 5px
+        }
+
+        .cell p {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        .cell .company-name {
+            font-size: 13px;
+        }
+
+        .cell .address {
+            font-size: 11px;
+        }
+        .empty-box{
+            height: 10px;
+            width: 100%;
+
+        }
     </style>
 </head>
-<body style="background-image:'../ExcelFile/image.png' ; flex-direction: column; ; justify-content: space-between; height: 100vh;">
-    <div style="display: flex; align-content: space-between; justify-content: center; text-align: center; width: 100%; margin-bottom: 0px;">
-        <img src="../ExcelFile/image.png" style="display: block;
-        margin-left: auto;
-        width: 100px;
-        margin-bottom: -100px;
-        margin-right: auto;"
-        />
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="cell" style=" width: 50%;">
+                <p style="font-size: 14px">Party Details:</p>
+                <p class="company-name">A-tech Pneumatics Pvt Ltd.</p>
+                <p class="address">209,2nd Floor Vardhaman Bee Pee Plaza , Plot No 1 sec -5 Dwarka New Delhi - 11007</p>
+                <br>
+                <br>
+                <span style="font-size: 14px;">GSTIN/UIN :</span> <span
+                    style=" font-size: 14px; margin-left:30px">07AAGCA1509H1Z0</span>
+            </div>
+
+            <!-- Second-->
+            <div class="cell" style=" width: 55%;"">
+             <div style = " font-size:12px;">
+
+                <div>
+
+                    <div>
+                        <span style="font-size: 12px;">Order No. :</span><span
+                            style="font-size:12px; margin-left:32px;">GST 23</span>
+                    </div>
+                    <div>
+                        <span style="font-size: 12px;">Dated :</span><span
+                            style="font-size:12px; margin-left:52px;">20-01-2024</span>
+                    </div>
+                    <div>
+                        <span style="font-size: 12px;">Payment Terms :</span><span
+                            style="font-size:12px; margin-left:1px;">30 days credit</span>
+                    </div>
+                    <div>
+                        <span style="font-size: 12px;">Delivery Terms:</span><span
+                            style="font-size:12px; margin-left:10px;">Immediate</span>
+                    </div>
+                    <div>
+                        <span style="font-size: 12px;">Contact Person:</span><span
+                            style="font-size:12px; margin-left:10px;">Md Afroj</span>
+                    </div>
+                    <div>
+                        <span style="font-size: 12px;">Cell No:</span><span
+                            style="font-size:12px; margin-left:52px;">9999999999</span>
+                    </div>
+                    <div>
+                        <span style="font-size: 12px;">Warranty:</span><span
+                            style="font-size:12px; margin-left:44px;">9999999999</span>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
     </div>
-    <div style="width: 100%; border: 1px solid black;">
-        <h4 style="text-decoration: underline; text-align: center;">Purchase Order</h4>
-        <h3 style=" text-align: center;">Gautam Solar Private Limited (UNIT 11)</h3>
-        <h4 style="text-align: center;">Plot No 67-70 Sec 8A, IIE Ranipur Sidcul Haridwar, Uttarakhand - 249403</h4>
+    <div class="empty-box">
+
     </div>
-    <h2 style="text-align: center;"> Monthly Quality Report</h2>
+</div>
 </body>
+
 </html>
