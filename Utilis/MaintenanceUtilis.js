@@ -82,9 +82,8 @@ function getCurrentDateTime() {
 
           .empty-box1{
            margin-top:-11px;
-           padding-left:5px;
             height: 20px;
-            width: 99%;
+            width: 100%;
            border-bottom: 1px solid black;
             border-right: 1px solid black;
             border-left: 1px solid black;
@@ -153,7 +152,7 @@ function getCurrentDateTime() {
           
 </div>
 <div class="empty-box1">
-  <p style="font-size:12px;">We are Pleased to place the order for the following items:</p>
+  <p style="font-size:12px; margin-left:5px">We are Pleased to place the order for the following items:</p>
 </div>
 </body>
 
