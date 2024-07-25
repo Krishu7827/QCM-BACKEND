@@ -130,11 +130,13 @@ function getCurrentDateTime() {
 
         .serialNo{
           text-align: center;
-          font-size:12px
+          font-size:12px;
+          font-weight:bold;
         }
         .center-td{
          text-align: center;
-         font-size:12px
+         font-size:12px;
+         font-weight:bold;
         }
 
 
@@ -314,7 +316,27 @@ tr {
             <td class="center-td" >1500</td> <!-- Replace with actual Price -->
             <td class="center-td" >3000</td> <!-- Replace with actual Amount -->
         </tr>
-        <!-----------------Last Row to final QTY and amount ------>
+
+         <tr>
+            <td class="serialNo" >2</td>
+            <td>
+                <ul>
+                    <li class="parent">Cylinder
+                        <ul>
+                            <li class="child">Airtac Rotary Clamp Cylinder</li>
+                            <li class="child">Model No. QCKR32X30S</li>
+                        </ul>
+                    </li>
+                </ul>
+            </td>
+            <td class="center-td">XXXXX</td> <!-- Replace with actual HSN/SAC Code -->
+            <td class="center-td" >2</td> <!-- Replace with actual Qty. -->
+            <td class="center-td" >Pc</td>
+            <td class="center-td" >1500</td> <!-- Replace with actual Price -->
+            <td class="center-td" >3000</td> <!-- Replace with actual Amount -->
+        </tr>
+
+        <!----------------- @@@@ Last Row to final QTY and amount @@@@@@@@@@@@@@@@------>
         <tr style="height:50px;">
             <td style="border:0px solid black;" class="serialNo" ></td>
             <td style="border:0px solid black;">
@@ -333,10 +355,6 @@ tr {
 </body>
 
 </html>`;
-
-
-
-
 
 
 
