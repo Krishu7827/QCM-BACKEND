@@ -159,10 +159,15 @@ WHERE PO.Purchase_Order_Id = '${UUID}';`;
 
 const Top_Data = await queryAsync(Top_Data_Query);
 
-let ItemsTableQuery = `SELECT SP.MasterSparePartName,SP.SparePartName,SP.HSNCode,SP.SpareNumber,POI.Quantity,POI.Unit,POI.Price_Rs,POI.GST,POI.Amount,POI.Total_Amount FROM PurchaseOrder PO
-JOIN Purchase_Order_Items POI JOIN POI.Purchase_Order_Id = PO.Purchase_Order_Id
-JOIN SparePartName SP JOIN POI.Spare_Part_Id = SP.SparPartId
-WHERE PO.Purchase_Order_Id = '${UUID}';`;
+let ItemsTableQuery = `SELECT SP.MasterSparePartName,SP.SparePartName,SP.HSNCode,SP.SpareNumber,POI.Quantity,POI.Unit,POI.Price_Rs,POI.GST,POI.Amount,POI.Total_Amount
+FROM 
+    PurchaseOrder PO
+JOIN 
+    Purchase_Order_Items POI ON POI.Purchase_Order_Id = PO.Purchase_Order_Id
+JOIN 
+    SparePartName SP ON POI.Spare_Part_Id = SP.SparPartId
+WHERE 
+    PO.Purchase_Order_Id = '${UUID}';`;
 
 const ItemsTable = await queryAsync(ItemsTableQuery);
 
