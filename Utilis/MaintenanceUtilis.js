@@ -456,6 +456,11 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable,BillingTable)=>{
              <h4 style="text-align: center; margin-top: -19px; font-size: 13px;">GSTIN: ${Top_Data[0].GSTNumber}</h4>
              <h4 style="text-align: center; margin-top: -19px; font-size: 10px;">email: ${JSON.parse(emailString).join(' ')}</h4>
            </div>`
+      },
+      childProcessOptions:{
+        env:{
+          OPENSSL_CONF: '/dev/null',
+        }
       }
     };
     
