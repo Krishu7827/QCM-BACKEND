@@ -1,5 +1,5 @@
 const { v4: uuidv4, v4 } = require("uuid");
-const { getCurrentDateTime } = require("../Utilis/MaintenanceUtilis");
+const { getCurrentDateTime,PurchaseOrderPdf } = require("../Utilis/MaintenanceUtilis");
 const util = require("util");
 const fs = require("fs");
 const Path = require("path");
@@ -148,7 +148,31 @@ const AddPurchaseOrder = async (req, res) => {
    VALUES('${v4()}','${UUID}', '${o.paymentTerm}', '${o.deleveryTerm}','${o.contactPer}','${o.cellNo}','${o.warranty}');`
 
    await queryAsync(optionQuery)
+  
+   let Top_Data_Query = `SELECT PO.Purchase_Order_Id,PO.Voucher_Number AS Order_Number,PO.Voucher_Number, P.PartyName,P.Address,P.GSTNumber,C.CompanyName,C.GSTNumber AS Company_GSTNumber,
+C.Address AS Company_Address, C.State,C.Pin,C.Email,POF.Payment_Terms,POF.Delivery_Terms,POF.Contact_Person,POF.Cell_Number,POF.Warranty
+FROM PurchaseOrder PO
+JOIN Company C ON C.CompanyID = PO.Company_Name
+JOIN PartyName P ON P.PartyNameId = PO.Party_Name
+JOIN Purchase_Order_Optional_Field POF ON POF.Purchase_Order_Id = PO.Purchase_Order_Id
+WHERE PO.Purchase_Order_Id = '${UUID}';`;
 
+const Top_Data = await queryAsync(Top_Data_Query);
+
+let ItemsTableQuery = `SELECT SP.MasterSparePartName,SP.SparePartName,SP.HSNCode,SP.SpareNumber,POI.Quantity,POI.Unit,POI.Price_Rs,POI.GST,POI.Amount,POI.Total_Amount FROM PurchaseOrder PO
+JOIN Purchase_Order_Items POI JOIN POI.Purchase_Order_Id = PO.Purchase_Order_Id
+JOIN SparePartName SP JOIN POI.Spare_Part_Id = SP.SparPartId
+WHERE PO.Purchase_Order_Id = '${UUID}';`;
+
+const ItemsTable = await queryAsync(ItemsTableQuery);
+
+let BilingDataQuery = `SELECT POB.Bill_Sundry,POB.Narration,POB.Percentage,POB.Amount,POB.Total_Amount FROM PurchaseOrder PO
+JOIN Purchase_Order_Billing POB ON POB.Purchase_Order_Id = PO.Purchase_Order_Id
+WHERE PO.Purchase_Order_Id = '${UUID}'`;
+ 
+const BilingData = await queryAsync(BilingDataQuery);
+
+await PurchaseOrderPdf(Top_Data,ItemsTable,BilingData)
    res.send({msg:'data Inserted Succesfully'})
   }catch(err){
     console.log(err)

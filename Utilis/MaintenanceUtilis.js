@@ -2,7 +2,8 @@ const Path = require('path');
 const fs = require('fs')
 const pdf = require('html-pdf')
 const { PDFDocument } = require('pdf-lib');
-
+const { ToWords } = require('to-words');
+const toWords = new ToWords();
 require('dotenv').config();
 
 /** to Get current Date & Time */
@@ -17,428 +18,505 @@ function getCurrentDateTime() {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
 
+const PurchaseOrderPdf = async(Top_Data,ItemsTable,BillingTable)=>{
 
-  
- const htmlContent1 = ` <html>
-
-<head>
-    <style>
-        body {
-            font-family: arial, sans-serif;
-            font-weight:bold;
+    // let  Top_Data = [
+    //     {"Purchase_Order_Id":"5fb72d5e-827a-443f-a5e0-ef111bb401e1","Order_Number":"GST-24-25-07","Voucher_Number":"GST-24-25-07","PartyName":"ABC Corp","Address":"123 Main Street, Suite 100","GSTNumber":"22AAAAA0000A1Z5","CompanyName":"Gautam Solar Private Limited Bhiwani","Company_GSTNumber":"06AAFCG5884Q1ZS","Company_Address":"7KM Milestone, Tosham Road, Dist.Bhiwani, Bawani Khera,","State":"Haryana","Pin":"127032","Email":"['sohan@gautamsolar.com','purchase@gautamsolar.com']","Purchase_Date":"Mon Jul 22 2024","Payment_Terms":"lknj","Delivery_Terms":"hj","Contact_Person":"jhg","Cell_Number":"jhg","Warranty":"jh"}
+    //     ];
+    
+    let serialNo = 0;
+    
+    
+    
+    // let ItemsTable = [
+    //     {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJKhfghfghfghfghgfhfgfghfghfhfhfghfghfghfhfghfghfghfghfhfghfghfghfghfghfghfhfhfghfghfghfghfghfghfghfghfghfghytyrtyrtyhfghfgh","HSNCode":'777',"SpareNumber":"JK;;PJ","Quantity":"321","Unit":"dfb","Price_Rs":"700","GST":"10","Amount":"247170","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'null',"SpareNumber":"JK;;PJ","Quantity":"7","Unit":"vbf","Price_Rs":"65","GST":"5","Amount":"477.75","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":'null',"SpareNumber":"fghfgh","Quantity":"34","Unit":"54","Price_Rs":"55","GST":"55","Amount":"2898.5","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"133","Unit":"cfd","Price_Rs":"676","GST":"65","Amount":"148348.2","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"234","Unit":"dsf","Price_Rs":"32","GST":"43","Amount":"10707.84","Total_Amount":"821494.27"},
+    //      {"MasterSparePartName":"53232","SparePartName":"Solar panel","HSNCode":'null',"SpareNumber":"0000988","Quantity":"2","Unit":"gf","Price_Rs":"100","GST":"10","Amount":"220","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"Motor","SparePartName":"servo motor ","HSNCode":'null',"SpareNumber":"ms1h3-40s","Quantity":"34","Unit":"df","Price_Rs":"435","GST":"32","Amount":"19522.8","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":'null',"SpareNumber":"fghfgh","Quantity":"10","Unit":"fds","Price_Rs":"500","GST":"20","Amount":"6000","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":null,"SpareNumber":"fghfgh","Quantity":"4","Unit":"vcb","Price_Rs":"56","GST":"65","Amount":"369.6","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"54","Unit":"fg","Price_Rs":"54","GST":"54","Amount":"4490.64","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"5","Unit":"fds","Price_Rs":"65","GST":"12","Amount":"364","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":null,"SpareNumber":"fghfgh","Quantity":"43","Unit":"dfg","Price_Rs":"4","GST":"4","Amount":"178.88","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"dfghd","SparePartName":"dfhdfh","HSNCode":null,"SpareNumber":"hdfhdfhdh","Quantity":"65","Unit":"654","Price_Rs":"56","GST":"54","Amount":"5605.6","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"4","Unit":"vbc","Price_Rs":"546","GST":"54","Amount":"3363.36","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":null,"SpareNumber":"JK;;PJ","Quantity":"566","Unit":"dfbg","Price_Rs":"435","GST":"51","Amount":"371777.1","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'777',"SpareNumber":"JK;;PJ","Quantity":"321","Unit":"dfb","Price_Rs":"700","GST":"10","Amount":"247170","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'null',"SpareNumber":"JK;;PJ","Quantity":"7","Unit":"vbf","Price_Rs":"65","GST":"5","Amount":"477.75","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":null,"SpareNumber":"JK;;PJ","Quantity":"566","Unit":"dfbg","Price_Rs":"435","GST":"51","Amount":"371777.1","Total_Amount":"821494.27"},
+    //     // {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'777',"SpareNumber":"JK;;PJ","Quantity":"321","Unit":"dfb","Price_Rs":"700","GST":"10","Amount":"247170","Total_Amount":"821494.27"},
+    //     // {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'null',"SpareNumber":"JK;;PJ","Quantity":"7","Unit":"vbf","Price_Rs":"65","GST":"5","Amount":"477.75","Total_Amount":"821494.27"},
+    //     ]
+    
+    // let BillingTable = [
+    //     {"Purchase_Order_Billing_Id":"4a0788d2-001e-47ee-a3ae-73842a1e6dfa","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"Freight","Narration":"","Percentage":"6","Amount":"46825.17","Total_Amount":"827244.73"},
+    //     {"Purchase_Order_Billing_Id":"8835d25f-b67d-4337-929a-5952777eaaed","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"SGST","Narration":"","Percentage":"5","Amount":"5667","Total_Amount":"827244.73"},
+    //     {"Purchase_Order_Billing_Id":"a2134b94-ab62-404b-b2fb-7974c9691d6d","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"CGST","Narration":"","Percentage":"8","Amount":"56766","Total_Amount":"827244.73"},
+    //     {"Purchase_Order_Billing_Id":"b1e4f7f2-0839-4df4-80d6-9aa5c5defba3","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"IGST","Narration":"","Percentage":"","Amount":"","Total_Amount":"827244.73"},
+    //     {"Purchase_Order_Billing_Id":"c8325b06-5b40-435a-a6f3-91e52d6f713b","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"Discount","Narration":"","Percentage":"5","Amount":"41074.71","Total_Amount":"827244.73"}
+    //     ]
+      
+        let totalQuantity = 0;
+    
+        let emailString = Top_Data[0].Email;
+        emailString = emailString.replace(/'/g, '"');
+    
+    const HTMLGenerator = (data,page,totalPage,DataLength)=>{
+       
+        let totalQuantityPerPage = 0;
+        let totalAmountPerPage = 0;
+     
+        if(DataLength<8 && data.length) {
+            let templength = 8-DataLength;
+            for(let i = 1; i<=templength; i++){  
+            data.push(
+                {"MasterSparePartName":"","SparePartName":"","HSNCode":"","SpareNumber":"","Quantity":"","Unit":"","Price_Rs":"","GST":"","Amount":"","Total_Amount":""}
+            );
         }
-
-        .watermark {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0.1;
-            /* Adjust the opacity as needed */
-            z-index: -1;
-            width: 80%;
-            /* Adjust size as needed */
         }
-
-        .container {
-            display: table;
-            width: 100%;
-            margin-top: 56px;
-            font-weight: medium;
-            padding:-10px;
-        }
-
-        .row {
-            display: table-row;
-        }
-
-        .cell {
-            display: table-cell;
-            padding-left: 5px;
-            width: 50%;
+        console.log(data.length)
+         const htmlContent1 = ` <html>
+    
+        <head>
+            <style>
+                body {
+                    font-family: arial, sans-serif;
+                    font-weight:bold;
+                }
+        
+                .watermark {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    opacity: 0.1;
+                    /* Adjust the opacity as needed */
+                    z-index: -1;
+                    width: 80%;
+                    /* Adjust size as needed */
+                }
+        
+                .container {
+                    display: table;
+                    width: 100%;
+                    margin-top: 56px;
+                    font-weight: medium;
+                    padding:-10px;
+                }
+        
+                .row {
+                    display: table-row;
+                }
+        
+                .cell {
+                    display: table-cell;
+                    padding-left: 5px;
+                    width: 50%;
+                    border: 1px solid black;
+                    padding: 5px
+                }
+        
+                .cell p {
+                    margin: 0;
+                    padding: 0;
+        
+                }
+        
+                .cell .company-name {
+                    font-size: 13px;
+                }
+        
+                .cell .address {
+                    font-size: 11px;
+                }
+                .empty-box{
+                   margin-top:0px;
+                    height: 20px;
+                    width: 100%;
+                   border-bottom: 1px solid black;
+                    border-right: 1px solid black;
+                    border-left: 1px solid black;
+                }
+        
+                  .empty-box1{
+                   margin-top:-12px;
+                    height: 20px;
+                    width: 100%;
+                   border-bottom: 1px solid black;
+                    border-right: 1px solid black;
+                    border-left: 1px solid black;
+                }
+        
+                      table {
+                    width: 100.3%;
+                    margin-top:0.5px;
+                    border-collapse: collapse;
+                    border-bottom: 1px solid black;
+                    border-right: 1px solid black;
+                    border-left: 1px solid black;
+                    
+                }
+        
+                th, td {
+                    border: 1px solid #ddd;
+                   border: 1px solid black;
+                }
+        
+                th {
+                    background-color: #f2f2f2;
+                    text-align: center;
+                    font-weight:bold;
+                border: 1px solid black;
+                }
+        
+                ul {
+                    list-style-type: none;
+                    padding-left: 0;
+                }
+        
+                .parent {
+                    font-weight: bold;
+                    font-size:13px
+                }
+        
+                .child {
+                    margin-left: 20px;
+                    font-size:10px
+                }
+        
+                .serialNo{
+                  text-align: center;
+                  font-size:12px;
+                  font-weight:bold;
+                }
+                .center-td{
+                 text-align: center;
+                 font-size:12px;
+                 font-weight:bold;
+                }
+        
+        
+                .summary-desc {
+                    overflow: hidden;
+                    width: 100%;
+                }
+        
+                .summary-desc-left, .summary-desc-right {
+                    float: left;
+                    box-sizing: border-box; /* Ensures padding and border are included in the width */
+                }
+        
+                .summary-desc-left {
+                    width: 50%; /* Adjust the width as needed */
+                    border: 1px solid black; /* Adding border */
+                    padding-left:10px;
+                }
+        
+                .summary-desc-right {
+                    width: 50%; /* Adjust the width as needed */
+                    border: 1px solid black; /* Adding border */
+                   
+                }
+        
+                /* Clearfix to clear floats */
+                .summary-desc::after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                }
+        
+               th, td {
             border: 1px solid black;
-            padding: 5px
+            page-break-inside: auto;
         }
-
-        .cell p {
-            margin: 0;
-            padding: 0;
-
+        
+        tr {
+            page-break-inside: auto;
         }
-
-        .cell .company-name {
-            font-size: 13px;
-        }
-
-        .cell .address {
-            font-size: 11px;
-        }
-        .empty-box{
-           margin-top:0px;
-            height: 20px;
-            width: 100%;
-           border-bottom: 1px solid black;
-            border-right: 1px solid black;
-            border-left: 1px solid black;
-        }
-
-          .empty-box1{
-           margin-top:-12px;
-            height: 20px;
-            width: 100%;
-           border-bottom: 1px solid black;
-            border-right: 1px solid black;
-            border-left: 1px solid black;
-        }
-
-              table {
-            width: 100.3%;
-            margin-top:0.5px;
-            border-collapse: collapse;
-            border-bottom: 1px solid black;
-            border-right: 1px solid black;
-            border-left: 1px solid black;
-            
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-           border: 1px solid black;
-        }
-
-        th {
-            background-color: #f2f2f2;
-            text-align: center;
-            font-weight:bold;
-        border: 1px solid black;
-        }
-
-        ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .parent {
-            font-weight: bold;
-            font-size:13px
-        }
-
-        .child {
-            margin-left: 20px;
-            font-size:10px
-        }
-
-        .serialNo{
-          text-align: center;
-          font-size:12px;
-          font-weight:bold;
-        }
-        .center-td{
-         text-align: center;
-         font-size:12px;
-         font-weight:bold;
-        }
-
-
-        .summary-desc {
-            overflow: hidden;
-            width: 100%;
-        }
-
-        .summary-desc-left, .summary-desc-right {
-            float: left;
-            box-sizing: border-box; /* Ensures padding and border are included in the width */
-        }
-
-        .summary-desc-left {
-            width: 50%; /* Adjust the width as needed */
-            border: 1px solid black; /* Adding border */
-            padding-left:10px;
-        }
-
-        .summary-desc-right {
-            width: 50%; /* Adjust the width as needed */
-            border: 1px solid black; /* Adding border */
-           
-        }
-
-        /* Clearfix to clear floats */
-        .summary-desc::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-
-       th, td {
-    border: 1px solid black;
-    page-break-inside: auto;
-}
-
-tr {
-    page-break-inside: auto;
-}
- 
-    </style>
-</head>
-
-<body>
-
-    <div class="container">
-        <div class="row">
-            <div class="cell" style=" width: 50%; font-weight:bold;">
-                <p style="font-size: 14px">Party Details:</p>
-                <p class="company-name">A-tech Pneumatics Pvt Ltd.</p>
-                <p class="address">209,2nd Floor Vardhaman Bee Pee Plaza , Plot No 1 sec -5 Dwarka New Delhi - 11007</p>
-                <br>
-                <br>
-                <span style="font-size: 14px;">GSTIN/UIN :</span> <span
-                    style=" font-size: 14px; margin-left:30px">07AAGCA1509H1Z0</span>
-            </div>
-
-            <!-- Second-->
-            <div class="cell" style=" width: 55%;">
-             <div style = " font-size:12px; font-weight:bold;">
-
-                <div>
-
-                    <div>
-                        <span style="font-size: 12px;">Order No. :</span><span
-                            style="font-size:12px; margin-left:32px;">GST 23</span>
+         
+            </style>
+        </head>
+        
+        <body>
+        
+            <div class="container">
+                <div class="row">
+                    <div class="cell" style=" width: 50%; font-weight:bold;">
+                        <p style="font-size: 14px">Party Details:</p>
+                        <p class="company-name">${Top_Data[0].PartyName}</p>
+                        <p class="address">${Top_Data[0].Address}</p>
+                        <br>
+                        <br>
+                        <span style="font-size: 14px;">GSTIN/UIN :</span> <span
+                            style=" font-size: 14px; margin-left:30px">${Top_Data[0].GSTNumber}</span>
                     </div>
-                    <div>
-                        <span style="font-size: 12px;">Dated :</span><span
-                            style="font-size:12px; margin-left:52px;">20-01-2024</span>
+        
+                    <!-- Second-->
+                    <div class="cell" style=" width: 55%;">
+                     <div style = " font-size:12px; font-weight:bold;">
+        
+                        <div>
+        
+                            <div>
+                                <span style="font-size: 12px;">Order No. :</span><span
+                                    style="font-size:12px; margin-left:32px;">${Top_Data[0].Order_Number}</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 12px;">Dated :</span><span
+                                    style="font-size:12px; margin-left:52px;">${Top_Data[0].Purchase_Date}</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 12px;">Payment Terms :</span><span
+                                    style="font-size:12px; margin-left:1px;">${Top_Data[0].Payment_Terms}</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 12px;">Delivery Terms:</span><span
+                                    style="font-size:12px; margin-left:10px;">${Top_Data[0].Delivery_Terms}</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 12px;">Contact Person:</span><span
+                                    style="font-size:12px; margin-left:10px;">${Top_Data[0].Contact_Person}</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 12px;">Cell No:</span><span
+                                    style="font-size:12px; margin-left:52px;">${Top_Data[0].Cell_Number}</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 12px;">Warranty:</span><span
+                                    style="font-size:12px; margin-left:44px;">${Top_Data[0].Warranty}</span>
+                            </div>
+        
+                        </div>
+        
+        
                     </div>
-                    <div>
-                        <span style="font-size: 12px;">Payment Terms :</span><span
-                            style="font-size:12px; margin-left:1px;">30 days credit</span>
-                    </div>
-                    <div>
-                        <span style="font-size: 12px;">Delivery Terms:</span><span
-                            style="font-size:12px; margin-left:10px;">Immediate</span>
-                    </div>
-                    <div>
-                        <span style="font-size: 12px;">Contact Person:</span><span
-                            style="font-size:12px; margin-left:10px;">Md Afroj</span>
-                    </div>
-                    <div>
-                        <span style="font-size: 12px;">Cell No:</span><span
-                            style="font-size:12px; margin-left:52px;">9999999999</span>
-                    </div>
-                    <div>
-                        <span style="font-size: 12px;">Warranty:</span><span
-                            style="font-size:12px; margin-left:44px;">9999999999</span>
-                    </div>
-
                 </div>
-
-
             </div>
         </div>
-    </div>
-</div>
-
-<div class="empty-box">
-          
-</div>
-<div class="empty-box1">
-  <p style="font-size:12px; margin-left:5px; ">We are Pleased to place the order for the following items:</p>
-</div>
-
-  <!-----------------------  Table  ------------------------->
- <table class = "page-break">
-    <thead>
-        <tr>
-            <th>S.N.</th>
-            <th style="width:50%;">Description of Goods</th>
-            <th>HSN/SAC Code</th>
-            <th>Qty.</th>
-            <th>Unit</th>
-            <th>Price</th>
-            <th>Amount</th>
-        </tr>
-    </thead>
-    <tbody>
+        
+        <div class="empty-box">
+                  
+        </div>
+        <div class="empty-box1">
+          <p style="font-size:12px; margin-left:5px; ">We are Pleased to place the order for the following items:</p>
+        </div>
+        
+          <!-----------------------  Table  ------------------------->
+         <table class = "page-break" ${totalPage==page?'':'style="border-bottom:1px solid black;"'} >
+            <thead>
+                <tr>
+                    <th>S.N.</th>
+                    <th style="width:50%;">Description of Goods</th>
+                    <th>HSN/SAC Code</th>
+                    <th>Qty.</th>
+                    <th>Unit</th>
+                    <th>Price ₹</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+            ${data.map((row, i) => {
+                serialNo++;
+                totalQuantity += Number(row.Quantity) || 0;
+                totalAmountPerPage+=Number(row.Amount) || 0;
+                totalQuantityPerPage+=Number(row.Quantity) || 0;
+              
+                return `
+                    <tr style="height:55px;">
+                        <td ${8-1 == i ? 'style="vertical-align: top;"' : 'style="border-bottom-style: hidden; vertical-align: top;"'} style="vertical-align: top;" class="serialNo">${row.MasterSparePartName ? serialNo : ''}</td>
+                        <td ${8-1 == i ? '' : 'style="border-bottom-style: hidden;"'}>
+                            <ul style="margin-left:7px;">
+                                <li class="parent">${row.MasterSparePartName || ""}
+                                    <ul>
+                                        <li class="child" style="word-wrap: break-word; word-break: break-word;">${row.SparePartName || ""}</li>
+                                        <li class="child" style="word-wrap: break-word; word-break: break-word;">${row.SpareNumber || ""}</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.HSNCode || ""}</td>
+                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Quantity || ""}</td>
+                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Unit || ""}</td>
+                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Price_Rs || ""}</td>
+                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Amount || ""}</td>
+                    </tr>`;
+            }).join(' ')
+            }
+               
+            ${totalPage == page?
+            `<tr style="height:20px; ">
+                       <td style="border:0px solid black;" class="serialNo" ></td>
+                       <td style="border:0px solid black;">
+                           <p style = "text-align:center; font-weight:bold; font-size:13px;">Total Quantity</p> 
+                       </td>
+                       <td style="border:0px solid black; font-weight:bold;" class="center-td"></td> <!-- Replace with actual HSN/SAC Code -->
+                       <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold;" ></td> <!-- Replace with actual Qty. -->
+                       <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold;" ></td>
+                       <td  style="border:0px solid black; font-weight:bold;" class="center-td" ></td> <!-- Replace with actual Price -->
+                       <td style="border:0px solid black; font-weight:bold; word-wrap: break-word; word-break: break-word;" class="center-td" style = "text-align:center; font-weight:bold;" >${totalQuantityPerPage} ${data[0].Unit}</td> <!-- Replace with actual Amount -->
+                   </tr>`:`
+                   <tr style="height:120px; ">
+                       <td style="border:0px solid black;" class="serialNo" ></td>
+                       <td style="border:0px solid black;">
+                           <p style = "text-align:center; font-weight:bold; font-size:13px;">Total Quantity</p> 
+                       </td>
+                       <td style="border:0px solid black; font-weight:bold;" class="center-td">${totalQuantityPerPage} ${data[0].Unit}</td> <!-- Replace with actual HSN/SAC Code -->
+                       <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold;" >Total Amount</td> <!-- Replace with actual Qty. -->
+                       <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold;" ></td>
+                       <td  style="border:0px solid black; font-weight:bold;" class="center-td" ></td> <!-- Replace with actual Price -->
+                       <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold; word-wrap: break-word; word-break: break-word;" >${totalAmountPerPage.toFixed(2)}</td> <!-- Replace with actual Amount -->
+                   </tr>
+                   
+                   `}
     
-         <tr>
-            <td class="serialNo" >2</td>
-            <td>
-                <ul>
-                    <li class="parent">Cylinder
-                        <ul>
-                            <li class="child">Airtac Rotary Clamp Cylinder</li>
-                            <li class="child">Model No. QCKR32X30S</li>
-                        </ul>
-                    </li>
-                </ul>
-            </td>
-            <td class="center-td">XXXXX</td> <!-- Replace with actual HSN/SAC Code -->
-            <td class="center-td" >2</td> <!-- Replace with actual Qty. -->
-            <td class="center-td" >Pc</td>
-            <td class="center-td" >1500</td> <!-- Replace with actual Price -->
-            <td class="center-td" >3000</td> <!-- Replace with actual Amount -->
-        </tr>
+    
+            ${
+                totalPage == page?
+                BillingTable.map((bill)=>{
+    
+                    return  bill.Amount? `<!----------------- @@@@ Last Row to final QTY and amount @@@@@@@@@@@@@@@@------>
+                    <tr style="height:20px; ">
+                       <td style="border:0px solid black;" class="serialNo" ></td>
+                       <td style="border:0px solid black;">
+                           <p style = "text-align:center; font-weight:bold; font-size:13px; word-wrap: break-word; word-break: break-word;">${bill.Bill_Sundry} </p>
+                       </td>
+                       <td style="border:0px solid black; font-weight:bold;" class="center-td"></td> <!-- Replace with actual HSN/SAC Code -->
+                       <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold; word-wrap: break-word; word-break: break-word;" >@ ${bill.Percentage} %</td> <!-- Replace with actual Qty. -->
+                       <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold;" ></td>
+                       <td  style="border:0px solid black; font-weight:bold;" class="center-td" ></td> <!-- Replace with actual Price -->
+                       <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold; word-wrap: break-word; word-break: break-word;" >${bill.Amount}</td> <!-- Replace with actual Amount -->
+                   </tr>`:'';
+    
+                }).join(' ')
+        :
+        ``
+            }
+    
+            
+            </tbody>
+        </table>
+        ${totalPage == page?
+            `<div style="width: 100%; margin-top: 2px; box-sizing: border-box; ">
+        <table style="width: 100%; border-collapse: collapse; border: 1px dashed black;">
+            <tr>
+                <td style="width: 10%; font-weight: bold; text-align: left;  padding-left: 3px;  margin: 0; font-size: 12px; word-wrap: break-word; word-break: break-word; border: none;">Total Amount</td>
+                <td style="width: 75%; font-weight: bold; padding-left: 2px; padding-right: 3px; text-align: center; padding: 0; margin: 0; font-size: 12px; word-wrap: break-word; word-break: break-word; border: none;">${toWords.convert(Number(BillingTable[0].Total_Amount))}</td>
+                <td style="width: 15%; font-weight: bold; text-align: right; padding-right: 3px; margin: 0; font-size: 12px; word-wrap: break-word; word-break: break-word; border: none;">${BillingTable[0].Total_Amount}</td>
+            </tr>
+        </table>
+    </div>`:``}
+        </body>
+        
+        </html>`;
+    
+        return htmlContent1;
+    
+    }
+    
+     
+    
+    
+    
+    
+    
+    const options = {
+      format: 'A4',
+      footer: {
+        height: '150px',
+        contents: `<div style="width: 100%;" class="summary-desc">
+             <div class="summary-desc-left">
+               <p style="text-decoration: underline; font-size:10px;">Terms & Conditions</p>
+               <p style="font-size:12px;">1. Purchase Order Is Inclusive of All taxes i.e GST </p>
+               <p style="font-size:12px; margin-top:-10px;">2. All Material will be dispatch to Haridwar factory</p>
+               <p style="font-size:12px; margin-top:-10px;">3. If the supplied qty is in excess of Purchase Order Qty, we may reject the excess supplied qty without any economic consideration.</p>
+               <p style="font-size:12px; margin-top:-10px;">4. All disputes subject to Delhi Jurisdiction.</p>
+             </div>
+    
+             <div class="summary-desc-right">
+               <div>
+                 <p style="margin-left:10px; font-size:12px;">Receiver's signature</p>
+               </div>
+    
+               <div style="height:102px; border-top:1px solid black">
+                 <p style="margin-right:10px; font-size:16px; text-align: end;">for Gautam Solar Private Limited</p>
+                 <p style="margin-right:10px; font-size:16px; text-align: end;">Authorised Signatory</p>
+               </div>
+             </div>
+           </div>`
+      },
+      header: {
+        height: '50px',
+        contents: `<div style="width: 100%; border: 1px solid black;">
+             <h4 style="text-decoration: underline; text-align: center; margin-top: 0px;">Purchase Order</h4>
+             <h3 style="text-align: center; margin-top: -24px; letter-spacing: 2px;">${Top_Data[0].CompanyName}</h3>
+             <h4 style="text-align: center; margin-top: -22px; font-size: 13px;">${Top_Data[0].Company_Address}, ${Top_Data[0].State} - ${Top_Data[0].Pin}</h4>
+             <h4 style="text-align: center; margin-top: -19px; font-size: 13px;">GSTIN: ${Top_Data[0].GSTNumber}</h4>
+             <h4 style="text-align: center; margin-top: -19px; font-size: 10px;">email: ${JSON.parse(emailString).join(' ')}</h4>
+           </div>`
+      }
+    };
+    
+    // Function to create PDF and return as a promise
+    function createPdf(html, options) {
+      return new Promise((resolve, reject) => {
+        pdf.create(html, options).toBuffer((err, buffer) => {
+          if (err) return reject(err);
+          resolve(buffer);
+        });
+      });
+    }
+    
+    // Function to merge PDFs
+    async function mergePdfs(buffers) {
+      const pdfDoc = await PDFDocument.create();
+      for (const buffer of buffers) {
+        const pdfBuffer = await PDFDocument.load(buffer);
+        const pages = await pdfDoc.copyPages(pdfBuffer, pdfBuffer.getPageIndices());
+        pages.forEach(page => pdfDoc.addPage(page));
+      }
+      const mergedPdf = await pdfDoc.save();
+      return mergedPdf;
+    }
+    
+    // Create and handle PDF buffers
+    async function generateAndMergePdfs() {
+        let pagesBufferArr = [];
+        try {
+            let Pages = Math.ceil((ItemsTable.length) / 8);
+    
+            for (let page = 1; page <= Pages; page++) {
+                let startIndex = (page - 1) * 8; 
+                let endIndex = page * 8;
+    
+                // Ensure that pageData has items before generating the PDF
+                if (startIndex < ItemsTable.length) {
+                    let pageData = ItemsTable.slice(startIndex, endIndex);
+                    const htmlContent1 = HTMLGenerator(pageData, page, Pages, pageData.length);
+                    let pageBuffer = await createPdf(htmlContent1, options);
+                    pagesBufferArr.push(pageBuffer);
+                }
+            }
+            
+            const mergedPdfBuffer = await mergePdfs(pagesBufferArr);
+    
+            fs.writeFile('merged.pdf', mergedPdfBuffer, (err) => {
+                if (err) return console.log(err);
+                console.log('Merged PDF created and saved as merged.pdf');
+            });
+        } catch (err) {
+            console.error('Error generating or merging PDFs:', err);
+        }
+    }
+    
+    generateAndMergePdfs();
 
-         <tr>
-            <td class="serialNo" >2</td>
-            <td>
-                <ul>
-                    <li class="parent">Cylinder
-                        <ul>
-                            <li class="child">Airtac Rotary Clamp Cylinder</li>
-                            <li class="child">Model No. QCKR32X30S</li>
-                        </ul>
-                    </li>
-                </ul>
-            </td>
-            <td class="center-td">XXXXX</td> <!-- Replace with actual HSN/SAC Code -->
-            <td class="center-td" >2</td> <!-- Replace with actual Qty. -->
-            <td class="center-td" >Pc</td>
-            <td class="center-td" >1500</td> <!-- Replace with actual Price -->
-            <td class="center-td" >3000</td> <!-- Replace with actual Amount -->
-        </tr>
-
-         <tr>
-            <td class="serialNo" >2</td>
-            <td>
-                <ul>
-                    <li class="parent">Cylinder
-                        <ul>
-                            <li class="child">Airtac Rotary Clamp Cylinder</li>
-                            <li class="child">Model No. QCKR32X30S</li>
-                        </ul>
-                    </li>
-                </ul>
-            </td>
-            <td class="center-td">XXXXX</td> <!-- Replace with actual HSN/SAC Code -->
-            <td class="center-td" >2</td> <!-- Replace with actual Qty. -->
-            <td class="center-td" >Pc</td>
-            <td class="center-td" >1500</td> <!-- Replace with actual Price -->
-            <td class="center-td" >3000</td> <!-- Replace with actual Amount -->
-        </tr>
-
-         <tr>
-            <td class="serialNo" >2</td>
-            <td>
-                <ul>
-                    <li class="parent">Cylinder
-                        <ul>
-                            <li class="child">Airtac Rotary Clamp Cylinder</li>
-                            <li class="child">Model No. QCKR32X30S</li>
-                        </ul>
-                    </li>
-                </ul>
-            </td>
-            <td class="center-td">XXXXX</td> <!-- Replace with actual HSN/SAC Code -->
-            <td class="center-td" >2</td> <!-- Replace with actual Qty. -->
-            <td class="center-td" >Pc</td>
-            <td class="center-td" >1500</td> <!-- Replace with actual Price -->
-            <td class="center-td" >3000</td> <!-- Replace with actual Amount -->
-        </tr>
-
-        <!----------------- @@@@ Last Row to final QTY and amount @@@@@@@@@@@@@@@@------>
-        <tr style="height:50px;">
-            <td style="border:0px solid black;" class="serialNo" ></td>
-            <td style="border:0px solid black;">
-                <p style = "text-align:center; font-weight:bold;">Total C/o </p>
-            </td>
-            <td style="border:0px solid black; font-weight:bold;" class="center-td"></td> <!-- Replace with actual HSN/SAC Code -->
-            <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold;" >2</td> <!-- Replace with actual Qty. -->
-            <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold;" >Pc</td>
-            <td  style="border:0px solid black; font-weight:bold;" class="center-td" ></td> <!-- Replace with actual Price -->
-            <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold;" >3000</td> <!-- Replace with actual Amount -->
-        </tr>
-
-    </tbody>
-</table>
-
-</body>
-
-</html>`;
-
-
-
-
-
-const options = {
-  format: 'A4',
-  footer: {
-    height: '150px',
-    contents: `<div style="width: 100%;" class="summary-desc">
-         <div class="summary-desc-left">
-           <p style="text-decoration: underline; font-size:10px;">Terms & Conditions</p>
-           <p style="font-size:12px;">1. Purchase Order Is Inclusive of All taxes i.e GST </p>
-           <p style="font-size:12px; margin-top:-10px;">2. All Material will be dispatch to Haridwar factory</p>
-           <p style="font-size:12px; margin-top:-10px;">3. If the supplied qty is in excess of Purchase Order Qty, we may reject the excess supplied qty without any economic consideration.</p>
-           <p style="font-size:12px; margin-top:-10px;">4. All disputes subject to Delhi Jurisdiction.</p>
-         </div>
-
-         <div class="summary-desc-right">
-           <div>
-             <p style="margin-left:10px; font-size:12px;">Receiver's signature</p>
-           </div>
-
-           <div style="height:102px; border-top:1px solid black">
-             <p style="margin-right:10px; font-size:16px; text-align: end;">for Gautam Solar Private Limited</p>
-             <p style="margin-right:10px; font-size:16px; text-align: end;">Authorised Signatory</p>
-           </div>
-         </div>
-       </div>`
-  },
-  header: {
-    height: '50px',
-    contents: `<div style="width: 100%; border: 1px solid black;">
-         <h4 style="text-decoration: underline; text-align: center; margin-top: 0px;">Purchase Order</h4>
-         <h3 style="text-align: center; margin-top: -24px; letter-spacing: 2px;">Gautam Solar Private Limited (UNIT 11)</h3>
-         <h4 style="text-align: center; margin-top: -22px; font-size: 13px;">Plot No 67-70 Sec 8A, IIE Ranipur Sidcul Haridwar, Uttarakhand - 249403</h4>
-         <h4 style="text-align: center; margin-top: -19px; font-size: 13px;">GSTIN: 05AAFCG5884Q1ZU</h4>
-         <h4 style="text-align: center; margin-top: -19px; font-size: 10px;">email: purchase@gautamsolar.com</h4>
-       </div>`
-  }
-};
-
-// Function to create PDF and return as a promise
-function createPdf(html, options) {
-  return new Promise((resolve, reject) => {
-    pdf.create(html, options).toBuffer((err, buffer) => {
-      if (err) return reject(err);
-      resolve(buffer);
-    });
-  });
 }
 
-// Function to merge PDFs
-async function mergePdfs(buffers) {
-  const pdfDoc = await PDFDocument.create();
-  for (const buffer of buffers) {
-    const pdfBuffer = await PDFDocument.load(buffer);
-    const pages = await pdfDoc.copyPages(pdfBuffer, pdfBuffer.getPageIndices());
-    pages.forEach(page => pdfDoc.addPage(page));
-  }
-  const mergedPdf = await pdfDoc.save();
-  return mergedPdf;
-}
-
-// Create and handle PDF buffers
-async function generateAndMergePdfs() {
-  try {
-    let page1 = await createPdf(htmlContent1, options);
-    let page2 = await createPdf(htmlContent1, options); // Assuming you want the same content for page2
-
-    const mergedPdfBuffer = await mergePdfs([page1, page2]);
-
-    fs.writeFile('merged.pdf', mergedPdfBuffer, (err) => {
-      if (err) return console.log(err);
-      console.log('Merged PDF created and saved as merged.pdf');
-    });
-  } catch (err) {
-    console.error('Error generating or merging PDFs:', err);
-  }
-}
-
-generateAndMergePdfs();
 
 
 
 
-  module.exports = {getCurrentDateTime}
+  module.exports = {getCurrentDateTime, PurchaseOrderPdf}

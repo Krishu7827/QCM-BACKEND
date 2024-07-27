@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 8080;
 const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 
 
-/**Add Machine Data  */
+/**Add Spare Part Data  */
 const AddSpareParts = async (req, res) => {
   const {
     SparePartName,

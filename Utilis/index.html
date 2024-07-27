@@ -56,6 +56,15 @@
             border-bottom: 1px solid black;
             border-right: 1px solid black;
             border-left: 1px solid black;
+            
+        }
+        .summary-desc-left {
+            text-align: left;
+        }
+        @media print{
+            .page-break{
+                page-break-inside: avoid;
+            }
         }
     </style>
 </head>
@@ -120,6 +129,96 @@
 <div class="empty-box">
           
 </div>
+
+<div class="empty-box1">
+    <p style="font-size:12px; margin-left:5px; ">We are Pleased to place the order for the following items:</p>
+  </div>
+
+  <div>
+
+  </div>
+
+  <!----->
+  <table>
+    <thead>
+        <tr>
+            <th>S.N.</th>
+            <th>Description of Goods</th>
+            <th>HSN/SAC Code</th>
+            <th>Qty.</th>
+            <th>Price</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>
+                <ul>
+                    <li class="parent">Cylinder
+                        <ul>
+                            <li class="child">Airtac Compact Slide Cylinder</li>
+                            <li class="child">Model No. HLQL16X40S</li>
+                        </ul>
+                    </li>
+                </ul>
+            </td>
+            <td>XXXXX</td> <!-- Replace with actual HSN/SAC Code -->
+            <td>1</td>
+            <td>1000</td> <!-- Replace with actual Price -->
+            <td>1000</td> <!-- Replace with actual Amount -->
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>
+                <ul>
+                    <li class="parent">Cylinder
+                        <ul>
+                            <li class="child">Airtac Rotary Clamp Cylinder</li>
+                            <li class="child">Model No. QCKR32X30S</li>
+                        </ul>
+                    </li>
+                </ul>
+            </td>
+            <td>XXXXX</td> <!-- Replace with actual HSN/SAC Code -->
+            <td>2</td> <!-- Replace with actual Qty. -->
+            <td>1500</td> <!-- Replace with actual Price -->
+            <td>3000</td> <!-- Replace with actual Amount -->
+        </tr>
+    </tbody>
+</table>
+ 
+<div class="summary-desc">
+ <div class="summary-desc-left">
+  <p style="text-decoration: underline;">Terms & Conditions</p>
+  <p>1. Purchase Order Is Inclusive of All taxes i.e GST </p>
+  <p>2. All Material will be dispach to haridwar factory</p>
+  <p>3. if the supplied qty is in excess of Purchase Order Qty We may reject the excess supplied qty without any economic 
+    Consideration 
+</p>
+<p>
+    4. All dispute subjected to Delhi Jurisdiction 
+</p>
+
+ </div>
+
+ <div class="summary-desc-right" >
+    
+ </div>
+</div>
+
+     <!----------------- @@@@ Last Row to final QTY and amount @@@@@@@@@@@@@@@@------>
+     <tr style="height:50px;">
+        <td style="border:0px solid black;" class="serialNo" ></td>
+        <td style="border:0px solid black;">
+            <p style = "text-align:center; font-weight:bold;">Total C/o </p>
+        </td>
+        <td style="border:0px solid black; font-weight:bold;" class="center-td"></td> <!-- Replace with actual HSN/SAC Code -->
+        <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold;" >2</td> <!-- Replace with actual Qty. -->
+        <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold;" >Pc</td>
+        <td  style="border:0px solid black; font-weight:bold;" class="center-td" ></td> <!-- Replace with actual Price -->
+        <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold;" >3000</td> <!-- Replace with actual Amount -->
+    </tr>
 </body>
 
 </html>

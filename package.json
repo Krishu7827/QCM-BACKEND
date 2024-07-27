@@ -39,6 +39,7 @@
     "pdf-lib": "^1.17.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
+    "to-words": "^4.1.0",
     "uuid": "^9.0.1"
   }
 }
