@@ -286,7 +286,7 @@ const puppeteer = require('puppeteer');
   try {
     const browser = await puppeteer.launch({
       headless: true,
-      executablePath: '/usr/bin/google-chrome', // Path to your local Chromium/Chrome
+      executablePath: '/usr/bin/chromium-browser', // Path to your local Chromium/Chrome
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
       timeout: 60000,
       dumpio: true
