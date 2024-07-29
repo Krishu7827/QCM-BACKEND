@@ -544,7 +544,7 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
         }
       }
       
-      generateAndMergePdfs();
+     return generateAndMergePdfs();
 
 
     }
