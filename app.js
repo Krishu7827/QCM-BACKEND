@@ -295,7 +295,7 @@ const puppeteer = require('puppeteer');
     const htmlContent = `
       <div style="width: 100%;" class="summary-desc">
         <div class="summary-desc-left">
-          <p style="text-decoration: underline; font-size:10px; font-weight:bold;">Terms & Conditions</p>
+          <p style="text-decoration: underline; font-size:10px; font-weight:bold;">Terms & Conditions & Test</p>
           <p style="font-size:12px;">1. Purchase Order Is Inclusive of All taxes i.e GST </p>
           <p style="font-size:12px; margin-top:-10px;">2. All Material will be dispatch to Haridwar factory</p>
           <p style="font-size:12px; margin-top:-10px;">3. If the supplied qty is in excess of Purchase Order Qty, we may reject the excess supplied qty without any economic consideration.</p>
