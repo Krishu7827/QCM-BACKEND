@@ -225,4 +225,102 @@ ORDER BY PO.Created_On DESC;`;
   }
 }
 
-module.exports = {getVoucherNumber, AddPurchaseOrder, getPurchaseOrderList}
+
+
+/** Controller to Get PO Data by PO Id */
+
+const getPurchaseOrderById = async (req, res) => {
+  const { PurchaseOrderID } = req.body;
+  try {
+    const query = `
+    SELECT po.Purchase_Order_Id, po.Voucher_Number, po.Purchase_Type, po.Party_Name, po.Company_Name, po.Narration, po.Purchase_Date,
+           po.Status, pob.Purchase_Order_Billing_Id, pob.Bill_Sundry, pob.Narration AS Billing_Narration, pob.Percentage, pob.Amount, pob.Total_Amount, 
+           poi.Purchase_Order_Item_Id, poi.Spare_Part_Id, poi.Quantity, poi.Unit, poi.Price_Rs, poi.GST, poi.Amount AS ItemAmount, poi.Total_Amount AS ItemTotalAmount, 
+           poof.Optional_Field_Id, poof.Payment_Terms, poof.Delivery_Terms, poof.Contact_Person, poof.Cell_Number, poof.Warranty 
+    FROM PurchaseOrder po
+    JOIN Purchase_Order_Billing pob ON po.Purchase_Order_Id = pob.Purchase_Order_Id
+    JOIN Purchase_Order_Items poi ON po.Purchase_Order_Id = poi.Purchase_Order_Id
+    JOIN Purchase_Order_Optional_Field poof ON po.Purchase_Order_Id = poof.Purchase_Order_Id
+    WHERE po.Purchase_Order_Id = '${PurchaseOrderID}' AND po.Status = 'Active';`;
+
+    let data = await new Promise((resolve, reject) => {
+      dbConn.query(query, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+
+    let uniqueData = {};
+    let uniqueItems = {};
+    let uniqueBilling = {};
+
+    data.forEach(row => {
+      if (!uniqueData[row.Purchase_Order_Id]) {
+        uniqueData[row.Purchase_Order_Id] = {
+          Purchase_Order_Id: row.Purchase_Order_Id,
+          Voucher_Number: row.Voucher_Number,
+          Purchase_Type: row.Purchase_Type,
+          Party_Name: row.Party_Name,
+          Company_Name: row.Company_Name,
+          Narration: row.Narration,
+          Purchase_Date: row.Purchase_Date,
+          Status: row.Status,
+          Billing: [],         
+          Payment_Terms: row.Payment_Terms,
+          Delivery_Terms: row.Delivery_Terms,
+          Contact_Person: row.Contact_Person,
+          Cell_Number: row.Cell_Number,
+          Warranty: row.Warranty,
+          Items: []
+        };
+      }
+
+    
+      if (!uniqueBilling[row.Bill_Sundry]) {
+        uniqueBilling[row.Bill_Sundry] = {
+          Bill_Sundry: row.Bill_Sundry,
+          Percentage: row.Percentage,
+          Amount: row.Amount,
+          Total_Amount: row.Total_Amount
+        };
+        uniqueData[row.Purchase_Order_Id].Billing.push(uniqueBilling[row.Bill_Sundry]);
+      }
+
+     
+      if (!uniqueItems[row.Purchase_Order_Item_Id]) {
+        uniqueItems[row.Purchase_Order_Item_Id] = {
+          Spare_Part_Id: row.Spare_Part_Id,
+          Quantity: row.Quantity,
+          Unit: row.Unit,
+          Price_Rs: row.Price_Rs,
+          GST: row.GST,
+          Item_Amount: row.ItemAmount,
+          Item_Total_Amount: row.ItemTotalAmount
+        };
+        uniqueData[row.Purchase_Order_Id].Items.push(uniqueItems[row.Purchase_Order_Item_Id]);
+      } 
+     
+    });
+
+    let responseData = Object.values(uniqueData);
+    res.send(responseData);
+  } catch (err) {
+    console.log(err);
+    res.status(404).send(err);
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+module.exports = {getVoucherNumber, AddPurchaseOrder, getPurchaseOrderList, getPurchaseOrderById}
