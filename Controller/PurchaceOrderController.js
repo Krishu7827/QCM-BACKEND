@@ -177,7 +177,9 @@ WHERE PO.Purchase_Order_Id = '${UUID}'`;
  
 const BilingData = await queryAsync(BilingDataQuery);
 
-await PurchaseOrderPdf(Top_Data,ItemsTable,BilingData, UUID)
+let pdf = await PurchaseOrderPdf(Top_Data,ItemsTable,BilingData, UUID);
+console.log(pdf);
+
    res.send({msg:'data Inserted Succesfully'})
   }catch(err){
     console.log(err)

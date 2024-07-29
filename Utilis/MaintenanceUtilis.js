@@ -531,13 +531,16 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
         
           /** Save the file buffer to the specified file path */
           fs.writeFileSync(PDFFilePath, mergedPdfBuffer,(err) => {
-            if (err) return console.log(err);
-            console.log('Merged PDF created and saved as merged.pdf');
+            if(err){
+                return err
+            }else{
+                return 'Merged Succesfully'
+            }
           });
       
          
         } catch (err) {
-          return console.error('Error generating or merging PDFs:', err);
+          return ('Error generating or merging PDFs:', err);
         }
       }
       
