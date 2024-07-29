@@ -149,7 +149,7 @@ const AddPurchaseOrder = async (req, res) => {
 
    await queryAsync(optionQuery)
   
-   let Top_Data_Query = `SELECT PO.Purchase_Order_Id,PO.Voucher_Number AS Order_Number,PO.Voucher_Number, P.PartyName,P.Address,P.GSTNumber,C.CompanyName,C.GSTNumber AS Company_GSTNumber,
+   let Top_Data_Query = `SELECT PO.Purchase_Order_Id,PO.Voucher_Number AS Order_Number,PO.Voucher_Number,PO.Purchase_Date, P.PartyName,P.Address,P.GSTNumber,C.CompanyName,C.GSTNumber AS Company_GSTNumber,
 C.Address AS Company_Address, C.State,C.Pin,C.Email,POF.Payment_Terms,POF.Delivery_Terms,POF.Contact_Person,POF.Cell_Number,POF.Warranty
 FROM PurchaseOrder PO
 JOIN Company C ON C.CompanyID = PO.Company_Name
@@ -177,7 +177,7 @@ WHERE PO.Purchase_Order_Id = '${UUID}'`;
  
 const BilingData = await queryAsync(BilingDataQuery);
 
-await PurchaseOrderPdf(Top_Data,ItemsTable,BilingData)
+await PurchaseOrderPdf(Top_Data,ItemsTable,BilingData, UUID)
    res.send({msg:'data Inserted Succesfully'})
   }catch(err){
     console.log(err)
