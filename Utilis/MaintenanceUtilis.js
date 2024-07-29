@@ -3,7 +3,7 @@ const fs = require('fs')
 const pdf = require('html-pdf')
 const { PDFDocument } = require('pdf-lib');
 const { ToWords } = require('to-words');
-const htmlPdf = require('html-pdf-chrome');
+const puppeteer = require('puppeteer');
 const toWords = new ToWords();
 require('dotenv').config();
 
@@ -424,104 +424,112 @@ function getCurrentDateTime() {
     
     
     const options = {
-        printOptions: {
-          executablePath: '/usr/bin/chromium-browser', // Path to your local Chromium/Chrome
-          args: ['--no-sandbox', '--disable-setuid-sandbox'],
-          displayHeaderFooter: true,
-          headerTemplate: `
-            <div style="width: 100%; border: 1px solid black;">
-              <h4 style="text-decoration: underline; text-align: center; margin-top: 0px;">Purchase Order</h4>
-              <h3 style="text-align: center; margin-top: -24px; letter-spacing: 2px;">${Top_Data[0].CompanyName}</h3>
-              <h4 style="text-align: center; margin-top: -22px; font-size: 13px;">${Top_Data[0].Company_Address}, ${Top_Data[0].State} - ${Top_Data[0].Pin}</h4>
-              <h4 style="text-align: center; margin-top: -19px; font-size: 13px;">GSTIN: ${Top_Data[0].GSTNumber}</h4>
-              <h4 style="text-align: center; margin-top: -19px; font-size: 10px;">email: ${JSON.parse(emailString).join(' ')}</h4>
+        path: '/usr/bin/chromium-browser', // Path to your local Chromium/Chrome
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        displayHeaderFooter: true,
+        headerTemplate: `
+          <div style="width: 100%; border: 1px solid black;">
+            <h4 style="text-decoration: underline; text-align: center; margin-top: 0px;">Purchase Order</h4>
+            <h3 style="text-align: center; margin-top: -24px; letter-spacing: 2px;">${Top_Data[0].CompanyName}</h3>
+            <h4 style="text-align: center; margin-top: -22px; font-size: 13px;">${Top_Data[0].Company_Address}, ${Top_Data[0].State} - ${Top_Data[0].Pin}</h4>
+            <h4 style="text-align: center; margin-top: -19px; font-size: 13px;">GSTIN: ${Top_Data[0].GSTNumber}</h4>
+            <h4 style="text-align: center; margin-top: -19px; font-size: 10px;">email: ${JSON.parse(emailString).join(' ')}</h4>
+          </div>
+        `,
+        footerTemplate: `
+          <div style="width: 100%;" class="summary-desc">
+            <div class="summary-desc-left">
+              <p style="text-decoration: underline; font-size:10px;">Terms & Conditions</p>
+              <p style="font-size:12px;">1. Purchase Order Is Inclusive of All taxes i.e GST </p>
+              <p style="font-size:12px; margin-top:-10px;">2. All Material will be dispatch to Haridwar factory</p>
+              <p style="font-size:12px; margin-top:-10px;">3. If the supplied qty is in excess of Purchase Order Qty, we may reject the excess supplied qty without any economic consideration.</p>
+              <p style="font-size:12px; margin-top:-10px;">4. All disputes subject to Delhi Jurisdiction.</p>
             </div>
-          `,
-          footerTemplate: `
-            <div style="width: 100%; " class="summary-desc">
-              <div class="summary-desc-left">
-                <p style="text-decoration: underline; font-size:10px;">Terms & Conditions</p>
-                <p style="font-size:12px;">1. Purchase Order Is Inclusive of All taxes i.e GST </p>
-                <p style="font-size:12px; margin-top:-10px;">2. All Material will be dispatch to Haridwar factory</p>
-                <p style="font-size:12px; margin-top:-10px;">3. If the supplied qty is in excess of Purchase Order Qty, we may reject the excess supplied qty without any economic consideration.</p>
-                <p style="font-size:12px; margin-top:-10px;">4. All disputes subject to Delhi Jurisdiction.</p>
+            <div class="summary-desc-right">
+              <div>
+                <p style="margin-left:10px; font-size:12px;">Receiver's signature</p>
               </div>
-              <div class="summary-desc-right">
-                <div>
-                  <p style="margin-left:10px; font-size:12px;">Receiver's signature</p>
-                </div>
-                <div style="height:102px; border-top:1px solid black">
-                  <p style="margin-right:10px; font-size:16px; text-align: end;">for Gautam Solar Private Limited</p>
-                  <p style="margin-right:10px; font-size:16px; text-align: end;">Authorised Signatory</p>
-                </div>
+              <div style="height:102px; border-top:1px solid black">
+                <p style="margin-right:10px; font-size:16px; text-align: end;">for Gautam Solar Private Limited</p>
+                <p style="margin-right:10px; font-size:16px; text-align: end;">Authorised Signatory</p>
               </div>
             </div>
-          `,
-          margin: {
-            top: '200px', // Increase to make space for header
-            bottom: '10px', // Increase to make space for footer
-          }
+          </div>
+        `,
+        margin: {
+          top: '200px', // Increase to make space for header
+          bottom: '10px', // Increase to make space for footer
         }
       };
       
       process.env.OPENSSL_CONF = '/dev/null';
       
-    
-    // Function to create PDF and return as a promise
-    async function createPdf(html, options) {
+      // Function to create PDF using Puppeteer
+      async function createPdf(html, options) {
         try {
-          const pdf = await htmlPdf.create(html, options);
-          const buffer = await pdf.toBuffer();
-          return buffer;
+          const browser = await puppeteer.launch({
+            executablePath: options.path,
+            args: options.args
+          });
+          const page = await browser.newPage();
+          await page.setContent(html, { waitUntil: 'networkidle0' });
+          const pdf = await page.pdf({
+            format: 'A4',
+            displayHeaderFooter: options.displayHeaderFooter,
+            headerTemplate: options.headerTemplate,
+            footerTemplate: options.footerTemplate,
+            margin: options.margin
+          });
+          await browser.close();
+          return pdf;
         } catch (error) {
           throw new Error(`Error creating PDF: ${error.message}`);
         }
       }
-    
-    // Function to merge PDFs
-    async function mergePdfs(buffers) {
-      const pdfDoc = await PDFDocument.create();
-      for (const buffer of buffers) {
-        const pdfBuffer = await PDFDocument.load(buffer);
-        const pages = await pdfDoc.copyPages(pdfBuffer, pdfBuffer.getPageIndices());
-        pages.forEach(page => pdfDoc.addPage(page));
+      
+      // Function to merge PDFs using pdf-lib
+      async function mergePdfs(buffers) {
+        const pdfDoc = await PDFDocument.create();
+        for (const buffer of buffers) {
+          const pdfBuffer = await PDFDocument.load(buffer);
+          const pages = await pdfDoc.copyPages(pdfBuffer, pdfBuffer.getPageIndices());
+          pages.forEach(page => pdfDoc.addPage(page));
+        }
+        const mergedPdf = await pdfDoc.save();
+        return mergedPdf;
       }
-      const mergedPdf = await pdfDoc.save();
-      return mergedPdf;
-    }
-    
-    // Create and handle PDF buffers
-    async function generateAndMergePdfs() {
+      
+      // Create and handle PDF buffers
+      async function generateAndMergePdfs() {
         let pagesBufferArr = [];
         try {
-            let Pages = Math.ceil((ItemsTable.length) / 8);
-    
-            for (let page = 1; page <= Pages; page++) {
-                let startIndex = (page - 1) * 8; 
-                let endIndex = page * 8;
-    
-                // Ensure that pageData has items before generating the PDF
-                if (startIndex < ItemsTable.length) {
-                    let pageData = ItemsTable.slice(startIndex, endIndex);
-                    const htmlContent1 = HTMLGenerator(pageData, page, Pages, pageData.length);
-                    let pageBuffer = await createPdf(htmlContent1, options);
-                    pagesBufferArr.push(pageBuffer);
-                }
+          let Pages = Math.ceil((ItemsTable.length) / 8);
+      
+          for (let page = 1; page <= Pages; page++) {
+            let startIndex = (page - 1) * 8; 
+            let endIndex = page * 8;
+      
+            // Ensure that pageData has items before generating the PDF
+            if (startIndex < ItemsTable.length) {
+              let pageData = ItemsTable.slice(startIndex, endIndex);
+              const htmlContent1 = HTMLGenerator(pageData, page, Pages, pageData.length);
+              let pageBuffer = await createPdf(htmlContent1, options);
+              pagesBufferArr.push(pageBuffer);
             }
-            
-            const mergedPdfBuffer = await mergePdfs(pagesBufferArr);
-    
-            fs.writeFile('merged.pdf', mergedPdfBuffer, (err) => {
-                if (err) return console.log(err);
-                console.log('Merged PDF created and saved as merged.pdf');
-            });
+          }
+      
+          const mergedPdfBuffer = await mergePdfs(pagesBufferArr);
+      
+          fs.writeFile('merged.pdf', mergedPdfBuffer, (err) => {
+            if (err) return console.log(err);
+            console.log('Merged PDF created and saved as merged.pdf');
+          });
         } catch (err) {
-            console.error('Error generating or merging PDFs:', err);
+          console.error('Error generating or merging PDFs:', err);
         }
-    }
-    
-    generateAndMergePdfs();
-
+      }
+      
+      generateAndMergePdfs();
 
 
 
