@@ -20,45 +20,45 @@ function getCurrentDateTime() {
   };
 
 
-
-    let  Top_Data = [
-        {"Purchase_Order_Id":"5fb72d5e-827a-443f-a5e0-ef111bb401e1","Order_Number":"GST-24-25-07","Voucher_Number":"GST-24-25-07","PartyName":"ABC Corp","Address":"123 Main Street, Suite 100","GSTNumber":"22AAAAA0000A1Z5","CompanyName":"Gautam Solar Private Limited Bhiwani","Company_GSTNumber":"06AAFCG5884Q1ZS","Company_Address":"7KM Milestone, Tosham Road, Dist.Bhiwani, Bawani Khera,","State":"Haryana","Pin":"127032","Email":"['sohan@gautamsolar.com','purchase@gautamsolar.com']","Purchase_Date":"Mon Jul 22 2024","Payment_Terms":"lknj","Delivery_Terms":"hj","Contact_Person":"jhg","Cell_Number":"jhg","Warranty":"jh"}
-        ];
+const PurchaseOrderPdf = (Top_Data,ItemsTable, BillingTable )=>{
+    // let  Top_Data = [
+    //     {"Purchase_Order_Id":"5fb72d5e-827a-443f-a5e0-ef111bb401e1","Order_Number":"GST-24-25-07","Voucher_Number":"GST-24-25-07","PartyName":"ABC Corp","Address":"123 Main Street, Suite 100","GSTNumber":"22AAAAA0000A1Z5","CompanyName":"Gautam Solar Private Limited Bhiwani","Company_GSTNumber":"06AAFCG5884Q1ZS","Company_Address":"7KM Milestone, Tosham Road, Dist.Bhiwani, Bawani Khera,","State":"Haryana","Pin":"127032","Email":"['sohan@gautamsolar.com','purchase@gautamsolar.com']","Purchase_Date":"Mon Jul 22 2024","Payment_Terms":"lknj","Delivery_Terms":"hj","Contact_Person":"jhg","Cell_Number":"jhg","Warranty":"jh"}
+    //     ];
     
-    let serialNo = 0;
+    // let serialNo = 0;
     
     
     
-    let ItemsTable = [
-        {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJKhfghfghfghfghgfhfgfghfghfhfhfghfghfghfhfghfghfghfghfhfghfghfghfghfghfghfhfhfghfghfghfghfghfghfghfghfghfghytyrtyrtyhfghfgh","HSNCode":'777',"SpareNumber":"JK;;PJ","Quantity":"321","Unit":"dfb","Price_Rs":"700","GST":"10","Amount":"247170","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'null',"SpareNumber":"JK;;PJ","Quantity":"7","Unit":"vbf","Price_Rs":"65","GST":"5","Amount":"477.75","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":'null',"SpareNumber":"fghfgh","Quantity":"34","Unit":"54","Price_Rs":"55","GST":"55","Amount":"2898.5","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"133","Unit":"cfd","Price_Rs":"676","GST":"65","Amount":"148348.2","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"234","Unit":"dsf","Price_Rs":"32","GST":"43","Amount":"10707.84","Total_Amount":"821494.27"},
-         {"MasterSparePartName":"53232","SparePartName":"Solar panel","HSNCode":'null',"SpareNumber":"0000988","Quantity":"2","Unit":"gf","Price_Rs":"100","GST":"10","Amount":"220","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"Motor","SparePartName":"servo motor ","HSNCode":'null',"SpareNumber":"ms1h3-40s","Quantity":"34","Unit":"df","Price_Rs":"435","GST":"32","Amount":"19522.8","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":'null',"SpareNumber":"fghfgh","Quantity":"10","Unit":"fds","Price_Rs":"500","GST":"20","Amount":"6000","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":null,"SpareNumber":"fghfgh","Quantity":"4","Unit":"vcb","Price_Rs":"56","GST":"65","Amount":"369.6","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"54","Unit":"fg","Price_Rs":"54","GST":"54","Amount":"4490.64","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"5","Unit":"fds","Price_Rs":"65","GST":"12","Amount":"364","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":null,"SpareNumber":"fghfgh","Quantity":"43","Unit":"dfg","Price_Rs":"4","GST":"4","Amount":"178.88","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"dfghd","SparePartName":"dfhdfh","HSNCode":null,"SpareNumber":"hdfhdfhdh","Quantity":"65","Unit":"654","Price_Rs":"56","GST":"54","Amount":"5605.6","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"4","Unit":"vbc","Price_Rs":"546","GST":"54","Amount":"3363.36","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":null,"SpareNumber":"JK;;PJ","Quantity":"566","Unit":"dfbg","Price_Rs":"435","GST":"51","Amount":"371777.1","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'777',"SpareNumber":"JK;;PJ","Quantity":"321","Unit":"dfb","Price_Rs":"700","GST":"10","Amount":"247170","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'null',"SpareNumber":"JK;;PJ","Quantity":"7","Unit":"vbf","Price_Rs":"65","GST":"5","Amount":"477.75","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":null,"SpareNumber":"JK;;PJ","Quantity":"566","Unit":"dfbg","Price_Rs":"435","GST":"51","Amount":"371777.1","Total_Amount":"821494.27"},
-        // {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'777',"SpareNumber":"JK;;PJ","Quantity":"321","Unit":"dfb","Price_Rs":"700","GST":"10","Amount":"247170","Total_Amount":"821494.27"},
-        // {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'null',"SpareNumber":"JK;;PJ","Quantity":"7","Unit":"vbf","Price_Rs":"65","GST":"5","Amount":"477.75","Total_Amount":"821494.27"},
-        ]
+    // let ItemsTable = [
+    //     {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJKhfghfghfghfghgfhfgfghfghfhfhfghfghfghfhfghfghfghfghfhfghfghfghfghfghfghfhfhfghfghfghfghfghfghfghfghfghfghytyrtyrtyhfghfgh","HSNCode":'777',"SpareNumber":"JK;;PJ","Quantity":"321","Unit":"dfb","Price_Rs":"700","GST":"10","Amount":"247170","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'null',"SpareNumber":"JK;;PJ","Quantity":"7","Unit":"vbf","Price_Rs":"65","GST":"5","Amount":"477.75","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":'null',"SpareNumber":"fghfgh","Quantity":"34","Unit":"54","Price_Rs":"55","GST":"55","Amount":"2898.5","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"133","Unit":"cfd","Price_Rs":"676","GST":"65","Amount":"148348.2","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"234","Unit":"dsf","Price_Rs":"32","GST":"43","Amount":"10707.84","Total_Amount":"821494.27"},
+    //      {"MasterSparePartName":"53232","SparePartName":"Solar panel","HSNCode":'null',"SpareNumber":"0000988","Quantity":"2","Unit":"gf","Price_Rs":"100","GST":"10","Amount":"220","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"Motor","SparePartName":"servo motor ","HSNCode":'null',"SpareNumber":"ms1h3-40s","Quantity":"34","Unit":"df","Price_Rs":"435","GST":"32","Amount":"19522.8","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":'null',"SpareNumber":"fghfgh","Quantity":"10","Unit":"fds","Price_Rs":"500","GST":"20","Amount":"6000","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":null,"SpareNumber":"fghfgh","Quantity":"4","Unit":"vcb","Price_Rs":"56","GST":"65","Amount":"369.6","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"54","Unit":"fg","Price_Rs":"54","GST":"54","Amount":"4490.64","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"5","Unit":"fds","Price_Rs":"65","GST":"12","Amount":"364","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":null,"SpareNumber":"fghfgh","Quantity":"43","Unit":"dfg","Price_Rs":"4","GST":"4","Amount":"178.88","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"dfghd","SparePartName":"dfhdfh","HSNCode":null,"SpareNumber":"hdfhdfhdh","Quantity":"65","Unit":"654","Price_Rs":"56","GST":"54","Amount":"5605.6","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"4","Unit":"vbc","Price_Rs":"546","GST":"54","Amount":"3363.36","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":null,"SpareNumber":"JK;;PJ","Quantity":"566","Unit":"dfbg","Price_Rs":"435","GST":"51","Amount":"371777.1","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'777',"SpareNumber":"JK;;PJ","Quantity":"321","Unit":"dfb","Price_Rs":"700","GST":"10","Amount":"247170","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'null',"SpareNumber":"JK;;PJ","Quantity":"7","Unit":"vbf","Price_Rs":"65","GST":"5","Amount":"477.75","Total_Amount":"821494.27"},
+    //     {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":null,"SpareNumber":"JK;;PJ","Quantity":"566","Unit":"dfbg","Price_Rs":"435","GST":"51","Amount":"371777.1","Total_Amount":"821494.27"},
+    //     // {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'777',"SpareNumber":"JK;;PJ","Quantity":"321","Unit":"dfb","Price_Rs":"700","GST":"10","Amount":"247170","Total_Amount":"821494.27"},
+    //     // {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'null',"SpareNumber":"JK;;PJ","Quantity":"7","Unit":"vbf","Price_Rs":"65","GST":"5","Amount":"477.75","Total_Amount":"821494.27"},
+    //     ]
     
-    let BillingTable = [
-        {"Purchase_Order_Billing_Id":"4a0788d2-001e-47ee-a3ae-73842a1e6dfa","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"Freight","Narration":"","Percentage":"6","Amount":"46825.17","Total_Amount":"827244.73"},
-        {"Purchase_Order_Billing_Id":"8835d25f-b67d-4337-929a-5952777eaaed","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"SGST","Narration":"","Percentage":"5","Amount":"5667","Total_Amount":"827244.73"},
-        {"Purchase_Order_Billing_Id":"a2134b94-ab62-404b-b2fb-7974c9691d6d","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"CGST","Narration":"","Percentage":"8","Amount":"56766","Total_Amount":"827244.73"},
-        {"Purchase_Order_Billing_Id":"b1e4f7f2-0839-4df4-80d6-9aa5c5defba3","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"IGST","Narration":"","Percentage":"","Amount":"","Total_Amount":"827244.73"},
-        {"Purchase_Order_Billing_Id":"c8325b06-5b40-435a-a6f3-91e52d6f713b","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"Discount","Narration":"","Percentage":"5","Amount":"41074.71","Total_Amount":"827244.73"}
-        ]
+    // let BillingTable = [
+    //     {"Purchase_Order_Billing_Id":"4a0788d2-001e-47ee-a3ae-73842a1e6dfa","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"Freight","Narration":"","Percentage":"6","Amount":"46825.17","Total_Amount":"827244.73"},
+    //     {"Purchase_Order_Billing_Id":"8835d25f-b67d-4337-929a-5952777eaaed","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"SGST","Narration":"","Percentage":"5","Amount":"5667","Total_Amount":"827244.73"},
+    //     {"Purchase_Order_Billing_Id":"a2134b94-ab62-404b-b2fb-7974c9691d6d","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"CGST","Narration":"","Percentage":"8","Amount":"56766","Total_Amount":"827244.73"},
+    //     {"Purchase_Order_Billing_Id":"b1e4f7f2-0839-4df4-80d6-9aa5c5defba3","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"IGST","Narration":"","Percentage":"","Amount":"","Total_Amount":"827244.73"},
+    //     {"Purchase_Order_Billing_Id":"c8325b06-5b40-435a-a6f3-91e52d6f713b","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"Discount","Narration":"","Percentage":"5","Amount":"41074.71","Total_Amount":"827244.73"}
+    //     ]
       
         let totalQuantity = 0;
     
@@ -203,6 +203,7 @@ function getCurrentDateTime() {
                 .summary-desc {
                     overflow: hidden;
                     width: 100%;
+                    margin-top:10px;
                 }
         
                 .summary-desc-left, .summary-desc-right {
@@ -214,6 +215,7 @@ function getCurrentDateTime() {
                     width: 50%; /* Adjust the width as needed */
                     border: 1px solid black; /* Adding border */
                     padding-left:10px;
+                    height:143px;
                 }
         
                 .summary-desc-right {
@@ -242,7 +244,15 @@ function getCurrentDateTime() {
         </head>
         
         <body>
-        
+           <div style="width: 100%; border: 1px solid black; margin-bottom:-20px;">
+            <h4 style="text-decoration: underline; text-align: center; margin-top: 0px;">Purchase Order</h4>
+            <h3 style="text-align: center; margin-top: -24px; letter-spacing: 2px;">${Top_Data[0].CompanyName}</h3>
+            <h4 style="text-align: center; margin-top: -22px; font-size: 13px;">${Top_Data[0].Company_Address}, ${Top_Data[0].State} - ${Top_Data[0].Pin}</h4>
+            <h4 style="text-align: center; margin-top: -19px; font-size: 13px;">GSTIN: ${Top_Data[0].GSTNumber}</h4>
+            <h4 style="text-align: center; margin-top: -19px; font-size: 10px;">email: ${JSON.parse(emailString).join(' ')}</h4>
+          </div>
+
+           <div style="margin-top: -55px;">
             <div class="container">
                 <div class="row">
                     <div class="cell" style=" width: 50%; font-weight:bold;">
@@ -409,6 +419,28 @@ function getCurrentDateTime() {
             </tr>
         </table>
     </div>`:``}
+    </div>
+
+    <div style="width: 100%;" class="summary-desc">
+            <div class="summary-desc-left">
+              <p style="text-decoration: underline; font-size:10px;">Terms & Conditions</p>
+              <p style="font-size:12px;">1. Purchase Order Is Inclusive of All taxes i.e GST </p>
+              <p style="font-size:12px; margin-top:-10px;">2. All Material will be dispatch to Haridwar factory</p>
+              <p style="font-size:12px; margin-top:-10px;">3. If the supplied qty is in excess of Purchase Order Qty, we may reject the excess supplied qty without any economic consideration.</p>
+              <p style="font-size:12px; margin-top:-10px;">4. All disputes subject to Delhi Jurisdiction.</p>
+            </div>
+            <div class="summary-desc-right">
+              <div>
+                <p style="margin-left:10px; font-size:12px;">Receiver's signature</p>
+              </div>
+              <div style="height:102px; border-top:1px solid black">
+                <p style="margin-right:10px; font-size:16px; text-align: end;">for Gautam Solar Private Limited</p>
+                <p style="margin-right:10px; font-size:16px; text-align: end;">Authorised Signatory</p>
+              </div>
+          </div>
+        
+          </div>
+           <p style="text-align:center; margin-top:20px;">${page}.</p>
         </body>
         
         </html>`;
@@ -426,40 +458,6 @@ function getCurrentDateTime() {
     const options = {
         path: '/usr/bin/chromium-browser', // Path to your local Chromium/Chrome
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        displayHeaderFooter: true,
-        headerTemplate: `
-          <div style="width: 100%; border: 1px solid black;">
-            <h4 style="text-decoration: underline; text-align: center; margin-top: 0px;">Purchase Order</h4>
-            <h3 style="text-align: center; margin-top: -24px; letter-spacing: 2px;">${Top_Data[0].CompanyName}</h3>
-            <h4 style="text-align: center; margin-top: -22px; font-size: 13px;">${Top_Data[0].Company_Address}, ${Top_Data[0].State} - ${Top_Data[0].Pin}</h4>
-            <h4 style="text-align: center; margin-top: -19px; font-size: 13px;">GSTIN: ${Top_Data[0].GSTNumber}</h4>
-            <h4 style="text-align: center; margin-top: -19px; font-size: 10px;">email: ${JSON.parse(emailString).join(' ')}</h4>
-          </div>
-        `,
-        footerTemplate: `
-          <div style="width: 100%;" class="summary-desc">
-            <div class="summary-desc-left">
-              <p style="text-decoration: underline; font-size:10px;">Terms & Conditions</p>
-              <p style="font-size:12px;">1. Purchase Order Is Inclusive of All taxes i.e GST </p>
-              <p style="font-size:12px; margin-top:-10px;">2. All Material will be dispatch to Haridwar factory</p>
-              <p style="font-size:12px; margin-top:-10px;">3. If the supplied qty is in excess of Purchase Order Qty, we may reject the excess supplied qty without any economic consideration.</p>
-              <p style="font-size:12px; margin-top:-10px;">4. All disputes subject to Delhi Jurisdiction.</p>
-            </div>
-            <div class="summary-desc-right">
-              <div>
-                <p style="margin-left:10px; font-size:12px;">Receiver's signature</p>
-              </div>
-              <div style="height:102px; border-top:1px solid black">
-                <p style="margin-right:10px; font-size:16px; text-align: end;">for Gautam Solar Private Limited</p>
-                <p style="margin-right:10px; font-size:16px; text-align: end;">Authorised Signatory</p>
-              </div>
-            </div>
-          </div>
-        `,
-        margin: {
-          top: '200px', // Increase to make space for header
-          bottom: '10px', // Increase to make space for footer
-        }
       };
       
       process.env.OPENSSL_CONF = '/dev/null';
@@ -475,10 +473,7 @@ function getCurrentDateTime() {
           await page.setContent(html, { waitUntil: 'networkidle0' });
           const pdf = await page.pdf({
             format: 'A4',
-            displayHeaderFooter: options.displayHeaderFooter,
-            headerTemplate: options.headerTemplate,
-            footerTemplate: options.footerTemplate,
-            margin: options.margin
+            
           });
           await browser.close();
           return pdf;
@@ -532,8 +527,8 @@ function getCurrentDateTime() {
       generateAndMergePdfs();
 
 
+    }
 
 
 
-
-  module.exports = {getCurrentDateTime}
+  module.exports = {getCurrentDateTime, PurchaseOrderPdf}
