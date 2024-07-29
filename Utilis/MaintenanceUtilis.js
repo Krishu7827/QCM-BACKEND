@@ -137,6 +137,7 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
                    margin-top:0px;
                     height: 20px;
                     width: 100%;
+                    margin-bottom:3px;
                    border-bottom: 1px solid black;
                     border-right: 1px solid black;
                     border-left: 1px solid black;
