@@ -282,20 +282,16 @@ app.get("/getFile", (req, res) => {
 
 const puppeteer = require('puppeteer');
 
-// Set environment variable
-process.env.OPENSSL_CONF = '/dev/null';
-
 (async () => {
   try {
-    // Launch a headless browser
     const browser = await puppeteer.launch({
       headless: true,
+      executablePath: '/usr/bin/google-chrome', // Path to your local Chromium/Chrome
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
-     timeout:6000
+      timeout: 60000,
+      dumpio: true
     });
     const page = await browser.newPage();
-
-    // Define HTML content with a simple row and column layout
     const htmlContent = `
       <div style="width: 100%;" class="summary-desc">
         <div class="summary-desc-left">
@@ -305,12 +301,10 @@ process.env.OPENSSL_CONF = '/dev/null';
           <p style="font-size:12px; margin-top:-10px;">3. If the supplied qty is in excess of Purchase Order Qty, we may reject the excess supplied qty without any economic consideration.</p>
           <p style="font-size:12px; margin-top:-10px;">4. All disputes subject to Delhi Jurisdiction.</p>
         </div>
-
         <div class="summary-desc-right">
           <div>
             <p style="margin-left:10px; font-size:12px;">Receiver's signature</p>
           </div>
-
           <div style="height:102px; border-top:1px solid black">
             <p style="margin-right:10px; font-size:16px; text-align: end;">for Gautam Solar Private Limited</p>
             <p style="margin-right:10px; font-size:16px; text-align: end;">Authorised Signatory</p>
@@ -318,19 +312,14 @@ process.env.OPENSSL_CONF = '/dev/null';
         </div>
       </div>
     `;
-
-    // Set the HTML content
     await page.setContent(htmlContent, { waitUntil: 'domcontentloaded' });
-
-    // Generate the PDF
     await page.pdf({ path: 'output.pdf', format: 'A4' });
-
-    // Close the browser
     await browser.close();
   } catch (error) {
     console.error('Error launching Puppeteer', error);
   }
 })();
+
 
 
 
