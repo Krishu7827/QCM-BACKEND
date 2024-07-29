@@ -178,7 +178,13 @@ WHERE PO.Purchase_Order_Id = '${UUID}'`;
 const BilingData = await queryAsync(BilingDataQuery);
 
 let pdf = await PurchaseOrderPdf(Top_Data,ItemsTable,BilingData, UUID);
-console.log(pdf);
+
+let updateProfile = `UPDATE PurchaseOrder PO
+SET 
+  PO.PdfURL = 'http://srv515471.hstgr.cloud:${PORT}/Maintenance/getFile/${UUID}.pdf'
+ WHERE PO.Purchase_Order_Id = '${UUID}';`
+
+ await queryAsync(updateProfile);
 
    res.send({msg:'data Inserted Succesfully'})
   }catch(err){
@@ -226,7 +232,6 @@ ORDER BY PO.Created_On DESC;`;
       res.status(400).send({err});
   }
 }
-
 
 
 /** Controller to Get PO Data by PO Id */
@@ -316,14 +321,28 @@ const getPurchaseOrderById = async (req, res) => {
   }
 };
 
+/**Controller to Get Pdf, file etc. */
+const getFile = async (req,res)=>{
+
+  const filename = req.params.filename;
+  /** Define the absolute path to the IPQC-Pdf-Folder directory */
+  const pdfFolderPath = Path.resolve('PurchaseOrder');
+
+  /** Construct the full file path to the requested file */
+  const filePath = Path.join(pdfFolderPath, filename);
+
+  /** Send the file to the client */
+  res.sendFile(filePath, (err) => {
+      if (err) {
+          console.error('Error sending file:', err);
+          res.status(404).send({ error: 'File not found' });
+      }
+  });
+
+}
 
 
 
 
 
-
-
-
-
-
-module.exports = {getVoucherNumber, AddPurchaseOrder, getPurchaseOrderList, getPurchaseOrderById}
+module.exports = {getVoucherNumber, AddPurchaseOrder, getPurchaseOrderList, getPurchaseOrderById, getFile}
