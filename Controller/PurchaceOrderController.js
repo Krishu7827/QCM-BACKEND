@@ -282,6 +282,7 @@ const getPurchaseOrderById = async (req, res) => {
       if (!uniqueBilling[row.Bill_Sundry]) {
         uniqueBilling[row.Bill_Sundry] = {
           Bill_Sundry: row.Bill_Sundry,
+          Narration: row.Billing_Narration,
           Percentage: row.Percentage,
           Amount: row.Amount,
           Total_Amount: row.Total_Amount
