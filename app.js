@@ -282,6 +282,9 @@ app.get("/getFile", (req, res) => {
 
 const puppeteer = require('puppeteer');
 
+// // Set environment variable
+process.env.OPENSSL_CONF = '/dev/null';
+
 (async () => {
   // Launch a headless browser
   const browser = await puppeteer.launch();
@@ -320,6 +323,7 @@ const puppeteer = require('puppeteer');
   // Close the browser
   await browser.close();
 })();
+
 
 
 // cron.schedule('35 17 * * *', async () => {
