@@ -25,7 +25,7 @@ const PurchaseOrderPdf = (Top_Data,ItemsTable, BillingTable )=>{
     //     {"Purchase_Order_Id":"5fb72d5e-827a-443f-a5e0-ef111bb401e1","Order_Number":"GST-24-25-07","Voucher_Number":"GST-24-25-07","PartyName":"ABC Corp","Address":"123 Main Street, Suite 100","GSTNumber":"22AAAAA0000A1Z5","CompanyName":"Gautam Solar Private Limited Bhiwani","Company_GSTNumber":"06AAFCG5884Q1ZS","Company_Address":"7KM Milestone, Tosham Road, Dist.Bhiwani, Bawani Khera,","State":"Haryana","Pin":"127032","Email":"['sohan@gautamsolar.com','purchase@gautamsolar.com']","Purchase_Date":"Mon Jul 22 2024","Payment_Terms":"lknj","Delivery_Terms":"hj","Contact_Person":"jhg","Cell_Number":"jhg","Warranty":"jh"}
     //     ];
     
-    // let serialNo = 0;
+     let serialNo = 0;
     
     
     
