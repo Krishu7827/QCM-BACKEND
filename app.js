@@ -276,7 +276,7 @@ UUID = v4()
 
 
 app.get("/getFile", (req, res) => {
-  const pathfile = Path.join(__dirname, 'output.pdf');
+  const pathfile = Path.join(__dirname, 'merged.pdf');
   res.sendFile(pathfile);
 });
 
