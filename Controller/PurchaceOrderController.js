@@ -96,7 +96,7 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 
 const AddPurchaseOrder = async (req, res) => {
   const { PurchaseData : P, BilingData : B, tableData:t, optionalData:o } = req.body;
-  const UUID = v4();
+  const UUID = P.Purchase_Order_Id || v4();
 
   try{
 
@@ -147,7 +147,7 @@ if (P.Purchase_Order_Id) {
 
  for (const data of t.items) {
   let itemQuery;
-  if (P.Purchase_Order_Id) {
+  if (data.Purchase_Order_Item_Id) {
     itemQuery = `UPDATE Purchase_Order_Items SET
       Spare_Part_Id = '${data.SparePartId}',
       Quantity = '${data.qty}',
@@ -195,7 +195,7 @@ for (const data of B) {
       Percentage = '${data.Percentage}',
       Amount = '${data.Amount}',
       Total_Amount = '${data.Total_Amount}'
-      WHERE Purchase_Order_Billing_Id = '${data.Purchase_Order_Billing_Id}';`;
+      WHERE Purchase_Order_Id = '${P.Purchase_Order_Id}' and Bill_Sundry = '${data.Bill_Sundry}';`;
   } else {
     const uuid = v4();
     billingQuery = `INSERT INTO Purchase_Order_Billing (
