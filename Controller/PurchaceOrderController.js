@@ -129,21 +129,26 @@ if (P.Purchase_Order_Id) {
   );`;
 }
 
-
-
-
-//   const PurchaseDataQuery = `INSERT INTO 
-//   PurchaseOrder(Purchase_Order_Id, Voucher_Number, Series, Purchase_Type, Party_Name, Company_Name, Narration, 
-//   Purchase_Date, Status, Created_On, Created_By )
-//   VALUES('${UUID}', '${P.vochNo}', '${P.series}','${P.purcType}',
-// '${P.PartyName}','${P.company}', '${P.narration}', '${P.currentDate}', 'Active', '${getCurrentDateTime()}','${P.currentUser}');`;
-
  await queryAsync(PurchaseDataQuery);
 
  /**
   * ? Inserting Data into Order Items Table
   */
-
+ const QueryItemsDataById = `SELECT Purchase_Order_Item_Id FROM Purchase_Order_Items WHERE Purchase_Order_Id = '${UUID}';`
+ const ItemsDataById = await queryAsync(QueryItemsDataById);
+ 
+ console.log(t.items);
+ 
+ let ToBeDeleteItems = [];
+ 
+ if (ItemsDataById.length && t.items.length) {
+   ToBeDeleteItems = ItemsDataById.filter((data) => {
+     return t.items.find((el) => el.Purchase_Order_Item_Id && el.Purchase_Order_Item_Id == data.Purchase_Order_Item_Id) == undefined;
+   }).map(data => data.Purchase_Order_Item_Id);
+ }
+ 
+ console.log(ToBeDeleteItems);
+ 
 
  for (const data of t.items) {
   let itemQuery;
@@ -167,18 +172,6 @@ if (P.Purchase_Order_Id) {
   }
   await queryAsync(itemQuery);
 }
-
-
-//  t.items.forEach(async(data)=>{
-//   const uuid = v4();
-//   const query = `INSERT INTO
-// Purchase_Order_Items(Purchase_Order_Item_Id, Purchase_Order_Id, Spare_Part_Id, Quantity, Unit, Price_Rs,
-// GST, Amount, Total_Amount)
-// VALUES('${uuid}', '${UUID}', '${data.SparePartId}', '${data.qty}', '${data.unit}', '${data.price}', '${data.gst}', '${data.amount}','${t.totalAmount}');`;
-
-
-//   await queryAsync(query);
-//  })
 
 
 /**
@@ -208,18 +201,6 @@ for (const data of B) {
 }
 
 
-
-// B.forEach(async(data)=>{
-//   const uuid = v4()
-//     const query = `INSERT INTO 
-//     Purchase_Order_Billing(Purchase_Order_Billing_Id, Purchase_Order_Id, Bill_Sundry, 
-//     Narration, Percentage, Amount, Total_Amount)
-//     VALUES('${uuid}','${UUID}', '${data.Bill_Sundry}', '${data.Narration}', '${data.Percentage}',
-//           '${data.Amount}','${data.Total_Amount}');`;
-//   await queryAsync(query)
-
-//  })
-
 /**
 * ! Inserting Data into OPTIONAL Table
 */
@@ -244,67 +225,6 @@ if (P.Purchase_Order_Id) {
 await queryAsync(optionQuery);
 
 
-
-
-//  const optionQuery = `INSERT INTO Purchase_Order_Optional_Field(Optional_Field_Id,Purchase_Order_Id,Payment_Terms,
-//  Delivery_Terms, Contact_Person, Cell_Number, Warranty)
-//  VALUES('${v4()}','${UUID}', '${o.paymentTerm}', '${o.deleveryTerm}','${o.contactPer}','${o.cellNo}','${o.warranty}');`
-
-//  await queryAsync(optionQuery)
-
-
-
-    
-  //   /**
-  //    * ! Inserting Data into Purchase Table
-  //    */
-  //   const PurchaseDataQuery = `INSERT INTO 
-  //   PurchaseOrder(Purchase_Order_Id, Voucher_Number, Series, Purchase_Type, Party_Name, Company_Name, Narration, 
-  //   Purchase_Date, Status, Created_On, Created_By )
-  //   VALUES('${UUID}', '${P.vochNo}', '${P.series}','${P.purcType}',
-  // '${P.PartyName}','${P.company}', '${P.narration}', '${P.currentDate}', 'Active', '${getCurrentDateTime()}','${P.currentUser}');`;
-
-  //    await queryAsync(PurchaseDataQuery);
-
-  //    /**
-  //     * ? Inserting Data into Order Items Table
-  //     */
-  //    t.items.forEach(async(data)=>{
-  //     const uuid = v4();
-  //     const query = `INSERT INTO
-  //   Purchase_Order_Items(Purchase_Order_Item_Id, Purchase_Order_Id, Spare_Part_Id, Quantity, Unit, Price_Rs,
-  //   GST, Amount, Total_Amount)
-  //   VALUES('${uuid}', '${UUID}', '${data.SparePartId}', '${data.qty}', '${data.unit}', '${data.price}', '${data.gst}', '${data.amount}','${t.totalAmount}');`;
-
-
-  //     await queryAsync(query);
-  //    })
-
-
-  //   /**
-  //  * ! INSERTING Data into Order Billing Table
-  //  */
-  // B.forEach(async(data)=>{
-  //   const uuid = v4()
-  //     const query = `INSERT INTO 
-  //     Purchase_Order_Billing(Purchase_Order_Billing_Id, Purchase_Order_Id, Bill_Sundry, 
-  //     Narration, Percentage, Amount, Total_Amount)
-  //     VALUES('${uuid}','${UUID}', '${data.Bill_Sundry}', '${data.Narration}', '${data.Percentage}',
-  //           '${data.Amount}','${data.Total_Amount}');`;
-  //   await queryAsync(query)
-
-  //  })
-
-  //  /**
-  //   * ! Inserting Data into OPTIONAL Table
-  //   */
-   
-  //  const optionQuery = `INSERT INTO Purchase_Order_Optional_Field(Optional_Field_Id,Purchase_Order_Id,Payment_Terms,
-  //  Delivery_Terms, Contact_Person, Cell_Number, Warranty)
-  //  VALUES('${v4()}','${UUID}', '${o.paymentTerm}', '${o.deleveryTerm}','${o.contactPer}','${o.cellNo}','${o.warranty}');`
-
-  //  await queryAsync(optionQuery)
-  
    let Top_Data_Query = `SELECT PO.Purchase_Order_Id,PO.Voucher_Number AS Order_Number,PO.Voucher_Number,PO.Purchase_Date, P.PartyName,P.Address,P.GSTNumber,C.CompanyName,C.GSTNumber AS Company_GSTNumber,
 C.Address AS Company_Address, C.State,C.Pin,C.Email,POF.Payment_Terms,POF.Delivery_Terms,POF.Contact_Person,POF.Cell_Number,POF.Warranty
 FROM PurchaseOrder PO
@@ -353,7 +273,7 @@ SET
 
  await queryAsync(updateProfile);
 }
-console.log(Top_Data,ItemsTable,BilingData)
+
    res.send({msg:'data Inserted Succesfully'})
   }catch(err){
     console.log(err)
