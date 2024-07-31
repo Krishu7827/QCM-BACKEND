@@ -353,7 +353,7 @@ SET
 
  await queryAsync(updateProfile);
 }
-
+console.log(Top_Data,ItemsTable,BilingData)
    res.send({msg:'data Inserted Succesfully'})
   }catch(err){
     console.log(err)
