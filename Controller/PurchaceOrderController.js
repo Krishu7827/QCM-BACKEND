@@ -137,7 +137,6 @@ if (P.Purchase_Order_Id) {
  const QueryItemsDataById = `SELECT Purchase_Order_Item_Id FROM Purchase_Order_Items WHERE Purchase_Order_Id = '${UUID}';`
  const ItemsDataById = await queryAsync(QueryItemsDataById);
  
- console.log(t.items);
  
  let ToBeDeleteItems = [];
  
