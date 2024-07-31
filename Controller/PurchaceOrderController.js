@@ -147,7 +147,11 @@ if (P.Purchase_Order_Id) {
    }).map(data => data.Purchase_Order_Item_Id);
  }
  
- console.log(ToBeDeleteItems);
+ 
+ for(const data of ToBeDeleteItems){
+  const query = `DELETE FROM Purchase_Order_Items P WHERE P.Purchase_Order_Item_Id = '${data}';`;
+  await queryAsync(query);
+ }
  
 
  for (const data of t.items) {
