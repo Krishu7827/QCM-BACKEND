@@ -10,7 +10,7 @@ const {setupSwagger} = require('./Controller/Swagger.controller')
 const Path = require('path');
 const { v4: uuidv4, v4 } = require('uuid');
 const nodemailer = require('nodemailer')
-const {QualityExcelGenerate} = require('./Utilis/QualityUtilis')
+const {QualityExcelGenerate,QualityMonthlyReport} = require('./Utilis/QualityUtilis')
 const cron = require('node-cron');
 const util = require('util');
 const chalk =  import('chalk');
@@ -280,63 +280,12 @@ app.get("/getFile", (req, res) => {
   res.sendFile(pathfile);
 });
 
-// const puppeteer = require('puppeteer');
 
-// (async () => {
-//   try {
-//     const browser = await puppeteer.launch({
-//       headless: true,
-//       executablePath: '/usr/bin/chromium-browser', // Path to your local Chromium/Chrome
-//       args: ['--no-sandbox', '--disable-setuid-sandbox'],
-//       timeout: 60000,
-//       dumpio: true
-//     });
-//     const page = await browser.newPage();
-//     const htmlContent = `
-//       <div style="width: 100%;" class="summary-desc">
-//         <div class="summary-desc-left">
-//           <p style="text-decoration: underline; font-size:10px; font-weight:bold;">Terms & Conditions & Test</p>
-//           <p style="font-size:12px;">1. Purchase Order Is Inclusive of All taxes i.e GST </p>
-//           <p style="font-size:12px; margin-top:-10px;">2. All Material will be dispatch to Haridwar factory</p>
-//           <p style="font-size:12px; margin-top:-10px;">3. If the supplied qty is in excess of Purchase Order Qty, we may reject the excess supplied qty without any economic consideration.</p>
-//           <p style="font-size:12px; margin-top:-10px;">4. All disputes subject to Delhi Jurisdiction.</p>
-//         </div>
-//         <div class="summary-desc-right">
-//           <div>
-//             <p style="margin-left:10px; font-size:12px;">Receiver's signature</p>
-//           </div>
-//           <div style="height:102px; border-top:1px solid black">
-//             <p style="margin-right:10px; font-size:16px; text-align: end;">for Gautam Solar Private Limited</p>
-//             <p style="margin-right:10px; font-size:16px; text-align: end;">Authorised Signatory</p>
-//           </div>
-//         </div>
-//       </div>
-//     `;
-//     await page.setContent(htmlContent, { waitUntil: 'domcontentloaded' });
-//     await page.pdf({ path: 'output.pdf', format: 'A4' });
-//     await browser.close();
-//   } catch (error) {
-//     console.error('Error launching Puppeteer', error);
-//   }
-// })();
+cron.schedule('10 11 1 * *', () => {
+  console.log('Running the function at 10:00 AM on the first day of the month');
+ 
+});
 
-
-
-
-
-// cron.schedule('35 17 * * *', async () => {
-//   try {
-   
-//     let result =  await QualityExcelShedule();
-//    console.log((await chalk).default.blueBright(result));
-
-//   } catch (error) {
-//     console.error((await chalk).default.red('Error in cron job:', error));
-//     //console.error('Error in cron job:', error);
-//   }
-// }, {
-//   timezone: 'Asia/Kolkata' 
-// });
 
 
 
