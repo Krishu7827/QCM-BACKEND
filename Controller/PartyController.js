@@ -31,18 +31,12 @@ const AddParty = async (req, res) => {
                                      ('${UUID}','${PartyName}','${GSTNumber}','${PANNumber}','${Address}','${Country}','${State}','${Email}','${CountryCode} ${MobileNumber}','${PinCode}','${Status}','${CreatedBy}','${getCurrentDateTime()}');`
 
         await queryAsync(query)
-
        return res.send({ msg: 'Inserted Succesfully!', PartyNameId: UUID });
-
     } catch (err) {
-
         console.log(err)
        return res.status(400).send({ err })
 
     }
-
-
-
 }
 
 
@@ -70,4 +64,39 @@ const getPartyNames = async(req, res)=>{
 
 }
 
-module.exports = { AddParty,getCurrency,getPartyNames }
+
+const getPartyListById = async (req, res) => {
+  const { PartyNameId } = req.body;
+  try {
+    const query = `
+    SELECT *
+    FROM PartyName p
+    WHERE p.PartyNameId = '${PartyNameId}' AND p.Status = 'Active';`;
+
+
+
+    let data = await new Promise((resolve, reject) => {
+      dbConn.query(query, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });   
+    
+    res.send({data:data});
+  } catch (err) {
+    console.log(err);
+    res.status(404).send(err);
+  }
+};
+
+
+
+
+
+
+
+
+module.exports = { AddParty,getCurrency,getPartyNames, getPartyListById }
