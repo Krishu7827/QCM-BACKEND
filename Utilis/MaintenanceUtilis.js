@@ -369,10 +369,10 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
                             </ul>
                         </td>
                         <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.HSNCode || ""}</td>
-                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${formatNumberWithCommas((+row.Quantity)) || ""}</td>
+                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Quantity?formatNumberWithCommas((+row.Quantity)):''}</td>
                         <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Unit || ""}</td>
-                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${formatNumberWithCommas((+row.Price_Rs)) || ""}</td>
-                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${formatNumberWithCommas((+row.Amount)) || ""}</td>
+                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Price_Rs?formatNumberWithCommas((+row.Price_Rs)):''}</td>
+                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Amount?formatNumberWithCommas((+row.Amount)):''}</td>
                     </tr>`;
             }).join(' ')
             }
