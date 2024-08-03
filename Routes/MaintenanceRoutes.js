@@ -21,7 +21,7 @@ MaintenanceRouter.get('/MachineList',GetMachineList);
 
 
 /**Router To Get Machine List By Id */
-MaintenanceRouter.get('/MachineListById',GetMachineListById);  
+MaintenanceRouter.post('/MachineListById',GetMachineListById);  
 
 /**Router To Get Machine Model Number by ID */
 MaintenanceRouter.post('/GetMachineModelNumber',GetMachineModelNumberById);
