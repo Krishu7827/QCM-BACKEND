@@ -44,7 +44,7 @@ const AddSpareParts = async (req, res) => {
 
     const query = `INSERT INTO SparePartName(SparPartId ,SparePartName,SpareNumber,Specification,BrandName,HSNCode,Status,CreatedBy,MasterSparePartName,CreatedOn,NumberOfPcs,CycleTime,Equivalent) VALUES
             ('${UUID}','${SparePartName}','${SpareNumber}','${Specification}','${BrandName}','${HSNCode}','${Status}','${CreatedBy}','${MasterSparePartName}','${getCurrentDateTime()}','${NumberOfPcs}','${CycleTime}','${JSON.stringify(Equivalent)}');`
-   
+
     await queryAsync(query)
     MachineNameArray.forEach(async (MachineName) => {
       let SpareMachineId = v4();
@@ -239,7 +239,7 @@ const getEquivalent = async (req, res) => {
       let query = `SELECT SP.SparePartName, SP.SpareNumber,SP.SparPartId AS SparePartId FROM SparePartName SP
                    JOIN SparePartMachine SPM ON SPM.SparePartId = SP.SparPartId
                    WHERE SP.SparePartName = '${SparePartName}' AND SPM.MachineId = '${machine}';`;
-      
+
       let data = await queryAsync(query);
       return data;
     });
@@ -261,50 +261,77 @@ const getEquivalent = async (req, res) => {
 
 /**Spare Part List*/
 
-const SparePartList = async(req,res) =>{
- const {MachineId, SparePartId, required} = req.body;
-  let query = required == 'Spare Part Name By Machine'?
-  /**Condition 1 */
-  `SELECT SP.SparePartName, SP.SparPartId AS SparePartId FROM SparePartMachine S
+const SparePartList = async (req, res) => {
+  const { MachineId, SparePartId, required } = req.body;
+  let query = required == 'Spare Part Name By Machine' ?
+    /**Condition 1 */
+    `SELECT SP.SparePartName, SP.SparPartId AS SparePartId FROM SparePartMachine S
 JOIN SparePartName SP ON SP.SparPartId = S.SparePartId
-WHERE S.MachineId = '${MachineId}';`:
-/**Condition 2 */
-required == 'Spare Part Brand Name'?
-`SELECT BrandName, SparPartId AS SparePartId FROM SparePartName
-WHERE SparPartId = '${SparePartId}';`:
-/**Condition 3 */
-required == 'Spare Part Model No'?
-`SELECT SparPartId AS SparePartId, SpareNumber AS SparePartModelNumber, SparePartName FROM SparePartName;`:
-required == 'Spare Part Name'?
-`SELECT SparPartId AS SparePartId, SparePartName FROM SparePartName
-WHERE SparPartId = '${SparePartId}';`:
-required == 'Company Name'?
-`SELECT CompanyID, CompanyName FROM Company;`:`SELECT SparPartId, MasterSparePartName, SparePartName, 
+WHERE S.MachineId = '${MachineId}';` :
+    /**Condition 2 */
+    required == 'Spare Part Brand Name' ?
+      `SELECT BrandName, SparPartId AS SparePartId FROM SparePartName
+WHERE SparPartId = '${SparePartId}';` :
+      /**Condition 3 */
+      required == 'Spare Part Model No' ?
+        `SELECT SparPartId AS SparePartId, SpareNumber AS SparePartModelNumber, SparePartName FROM SparePartName;` :
+        required == 'Spare Part Name' ?
+          `SELECT SparPartId AS SparePartId, SparePartName FROM SparePartName
+WHERE SparPartId = '${SparePartId}';` :
+          required == 'Company Name' ?
+            `SELECT CompanyID, CompanyName FROM Company;` : `SELECT SparPartId, MasterSparePartName, SparePartName, 
 SpareNumber, Specification, BrandName, SparePartImageURL, SparePartDrawingImageURL FROM SparePartName`;
 
- try{
-   let data = await queryAsync(query);
-   !required?
-   data.forEach((list)=>{
-    if (typeof list.SparePartImageURL === 'string') {
-      try {
-          list.SparePartImageURL = JSON.parse(list.SparePartImageURL);
-      } catch (error) {
-        
-      }
+  try {
+    let data = await queryAsync(query);
+    !required ?
+      data.forEach((list) => {
+        if (typeof list.SparePartImageURL === 'string') {
+          try {
+            list.SparePartImageURL = JSON.parse(list.SparePartImageURL);
+          } catch (error) {
+
+          }
+        }
+
+      }) : '';
+
+    res.send({ data });
+
+  } catch (err) {
+    console.log(err)
+    res.status(400).send({ err })
+
   }
-  
-   }):'';
-
-   res.send({data});
-
- }catch(err){
-  console.log(err)
-   res.status(400).send({err})
-
- }
 
 }
 
 
-module.exports = { AddSpareParts, UploadImage, AddSpareParts, GetImage,getEquivalent,SparePartList,  };
+/**
+ * ! Get Spare Part By Id
+ */
+getSpecificSparePart = async (req, res) => {
+  const { SparePartId } = req.body;
+
+  try {
+
+    const query = `SELECT * FROM SparePartName WHERE SparPartId = '${SparePartId}';`;
+    let data = await queryAsync(query);
+    
+    if (typeof data[0].SparePartImageURL === 'string') {
+        data[0].SparePartImageURL = JSON.parse(data[0].SparePartImageURL);
+    
+    }
+
+    if (typeof data[0].Equivalent === 'string') {
+      data[0].Equivalent = JSON.parse(data[0].Equivalent);
+  
+  }
+    res.send({ data })
+  } catch (err) {
+    console.log(err);
+    res.send(err)
+  }
+}
+
+module.exports = { AddSpareParts, UploadImage, GetImage, getEquivalent, SparePartList, getSpecificSparePart };
