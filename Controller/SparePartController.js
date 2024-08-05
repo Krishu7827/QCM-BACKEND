@@ -329,11 +329,12 @@ getSpecificSparePart = async (req, res) => {
     if (typeof data[0].Equivalent === 'string') {
       data[0].Equivalent = JSON.parse(data[0].Equivalent);
   
+      
   }
 
   data[0]['MachineId'] = data1;
 
-  
+
     res.send({ data })
   } catch (err) {
     console.log(err);
