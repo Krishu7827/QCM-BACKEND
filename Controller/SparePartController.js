@@ -333,6 +333,7 @@ getSpecificSparePart = async (req, res) => {
 
   data[0]['MachineId'] = data1;
 
+  
     res.send({ data })
   } catch (err) {
     console.log(err);
