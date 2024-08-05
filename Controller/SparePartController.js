@@ -279,7 +279,8 @@ required == 'Spare Part Name'?
 `SELECT SparPartId AS SparePartId, SparePartName FROM SparePartName
 WHERE SparPartId = '${SparePartId}';`:
 required == 'Company Name'?
-`SELECT CompanyID, CompanyName FROM Company;`:'';
+`SELECT CompanyID, CompanyName FROM Company;`:`SELECT SparPartId, MasterSparePartName, SparePartName, 
+SpareNumber, Specification, BrandName, SparePartImageURL, SparePartDrawingImageURL FROM SparePartName`;
 
  try{
    let data = await queryAsync(query);
@@ -293,4 +294,4 @@ required == 'Company Name'?
 }
 
 
-module.exports = { AddSpareParts, UploadImage, AddSpareParts, GetImage,getEquivalent,SparePartList };
+module.exports = { AddSpareParts, UploadImage, AddSpareParts, GetImage,getEquivalent,SparePartList,  };
