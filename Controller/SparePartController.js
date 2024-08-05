@@ -317,22 +317,26 @@ getSpecificSparePart = async (req, res) => {
 
     const query = `SELECT * FROM SparePartName WHERE SparPartId = '${SparePartId}';`;
     let data = await queryAsync(query);
-   
+
     const query1 = `SELECT MachineId FROM SparePartMachine WHERE SparePartId = '${SparePartId}';`
     let data1 = await queryAsync(query1);
-
-    if (typeof data[0].SparePartImageURL === 'string') {
+    try {
+      if (typeof data[0].SparePartImageURL === 'string') {
         data[0].SparePartImageURL = JSON.parse(data[0].SparePartImageURL);
-    
+
+      }
+
+      if (typeof data[0].Equivalent === 'string') {
+        data[0].Equivalent = JSON.parse(data[0].Equivalent);
+
+
+      }
+
+    } catch (err) {
+      console.log(err)
     }
-
-    if (typeof data[0].Equivalent === 'string') {
-      data[0].Equivalent = JSON.parse(data[0].Equivalent);
-  
-      
-  }
-
-  data[0]['MachineId'] = data1;
+    
+    data[0]['MachineId'] = data1;
 
 
     res.send({ data })
