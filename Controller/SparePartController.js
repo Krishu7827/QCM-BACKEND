@@ -284,9 +284,22 @@ SpareNumber, Specification, BrandName, SparePartImageURL, SparePartDrawingImageU
 
  try{
    let data = await queryAsync(query);
+   !required?
+   data.forEach((list)=>{
+    if (typeof list.SparePartImageURL === 'string') {
+      try {
+          list.SparePartImageURL = JSON.parse(list.SparePartImageURL);
+      } catch (error) {
+        
+      }
+  }
+  
+   }):'';
+
    res.send({data});
 
  }catch(err){
+  console.log(err)
    res.status(400).send({err})
 
  }
