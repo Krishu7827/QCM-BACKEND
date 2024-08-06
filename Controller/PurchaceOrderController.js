@@ -440,7 +440,7 @@ const VoucherList = async(req,res)=>{
   const {PartyId, SparePartId} = req.body;
 
   try{
-     const query = `select DISTINCT(P.Voucher_Number) FROM PurchaseOrder P
+     const query = `select DISTINCT(P.Voucher_Number),P.Purchase_Order_Id FROM PurchaseOrder P
                     JOIN Purchase_Order_Items PO ON PO.Purchase_Order_Id = P.Purchase_Order_Id
                    WHERE P.Party_Name = '${PartyId}' AND PO.Spare_Part_Id = '${SparePartId}';`;
 
