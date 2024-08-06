@@ -455,7 +455,7 @@ const VoucherList = async(req,res)=>{
 
 
 const GetPurchaseDetailByVoucher = async(req,res)=>{
-  const {SparePartId, Voucher} = req.body;
+  const {SparePartId, PurchaseOrderId} = req.body;
   
   try{
     const query1 = `
@@ -467,7 +467,7 @@ WHERE S.SparePartId = '${SparePartId}';`
     const query2 = `SELECT POI.Quantity, POI.Price_Rs, P.Country,POI.Unit FROM Purchase_Order_Items POI
 JOIN PurchaseOrder PO ON PO.Purchase_Order_Id = POI.Purchase_Order_Id
 JOIN PartyName P ON P.PartyNameId = PO.Party_Name
-WHERE PO.Voucher_Number = '${Voucher}' AND POI.Spare_Part_Id = '${SparePartId}';`
+WHERE PO.Purchase_Order_Id = '${PurchaseOrderId}' AND POI.Spare_Part_Id = '${SparePartId}';`
     let data1 = await queryAsync(query1);
 
     let response = {}
