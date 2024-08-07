@@ -390,30 +390,31 @@ const SparePartIn = async(req,res)=>{
   
   console.log(req.body)
   try{
-   let data = await queryAsync(
-    `CALL SparePartIn(
-    ${PartyId}, 
-    ${SparePartId}, 
-    ${SparePartName},
-    ${PurchaseOrderId},
-    ${JSON.stringify(MachineNames)},
-    ${SparePartBrandName},
-    ${SparePartSpecification},
-    ${QuantityPurchaseOrder},
-    ${QuantityRecieved},
-    ${Unit},
-    ${Currency},
-    ${Price},
-    ${TotalCost},
-    ${InvoiceNumber},
-    ${Status},
-    ${CreatedBy}
-    )`)
+    let data = await queryAsync(
+      `CALL InsertSparePartData(
+        '${PartyId}', 
+        '${SparePartId}', 
+        '${SparePartName}', 
+        '${PurchaseOrderId}', 
+        '${JSON.stringify(MachineNames)}', 
+        '${SparePartBrandName}', 
+        '${SparePartSpecification}', 
+        '${QuantityPurchaseOrder}', 
+        '${QuantityRecieved}', 
+        '${Unit}', 
+        '${Currency}', 
+        '${Price}', 
+        '${TotalCost}', 
+        '${InvoiceNumber}', 
+        '${Status}', 
+        '${CreatedBy}'
+      )`
+    );
     
     res.send(data)
   }catch(err){
      console.log(err);
-     res.send(err)
+     res.status(400).send(err)
   }
 }
 
