@@ -388,6 +388,7 @@ const SparePartIn = async(req,res)=>{
     CreatedBy
   } = req.body;
   
+  console.log(req.body)
   try{
    let data = await queryAsync(
     `CALL SparePartIn(
@@ -395,7 +396,7 @@ const SparePartIn = async(req,res)=>{
     ${SparePartId}, 
     ${SparePartName},
     ${PurchaseOrderId},
-    '${JSON.stringify(MachineNames)}',
+    ${JSON.stringify(MachineNames)},
     ${SparePartBrandName},
     ${SparePartSpecification},
     ${QuantityPurchaseOrder},
