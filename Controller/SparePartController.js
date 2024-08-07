@@ -346,4 +346,42 @@ getSpecificSparePart = async (req, res) => {
   }
 }
 
+
+
+const SparePartIn = async(req,res)=>{
+  const {
+    PartyId, SparePartId, SparePartName, PurchaseOrderId, MachineNames,
+    SparePartBrandName, SparePartSpecification, QuantityPurchaseOrder,
+    QuantityRecieved, Unit, Currency, Price, TotalCost, InvoiceNumber, Status,
+    CreatedBy
+  } = req.body;
+  
+  try{
+   let data = await queryAsync(
+    `CALL SparePartIn(
+    ${PartyId}, 
+    ${SparePartId}, 
+    ${SparePartName},
+    ${PurchaseOrderId},
+    '${JSON.stringify(MachineNames)}',
+    ${SparePartBrandName},
+    ${SparePartSpecification},
+    ${QuantityPurchaseOrder},
+    ${QuantityRecieved},
+    ${Unit},
+    ${Currency},
+    ${Price},
+    ${TotalCost},
+    ${InvoiceNumber},
+    ${Status},
+    ${CreatedBy}
+    )`)
+    
+    res.send(data)
+  }catch(err){
+     console.log(err);
+     res.send(err)
+  }
+}
+
 module.exports = { AddSpareParts, UploadImage, GetImage, getEquivalent, SparePartList, getSpecificSparePart };
