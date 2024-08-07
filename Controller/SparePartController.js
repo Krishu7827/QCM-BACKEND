@@ -388,10 +388,10 @@ const SparePartIn = async(req,res)=>{
     CreatedBy
   } = req.body;
   
-  console.log(req.body)
+  
   try{
     let data = await queryAsync(
-      `CALL InsertSparePartData(
+      `CALL SparePartIn(
         '${PartyId}', 
         '${SparePartId}', 
         '${SparePartName}', 
