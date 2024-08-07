@@ -443,7 +443,7 @@ const VoucherList = async(req,res)=>{
      const query = `select DISTINCT(P.Voucher_Number),P.Purchase_Order_Id FROM PurchaseOrder P
                     JOIN Purchase_Order_Items PO ON PO.Purchase_Order_Id = P.Purchase_Order_Id
                    WHERE P.Party_Name = '${PartyId}' AND PO.Spare_Part_Id = '${SparePartId}';`;
-    
+
      let data = await queryAsync(query);
      res.send(data);
   }catch(err){
@@ -454,46 +454,4 @@ const VoucherList = async(req,res)=>{
 }
 
 
-const GetPurchaseDetailByVoucher = async(req,res)=>{
-  const {SparePartId, PurchaseOrderId} = req.body;
-  
-  try{
-    const query1 = `
-    SELECT M.MachineName,SP.BrandName,SP.Specification, SP.MinimumQuantityRequired FROM SparePartMachine S
-JOIN SparePartName SP ON SP.SparPartId = S.SparePartId
-JOIN Machine M ON M.MachineId = S.MachineId
-WHERE S.SparePartId = '${SparePartId}';`
-
-    const query2 = `SELECT POI.Quantity, POI.Price_Rs, P.Country,POI.Unit FROM Purchase_Order_Items POI
-JOIN PurchaseOrder PO ON PO.Purchase_Order_Id = POI.Purchase_Order_Id
-JOIN PartyName P ON P.PartyNameId = PO.Party_Name
-WHERE PO.Purchase_Order_Id = '${PurchaseOrderId}' AND POI.Spare_Part_Id = '${SparePartId}';`
-    let data1 = await queryAsync(query1);
-
-    let response = {}
-    let machine = [];
-
-    for(let key in data1[0]){
-      if(key!== 'MachineName') response[key] = data1[0][key]
-    }
-
-    data1.forEach((d)=>{
-      machine.push(d.MachineName);
-    })
-    
-    response['Machine'] = machine
-    
-    let data2 = await queryAsync(query2);
-
-    response['Quantity'] = data2[0]['Quantity'];
-    response['Price'] = data2[0]['Price_Rs']
-    response['Currency'] = data2[0]['Country']=='India'?'₹':'$'
-    response['Unit'] = data2[0]['Unit']
-    res.send(response)
-  }catch(err){
- console.log(err)
- res.send(err)
-  }
-}
-
-module.exports = {getVoucherNumber, AddPurchaseOrder, getPurchaseOrderList, getPurchaseOrderById, getFile, VoucherList, GetPurchaseDetailByVoucher}
+module.exports = {getVoucherNumber, AddPurchaseOrder, getPurchaseOrderList, getPurchaseOrderById, getFile, VoucherList}
