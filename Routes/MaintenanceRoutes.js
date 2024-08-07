@@ -78,6 +78,6 @@ MaintenanceRouter.post('/GetPO&SparePartDetail',GetPurchaseDetailByVoucher);
 MaintenanceRouter.post('/SparePartIn',SparePartIn)
 
 /**Router to Get Stock List */
-MaintenanceRouter.get('/GetStockList',getStockList);
+MaintenanceRouter.post('/GetStockList',getStockList);
 
 module.exports = {MaintenanceRouter}
