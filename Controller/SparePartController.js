@@ -416,4 +416,4 @@ const SparePartIn = async(req,res)=>{
   }
 }
 
-module.exports = { AddSpareParts, UploadImage, GetImage, getEquivalent, SparePartList, getSpecificSparePart };
+module.exports = { AddSpareParts, UploadImage, GetImage, getEquivalent, SparePartList, getSpecificSparePart, SparePartIn };
