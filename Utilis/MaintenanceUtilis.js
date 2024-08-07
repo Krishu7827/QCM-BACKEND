@@ -1126,7 +1126,7 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
         }
       }
       
-     let response =   generateAndMergePdfs();
+     //let response =   generateAndMergePdfs();
 
 
   module.exports = {getCurrentDateTime, PurchaseOrderPdf}

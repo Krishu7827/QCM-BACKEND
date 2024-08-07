@@ -167,7 +167,7 @@ const UploadImage = async (req, res) => {
       })
       return res.send({ msg: 'Data Inserted SuccesFully !' })
 
-    } else if (req.files['SparePartImage']) {
+    }else if (req.files['SparePartImage']) {
 
       /** Define the folder path */
       const folderPath = Path.join('SpartPartImage');
@@ -202,7 +202,7 @@ const UploadImage = async (req, res) => {
       await queryAsync(query);
       return res.send({ msg: 'Data Inserted SuccesFully !' })
 
-    } else if (req.files['DrawingImage']) {
+    }else if (req.files['DrawingImage']) {
 
       const DrawingImageBuffer = req.files['DrawingImage'][0].buffer;
       let DrawingImage = req.files['DrawingImage'][0].originalname.split('.');
@@ -232,7 +232,37 @@ const UploadImage = async (req, res) => {
       await queryAsync(query);
       return res.send({ msg: 'Data Inserted SuccesFully !' });
 
-    } else {
+    }else if(req.files['InvoicePdf']){
+     
+      const DrawingImageBuffer = req.files['InvoicePdf'][0].buffer;
+      let DrawingImage = req.files['InvoicePdf'][0].originalname.split('.');
+      let DrawingFileFormat = DrawingImage[DrawingImage.length - 1];
+
+
+      /** Define the folder path */
+      const folderPath = Path.join('SpartPartImage');
+
+      /** Create the folder if it doesn't exist */
+      if (!fs.existsSync(folderPath)) {
+        fs.mkdirSync(folderPath, { recursive: true });
+      }
+
+      /** Define the file path, including the desired file name and format */
+      const COCFileName = `${SparePartId}_Invoice.${DrawingFileFormat}`;
+
+      const COCFilePath = Path.join(folderPath, COCFileName);
+
+      /** Save the file buffer to the specified file path */
+      fs.writeFileSync(COCFilePath, DrawingImageBuffer);
+
+      const query = `UPDATE Spare_Part_In id
+     set id.Invoice_Pdf_URL = 'http://srv515471.hstgr.cloud:${PORT}/Maintenance/File/${COCFileName}'
+    WHERE id.Spare_Part_In_Id = '${SparePartId}';`;
+
+      await queryAsync(query);
+      return res.send({ msg: 'Data Inserted SuccesFully !' });
+
+    }else {
 
       return res.send({ msg: 'Data Inserted SuccesFully !' });
     }
@@ -417,5 +447,7 @@ const SparePartIn = async(req,res)=>{
      res.status(400).send(err)
   }
 }
+
+
 
 module.exports = { AddSpareParts, UploadImage, GetImage, getEquivalent, SparePartList, getSpecificSparePart, SparePartIn };
