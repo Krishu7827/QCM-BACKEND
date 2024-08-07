@@ -471,6 +471,11 @@ ORDER BY SPI.Created_On DESC;`;
 
     data.forEach((d)=>{
       d['Machine_Names']?d['Machine_Names'] = JSON.parse(d['Machine_Names']):''
+
+      const date = new Date(d['Created_On']);
+        const formattedDate = date.toLocaleDateString('en-GB');
+        d['Date'] = formattedDate
+        d['Time'] = d['Created_On'].split(' ')[1]
     })
     res.send({data})
   }catch(err){
