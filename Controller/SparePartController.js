@@ -50,7 +50,7 @@ const AddSpareParts = async (req, res) => {
     }
 
     if (SparePartId) {
-      /** Updated Query SparePartId */
+      /** Updated Query SparePartId  */
       const updateQuery = `UPDATE SparePartName 
       SET SparPartId = '${SparePartId}', SparePartName = '${SparePartName}',SpareNumber = '${SpareNumber}',Specification = '${Specification}',BrandName = '${BrandName}',HSNCode = '${HSNCode}',MasterSparePartName = '${MasterSparePartName}',
       NumberOfPcs = '${NumberOfPcs}',CycleTime = '${CycleTime}',MinimumQuantityRequired='${Quantity}',Equivalent = '${JSON.stringify(Equivalent)}',Status = '${Status}',UpdatedBy = '${CreatedBy}',
