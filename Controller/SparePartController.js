@@ -458,12 +458,14 @@ SPI.Quantity_Purchase_Order, SPI.Quantity_Recieved,
 SPI.Unit, SPI.Currency,
 SPI.Price, SPI.Total_Cost,
 SPI.Invoice_Number, SPI.Invoice_Pdf_URL,
-SPI.Available_Stock, Pn.Name
+SPI.Available_Stock, Pn.Name,
+SPI.Created_On
 FROM Spare_Part_In SPI
 JOIN PartyName P ON P.PartyNameId = SPI.Party_Id
 JOIN SparePartName SPN ON SPN.SparPartId = SPI.Spare_Part_Id
 JOIN PurchaseOrder PO ON PO.Purchase_Order_Id = SPI.Purchase_Order_Id
-JOIN Person Pn ON Pn.PersonID = SPI.Created_By;`;
+JOIN Person Pn ON Pn.PersonID = SPI.Created_By
+ORDER BY SPI.Created_On DESC;`;
 
     let data = await queryAsync(query);
 
