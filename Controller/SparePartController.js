@@ -472,7 +472,7 @@ ORDER BY SPI.Created_On DESC;`;
     data.forEach((d)=>{
       d['Machine_Names']?d['Machine_Names'] = JSON.parse(d['Machine_Names']):''
     })
-    res.send(data)
+    res.send({data})
   }catch(err){
   console.log(err);
   res.status(400).send(err);
