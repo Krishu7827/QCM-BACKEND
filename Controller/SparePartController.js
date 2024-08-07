@@ -448,6 +448,35 @@ const SparePartIn = async(req,res)=>{
   }
 }
 
+const getStockList = async(req,res)=>{
+ 
+  try{
+    let query = `SELECT P.PartyName, SPN.SparePartName, SPN.SpareNumber AS SparePartModelNumber, 
+PO.Voucher_Number, SPI.Machine_Names,
+SPI.Spare_Part_Brand_Name, SPI.Spare_Part_Specification,
+SPI.Quantity_Purchase_Order, SPI.Quantity_Recieved,
+SPI.Unit, SPI.Currency,
+SPI.Price, SPI.Total_Cost,
+SPI.Invoice_Number, SPI.Invoice_Pdf_URL,
+SPI.Available_Stock, Pn.Name
+FROM Spare_Part_In SPI
+JOIN PartyName P ON P.PartyNameId = SPI.Party_Id
+JOIN SparePartName SPN ON SPN.SparPartId = SPI.Spare_Part_Id
+JOIN PurchaseOrder PO ON PO.Purchase_Order_Id = SPI.Purchase_Order_Id
+JOIN Person Pn ON Pn.PersonID = SPI.Created_By;`;
+
+    let data = await queryAsync(query);
+
+    data.forEach((d)=>{
+      d['Machine_Names']?d['Machine_Names'] = JSON.parse(d['Machine_Names']):''
+    })
+    res.send(data)
+  }catch(err){
+  console.log(err);
+  res.status(400).send(err);
 
 
-module.exports = { AddSpareParts, UploadImage, GetImage, getEquivalent, SparePartList, getSpecificSparePart, SparePartIn };
+  }
+}
+
+module.exports = { AddSpareParts, UploadImage, GetImage, getEquivalent, getStockList, SparePartList, getSpecificSparePart, SparePartIn };
