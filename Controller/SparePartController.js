@@ -411,7 +411,7 @@ const SparePartIn = async(req,res)=>{
       )`
     );
     
-    res.send(data)
+    res.send(data[0])
   }catch(err){
      console.log(err);
      res.status(400).send(err)
