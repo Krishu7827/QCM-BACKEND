@@ -151,6 +151,7 @@ const UploadImage = async (req, res) => {
       })
       
 
+
       
       /** Checking, is there already present Image URL in database */
       let getPreviousImagesQ = `SELECT SparePartImageURL FROM SparePartName WHERE SparPartId = '${SparePartId}';`
