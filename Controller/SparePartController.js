@@ -153,7 +153,7 @@ const UploadImage = async (req, res) => {
       
       /** Checking, is there already present Image URL in database */
       let getPreviousImagesQ = `SELECT SparePartImageURL FROM SparePartName WHERE SparPartId = '${SparePartId}';`
-      let previousImageURL = queryAsync(getPreviousImagesQ);
+      let previousImageURL = await queryAsync(getPreviousImagesQ);
       
       /** If Present, then Push the new URL into previous to Update */
       if(previousImageURL){
@@ -209,7 +209,7 @@ const UploadImage = async (req, res) => {
       })
       
       let getPreviousImagesQ = `SELECT SparePartImageURL FROM SparePartName WHERE SparPartId = '${SparePartId}';`
-      let previousImageURL = queryAsync(getPreviousImagesQ);
+      let previousImageURL = await queryAsync(getPreviousImagesQ);
       
       if(previousImageURL){
       JSON.parse(previousImageURL)
