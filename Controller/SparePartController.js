@@ -150,6 +150,7 @@ const UploadImage = async (req, res) => {
         return `http://srv515471.hstgr.cloud:${PORT}/Maintenance/File/${InvoiceFileName}`;
       })
       
+      
       /** Checking, is there already present Image URL in database */
       let getPreviousImagesQ = `SELECT SparePartImageURL FROM SparePartName WHERE SparPartId = '${SparePartId}';`
       let previousImageURL = queryAsync(getPreviousImagesQ);
