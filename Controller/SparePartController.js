@@ -160,7 +160,7 @@ const UploadImage = async (req, res) => {
         console.log(previousImageURL)
         JSON.parse(previousImageURL[0]['SparePartImageURL'])
         ImagesURL.forEach((image)=>{
-          previousImageURL.push(image);
+          previousImageURL[0]['SparePartImageURL'].push(image);
         })
       }
 
@@ -214,7 +214,7 @@ const UploadImage = async (req, res) => {
       if(previousImageURL[0]['SparePartImageURL']){
       JSON.parse(previousImageURL[0]['SparePartImageURL'])
         ImagesURL.forEach((image)=>{
-          previousImageURL.push(image);
+          previousImageURL[0]['SparePartImageURL'].push(image);
         })
       }
 
