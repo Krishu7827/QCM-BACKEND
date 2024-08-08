@@ -103,7 +103,7 @@ const AddSpareParts = async (req, res) => {
 
 
 const UploadImage = async (req, res) => {
-  console.log(req.files)
+ 
   const { SparePartId } = req.body;
 
   /** Uploading PDF in Employee-Profile-Folder */
@@ -157,7 +157,7 @@ const UploadImage = async (req, res) => {
       let previousImageURL = previousImageUR[0]['SparePartImageURL']
 
 
-      console.log(previousImageURL)
+      console.log(typeof previousImageURL)
       /** If Present, then Push the new URL into previous to Update */
       if(previousImageURL){
         JSON.parse(previousImageURL)
@@ -214,7 +214,7 @@ const UploadImage = async (req, res) => {
       let previousImageUR = await queryAsync(getPreviousImagesQ);
       let previousImageURL = previousImageUR[0]['SparePartImageURL']
         
-      console.log(previousImageURL)
+      console.log(typeof previousImageURL)
       if(previousImageURL){
       JSON.parse(previousImageURL)
         ImagesURL.forEach((image)=>{
