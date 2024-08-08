@@ -1129,7 +1129,7 @@ async function generateAndMergePdfs() {
     }
 }
 
-let response = generateAndMergePdfs();
+//let response = generateAndMergePdfs();
 
 
 module.exports = { getCurrentDateTime, PurchaseOrderPdf }
