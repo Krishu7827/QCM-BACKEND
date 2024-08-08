@@ -151,7 +151,7 @@ const UploadImage = async (req, res) => {
       })
       
       /** Checking, is there already present Image URL in database */
-      let getPreviousImagesQ = `SELECT *FROM SparePartImageURL FROM SparePartName WHERE SparPartId = '${SparePartId}';`
+      let getPreviousImagesQ = `SELECT SparePartImageURL FROM SparePartName WHERE SparPartId = '${SparePartId}';`
       let previousImageURL = queryAsync(getPreviousImagesQ);
       
       /** If Present, then Push the new URL into previous to Update */
@@ -206,7 +206,7 @@ const UploadImage = async (req, res) => {
         return `http://srv515471.hstgr.cloud:${PORT}/Maintenance/File/${InvoiceFileName}`;
       })
       
-      let getPreviousImagesQ = `SELECT *FROM SparePartImageURL FROM SparePartName WHERE SparPartId = '${SparePartId}';`
+      let getPreviousImagesQ = `SELECT SparePartImageURL FROM SparePartName WHERE SparPartId = '${SparePartId}';`
       let previousImageURL = queryAsync(getPreviousImagesQ);
       
       if(previousImageURL){
