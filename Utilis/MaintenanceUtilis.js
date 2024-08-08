@@ -17,24 +17,24 @@ function getCurrentDateTime() {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const seconds = String(date.getSeconds()).padStart(2, '0');
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-  };
+};
 
 
-  function formatNumberWithCommas(value) {
-    let v =  value.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-   // console.log('kkkkkkk',v);
+function formatNumberWithCommas(value) {
+    let v = value.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    // console.log('kkkkkkk',v);
     return v
 }
 
-const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
+const PurchaseOrderPdf = async (Top_Data, ItemsTable, BillingTable, UUID) => {
     // let  Top_Data = [
     //     {"Purchase_Order_Id":"5fb72d5e-827a-443f-a5e0-ef111bb401e1","Order_Number":"GST-24-25-07","Voucher_Number":"GST-24-25-07","PartyName":"ABC Corp","Address":"123 Main Street, Suite 100","GSTNumber":"22AAAAA0000A1Z5","CompanyName":"Gautam Solar Private Limited Bhiwani","Company_GSTNumber":"06AAFCG5884Q1ZS","Company_Address":"7KM Milestone, Tosham Road, Dist.Bhiwani, Bawani Khera,","State":"Haryana","Pin":"127032","Email":"['sohan@gautamsolar.com','purchase@gautamsolar.com']","Purchase_Date":"Mon Jul 22 2024","Payment_Terms":"lknj","Delivery_Terms":"hj","Contact_Person":"jhg","Cell_Number":"jhg","Warranty":"jh"}
     //     ];
-    
-     let serialNo = 0;
-    
-    
-    
+
+    let serialNo = 0;
+
+
+
     // let ItemsTable = [
     //     {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJKhfghfghfghfghgfhfgfghfghfhfhfghfghfghfhfghfghfghfghfhfghfghfghfghfghfghfhfhfghfghfghfghfghfghfghfghfghfghytyrtyrtyhfghfgh","HSNCode":'777',"SpareNumber":"JK;;PJ","Quantity":"321","Unit":"dfb","Price_Rs":"700","GST":"10","Amount":"247170","Total_Amount":"821494.27"},
     //     {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'null',"SpareNumber":"JK;;PJ","Quantity":"7","Unit":"vbf","Price_Rs":"65","GST":"5","Amount":"477.75","Total_Amount":"821494.27"},
@@ -57,7 +57,7 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
     //     // {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'777',"SpareNumber":"JK;;PJ","Quantity":"321","Unit":"dfb","Price_Rs":"700","GST":"10","Amount":"247170","Total_Amount":"821494.27"},
     //     // {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'null',"SpareNumber":"JK;;PJ","Quantity":"7","Unit":"vbf","Price_Rs":"65","GST":"5","Amount":"477.75","Total_Amount":"821494.27"},
     //     ]
-    
+
     // let BillingTable = [
     //     {"Purchase_Order_Billing_Id":"4a0788d2-001e-47ee-a3ae-73842a1e6dfa","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"Freight","Narration":"","Percentage":"6","Amount":"46825.17","Total_Amount":"827244.73"},
     //     {"Purchase_Order_Billing_Id":"8835d25f-b67d-4337-929a-5952777eaaed","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"SGST","Narration":"","Percentage":"5","Amount":"5667","Total_Amount":"827244.73"},
@@ -65,24 +65,24 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
     //     {"Purchase_Order_Billing_Id":"b1e4f7f2-0839-4df4-80d6-9aa5c5defba3","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"IGST","Narration":"","Percentage":"","Amount":"","Total_Amount":"827244.73"},
     //     {"Purchase_Order_Billing_Id":"c8325b06-5b40-435a-a6f3-91e52d6f713b","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"Discount","Narration":"","Percentage":"5","Amount":"41074.71","Total_Amount":"827244.73"}
     //     ]
-      
-        let totalQuantity = 0;
-    
-        let emailString = Top_Data[0].Email;
-        emailString = emailString.replace(/'/g, '"');
-    
-    const HTMLGenerator = (data,page,totalPage,DataLength)=>{
-       
+
+    let totalQuantity = 0;
+
+    let emailString = Top_Data[0].Email;
+    emailString = emailString.replace(/'/g, '"');
+
+    const HTMLGenerator = (data, page, totalPage, DataLength) => {
+
         let totalQuantityPerPage = 0;
         let totalAmountPerPage = 0;
-     
-        if(DataLength<8 && data.length) {
-            let templength = 8-DataLength;
-            for(let i = 1; i<=templength; i++){  
-            data.push(
-                {"MasterSparePartName":"","SparePartName":"","HSNCode":"","SpareNumber":"","Quantity":"","Unit":"","Price_Rs":"","GST":"","Amount":"","Total_Amount":""}
-            );
-        }
+
+        if (DataLength < 8 && data.length) {
+            let templength = 8 - DataLength;
+            for (let i = 1; i <= templength; i++) {
+                data.push(
+                    { "MasterSparePartName": "", "SparePartName": "", "HSNCode": "", "SpareNumber": "", "Quantity": "", "Unit": "", "Price_Rs": "", "GST": "", "Amount": "", "Total_Amount": "" }
+                );
+            }
         }
         console.log(data.length)
         const htmlContent1 = ` <html>
@@ -253,15 +253,15 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
         
         <body>
            <div style="width: 100%; border: 1px solid black; margin-bottom:-20px;">
-           ${Top_Data[0].Party_Country == 'India'?'':
-            `<span style="font-size:12px; margin-top:2px; margin-left:2px;">GSTIN &nbsp; : &nbsp; ${Top_Data[0].Company_GSTNumber}</span>
+           ${Top_Data[0].Party_Country == 'India' ? '' :
+                `<span style="font-size:12px; margin-top:2px; margin-left:2px;">GSTIN &nbsp; : &nbsp; ${Top_Data[0].Company_GSTNumber}</span>
            <br>
            <span style="font-size:12px; margin-left:2px;">CIN &nbsp; &nbsp; &nbsp; <span style="margin-left:2px;">:</span> &nbsp; ${Top_Data[0].CINNumber}</span>`}
            <div>
             <h4 style="text-decoration: underline; text-align: center; margin-top: 0px;">Purchase Order</h4>
             <h3 style="text-align: center; margin-top: -24px; letter-spacing: 2px;">${Top_Data[0].CompanyName}</h3>
             <h4 style="text-align: center; margin-top: -22px; font-size: 13px;">${Top_Data[0].Company_Address}, ${Top_Data[0].State} - ${Top_Data[0].Pin}</h4>
-            ${Top_Data[0].Party_Country=='India'?`<h4 style="text-align: center; margin-top: -19px; font-size: 13px;">GSTIN: ${Top_Data[0].Company_GSTNumber}</h4>`:''}
+            ${Top_Data[0].Party_Country == 'India' ? `<h4 style="text-align: center; margin-top: -19px; font-size: 13px;">GSTIN: ${Top_Data[0].Company_GSTNumber}</h4>` : ''}
             <h4 style="text-align: center; margin-top: -19px; font-size: 10px;">email: ${JSON.parse(emailString).join(', ')}</h4>
             </div>
           </div>
@@ -275,10 +275,10 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
                         <p class="address">${Top_Data[0].Address}</p>
                         <br>
                         <br>
-                        ${Top_Data[0].Party_Country == 'India'?`<span style="font-size: 14px;">GSTIN/UIN :</span> <span
+                        ${Top_Data[0].Party_Country == 'India' ? `<span style="font-size: 14px;">GSTIN/UIN :</span> <span
                             style=" font-size: 14px; margin-left:30px">${Top_Data[0].GSTNumber}</span>
                     </div>`:
-                    `<span style="font-size: 14px;">Party TIN :</span> <span
+                `<span style="font-size: 14px;">Party TIN :</span> <span
                             style=" font-size: 14px; margin-left:30px"></span>
                     </div>`}
         
@@ -332,7 +332,7 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
         </div>
         
           <!-----------------------  Table  ------------------------->
-         <table class = "page-break" ${totalPage==page?'':'style="border-bottom:1px solid black;"'} >
+         <table class = "page-break" ${totalPage == page ? '' : 'style="border-bottom:1px solid black;"'} >
             <thead>
                 <tr>
                     <th style="font-size:15px; padding-top:3px; padding-bottom:3px;">S.N.</th>
@@ -340,25 +340,25 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
                     <th style="width:10%; font-size:15px; padding-top:3px; padding-bottom:3px;">HSN Code</th>
                     <th style="font-size:15px; padding-top:3px; padding-bottom:3px;">Qty.</th>
                     <th style="font-size:15px; padding-top:2px; padding-bottom:2px;">Unit</th>
-                    <th style="width:15%; font-size:15px; padding-top:3px; padding-bottom:3px;">Price ${Top_Data[0].Party_Country=='India'?
-                     `(₹)`:`($)`
-                    }</th>
-                    <th style="width:15%; font-size:15px; padding-top:3px; padding-bottom:3px;">Amount ${Top_Data[0].Party_Country=='India'?
-                        `(₹)`:`($)`
-                       }</th>
+                    <th style="width:15%; font-size:15px; padding-top:3px; padding-bottom:3px;">Price ${Top_Data[0].Party_Country == 'India' ?
+                `(₹)` : `($)`
+            }</th>
+                    <th style="width:15%; font-size:15px; padding-top:3px; padding-bottom:3px;">Amount ${Top_Data[0].Party_Country == 'India' ?
+                `(₹)` : `($)`
+            }</th>
                 </tr>
             </thead>
             <tbody>
             ${data.map((row, i) => {
                 serialNo++;
                 totalQuantity += Number(row.Quantity) || 0;
-                totalAmountPerPage+=Number(row.Amount) || 0;
-                totalQuantityPerPage+=Number(row.Quantity) || 0;
-              
+                totalAmountPerPage += Number(row.Amount) || 0;
+                totalQuantityPerPage += Number(row.Quantity) || 0;
+
                 return `
                     <tr style="height:55px;">
-                        <td ${8-1 == i ? 'style="vertical-align: top;"' : 'style="border-bottom-style: hidden; vertical-align: top;"'} style="vertical-align: top;" class="serialNo">${row.MasterSparePartName ? serialNo : ''}</td>
-                        <td ${8-1 == i ? '' : 'style="border-bottom-style: hidden;"'}>
+                        <td ${8 - 1 == i ? 'style="vertical-align: top;"' : 'style="border-bottom-style: hidden; vertical-align: top;"'} style="vertical-align: top;" class="serialNo">${row.MasterSparePartName ? serialNo : ''}</td>
+                        <td ${8 - 1 == i ? '' : 'style="border-bottom-style: hidden;"'}>
                             <ul style="margin-left:7px;">
                                 <li class="parent">${row.MasterSparePartName || ""}
                                     <ul>
@@ -368,20 +368,19 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
                                 </li>
                             </ul>
                         </td>
-                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.HSNCode || ""}</td>
-                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Quantity?formatNumberWithCommas((+row.Quantity)):''}</td>
-                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Unit || ""}</td>
-                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Price_Rs?formatNumberWithCommas((+row.Price_Rs)):''}</td>
-                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Amount?formatNumberWithCommas((+row.Amount)):''}</td>
+                        <td class="center-td" ${8 - 1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.HSNCode || ""}</td>
+                        <td class="center-td" ${8 - 1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Quantity ? formatNumberWithCommas((+row.Quantity)) : ''}</td>
+                        <td class="center-td" ${8 - 1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Unit || ""}</td>
+                        <td class="center-td" ${8 - 1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Price_Rs ? formatNumberWithCommas((+row.Price_Rs)) : ''}</td>
+                        <td class="center-td" ${8 - 1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Amount ? formatNumberWithCommas((+row.Amount)) : ''}</td>
                     </tr>`;
             }).join(' ')
             }
                
-            ${
-                totalPage == page?
-                BillingTable.map((bill)=>{
-    
-                    return  bill.Amount? `<!----------------- @@@@ Last Row to final QTY and amount @@@@@@@@@@@@@@@@------>
+            ${totalPage == page ?
+                BillingTable.map((bill) => {
+
+                    return bill.Amount ? `<!----------------- @@@@ Last Row to final QTY and amount @@@@@@@@@@@@@@@@------>
                     <tr style="height:20px; font-size:12px; font-weight:bold;">
     <td style="border:0px solid black;" class="serialNo"></td>
     <td style="border:0px solid black; text-align:center;">
@@ -397,13 +396,13 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
         <span style="margin-right:2px;">${formatNumberWithCommas(+bill.Amount)}</span>
     </td> <!-- Replace with actual Amount -->
 </tr>
-`:'';
-    
+`: '';
+
                 }).join(' ')
-        :
-        ``
+                :
+                ``
             }
-            ${totalPage == page?
+            ${totalPage == page ?
                 `<tr style="height:20px; ">
                            <td style="border:0px solid black;" class="serialNo" ></td>
                            <td style="border:0px solid black;">
@@ -414,7 +413,7 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
                            <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold;" ></td>
                            <td  style="border:0px solid black; font-weight:bold;" class="center-td" ></td> <!-- Replace with actual Price -->
                            <td style="border:0px solid black; font-weight:bold; font-size:12px; word-wrap: break-word; word-break: break-word;" class="center-td" style = "text-align:center; font-weight:bold;" ></td> <!-- Replace with actual Amount -->
-                       </tr>`:`
+                       </tr>`: `
                       <tr style="height:120px;">
                          <td style="border:0px solid black; vertical-align: top;" class="serialNo"></td>
                          <td style="border:0px solid black; vertical-align: top;">
@@ -434,19 +433,18 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
             
             </tbody>
         </table>
-        ${totalPage == page?
-            `<div style="width: 100%; margin-top: 2px; box-sizing: border-box; ">
+        ${totalPage == page ?
+                `<div style="width: 100%; margin-top: 2px; box-sizing: border-box; ">
         <table style="width: 100%; border-collapse: collapse; border: 2px solid black;">
             <tr>
                 <td style="width: 10%; font-weight: bold; text-align: left;  padding-left: 3px;  margin: 0; font-size: 12px; word-wrap: break-word; word-break: break-word; border: none;">Total Amount</td>
-                <td style="width: 75%; font-weight: bold; padding-left: 2px; padding-right: 3px; text-align: center; padding: 0; margin: 0; font-size: 12px; word-wrap: break-word; word-break: break-word; border: none;">${
-                Top_Data[0].Party_Country=='India'?
-                     `${toWords.convert(Number(BillingTable[0].Total_Amount))}`:`USD ${toWords.convert(Number(BillingTable[0].Total_Amount))}`
+                <td style="width: 75%; font-weight: bold; padding-left: 2px; padding-right: 3px; text-align: center; padding: 0; margin: 0; font-size: 12px; word-wrap: break-word; word-break: break-word; border: none;">${Top_Data[0].Party_Country == 'India' ?
+                    `${toWords.convert(Number(BillingTable[0].Total_Amount))}` : `USD ${toWords.convert(Number(BillingTable[0].Total_Amount))}`
                 }</td>
                 <td style="width: 15%; font-weight: bold; text-align: right; padding-right: 3px; margin: 0; font-size: 12px; word-wrap: break-word; word-break: break-word; border: none;">${formatNumberWithCommas(+BillingTable[0].Total_Amount)}</td>
             </tr>
         </table>
-    </div>`:``}
+    </div>`: ``}
     </div>
 
     <div style="width: 100%;" class="summary-desc">
@@ -472,172 +470,172 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
         </body>
         
         </html>`;
-    
+
         return htmlContent1;
-    
+
     }
-    
-     
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
     const options = {
         path: '/usr/bin/chromium-browser', // Path to your local Chromium/Chrome
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      };
-      
-      process.env.OPENSSL_CONF = '/dev/null';
-      
-      // Function to create PDF using Puppeteer
-      async function createPdf(html, options) {
+    };
+
+    process.env.OPENSSL_CONF = '/dev/null';
+
+    // Function to create PDF using Puppeteer
+    async function createPdf(html, options) {
         try {
-          const browser = await puppeteer.launch({
-            executablePath: options.path,
-            args: options.args
-          });
-          const page = await browser.newPage();
-          await page.setContent(html, { waitUntil: 'networkidle0' });
-          const pdf = await page.pdf({
-            format: 'A4',
-            
-          });
-          await browser.close();
-          return pdf;
+            const browser = await puppeteer.launch({
+                executablePath: options.path,
+                args: options.args
+            });
+            const page = await browser.newPage();
+            await page.setContent(html, { waitUntil: 'networkidle0' });
+            const pdf = await page.pdf({
+                format: 'A4',
+
+            });
+            await browser.close();
+            return pdf;
         } catch (error) {
-          throw new Error(`Error creating PDF: ${error.message}`);
+            throw new Error(`Error creating PDF: ${error.message}`);
         }
-      }
-      
-      // Function to merge PDFs using pdf-lib
-      async function mergePdfs(buffers) {
+    }
+
+    // Function to merge PDFs using pdf-lib
+    async function mergePdfs(buffers) {
         const pdfDoc = await PDFDocument.create();
         for (const buffer of buffers) {
-          const pdfBuffer = await PDFDocument.load(buffer);
-          const pages = await pdfDoc.copyPages(pdfBuffer, pdfBuffer.getPageIndices());
-          pages.forEach(page => pdfDoc.addPage(page));
+            const pdfBuffer = await PDFDocument.load(buffer);
+            const pages = await pdfDoc.copyPages(pdfBuffer, pdfBuffer.getPageIndices());
+            pages.forEach(page => pdfDoc.addPage(page));
         }
         const mergedPdf = await pdfDoc.save();
         return mergedPdf;
-      }
-      
-      // Create and handle PDF buffers
-      async function generateAndMergePdfs() {
+    }
+
+    // Create and handle PDF buffers
+    async function generateAndMergePdfs() {
         let pagesBufferArr = [];
         try {
-          let Pages = Math.ceil((ItemsTable.length) / 8);
-      
-          for (let page = 1; page <= Pages; page++) {
-            let startIndex = (page - 1) * 8; 
-            let endIndex = page * 8;
-      
-            // Ensure that pageData has items before generating the PDF
-            if (startIndex < ItemsTable.length) {
-              let pageData = ItemsTable.slice(startIndex, endIndex);
-              const htmlContent1 = HTMLGenerator(pageData, page, Pages, pageData.length);
-              let pageBuffer = await createPdf(htmlContent1, options);
-              pagesBufferArr.push(pageBuffer);
-            }
-          }
-      
-          const mergedPdfBuffer = await mergePdfs(pagesBufferArr);
+            let Pages = Math.ceil((ItemsTable.length) / 8);
 
-          const folderPath = Path.join('PurchaseOrder');
-     
-   
-          /** Create the folder if it doesn't exist */
-          if (!fs.existsSync(folderPath)) {
-            fs.mkdirSync(folderPath, { recursive: true });
-          }
-        
+            for (let page = 1; page <= Pages; page++) {
+                let startIndex = (page - 1) * 8;
+                let endIndex = page * 8;
+
+                // Ensure that pageData has items before generating the PDF
+                if (startIndex < ItemsTable.length) {
+                    let pageData = ItemsTable.slice(startIndex, endIndex);
+                    const htmlContent1 = HTMLGenerator(pageData, page, Pages, pageData.length);
+                    let pageBuffer = await createPdf(htmlContent1, options);
+                    pagesBufferArr.push(pageBuffer);
+                }
+            }
+
+            const mergedPdfBuffer = await mergePdfs(pagesBufferArr);
+
+            const folderPath = Path.join('PurchaseOrder');
+
+
+            /** Create the folder if it doesn't exist */
+            if (!fs.existsSync(folderPath)) {
+                fs.mkdirSync(folderPath, { recursive: true });
+            }
+
             /** Define the file path, including the desired file name and format */
             const PDF = `${UUID}.pdf`;
-            
+
             const PDFFilePath = Path.join(folderPath, PDF);
-         
-        
-          /** Save the file buffer to the specified file path */
-          fs.writeFileSync(PDFFilePath, mergedPdfBuffer,(err) => {
-            if(err){
-                console.log(err)
-                return err
-            }else{
-                return 'Merged Succesfully'
-            }
-          });
-      
-         
+
+
+            /** Save the file buffer to the specified file path */
+            fs.writeFileSync(PDFFilePath, mergedPdfBuffer, (err) => {
+                if (err) {
+                    console.log(err)
+                    return err
+                } else {
+                    return 'Merged Succesfully'
+                }
+            });
+
+
         } catch (err) {
             console.log(err)
-          return ('Error generating or merging PDFs:', err);
+            return ('Error generating or merging PDFs:', err);
         }
-      }
-      
-     let response =  await generateAndMergePdfs();
-
-    return response;
     }
 
+    let response = await generateAndMergePdfs();
 
- let Top_Data =  [{"Purchase_Order_Id":"5fb72d5e-827a-443f-a5e0-ef111bb401e1","Order_Number":"GST-24-25-07","Voucher_Number":"GST-24-25-07","PartyName":"ABC Corp","Address":"123 Main Street, Suite 100","GSTNumber":"22AAAAA0000A1Z5","CompanyName":"Gautam Solar Private Limited Bhiwani","Company_GSTNumber":"06AAFCG5884Q1ZS","Company_Address":"7KM Milestone, Tosham Road, Dist.Bhiwani, Bawani Khera,","State":"Haryana","Pin":"127032","Email":"['sohan@gautamsolar.com','purchase@gautamsolar.com']","Purchase_Date":"Mon Jul 22 2024","Payment_Terms":"lknj","Delivery_Terms":"hj","Contact_Person":"jhg","Cell_Number":"jhg","Warranty":"jh"}
-        ];
-    
-    let serialNo = 0;
-    
-    
-    
-    let ItemsTable = [
-        {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJKhfghfghfghfghgfhfgfghfghfhfhfghfghfghfhfghfghfghfghfhfghfghfghfghfghfghfhfhfghfghfghfghfghfghfghfghfghfghytyrtyrtyhfghfgh","HSNCode":'777',"SpareNumber":"JK;;PJ","Quantity":"321","Unit":"dfb","Price_Rs":"700","GST":"10","Amount":"247170","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'null',"SpareNumber":"JK;;PJ","Quantity":"7","Unit":"vbf","Price_Rs":"65","GST":"5","Amount":"477.75","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":'null',"SpareNumber":"fghfgh","Quantity":"34","Unit":"54","Price_Rs":"55","GST":"55","Amount":"2898.5","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"133","Unit":"cfd","Price_Rs":"676","GST":"65","Amount":"148348.2","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"234","Unit":"dsf","Price_Rs":"32","GST":"43","Amount":"10707.84","Total_Amount":"821494.27"},
-         {"MasterSparePartName":"53232","SparePartName":"Solar panel","HSNCode":'null',"SpareNumber":"0000988","Quantity":"2","Unit":"gf","Price_Rs":"100","GST":"10","Amount":"220","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"Motor","SparePartName":"servo motor ","HSNCode":'null',"SpareNumber":"ms1h3-40s","Quantity":"34","Unit":"df","Price_Rs":"435","GST":"32","Amount":"19522.8","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":'null',"SpareNumber":"fghfgh","Quantity":"10","Unit":"fds","Price_Rs":"500","GST":"20","Amount":"6000","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":null,"SpareNumber":"fghfgh","Quantity":"4","Unit":"vcb","Price_Rs":"56","GST":"65","Amount":"369.6","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"54","Unit":"fg","Price_Rs":"54","GST":"54","Amount":"4490.64","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"5","Unit":"fds","Price_Rs":"65","GST":"12","Amount":"364","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"fghhf","SparePartName":"fhgfgh","HSNCode":null,"SpareNumber":"fghfgh","Quantity":"43","Unit":"dfg","Price_Rs":"4","GST":"4","Amount":"178.88","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"dfghd","SparePartName":"dfhdfh","HSNCode":null,"SpareNumber":"hdfhdfhdh","Quantity":"65","Unit":"654","Price_Rs":"56","GST":"54","Amount":"5605.6","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"123saif","SparePartName":"Solar panel","HSNCode":"45","SpareNumber":"123456ha","Quantity":"4","Unit":"vbc","Price_Rs":"546","GST":"54","Amount":"3363.36","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":null,"SpareNumber":"JK;;PJ","Quantity":"566","Unit":"dfbg","Price_Rs":"435","GST":"51","Amount":"371777.1","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'777',"SpareNumber":"JK;;PJ","Quantity":"321","Unit":"dfb","Price_Rs":"700","GST":"10","Amount":"247170","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'null',"SpareNumber":"JK;;PJ","Quantity":"7","Unit":"vbf","Price_Rs":"65","GST":"5","Amount":"477.75","Total_Amount":"821494.27"},
-        {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":null,"SpareNumber":"JK;;PJ","Quantity":"566","Unit":"dfbg","Price_Rs":"435","GST":"51","Amount":"371777.1","Total_Amount":"821494.27"},
-        // {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'777',"SpareNumber":"JK;;PJ","Quantity":"321","Unit":"dfb","Price_Rs":"700","GST":"10","Amount":"247170","Total_Amount":"821494.27"},
-        // {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'null',"SpareNumber":"JK;;PJ","Quantity":"7","Unit":"vbf","Price_Rs":"65","GST":"5","Amount":"477.75","Total_Amount":"821494.27"},
-        ]
-    
-    let BillingTable = [
-        {"Purchase_Order_Billing_Id":"4a0788d2-001e-47ee-a3ae-73842a1e6dfa","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"Freight","Narration":"","Percentage":"6","Amount":"46825.17","Total_Amount":"827244.73"},
-        {"Purchase_Order_Billing_Id":"8835d25f-b67d-4337-929a-5952777eaaed","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"SGST","Narration":"","Percentage":"5","Amount":"5667","Total_Amount":"827244.73"},
-        {"Purchase_Order_Billing_Id":"a2134b94-ab62-404b-b2fb-7974c9691d6d","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"CGST","Narration":"","Percentage":"8","Amount":"56766","Total_Amount":"827244.73"},
-        {"Purchase_Order_Billing_Id":"b1e4f7f2-0839-4df4-80d6-9aa5c5defba3","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"IGST","Narration":"","Percentage":"","Amount":"","Total_Amount":"827244.73"},
-        {"Purchase_Order_Billing_Id":"c8325b06-5b40-435a-a6f3-91e52d6f713b","Purchase_Order_Id":"059ee1c6-4ee1-44d2-a868-7926a736f303","Bill_Sundry":"Discount","Narration":"","Percentage":"5","Amount":"41074.71","Total_Amount":"827244.73"}
-        ]
-      
-        let totalQuantity = 0;
-    
-        let emailString = Top_Data[0].Email;
-        emailString = emailString.replace(/'/g, '"');
-    
-    const HTMLGenerator = (data,page,totalPage,DataLength)=>{
-       
-        let totalQuantityPerPage = 0;
-        let totalAmountPerPage = 0;
-     
-        if(DataLength<8 && data.length) {
-            let templength = 8-DataLength;
-            for(let i = 1; i<=templength; i++){  
+    return response;
+}
+
+
+let Top_Data = [{ "Purchase_Order_Id": "5fb72d5e-827a-443f-a5e0-ef111bb401e1", "Order_Number": "GST-24-25-07", "Voucher_Number": "GST-24-25-07", "PartyName": "ABC Corp", "Address": "123 Main Street, Suite 100", "GSTNumber": "22AAAAA0000A1Z5", "CompanyName": "Gautam Solar Private Limited Bhiwani", "Company_GSTNumber": "06AAFCG5884Q1ZS", "Company_Address": "7KM Milestone, Tosham Road, Dist.Bhiwani, Bawani Khera,", "State": "Haryana", "Pin": "127032", "Email": "['sohan@gautamsolar.com','purchase@gautamsolar.com']", "Purchase_Date": "Mon Jul 22 2024", "Payment_Terms": "lknj", "Delivery_Terms": "hj", "Contact_Person": "jhg", "Cell_Number": "jhg", "Warranty": "jh" }
+];
+
+let serialNo = 0;
+
+
+
+let ItemsTable = [
+    { "MasterSparePartName": "DFGFGDS", "SparePartName": "JLKLJKhfghfghfghfghgfhfgfghfghfhfhfghfghfghfhfghfghfghfghfhfghfghfghfghfghfghfhfhfghfghfghfghfghfghfghfghfghfghytyrtyrtyhfghfgh", "HSNCode": '777', "SpareNumber": "JK;;PJ", "Quantity": "321", "Unit": "dfb", "Price_Rs": "700", "GST": "10", "Amount": "247170", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "DFGFGDS", "SparePartName": "JLKLJK", "HSNCode": 'null', "SpareNumber": "JK;;PJ", "Quantity": "7", "Unit": "vbf", "Price_Rs": "65", "GST": "5", "Amount": "477.75", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "fghhf", "SparePartName": "fhgfgh", "HSNCode": 'null', "SpareNumber": "fghfgh", "Quantity": "34", "Unit": "54", "Price_Rs": "55", "GST": "55", "Amount": "2898.5", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "123saif", "SparePartName": "Solar panel", "HSNCode": "45", "SpareNumber": "123456ha", "Quantity": "133", "Unit": "cfd", "Price_Rs": "676", "GST": "65", "Amount": "148348.2", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "123saif", "SparePartName": "Solar panel", "HSNCode": "45", "SpareNumber": "123456ha", "Quantity": "234", "Unit": "dsf", "Price_Rs": "32", "GST": "43", "Amount": "10707.84", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "53232", "SparePartName": "Solar panel", "HSNCode": 'null', "SpareNumber": "0000988", "Quantity": "2", "Unit": "gf", "Price_Rs": "100", "GST": "10", "Amount": "220", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "Motor", "SparePartName": "servo motor ", "HSNCode": 'null', "SpareNumber": "ms1h3-40s", "Quantity": "34", "Unit": "df", "Price_Rs": "435", "GST": "32", "Amount": "19522.8", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "fghhf", "SparePartName": "fhgfgh", "HSNCode": 'null', "SpareNumber": "fghfgh", "Quantity": "10", "Unit": "fds", "Price_Rs": "500", "GST": "20", "Amount": "6000", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "fghhf", "SparePartName": "fhgfgh", "HSNCode": null, "SpareNumber": "fghfgh", "Quantity": "4", "Unit": "vcb", "Price_Rs": "56", "GST": "65", "Amount": "369.6", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "123saif", "SparePartName": "Solar panel", "HSNCode": "45", "SpareNumber": "123456ha", "Quantity": "54", "Unit": "fg", "Price_Rs": "54", "GST": "54", "Amount": "4490.64", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "123saif", "SparePartName": "Solar panel", "HSNCode": "45", "SpareNumber": "123456ha", "Quantity": "5", "Unit": "fds", "Price_Rs": "65", "GST": "12", "Amount": "364", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "fghhf", "SparePartName": "fhgfgh", "HSNCode": null, "SpareNumber": "fghfgh", "Quantity": "43", "Unit": "dfg", "Price_Rs": "4", "GST": "4", "Amount": "178.88", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "dfghd", "SparePartName": "dfhdfh", "HSNCode": null, "SpareNumber": "hdfhdfhdh", "Quantity": "65", "Unit": "654", "Price_Rs": "56", "GST": "54", "Amount": "5605.6", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "123saif", "SparePartName": "Solar panel", "HSNCode": "45", "SpareNumber": "123456ha", "Quantity": "4", "Unit": "vbc", "Price_Rs": "546", "GST": "54", "Amount": "3363.36", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "DFGFGDS", "SparePartName": "JLKLJK", "HSNCode": null, "SpareNumber": "JK;;PJ", "Quantity": "566", "Unit": "dfbg", "Price_Rs": "435", "GST": "51", "Amount": "371777.1", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "DFGFGDS", "SparePartName": "JLKLJK", "HSNCode": '777', "SpareNumber": "JK;;PJ", "Quantity": "321", "Unit": "dfb", "Price_Rs": "700", "GST": "10", "Amount": "247170", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "DFGFGDS", "SparePartName": "JLKLJK", "HSNCode": 'null', "SpareNumber": "JK;;PJ", "Quantity": "7", "Unit": "vbf", "Price_Rs": "65", "GST": "5", "Amount": "477.75", "Total_Amount": "821494.27" },
+    { "MasterSparePartName": "DFGFGDS", "SparePartName": "JLKLJK", "HSNCode": null, "SpareNumber": "JK;;PJ", "Quantity": "566", "Unit": "dfbg", "Price_Rs": "435", "GST": "51", "Amount": "371777.1", "Total_Amount": "821494.27" },
+    // {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'777',"SpareNumber":"JK;;PJ","Quantity":"321","Unit":"dfb","Price_Rs":"700","GST":"10","Amount":"247170","Total_Amount":"821494.27"},
+    // {"MasterSparePartName":"DFGFGDS","SparePartName":"JLKLJK","HSNCode":'null',"SpareNumber":"JK;;PJ","Quantity":"7","Unit":"vbf","Price_Rs":"65","GST":"5","Amount":"477.75","Total_Amount":"821494.27"},
+]
+
+let BillingTable = [
+    { "Purchase_Order_Billing_Id": "4a0788d2-001e-47ee-a3ae-73842a1e6dfa", "Purchase_Order_Id": "059ee1c6-4ee1-44d2-a868-7926a736f303", "Bill_Sundry": "Freight", "Narration": "", "Percentage": "6", "Amount": "46825.17", "Total_Amount": "827244.73" },
+    { "Purchase_Order_Billing_Id": "8835d25f-b67d-4337-929a-5952777eaaed", "Purchase_Order_Id": "059ee1c6-4ee1-44d2-a868-7926a736f303", "Bill_Sundry": "SGST", "Narration": "", "Percentage": "5", "Amount": "5667", "Total_Amount": "827244.73" },
+    { "Purchase_Order_Billing_Id": "a2134b94-ab62-404b-b2fb-7974c9691d6d", "Purchase_Order_Id": "059ee1c6-4ee1-44d2-a868-7926a736f303", "Bill_Sundry": "CGST", "Narration": "", "Percentage": "8", "Amount": "56766", "Total_Amount": "827244.73" },
+    { "Purchase_Order_Billing_Id": "b1e4f7f2-0839-4df4-80d6-9aa5c5defba3", "Purchase_Order_Id": "059ee1c6-4ee1-44d2-a868-7926a736f303", "Bill_Sundry": "IGST", "Narration": "", "Percentage": "", "Amount": "", "Total_Amount": "827244.73" },
+    { "Purchase_Order_Billing_Id": "c8325b06-5b40-435a-a6f3-91e52d6f713b", "Purchase_Order_Id": "059ee1c6-4ee1-44d2-a868-7926a736f303", "Bill_Sundry": "Discount", "Narration": "", "Percentage": "5", "Amount": "41074.71", "Total_Amount": "827244.73" }
+]
+
+let totalQuantity = 0;
+
+let emailString = Top_Data[0].Email;
+emailString = emailString.replace(/'/g, '"');
+
+const HTMLGenerator = (data, page, totalPage, DataLength) => {
+
+    let totalQuantityPerPage = 0;
+    let totalAmountPerPage = 0;
+
+    if (DataLength < 8 && data.length) {
+        let templength = 8 - DataLength;
+        for (let i = 1; i <= templength; i++) {
             data.push(
-                {"MasterSparePartName":"","SparePartName":"","HSNCode":"","SpareNumber":"","Quantity":"","Unit":"","Price_Rs":"","GST":"","Amount":"","Total_Amount":""}
+                { "MasterSparePartName": "", "SparePartName": "", "HSNCode": "", "SpareNumber": "", "Quantity": "", "Unit": "", "Price_Rs": "", "GST": "", "Amount": "", "Total_Amount": "" }
             );
         }
-        }
-        console.log(data.length)
-        const htmlContent1 = ` <html>
+    }
+    console.log(data.length)
+    const htmlContent1 = ` <html>
     
         <head>
             <style>
@@ -804,8 +802,8 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
         </head>
         
         <body>
-           <div style="width: 100%; border: 1px solid black; margin-bottom:-20px;">
-           ${Top_Data[0].Party_Country == 'India'?'':
+           <div style="width: 100%; border-right: 1px solid black; border-top: 1px solid black;border-bottom: 1px solid black;border-left: 1px solid black; margin-bottom:-20px;">
+           ${Top_Data[0].Party_Country == 'India' ? '' :
             `<span style="font-size:12px; margin-top:2px; margin-left:2px;">GSTIN &nbsp; : &nbsp; ${Top_Data[0].Company_GSTNumber}</span>
            <br>
            <span style="font-size:12px; margin-left:2px;">CIN &nbsp; &nbsp; &nbsp; <span style="margin-left:2px;">:</span> &nbsp; ${Top_Data[0].CINNumber}</span>`}
@@ -813,12 +811,12 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
             <h4 style="text-decoration: underline; text-align: center; margin-top: 0px;">Purchase Order</h4>
             <h3 style="text-align: center; margin-top: -24px; letter-spacing: 2px;">${Top_Data[0].CompanyName}</h3>
             <h4 style="text-align: center; margin-top: -22px; font-size: 13px;">${Top_Data[0].Company_Address}, ${Top_Data[0].State} - ${Top_Data[0].Pin}</h4>
-            ${Top_Data[0].Party_Country=='India'?`<h4 style="text-align: center; margin-top: -19px; font-size: 13px;">GSTIN: ${Top_Data[0].Company_GSTNumber}</h4>`:''}
+            ${Top_Data[0].Party_Country == 'India' ? `<h4 style="text-align: center; margin-top: -19px; font-size: 13px;">GSTIN: ${Top_Data[0].Company_GSTNumber}</h4>` : ''}
             <h4 style="text-align: center; margin-top: -19px; font-size: 10px;">email: ${JSON.parse(emailString).join(', ')}</h4>
             </div>
           </div>
 
-           <div style="margin-top: -55px;">
+        <div style="margin-top: -55px; width: 100%;  border-right: 1px solid black; border-left: 1px solid black;">
             <div class="container">
                 <div class="row">
                     <div class="cell" style=" width: 50%; font-weight:bold;">
@@ -827,15 +825,15 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
                         <p class="address">${Top_Data[0].Address}</p>
                         <br>
                         <br>
-                        ${Top_Data[0].Party_Country == 'India'?`<span style="font-size: 14px;">GSTIN/UIN :</span> <span
+                        ${Top_Data[0].Party_Country == 'India' ? `<span style="font-size: 14px;">GSTIN/UIN :</span> <span
                             style=" font-size: 14px; margin-left:30px">${Top_Data[0].GSTNumber}</span>
                     </div>`:
-                    `<span style="font-size: 14px;">Party TIN :</span> <span
+            `<span style="font-size: 14px;">Party TIN :</span> <span
                             style=" font-size: 14px; margin-left:30px"></span>
                     </div>`}
         
                     <!-- Second-->
-                      <div class="cell" style=" width: 55%;">
+                      <div class="cell" style=" width: 50%;">
                      <div style = " font-size:12px; font-weight:bold;">
         
                         <div>
@@ -876,15 +874,22 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
             </div>
         </div>
         
-        <div class="empty-box">
-                  
-        </div>
-        <div class="empty-box1">
-          <p style="font-size:12px; margin-left:5px; ">We are Pleased to place the order for the following items:</p>
+         <div class="empty-box"  style ="border: 0px solid black; border-right: 0px solid black;">
+               
         </div>
         
+<div class="empty-box1" style="border: 0px solid black; border-bottom: none; border-right: 1px solid black;">
+    <p style="text-align: left; margin-left: 5px; font-size:12px; margin-top:-6px; word-wrap: break-word; word-break: break-word;">klsjklsdjfklsdjfksldfjsdklfjsdklfjsdklfjsdklfjsdklfdjkldfjklsdfj  </p>
+</div>
+
+<div class="divider" style="border-top: 1px solid black;"></div>
+
+<div class="empty-box2" style="border: 1px solid black; border-top: none; border-right: 1px solid black; padding: 5px;">
+    <p style="text-align: left; margin: 0; font-size:12px;">We are pleased to place the order for the following items:</p>
+</div>
+        
           <!-----------------------  Table  ------------------------->
-         <table class = "page-break" ${totalPage==page?'':'style="border-bottom:1px solid black;"'} >
+         <table class = "page-break" ${totalPage == page ? '' : 'style=" width: 100%; border-bottom: 0px solid black; border-bottom: 1px solid black;border-right: 0px solid black;"'} >
             <thead>
                 <tr>
                     <th style="font-size:15px; padding-top:3px; padding-bottom:3px;">S.N.</th>
@@ -892,25 +897,25 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
                     <th style="width:10%; font-size:15px; padding-top:3px; padding-bottom:3px;">HSN Code</th>
                     <th style="font-size:15px; padding-top:3px; padding-bottom:3px;">Qty.</th>
                     <th style="font-size:15px; padding-top:2px; padding-bottom:2px;">Unit</th>
-                    <th style="width:15%; font-size:15px; padding-top:3px; padding-bottom:3px;">Price ${Top_Data[0].Party_Country=='India'?
-                     `(₹)`:`($)`
-                    }</th>
-                    <th style="width:15%; font-size:15px; padding-top:3px; padding-bottom:3px;">Amount ${Top_Data[0].Party_Country=='India'?
-                        `(₹)`:`($)`
-                       }</th>
+                    <th style="width:15%; font-size:15px; padding-top:3px; padding-bottom:3px;">Price ${Top_Data[0].Party_Country == 'India' ?
+            `(₹)` : `($)`
+        }</th>
+                    <th style="width:15%; font-size:15px; padding-top:3px; padding-bottom:3px;">Amount ${Top_Data[0].Party_Country == 'India' ?
+            `(₹)` : `($)`
+        }</th>
                 </tr>
             </thead>
             <tbody>
             ${data.map((row, i) => {
-                serialNo++;
-                totalQuantity += Number(row.Quantity) || 0;
-                totalAmountPerPage+=Number(row.Amount) || 0;
-                totalQuantityPerPage+=Number(row.Quantity) || 0;
-              
-                return `
+            serialNo++;
+            totalQuantity += Number(row.Quantity) || 0;
+            totalAmountPerPage += Number(row.Amount) || 0;
+            totalQuantityPerPage += Number(row.Quantity) || 0;
+
+            return `
                     <tr style="height:55px;">
-                        <td ${8-1 == i ? 'style="vertical-align: top;"' : 'style="border-bottom-style: hidden; vertical-align: top;"'} style="vertical-align: top;" class="serialNo">${row.MasterSparePartName ? serialNo : ''}</td>
-                        <td ${8-1 == i ? '' : 'style="border-bottom-style: hidden;"'}>
+                        <td ${8 - 1 == i ? 'style="vertical-align: top;"' : 'style="border-bottom-style: hidden; vertical-align: top;"'} style="vertical-align: top;" class="serialNo">${row.MasterSparePartName ? serialNo : ''}</td>
+                        <td ${8 - 1 == i ? '' : 'style="border-bottom-style: hidden;"'}>
                             <ul style="margin-left:7px;">
                                 <li class="parent">${row.MasterSparePartName || ""}
                                     <ul>
@@ -920,20 +925,19 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
                                 </li>
                             </ul>
                         </td>
-                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.HSNCode || ""}</td>
-                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Quantity?formatNumberWithCommas((+row.Quantity)):''}</td>
-                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Unit || ""}</td>
-                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Price_Rs?formatNumberWithCommas((+row.Price_Rs)):''}</td>
-                        <td class="center-td" ${8-1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Amount?formatNumberWithCommas((+row.Amount)):''}</td>
+                        <td class="center-td" ${8 - 1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.HSNCode || ""}</td>
+                        <td class="center-td" ${8 - 1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Quantity ? formatNumberWithCommas((+row.Quantity)) : ''}</td>
+                        <td class="center-td" ${8 - 1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Unit || ""}</td>
+                        <td class="center-td" ${8 - 1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Price_Rs ? formatNumberWithCommas((+row.Price_Rs)) : ''}</td>
+                        <td class="center-td" ${8 - 1 == i ? 'style="word-wrap: break-word; word-break: break-word; vertical-align: top;"' : 'style="border-bottom-style: hidden; word-wrap: break-word; word-break: break-word; vertical-align: top;"'}>${row.Amount ? formatNumberWithCommas((+row.Amount)) : ''}</td>
                     </tr>`;
-            }).join(' ')
-            }
+        }).join(' ')
+        }
                
-            ${
-                totalPage == page?
-                BillingTable.map((bill)=>{
-    
-                    return  bill.Amount? `<!----------------- @@@@ Last Row to final QTY and amount @@@@@@@@@@@@@@@@------>
+            ${totalPage == page ?
+            BillingTable.map((bill) => {
+
+                return bill.Amount ? `<!----------------- @@@@ Last Row to final QTY and amount @@@@@@@@@@@@@@@@------>
                     <tr style="height:20px; font-size:12px; font-weight:bold;">
     <td style="border:0px solid black;" class="serialNo"></td>
     <td style="border:0px solid black; text-align:center;">
@@ -942,21 +946,21 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
         </p>
     </td>
     <td style="border:0px solid black; font-weight:bold;"></td> <!-- Replace with actual HSN/SAC Code -->
-    <td style="border:0px solid black; font-weight:bold;"></td> <!-- Replace with actual Qty. -->
+                                                <td style="border:0px solid black; font-weight:bold;"></td> <!-- Replace with actual Qty. -->
     <td style="border:0px solid black; font-weight:bold;"></td>
     <td style="border:0px solid black; font-weight:bold; text-align:center;">@ &nbsp; ${bill.Percentage} %</td> <!-- Replace with actual Price -->
     <td style="border:0px solid black; font-weight:bold; word-wrap:break-word; word-break:break-word; text-align:right; font-weight:bold;">
         <span style="margin-right:2px;">${formatNumberWithCommas(+bill.Amount)}</span>
     </td> <!-- Replace with actual Amount -->
 </tr>
-`:'';
-    
-                }).join(' ')
-        :
-        ``
-            }
-            ${totalPage == page?
-                `<tr style="height:20px; ">
+`: '';
+
+            }).join(' ')
+            :
+            ``
+        }
+            ${totalPage == page ?
+            `<tr style="height:20px; ">
                            <td style="border:0px solid black;" class="serialNo" ></td>
                            <td style="border:0px solid black;">
                                <p style = "text-align:center; font-weight:bold; font-size:12px;">Total Quantity</p> 
@@ -966,7 +970,7 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
                            <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold;" ></td>
                            <td  style="border:0px solid black; font-weight:bold;" class="center-td" ></td> <!-- Replace with actual Price -->
                            <td style="border:0px solid black; font-weight:bold; font-size:12px; word-wrap: break-word; word-break: break-word;" class="center-td" style = "text-align:center; font-weight:bold;" ></td> <!-- Replace with actual Amount -->
-                       </tr>`:`
+                       </tr>`: `
                       <tr style="height:120px;">
                          <td style="border:0px solid black; vertical-align: top;" class="serialNo"></td>
                          <td style="border:0px solid black; vertical-align: top;">
@@ -986,19 +990,18 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
             
             </tbody>
         </table>
-        ${totalPage == page?
-            `<div style="width: 100%; margin-top: 2px; box-sizing: border-box; ">
+        ${totalPage == page ?
+            `<div style="width: 100%; margin-top: 0px;  border-right: 2px solid black; ">
         <table style="width: 100%; border-collapse: collapse; border: 2px solid black;">
             <tr>
                 <td style="width: 10%; font-weight: bold; text-align: left;  padding-left: 3px;  margin: 0; font-size: 12px; word-wrap: break-word; word-break: break-word; border: none;">Total Amount</td>
-                <td style="width: 75%; font-weight: bold; padding-left: 2px; padding-right: 3px; text-align: center; padding: 0; margin: 0; font-size: 12px; word-wrap: break-word; word-break: break-word; border: none;">${
-                Top_Data[0].Party_Country=='India'?
-                     `${toWords.convert(Number(BillingTable[0].Total_Amount))}`:`USD ${toWords.convert(Number(BillingTable[0].Total_Amount))}`
-                }</td>
+                <td style="width: 75%; font-weight: bold; padding-left: 2px; padding-right: 3px; text-align: center; padding: 0; margin: 0; font-size: 12px; word-wrap: break-word; word-break: break-word; border: none;">${Top_Data[0].Party_Country == 'India' ?
+                `${toWords.convert(Number(BillingTable[0].Total_Amount))}` : `USD ${toWords.convert(Number(BillingTable[0].Total_Amount))}`
+            }</td>
                 <td style="width: 15%; font-weight: bold; text-align: right; padding-right: 3px; margin: 0; font-size: 12px; word-wrap: break-word; word-break: break-word; border: none;">${formatNumberWithCommas(+BillingTable[0].Total_Amount)}</td>
             </tr>
         </table>
-    </div>`:``}
+    </div>`: ``}
     </div>
 
     <div style="width: 100%;" class="summary-desc">
@@ -1024,109 +1027,109 @@ const PurchaseOrderPdf = async(Top_Data,ItemsTable, BillingTable,UUID )=>{
         </body>
         
         </html>`;
-    
-        return htmlContent1;
-    
-    }
-    
-     
-    
-    
-    
-    
-    
-    const options = {
-        path: '/usr/bin/chromium-browser', // Path to your local Chromium/Chrome
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      };
-      
-      process.env.OPENSSL_CONF = '/dev/null';
-      
-      // Function to create PDF using Puppeteer
-      async function createPdf(html, options) {
-        try {
-          const browser = await puppeteer.launch({
+
+    return htmlContent1;
+
+}
+
+
+
+
+
+
+
+const options = {
+    path: '/usr/bin/chromium-browser', // Path to your local Chromium/Chrome
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+};
+
+process.env.OPENSSL_CONF = '/dev/null';
+
+// Function to create PDF using Puppeteer
+async function createPdf(html, options) {
+    try {
+        const browser = await puppeteer.launch({
             //executablePath: options.path,
             args: options.args
-          });
-          const page = await browser.newPage();
-          await page.setContent(html, { waitUntil: 'networkidle0' });
-          const pdf = await page.pdf({
+        });
+        const page = await browser.newPage();
+        await page.setContent(html, { waitUntil: 'networkidle0' });
+        const pdf = await page.pdf({
             format: 'A4',
-            
-          });
-          await browser.close();
-          return pdf;
-        } catch (error) {
-          throw new Error(`Error creating PDF: ${error.message}`);
-        }
-      }
-      
-      // Function to merge PDFs using pdf-lib
-      async function mergePdfs(buffers) {
-        const pdfDoc = await PDFDocument.create();
-        for (const buffer of buffers) {
-          const pdfBuffer = await PDFDocument.load(buffer);
-          const pages = await pdfDoc.copyPages(pdfBuffer, pdfBuffer.getPageIndices());
-          pages.forEach(page => pdfDoc.addPage(page));
-        }
-        const mergedPdf = await pdfDoc.save();
-        return mergedPdf;
-      }
-      
-      // Create and handle PDF buffers
-      async function generateAndMergePdfs() {
-        let pagesBufferArr = [];
-        try {
-          let Pages = Math.ceil((ItemsTable.length) / 8);
-      
-          for (let page = 1; page <= Pages; page++) {
-            let startIndex = (page - 1) * 8; 
+
+        });
+        await browser.close();
+        return pdf;
+    } catch (error) {
+        throw new Error(`Error creating PDF: ${error.message}`);
+    }
+}
+
+// Function to merge PDFs using pdf-lib
+async function mergePdfs(buffers) {
+    const pdfDoc = await PDFDocument.create();
+    for (const buffer of buffers) {
+        const pdfBuffer = await PDFDocument.load(buffer);
+        const pages = await pdfDoc.copyPages(pdfBuffer, pdfBuffer.getPageIndices());
+        pages.forEach(page => pdfDoc.addPage(page));
+    }
+    const mergedPdf = await pdfDoc.save();
+    return mergedPdf;
+}
+
+// Create and handle PDF buffers
+async function generateAndMergePdfs() {
+    let pagesBufferArr = [];
+    try {
+        let Pages = Math.ceil((ItemsTable.length) / 8);
+
+        for (let page = 1; page <= Pages; page++) {
+            let startIndex = (page - 1) * 8;
             let endIndex = page * 8;
-      
+
             // Ensure that pageData has items before generating the PDF
             if (startIndex < ItemsTable.length) {
-              let pageData = ItemsTable.slice(startIndex, endIndex);
-              const htmlContent1 = HTMLGenerator(pageData, page, Pages, pageData.length);
-              let pageBuffer = await createPdf(htmlContent1, options);
-              pagesBufferArr.push(pageBuffer);
+                let pageData = ItemsTable.slice(startIndex, endIndex);
+                const htmlContent1 = HTMLGenerator(pageData, page, Pages, pageData.length);
+                let pageBuffer = await createPdf(htmlContent1, options);
+                pagesBufferArr.push(pageBuffer);
             }
-          }
-      
-          const mergedPdfBuffer = await mergePdfs(pagesBufferArr);
+        }
 
-          const folderPath = Path.join('PurchaseOrder');
-     
-   
-          /** Create the folder if it doesn't exist */
-          if (!fs.existsSync(folderPath)) {
+        const mergedPdfBuffer = await mergePdfs(pagesBufferArr);
+
+        const folderPath = Path.join('PurchaseOrder');
+
+
+        /** Create the folder if it doesn't exist */
+        if (!fs.existsSync(folderPath)) {
             fs.mkdirSync(folderPath, { recursive: true });
-          }
-        
-            /** Define the file path, including the desired file name and format */
-            const PDF = `merged.pdf`;
-            
-            const PDFFilePath = Path.join(folderPath, PDF);
-         
-        
-          /** Save the file buffer to the specified file path */
-          fs.writeFileSync(PDFFilePath, mergedPdfBuffer,(err) => {
-            if(err){
+        }
+
+        /** Define the file path, including the desired file name and format */
+        const PDF = `merged.pdf`;
+
+        const PDFFilePath = Path.join(folderPath, PDF);
+
+
+        /** Save the file buffer to the specified file path */
+        fs.writeFileSync(PDFFilePath, mergedPdfBuffer, (err) => {
+            if (err) {
                 console.log(err)
                 return err
-            }else{
+            } else {
                 return 'Merged Succesfully'
             }
-          });
-      
-         
-        } catch (err) {
-            console.log(err)
-          return ('Error generating or merging PDFs:', err);
-        }
-      }
-      
-     //let response =   generateAndMergePdfs();
+        });
 
 
-  module.exports = {getCurrentDateTime, PurchaseOrderPdf}
+    } catch (err) {
+        console.log(err)
+        return ('Error generating or merging PDFs:', err);
+    }
+}
+
+let response = generateAndMergePdfs();
+
+
+module.exports = { getCurrentDateTime, PurchaseOrderPdf }
