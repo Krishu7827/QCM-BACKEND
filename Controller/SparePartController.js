@@ -156,7 +156,7 @@ const UploadImage = async (req, res) => {
       let previousImageURL = await queryAsync(getPreviousImagesQ);
       
       /** If Present, then Push the new URL into previous to Update */
-      if(previousImageURL){
+      if(previousImageURL[0]['SparePartImageURL']){
         console.log(previousImageURL)
         JSON.parse(previousImageURL[0]['SparePartImageURL'])
         ImagesURL.forEach((image)=>{
@@ -166,7 +166,7 @@ const UploadImage = async (req, res) => {
 
       const query = `UPDATE SparePartName id
         set id.SparePartDrawingImageURL = 'http://srv515471.hstgr.cloud:${PORT}/Maintenance/File/${COCFileName}',
-         id.SparePartImageURL = '${JSON.stringify(previousImageURL?previousImageURL:ImagesURL)}'
+         id.SparePartImageURL = '${JSON.stringify(previousImageURL[0]['SparePartImageURL']?previousImageURL:ImagesURL)}'
        WHERE id.SparPartId = '${SparePartId}';`;
 
       let data = await new Promise((resolve, rejects) => {
@@ -211,7 +211,7 @@ const UploadImage = async (req, res) => {
       let getPreviousImagesQ = `SELECT SparePartImageURL FROM SparePartName WHERE SparPartId = '${SparePartId}';`
       let previousImageURL = await queryAsync(getPreviousImagesQ);
       
-      if(previousImageURL){
+      if(previousImageURL[0]['SparePartImageURL']){
       JSON.parse(previousImageURL[0]['SparePartImageURL'])
         ImagesURL.forEach((image)=>{
           previousImageURL.push(image);
@@ -219,7 +219,7 @@ const UploadImage = async (req, res) => {
       }
 
       const query = `UPDATE SparePartName id
-        set id.SparePartImageURL = '${JSON.stringify(previousImageURL?previousImageURL:ImagesURL)}'
+        set id.SparePartImageURL = '${JSON.stringify(previousImageURL[0]['SparePartImageURL']?previousImageURL:ImagesURL)}'
        WHERE id.SparPartId = '${SparePartId}';`;
 
       await queryAsync(query);
