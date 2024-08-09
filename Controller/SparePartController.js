@@ -157,10 +157,11 @@ const UploadImage = async (req, res) => {
       let previousImageURL = previousImageUR[0]['SparePartImageURL']
 
 
-      console.log(typeof previousImageURL)
+     
       /** If Present, then Push the new URL into previous to Update */
       if(typeof previousImageURL == 'string'){
-        JSON.parse(previousImageURL)
+        previousImageURL = JSON.parse(previousImageURL)
+        
           ImagesURL.forEach((image)=>{
             previousImageURL.push(image);
           })
@@ -214,9 +215,11 @@ const UploadImage = async (req, res) => {
       let previousImageUR = await queryAsync(getPreviousImagesQ);
       let previousImageURL = previousImageUR[0]['SparePartImageURL']
         
-      console.log(typeof previousImageURL)
+      
       if(typeof previousImageURL == 'string'){
-      JSON.parse(previousImageURL)
+
+        previousImageURL = JSON.parse(previousImageURL)
+      
         ImagesURL.forEach((image)=>{
           previousImageURL.push(image);
         })

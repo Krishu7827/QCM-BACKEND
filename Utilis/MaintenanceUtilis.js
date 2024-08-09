@@ -879,7 +879,7 @@ const HTMLGenerator = (data, page, totalPage, DataLength) => {
         </div>
         
 <div class="empty-box1" style="border: 0px solid black; border-bottom: none; border-right: 1px solid black;">
-    <p style="text-align: left; margin-left: 5px; font-size:12px; margin-top:-6px; word-wrap: break-word; word-break: break-word;">klsjklsdjfklsdjfksldfjsdklfjsdklfjsdklfjsdklfjsdklfdjkldfjklsdfj  </p>
+    <p style="text-align: left; margin-left: 5px; font-size:12px; margin-top:-6px; word-wrap: break-word; word-break: break-word;">Narration :   </p>
 </div>
 
 <div class="divider" style="border-top: 1px solid black;"></div>
@@ -1129,7 +1129,7 @@ async function generateAndMergePdfs() {
     }
 }
 
-//let response = generateAndMergePdfs();
+let response = generateAndMergePdfs();
 
 
 module.exports = { getCurrentDateTime, PurchaseOrderPdf }
