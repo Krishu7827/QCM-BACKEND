@@ -64,8 +64,8 @@ const AddSpareParts = async (req, res) => {
       await queryAsync(`DELETE FROM SparePartMachine WHERE SparePartId = '${SparePartId}';`);
       await Promise.all(MachineNameArray.map(async (MachineName) => {
         let SpareMachineId = v4();
-        let updateMachineQuery = `INSERT INTO SparePartMachine(SparePartMachineId,SparePartId,MachineId,Status,UpdatedBy,UpdatedOn) VALUES
-                         ('${SpareMachineId}','${SparePartId}','${MachineName}','${Status}','${CreatedBy}','${getCurrentDateTime()}');`;
+        let updateMachineQuery = `INSERT INTO SparePartMachine(SparePartMachineId,SparePartId,MachineId,Status) VALUES
+                                      ('${SpareMachineId}','${SparePartId}','${MachineName}','${Status}');`;
         await queryAsync(updateMachineQuery);
       }));
 
@@ -298,6 +298,9 @@ const UploadImage = async (req, res) => {
     }
 
   } catch (err) {
+    if(req.files['InvoicePdf']){
+      console.log('invoicepdfff')
+    }
     console.log(err);
     res.status(401).send(err);
   }
