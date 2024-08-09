@@ -394,7 +394,7 @@ const PurchaseOrderPdf = async (Top_Data, ItemsTable, BillingTable, UUID) => {
             ${totalPage == page ?
             BillingTable.map((bill) => {
 
-                return bill.Amount ? `<!----------------- @@@@ Last Row to final QTY and amount @@@@@@@@@@@@@@@@------>
+                return bill.Amount || bill.Bill_Sundry == 'Discount' || bill.Bill_Sundry == 'Freight'? `<!----------------- @@@@ Last Row to final QTY and amount @@@@@@@@@@@@@@@@------>
                     <tr style="height:20px; font-size:12px; font-weight:bold;">
     <td style="border:0px solid black;" class="serialNo"></td>
     <td style="border:0px solid black; text-align:center;">
@@ -403,8 +403,8 @@ const PurchaseOrderPdf = async (Top_Data, ItemsTable, BillingTable, UUID) => {
         </p>
     </td>
     <td style="border:0px solid black; font-weight:bold;">
-    <p style="font-weight:bold; font-size:12px; word-wrap:break-word; word-break:break-word; font-style:oblique;">
-            ${bill.Narration?bill.Narration:''}
+    <p style="font-weight:bold; font-size:10px; word-wrap:break-word; word-break:break-word; font-style:oblique;">
+            ${bill.Bill_Sundry == 'Discount' || bill.Bill_Sundry == 'Freight'?bill.Narration?bill.Narration:'':''}
         </p>
     </td> <!-- Replace with actual HSN/SAC Code -->
     <td style="border:0px solid black; font-weight:bold;"></td> <!-- Replace with actual Qty. -->
