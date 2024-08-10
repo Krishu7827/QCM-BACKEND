@@ -403,7 +403,7 @@ const PurchaseOrderPdf = async (Top_Data, ItemsTable, BillingTable, UUID) => {
         </p>
     </td>
     <td style="border:0px solid black; font-weight:bold;">
-    <p style="font-weight:bold; font-size:10px; word-wrap:break-word; word-break:break-word; font-style:oblique;">
+    <p style="font-weight:bold; font-size:11px; word-wrap:break-word; word-break:break-word; font-style:oblique;">
             ${bill.Bill_Sundry == 'Discount' || bill.Bill_Sundry == 'Freight'?bill.Narration?bill.Narration:'':''}
         </p>
     </td> <!-- Replace with actual HSN/SAC Code -->
@@ -594,7 +594,5 @@ const PurchaseOrderPdf = async (Top_Data, ItemsTable, BillingTable, UUID) => {
 
     return response;
 }
-
-
 
 module.exports = { getCurrentDateTime, PurchaseOrderPdf }
