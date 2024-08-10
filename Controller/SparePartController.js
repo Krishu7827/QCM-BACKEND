@@ -519,4 +519,32 @@ ORDER BY SPI.Created_On DESC;`;
   }
 }
 
-module.exports = { AddSpareParts, UploadImage, GetImage, getEquivalent, getStockList, SparePartList, getSpecificSparePart, SparePartIn };
+const getSparePartNamesByMachineName = async(req,res)=>{
+      const { MachineName } = req.body;
+
+      try{
+        const getStock = await queryAsync(`
+  SELECT SPS.Spare_Part_Id, SPN.SpareNumber, SPN.SparePartName, SPS.Machine_Names, SPS.Available_Stock FROM Spare_Part_Stock SPS
+JOIN SparePartName SPN ON SPN.SparPartId = SPS.Spare_Part_Id;`)
+        
+        let SparePartArr = []
+        getStock.forEach((d)=>{
+          d['Machine_Names'] = JSON.parse(d['Machine_Names']);
+
+          d['Machine_Names'].indexOf(MachineName)!=-1?
+          SparePartArr.push(d):''
+         
+        })
+
+        SparePartArr.forEach((el)=>{
+          delete el['Machine_Names'];
+        })
+       console.log(SparePartArr)
+      
+        res.send(SparePartArr)
+      }catch(err){
+     console.log(err)
+     res.send(err)
+      }
+}
+module.exports = { AddSpareParts, UploadImage, GetImage, getEquivalent, getStockList, SparePartList, getSpecificSparePart, SparePartIn, getSparePartNamesByMachineName };
