@@ -427,7 +427,7 @@ const PurchaseOrderPdf = async (Top_Data, ItemsTable, BillingTable, UUID) => {
                                <p style = "text-align:center; font-weight:bold; font-size:12px;">Total Quantity</p> 
                            </td>
                            <td style="border:0px solid black; font-weight:bold;" class="center-td"></td> <!-- Replace with actual HSN/SAC Code -->
-                           <td style="border:0px solid black; font-weight:bold; word-wrap: break-word; word-break: break-word;" class="center-td" style = "text-align:center; font-weight:bold;" >${formatNumberWithCommas(+totalQuantity.toFixed(2))} Unit</td> <!-- Replace with actual Qty. -->
+                           <td style="border:0px solid black; font-weight:bold; word-wrap: break-word; word-break: break-word;" class="center-td" style = "text-align:center; font-weight:bold;" >${formatNumberWithCommas(+totalQuantity.toFixed(2))} Units</td> <!-- Replace with actual Qty. -->
                            <td style="border:0px solid black; font-weight:bold;" class="center-td" style = "text-align:center; font-weight:bold;" ></td>
                            <td  style="border:0px solid black; font-weight:bold;" class="center-td" ></td> <!-- Replace with actual Price -->
                            <td style="border:0px solid black; font-weight:bold; font-size:12px; word-wrap: break-word; word-break: break-word;" class="center-td" style = "text-align:center; font-weight:bold;" ></td> <!-- Replace with actual Amount -->
@@ -484,7 +484,7 @@ const PurchaseOrderPdf = async (Top_Data, ItemsTable, BillingTable, UUID) => {
           </div>
         
           </div>
-           <p style="text-align:center; margin-top:20px;">${page}.</p>
+           <p style="text-align:center; margin-top:20px;">${totalPage>1?page:''}</p>
         </body>
         
         </html>`;
@@ -510,7 +510,7 @@ const PurchaseOrderPdf = async (Top_Data, ItemsTable, BillingTable, UUID) => {
     async function createPdf(html, options) {
         try {
             const browser = await puppeteer.launch({
-                executablePath: options.path,
+               // executablePath: options.path,
                 args: options.args
             });
             const page = await browser.newPage();
@@ -594,6 +594,7 @@ const PurchaseOrderPdf = async (Top_Data, ItemsTable, BillingTable, UUID) => {
 
     return response;
 }
+
 
 
 module.exports = { getCurrentDateTime, PurchaseOrderPdf }
