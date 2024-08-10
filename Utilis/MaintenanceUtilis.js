@@ -510,7 +510,7 @@ const PurchaseOrderPdf = async (Top_Data, ItemsTable, BillingTable, UUID) => {
     async function createPdf(html, options) {
         try {
             const browser = await puppeteer.launch({
-               // executablePath: options.path,
+               executablePath: options.path,
                 args: options.args
             });
             const page = await browser.newPage();
