@@ -438,9 +438,9 @@ const PurchaseOrderPdf = async (Top_Data, ItemsTable, BillingTable, UUID) => {
                             <p style="text-align:center; font-weight:bold; font-size:13px;">Total c/o</p> 
                          </td>
                         <td style="border:0px solid black; font-weight:bold; vertical-align: top;" class="center-td">
-                           ${formatNumberWithCommas(+totalQuantityPerPage.toFixed(2))} ${data[0].Unit}
+                           ${formatNumberWithCommas(+totalQuantityPerPage.toFixed(2))}}
                         </td>
-                      <td style="border:0px solid black; font-weight:bold; vertical-align: top;" class="center-td"></td>
+                      <td style="border:0px solid black; font-weight:bold; vertical-align: top;" class="center-td">Units</td>
                      <td style="border:0px solid black; font-weight:bold; vertical-align: top;" class="center-td"></td>
                    <td style="border:0px solid black; font-weight:bold; vertical-align: top;" class="center-td"></td>
                   <td style="border:0px solid black; font-size:12px; font-weight:bold; vertical-align: top; text-align:right; word-wrap: break-word; word-break: break-word;">
