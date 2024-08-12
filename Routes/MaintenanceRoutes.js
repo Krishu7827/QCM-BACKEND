@@ -4,7 +4,7 @@ const {AddMachineData, MachineDetailById, GetMachineModelNumberById, GetMachineL
 const {AddParty,getCurrency,getPartyNames, getPartyListById} = require('../Controller/PartyController');
 const {UploadImage,AddSpareParts,GetImage,getEquivalent,SparePartList, getSpecificSparePart,
     getSparePartNamesByMachineName,
-     SparePartIn, getStockList} = require('../Controller/SparePartController');
+     SparePartIn, getStockList, SparePartOut} = require('../Controller/SparePartController');
 const {upload} = require('../Middleware/Maintenance.middleware');
 const {getVoucherNumber,AddPurchaseOrder, getPurchaseOrderList, getPurchaseOrderById, getFile, VoucherList, GetPurchaseDetailByVoucher} = require('../Controller/PurchaceOrderController')
 
@@ -84,5 +84,8 @@ MaintenanceRouter.post('/GetStockList',getStockList);
 
 /**Router to Get Stock based on machine name */
 MaintenanceRouter.post('/GetStockByMachine',getSparePartNamesByMachineName)
+
+/**Router to Deduct Spare Parrt FRom Stock */
+MaintenanceRouter.post('/SparePartOut',SparePartOut)
 
 module.exports = {MaintenanceRouter}

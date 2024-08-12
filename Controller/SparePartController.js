@@ -547,4 +547,51 @@ JOIN SparePartName SPN ON SPN.SparPartId = SPS.Spare_Part_Id;`)
      res.send(err)
       }
 }
-module.exports = { AddSpareParts, UploadImage, GetImage, getEquivalent, getStockList, SparePartList, getSpecificSparePart, SparePartIn, getSparePartNamesByMachineName };
+
+
+const SparePartOut = async(req, res) => {
+  const {
+    CreatedBy,
+    MachineName,
+    Line,
+    Chamber,
+    Issue,
+    BreakDownStartTime,
+    BreakDownEndTime,
+    BreakDownTotalTime,
+    SparePartModelNumber,
+    Quantity,
+    SolutionProcess,
+    Status
+  } = req.body;
+
+
+
+  try {
+    let data = await queryAsync(`
+      CALL Machine_Maintenance_Sp(
+        '${MachineName}',
+        '${Issue}',
+        '${BreakDownStartTime}',
+        '${BreakDownEndTime}',
+        '${BreakDownTotalTime}',
+        '${SparePartModelNumber}',
+        '${Quantity}',
+        '${SolutionProcess}',
+        '${Line}',
+        '${JSON.stringify(Chamber)}',
+        '${CreatedBy}',
+        '${Status}'
+      );
+    `);
+
+    res.send({ data: data[0] });
+  } catch (err) {
+    console.log(err);
+    res.send({ err });
+  }
+};
+
+module.exports = { AddSpareParts, UploadImage, GetImage, getEquivalent, getStockList, SparePartList, getSpecificSparePart, SparePartIn, getSparePartNamesByMachineName,
+  SparePartOut
+ };
