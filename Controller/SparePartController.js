@@ -622,6 +622,27 @@ const SparePartOut = async(req, res) => {
   }
 };
 
+
+const SparePartStockList = async(req,res)=>{
+  
+  try{
+   let data = await queryAsync(`
+    SELECT SPS.Spare_Part_Stock_Id, SPN.SparePartName, SPN.SpareNumber AS Spare_Model_Number, SPS.Machine_Names, SPS.Available_Stock FROM Spare_Part_Stock SPS
+JOIN SparePartName SPN ON SPN.SparPartId = SPS.Spare_Part_Id;`);
+
+data.forEach((d)=>{
+  d['Machine_Names'] = JSON.parse(d['Machine_Names']);
+
+})
+res.send({data});
+
+  }catch(err){
+
+  console.log(err);
+  res.status(400).send(err);
+  }
+}
 module.exports = { AddSpareParts, UploadImage, GetImage, getEquivalent, getStockList, SparePartList, getSpecificSparePart, SparePartIn, getSparePartNamesByMachineName,
-  SparePartOut
+  SparePartOut,
+  SparePartStockList
  };
