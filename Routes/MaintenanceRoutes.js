@@ -87,7 +87,7 @@ MaintenanceRouter.post('/GetStockList',getStockList);
 MaintenanceRouter.post('/GetStockByMachine',getSparePartNamesByMachineName)
 
 /**Router to Deduct Spare Parrt FRom Stock */
-MaintenanceRouter.post('/SparePartOut',SparePartOut);
+MaintenanceRouter.post('/SparePartOutt',SparePartOut);
 
 /**Router to get Spare pare Stock List */
 MaintenanceRouter.get('/SparePartStockList',SparePartStockList);
