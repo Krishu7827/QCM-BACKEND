@@ -581,6 +581,7 @@ JOIN SparePartName SPN ON SPN.SparPartId = SPS.Spare_Part_Id;`)
 
 const SparePartOut = async(req, res) => {
   const {
+    MachineMaintenanceId,
     CreatedBy,
     MachineName,
     Line,
@@ -592,6 +593,7 @@ const SparePartOut = async(req, res) => {
     SparePartModelNumber,
     Quantity,
     SolutionProcess,
+    Remark,
     Status
   } = req.body;
 
@@ -600,6 +602,7 @@ const SparePartOut = async(req, res) => {
   try {
     let data = await queryAsync(`
       CALL Machine_Maintenance_Sp(
+         '${MachineMaintenanceId}',
         '${MachineName}',
         '${Issue}',
         '${BreakDownStartTime}',
@@ -611,6 +614,7 @@ const SparePartOut = async(req, res) => {
         '${Line}',
         '${JSON.stringify(Chamber)}',
         '${CreatedBy}',
+        '${Remark}',
         '${Status}'
       );
     `);
@@ -642,7 +646,75 @@ res.send({data});
   res.status(400).send(err);
   }
 }
+
+
+const getMachineMaintenanceList = async(req,res)=>{
+
+  try{
+     let data = await queryAsync(`SELECT 
+    MM.Machine_Maintenance_Id,  
+    SPN.SparePartName AS 'Spare Part Name', 
+    SPN.SpareNumber AS 'Spare Part Model Number', 
+    M.MachineName AS 'Machine Name',
+    M.MachineModelNumber AS 'Machine Model Number', 
+    MM.Issue,
+    MM.BreakDown_Start_Time AS 'BreakDown Start Time',
+    MM.BreakDown_End_Time AS 'BreakDown End Time',
+    MM.BreakDown_Total_Time AS 'BreakDown Total Time',
+    MM.Quantity AS 'Quantity',
+    MM.Solution_Process AS 'Solution Process',
+    MM.Line,
+    MM.Chamber,
+    MM.Image_URL,
+    MM.Stock_After_Usage AS 'Stock After Usage',
+    P.Name AS 'Maintenanced by',
+    MM.Created_On AS 'Maintenance Date'
+FROM 
+    Machine_Maintenance MM
+LEFT JOIN 
+    SparePartName SPN ON SPN.SparPartId = MM.Spare_Part_Id
+JOIN 
+    Machine M ON M.MachineId = MM.Machine_Id
+JOIN
+    Machine_Maintainer MMR ON MMR.Machine_Maintenance_Id = MM.Machine_Maintenance_Id
+JOIN 
+    Person P ON P.PersonID = MMR.Created_By
+ORDER BY 
+    MM.Created_On DESC;
+`);
+
+const groupedData = data.reduce((acc, item) => {
+  const id = item.Machine_Maintenance_Id;
+  
+  if (!acc.has(id)) {
+    // Clone the item and initialize the Maintenanced by array
+    acc.set(id, { ...item, 'Maintenanced by': [item['Maintenanced by']],'Chamber': JSON.parse(item['Chamber']) });
+  } else {
+    // Push the unique Maintenanced by value into the array
+    acc.get(id)['Maintenanced by'].push(item['Maintenanced by']);
+  }
+  
+  return acc;
+}, new Map());
+
+
+// Convert the Map back to an array of objects
+const uniqueData = Array.from(groupedData.values());
+
+console.log(uniqueData);
+
+res.send({data:uniqueData});
+
+  }catch(err){
+    console.log(err)
+    res.status(400).send({err})
+
+  }
+
+}
+
 module.exports = { AddSpareParts, UploadImage, GetImage, getEquivalent, getStockList, SparePartList, getSpecificSparePart, SparePartIn, getSparePartNamesByMachineName,
   SparePartOut,
-  SparePartStockList
+  SparePartStockList,
+  getMachineMaintenanceList
  };
