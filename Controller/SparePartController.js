@@ -712,7 +712,7 @@ const groupedData = data.reduce((acc, item) => {
 
 
 // Convert the Map back to an array of objects
-const uniqueData = Array.from(groupedData.values());
+//const uniqueData = Array.from(groupedData.values());
 
 console.log(uniqueData);
 
