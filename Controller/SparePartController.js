@@ -604,7 +604,7 @@ const SparePartOut = async(req, res) => {
     Status
   } = req.body;
 
-
+console.log(req.body)
 
   try {
     let data = await queryAsync(`
