@@ -580,6 +580,13 @@ JOIN SparePartName SPN ON SPN.SparPartId = SPS.Spare_Part_Id;`)
 
 
 const SparePartOut = async(req, res) => {
+  const clientIp = req.headers['x-forwarded-for'] || req.ip;
+  const userAgent = req.headers['user-agent'];
+  
+  console.log(`Request from IP: ${clientIp}`);
+  console.log(`Client User-Agent: ${userAgent}`);
+  console.log(`Request Headers: `, req.headers); // Optional: log all headers
+  
   const {
     MachineMaintenanceId,
     CreatedBy,
@@ -655,7 +662,7 @@ const getMachineMaintenanceList = async(req,res)=>{
   console.log(`Request from IP: ${clientIp}`);
   console.log(`Client User-Agent: ${userAgent}`);
   console.log(`Request Headers: `, req.headers); // Optional: log all headers
-  
+
   try{
      let data = await queryAsync(`SELECT 
     MM.Machine_Maintenance_Id,  
