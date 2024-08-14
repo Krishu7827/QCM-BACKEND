@@ -580,12 +580,12 @@ JOIN SparePartName SPN ON SPN.SparPartId = SPS.Spare_Part_Id;`)
 
 
 const SparePartOut = async(req, res) => {
-  const clientIp = req.headers['x-forwarded-for'] || req.ip;
-  const userAgent = req.headers['user-agent'];
-  console.log('Sparepartout...............................')
-  console.log(`Request from IP: ${clientIp}`);
-  console.log(`Client User-Agent: ${userAgent}`);
-  console.log(`Request Headers: `, req.headers); // Optional: log all headers
+  // const clientIp = req.headers['x-forwarded-for'] || req.ip;
+  // const userAgent = req.headers['user-agent'];
+  // console.log('Sparepartout...............................')
+  // console.log(`Request from IP: ${clientIp}`);
+  // console.log(`Client User-Agent: ${userAgent}`);
+  // console.log(`Request Headers: `, req.headers); // Optional: log all headers
 
   const {
     MachineMaintenanceId,
@@ -600,7 +600,7 @@ const SparePartOut = async(req, res) => {
     SparePartModelNumber,
     Quantity,
     SolutionProcess,
-    Remark,
+    Remarks,
     Status
   } = req.body;
 
@@ -621,7 +621,7 @@ console.log(req.body)
         '${Line}',
         '${JSON.stringify(Chamber)}',
         '${CreatedBy}',
-        '${Remark}',
+        '${Remarks}',
         '${Status}'
       );
     `);
