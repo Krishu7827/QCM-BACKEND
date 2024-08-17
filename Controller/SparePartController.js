@@ -663,7 +663,8 @@ const getMachineMaintenanceList = async (req, res) => {
       SELECT D.Designation, P.PersonID 
       FROM Person P
       JOIN Designation D ON D.DesignationID = P.Desgination
-      WHERE P.PersonID = '${PersonId}';
+      JOIN Department DP on DP.DepartmentID = P.Department
+      WHERE P.PersonID = '${PersonId}' AND DP.Department = 'Machine Maintenance';
     `) : [{'Designation':''}];
 
     //console.log(isSuperAdmin[0]['Designation'])
@@ -672,8 +673,10 @@ const getMachineMaintenanceList = async (req, res) => {
         SELECT 
           MM.Machine_Maintenance_Id,  
           SPN.SparePartName AS 'Spare Part Name', 
+          SPN.SparPartId AS 'SparePartId',
           SPN.SpareNumber AS 'Spare Part Model Number', 
           M.MachineName AS 'Machine Name',
+          M.MachineId ,
           M.MachineModelNumber AS 'Machine Model Number', 
           MM.Issue,
           MM.BreakDown_Start_Time AS 'BreakDown Start Time',
