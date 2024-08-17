@@ -710,9 +710,11 @@ const getMachineMaintenanceList = async (req, res) => {
         SELECT 
           MM.Machine_Maintenance_Id,  
           SPN.SparePartName AS 'Spare Part Name', 
+          SPN.SparPartId AS 'SparePartId',
           SPN.SpareNumber AS 'Spare Part Model Number', 
           M.MachineName AS 'Machine Name',
-          M.MachineModelNumber AS 'Machine Model Number', 
+          M.MachineModelNumber AS 'Machine Model Number',
+          M.MachineId ,
           M.MachineNumber AS 'Machine Number',
           MM.Issue,
           MM.BreakDown_Start_Time AS 'BreakDown Start Time',
