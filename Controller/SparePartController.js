@@ -666,6 +666,8 @@ const getMachineMaintenanceList = async (req, res) => {
       JOIN Department DP on DP.DepartmentID = P.Department
       WHERE P.PersonID = '${PersonId}' AND DP.Department = 'Machine Maintenance';
     `) : [{'Designation':''}];
+    
+   isSuperAdmin = isSuperAdmin.length?isSuperAdmin:[{'Designation':''}]
 
     //console.log(isSuperAdmin[0]['Designation'])
     let data = isSuperAdmin[0]['Designation'] == 'Super Admin' ?
