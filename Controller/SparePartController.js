@@ -656,7 +656,7 @@ res.send({data});
 
 
 const getMachineMaintenanceList = async (req, res) => {
-  const { MachineMaintenanceId, PersonId } = req.body;
+  const { MachineMaintenanceId, PersonId, FromDate, ToDate, MachineId} = req.body;
 
   try {
     let isSuperAdmin = PersonId ? await queryAsync(`
@@ -669,7 +669,7 @@ const getMachineMaintenanceList = async (req, res) => {
     
    isSuperAdmin = isSuperAdmin.length?isSuperAdmin:[{'Designation':''}]
 
-    //console.log(isSuperAdmin[0]['Designation'])
+    console.log(isSuperAdmin[0]['Designation'])
     let data = isSuperAdmin[0]['Designation'] == 'Super Admin' ?
       await queryAsync(`
         SELECT 
@@ -707,7 +707,8 @@ const getMachineMaintenanceList = async (req, res) => {
         LEFT JOIN
           Spare_Part_Stock SPS ON SPS.Spare_Part_Id = MM.Spare_Part_Id
         ${MachineMaintenanceId ?
-          `WHERE MM.Machine_Maintenance_Id = '${MachineMaintenanceId}'` : ``}
+          `WHERE MM.Machine_Maintenance_Id = '${MachineMaintenanceId}'` : 
+          ``}
         ORDER BY 
           MM.Created_On DESC;
       `) :
@@ -777,6 +778,7 @@ const getMachineMaintenanceList = async (req, res) => {
     res.status(400).send({ err });
   }
 };
+
 
 
 module.exports = { AddSpareParts, UploadImage, GetImage, getEquivalent, getStockList, SparePartList, getSpecificSparePart, SparePartIn, getSparePartNamesByMachineName,
