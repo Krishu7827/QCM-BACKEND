@@ -716,10 +716,12 @@ const getMachineMaintenanceList = async (req, res) => {
 
           (FromDate && ToDate && MachineId) ?
           `WHERE MM.Machine_Id = '${MachineId}' 
-          AND MM.Created_On BETWEEN '${FromDate} 00:00:00' AND '${ToDate} 23:59:59'` :
+          AND Created_On >= STR_TO_DATE('${FromDate}', '%Y-%m-%d %H:%i:%s')
+               AND Created_On <= STR_TO_DATE('${ToDate}, '%Y-%m-%d %H:%i:%s')` :
 
           (FromDate && ToDate) ?
-          `WHERE MM.Created_On BETWEEN '${FromDate} 00:00:00' AND '${ToDate} 23:59:59'` :
+          `WHERE Created_On >= STR_TO_DATE('${FromDate}', '%Y-%m-%d %H:%i:%s')
+               AND Created_On <= STR_TO_DATE('${ToDate}, '%Y-%m-%d %H:%i:%s')` :
 
           MachineId ?
           `WHERE MM.Machine_Id = '${MachineId}'` :
