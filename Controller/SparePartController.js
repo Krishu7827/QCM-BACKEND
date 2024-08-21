@@ -659,7 +659,7 @@ res.send({data});
 
 const getMachineMaintenanceList = async (req, res) => {
   const { MachineMaintenanceId, PersonId, reqData} = req.body;
-  
+
   const {FromDate, ToDate, MachineId} = reqData;
 
   try {
@@ -682,7 +682,7 @@ const getMachineMaintenanceList = async (req, res) => {
           SPN.SparPartId AS 'SparePartId',
           SPN.SpareNumber AS 'Spare Part Model Number', 
           M.MachineName AS 'Machine Name',
-          M.MachineId ,
+          M.MachineId,
           M.MachineModelNumber AS 'Machine Model Number', 
           MM.Issue,
           MM.BreakDown_Start_Time AS 'BreakDown Start Time',
@@ -714,26 +714,20 @@ const getMachineMaintenanceList = async (req, res) => {
           MachineMaintenanceId ?
           `WHERE MM.Machine_Maintenance_Id = '${MachineMaintenanceId}'` :
 
-          /** if From Date & ToDate & MachineId */
-          FromDate && ToDate && MachineId?
-          `WHERE 
-         MM.Machine_Id = '${MachineId}'
-         AND MM.Created_On BETWEEN '${FromDate} 00:00:00' AND '${ToDate} 23:59:59';`:
-         
-         /** if From Date & ToDate  */
-          FromDate && ToDate?
-          `WHERE
-         AND MM.Created_On BETWEEN '${FromDate} 00:00:00' AND '${ToDate} 23:59:59';`:
+          (FromDate && ToDate && MachineId) ?
+          `WHERE MM.Machine_Id = '${MachineId}' 
+          AND MM.Created_On BETWEEN '${FromDate} 00:00:00' AND '${ToDate} 23:59:59'` :
 
-         /**if Machine id */
-         MachineId?
-         `WHERE 
-         MM.Machine_Id = '${MachineId}`:
-         ``
-          }
+          (FromDate && ToDate) ?
+          `WHERE MM.Created_On BETWEEN '${FromDate} 00:00:00' AND '${ToDate} 23:59:59'` :
+
+          MachineId ?
+          `WHERE MM.Machine_Id = '${MachineId}'` :
+          ``
+        }
         ORDER BY 
           MM.Created_On DESC;
-      `) :
+    `) :
       await queryAsync(`
         SELECT 
           MM.Machine_Maintenance_Id,  
