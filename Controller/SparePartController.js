@@ -669,7 +669,7 @@ const getMachineMaintenanceList = async (req, res) => {
     
    isSuperAdmin = isSuperAdmin.length?isSuperAdmin:[{'Designation':''}]
 
-    console.log(isSuperAdmin[0]['Designation'])
+   // console.log(isSuperAdmin[0]['Designation'])
     let data = isSuperAdmin[0]['Designation'] == 'Super Admin' ?
       await queryAsync(`
         SELECT 
@@ -755,13 +755,14 @@ const getMachineMaintenanceList = async (req, res) => {
           MM.Created_On DESC;
       `);
 
-      console.log(data);
+     console.log(data);
 
     const groupedData = data.reduce((acc, item) => {
       const id = item.Machine_Maintenance_Id;
 
       if (!acc.has(id)) {
-        acc.set(id, { ...item, 'Maintenanced by': [item['Maintenanced by']], 'Chamber': JSON.parse(item['Chamber']), 'Available_Stock':!item['Available_Stock']?'0': item['Available_Stock']});
+        acc.set(id, { ...item, 'Maintenanced by': [item['Maintenanced by']], 'Chamber': JSON.parse(item['Chamber']), 
+          'Available_Stock':!item['Available_Stock']?'0': item['Available_Stock']});
       } else {
         acc.get(id)['Maintenanced by'].push(item['Maintenanced by']);
       }
