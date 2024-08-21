@@ -601,7 +601,8 @@ const SparePartOut = async(req, res) => {
     Quantity,
     SolutionProcess,
     Remarks,
-    Status
+    Status,
+    Required
   } = req.body;
 
 console.log(req.body)
@@ -622,7 +623,8 @@ console.log(req.body)
         '${JSON.stringify(Chamber)}',
         '${CreatedBy}',
         '${Remarks}',
-        '${Status}'
+        '${Status}',
+        '${Required}'
       );
     `);
 
@@ -761,7 +763,7 @@ const getMachineMaintenanceList = async (req, res) => {
       const id = item.Machine_Maintenance_Id;
 
       if (!acc.has(id)) {
-        acc.set(id, { ...item, 'Maintenanced by': [item['Maintenanced by']], 'Chamber': JSON.parse(item['Chamber']), 
+        acc.set(id, { ...item, 'Maintenanced by': [item['Maintenanced by']], //'Chamber': JSON.parse(item['Chamber']), 
           'Available_Stock':!item['Available_Stock']?'0': item['Available_Stock']});
       } else {
         acc.get(id)['Maintenanced by'].push(item['Maintenanced by']);
