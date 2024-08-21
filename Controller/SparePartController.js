@@ -715,11 +715,11 @@ ${
     ? `WHERE MM.Machine_Maintenance_Id = '${MachineMaintenanceId}'`
     : FromDate && ToDate && MachineId
     ? `WHERE MM.Machine_Id = '${MachineId}' 
-       AND Created_On >= STR_TO_DATE('${FromDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
-       AND Created_On <= STR_TO_DATE('${ToDate} 23:59:59', '%Y-%m-%d %H:%i:%s')`
+       AND MM.Created_On >= STR_TO_DATE('${FromDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
+       AND MM.Created_On <= STR_TO_DATE('${ToDate} 23:59:59', '%Y-%m-%d %H:%i:%s')`
     : FromDate && ToDate
-    ? `WHERE Created_On >= STR_TO_DATE('${FromDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
-       AND Created_On <= STR_TO_DATE('${ToDate} 23:59:59', '%Y-%m-%d %H:%i:%s')`
+    ? `WHERE MM.Created_On >= STR_TO_DATE('${FromDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
+       AND MM.Created_On <= STR_TO_DATE('${ToDate} 23:59:59', '%Y-%m-%d %H:%i:%s')`
     : MachineId
     ? `WHERE MM.Machine_Id = '${MachineId}'`
     : ``
