@@ -707,8 +707,7 @@ const getMachineMaintenanceList = async (req, res) => {
         LEFT JOIN
           Spare_Part_Stock SPS ON SPS.Spare_Part_Id = MM.Spare_Part_Id
         ${MachineMaintenanceId ?
-          `WHERE MM.Machine_Maintenance_Id = '${MachineMaintenanceId}'` : 
-          ``}
+          `WHERE MM.Machine_Maintenance_Id = '${MachineMaintenanceId}'` : ``}
         ORDER BY 
           MM.Created_On DESC;
       `) :
