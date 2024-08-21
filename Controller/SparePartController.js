@@ -686,6 +686,7 @@ const getMachineMaintenanceList = async (req, res) => {
           MM.Solution_Process AS 'Solution Process',
           MM.Line,
           MM.Remark,
+          SPS.Available_Stock,
           MM.Chamber,
           MM.Image_URL,
           MM.Stock_After_Usage AS 'Stock After Usage',
@@ -701,6 +702,8 @@ const getMachineMaintenanceList = async (req, res) => {
           Machine_Maintainer MMR ON MMR.Machine_Maintenance_Id = MM.Machine_Maintenance_Id
         JOIN 
           Person P ON P.PersonID = MMR.Created_By
+        LEFT JOIN
+          Spare_Part_Stock SPS ON SPS.Spare_Part_Id = MM.Spare_Part_Id
         ${MachineMaintenanceId ?
           `WHERE MM.Machine_Maintenance_Id = '${MachineMaintenanceId}'` : ``}
         ORDER BY 
@@ -724,6 +727,7 @@ const getMachineMaintenanceList = async (req, res) => {
           MM.Solution_Process AS 'Solution Process',
           MM.Line,
           MM.Remark,
+          SPS.Available_Stock,
           MM.Chamber,
           MM.Image_URL,
           MM.Stock_After_Usage AS 'Stock After Usage',
@@ -739,6 +743,8 @@ const getMachineMaintenanceList = async (req, res) => {
           Machine_Maintainer MMR ON MMR.Machine_Maintenance_Id = MM.Machine_Maintenance_Id
         JOIN 
           Person P ON P.PersonID = MMR.Created_By
+        LEFT JOIN
+          Spare_Part_Stock SPS ON SPS.Spare_Part_Id = MM.Spare_Part_Id
         WHERE 
           ${!MachineMaintenanceId ? `MM.Created_On >= DATE_SUB(CURDATE(), INTERVAL 1 DAY)
     AND MM.Created_On < DATE_ADD(CURDATE(), INTERVAL 1 DAY)` : ``}
@@ -751,7 +757,8 @@ const getMachineMaintenanceList = async (req, res) => {
       const id = item.Machine_Maintenance_Id;
 
       if (!acc.has(id)) {
-        acc.set(id, { ...item, 'Maintenanced by': [item['Maintenanced by']], 'Chamber': JSON.parse(item['Chamber']) });
+        acc.set(id, { ...item, 'Maintenanced by': [item['Maintenanced by']], 'Chamber': JSON.parse(item['Chamber']), 
+          'Available_Stock':!item['Available_Stock']?'0': item['Available_Stock']});
       } else {
         acc.get(id)['Maintenanced by'].push(item['Maintenanced by']);
       }
