@@ -755,8 +755,8 @@ const getMachineMaintenanceList = async (req, res) => {
           MM.Created_On DESC;
       `);
 
-      console.log(groupedData);
-      
+      console.log(data);
+
     const groupedData = data.reduce((acc, item) => {
       const id = item.Machine_Maintenance_Id;
 
