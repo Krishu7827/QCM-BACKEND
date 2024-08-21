@@ -658,7 +658,9 @@ res.send({data});
 
 
 const getMachineMaintenanceList = async (req, res) => {
-  const { MachineMaintenanceId, PersonId, FromDate, ToDate, MachineId} = req.body;
+  const { MachineMaintenanceId, PersonId, reqData} = req.body;
+  
+  const {FromDate, ToDate, MachineId} = reqData;
 
   try {
     let isSuperAdmin = PersonId ? await queryAsync(`
@@ -708,8 +710,27 @@ const getMachineMaintenanceList = async (req, res) => {
           Person P ON P.PersonID = MMR.Created_By
         LEFT JOIN
           Spare_Part_Stock SPS ON SPS.Spare_Part_Id = MM.Spare_Part_Id
-        ${MachineMaintenanceId ?
-          `WHERE MM.Machine_Maintenance_Id = '${MachineMaintenanceId}'` : ``}
+        ${
+          MachineMaintenanceId ?
+          `WHERE MM.Machine_Maintenance_Id = '${MachineMaintenanceId}'` :
+
+          /** if From Date & ToDate & MachineId */
+          FromDate && ToDate && MachineId?
+          `WHERE 
+         MM.Machine_Id = '${MachineId}'
+         AND MM.Created_On BETWEEN '${FromDate} 00:00:00' AND '${ToDate} 23:59:59';`:
+         
+         /** if From Date & ToDate  */
+          FromDate && ToDate?
+          `WHERE
+         AND MM.Created_On BETWEEN '${FromDate} 00:00:00' AND '${ToDate} 23:59:59';`:
+
+         /**if Machine id */
+         MachineId?
+         `WHERE 
+         MM.Machine_Id = '${MachineId}`:
+         ``
+          }
         ORDER BY 
           MM.Created_On DESC;
       `) :
