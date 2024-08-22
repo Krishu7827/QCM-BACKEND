@@ -515,38 +515,41 @@ const getStockList = async(req,res)=>{
  const {FromDate, ToDate, SparePartId} = req.body;
 
   try{
-    let query = `SELECT P.PartyName, SPN.SparePartName, SPN.SpareNumber AS SparePartModelNumber, 
-PO.Voucher_Number, SPI.Machine_Names,
-SPI.Spare_Part_Brand_Name, SPI.Spare_Part_Specification,
-SPI.Quantity_Purchase_Order, SPI.Quantity_Recieved,
-SPI.Unit, SPI.Currency,
-SPI.Price, SPI.Total_Cost,
-SPI.Invoice_Number, SPI.Invoice_Pdf_URL,
-SPI.Available_Stock, Pn.Name,
-SPI.Created_On
-FROM Spare_Part_In SPI
-JOIN PartyName P ON P.PartyNameId = SPI.Party_Id
-JOIN SparePartName SPN ON SPN.SparPartId = SPI.Spare_Part_Id
-JOIN PurchaseOrder PO ON PO.Purchase_Order_Id = SPI.Purchase_Order_Id
-JOIN Person Pn ON Pn.PersonID = SPI.Created_By
-${FromDate && ToDate && SparePartId?
-  `
-  WHERE SPI.Spare_Part_Id = '${SparePartId}' 
-       AND SPI.Created_On >= STR_TO_DATE('${FromDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
-       AND SPI.Created_On <= STR_TO_DATE('${ToDate} 23:59:59', '%Y-%m-%d %H:%i:%s')
-    `:
-  FromDate && ToDate?
-  `
-  WHERE
-       SPI.Created_On >= STR_TO_DATE('${FromDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
-       AND SPI.Created_On <= STR_TO_DATE('${ToDate} 23:59:59', '%Y-%m-%d %H:%i:%s')
-  `:
-  SparePartId?
-  `
-   WHERE SPI.Spare_Part_Id = '${SparePartId}
-  `:``
-}
-ORDER BY SPI.Created_On DESC;`;
+    let query = `
+    SELECT P.PartyName, SPN.SparePartName, SPN.SpareNumber AS SparePartModelNumber, 
+    PO.Voucher_Number, SPI.Machine_Names,
+    SPI.Spare_Part_Brand_Name, SPI.Spare_Part_Specification,
+    SPI.Quantity_Purchase_Order, SPI.Quantity_Recieved,
+    SPI.Unit, SPI.Currency,
+    SPI.Price, SPI.Total_Cost,
+    SPI.Invoice_Number, SPI.Invoice_Pdf_URL,
+    SPI.Available_Stock, Pn.Name,
+    SPI.Created_On
+    FROM Spare_Part_In SPI
+    JOIN PartyName P ON P.PartyNameId = SPI.Party_Id
+    JOIN SparePartName SPN ON SPN.SparPartId = SPI.Spare_Part_Id
+    JOIN PurchaseOrder PO ON PO.Purchase_Order_Id = SPI.Purchase_Order_Id
+    JOIN Person Pn ON Pn.PersonID = SPI.Created_By
+    ${
+      FromDate && ToDate && SparePartId ?
+      `
+      WHERE SPI.Spare_Part_Id = '${SparePartId}' 
+           AND SPI.Created_On >= STR_TO_DATE('${FromDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
+           AND SPI.Created_On <= STR_TO_DATE('${ToDate} 23:59:59', '%Y-%m-%d %H:%i:%s')
+        ` :
+      FromDate && ToDate ?
+      `
+      WHERE
+           SPI.Created_On >= STR_TO_DATE('${FromDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
+           AND SPI.Created_On <= STR_TO_DATE('${ToDate} 23:59:59', '%Y-%m-%d %H:%i:%s')
+      ` :
+      SparePartId ?
+      `
+       WHERE SPI.Spare_Part_Id = '${SparePartId}'
+      ` : ``
+    }
+    ORDER BY SPI.Created_On DESC;`;
+    
 
     let data = await queryAsync(query);
 
