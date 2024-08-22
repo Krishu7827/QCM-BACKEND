@@ -660,9 +660,7 @@ res.send({data});
 const getMachineMaintenanceList = async (req, res) => {
   const { MachineMaintenanceId, PersonId, reqData} = req.body;
 
-  reqData?{FromDate, ToDate, MachineId} = reqData
-  :{FromDate:'', ToDate:'', MachineId:''};
-
+  const {FromDate, ToDate, MachineId} = reqData;
 
   try {
     let isSuperAdmin = PersonId ? await queryAsync(`
