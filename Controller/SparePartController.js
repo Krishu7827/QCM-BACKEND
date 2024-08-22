@@ -675,7 +675,7 @@ const getMachineMaintenanceList = async (req, res) => {
 
 
 
-     console.log(query)
+    // console.log(query)
    // console.log(isSuperAdmin[0]['Designation'])
     let data = isSuperAdmin[0]['Designation'] == 'Super Admin' ?
       await queryAsync(`
