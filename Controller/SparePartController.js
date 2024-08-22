@@ -660,7 +660,9 @@ res.send({data});
 const getMachineMaintenanceList = async (req, res) => {
   const { MachineMaintenanceId, PersonId, reqData} = req.body;
 
-  const {FromDate, ToDate, MachineId} = reqData;
+  reqData?{FromDate, ToDate, MachineId} = reqData
+  :{FromDate:'', ToDate:'', MachineId:''};
+
 
   try {
     let isSuperAdmin = PersonId ? await queryAsync(`
@@ -673,57 +675,7 @@ const getMachineMaintenanceList = async (req, res) => {
     
    isSuperAdmin = isSuperAdmin.length?isSuperAdmin:[{'Designation':''}]
 
-   let query = 
-   `
-   SELECT 
-     MM.Machine_Maintenance_Id,  
-     SPN.SparePartName AS 'Spare Part Name', 
-     SPN.SparPartId AS 'SparePartId',
-     SPN.SpareNumber AS 'Spare Part Model Number', 
-     M.MachineName AS 'Machine Name',
-     M.MachineId,
-     M.MachineModelNumber AS 'Machine Model Number', 
-     MM.Issue,
-     MM.BreakDown_Start_Time AS 'BreakDown Start Time',
-     MM.BreakDown_End_Time AS 'BreakDown End Time',
-     MM.BreakDown_Total_Time AS 'BreakDown Total Time',
-     MM.Quantity AS 'Quantity',
-     MM.Solution_Process AS 'Solution Process',
-     MM.Line,
-     MM.Remark,
-     SPS.Available_Stock,
-     MM.Chamber,
-     MM.Image_URL,
-     MM.Stock_After_Usage AS 'Stock After Usage',
-     P.Name AS 'Maintenanced by',
-     MM.Created_On AS 'Maintenance Date'
- FROM 
-     Machine_Maintenance MM
- LEFT JOIN 
-     SparePartName SPN ON SPN.SparPartId = MM.Spare_Part_Id
- JOIN 
-     Machine M ON M.MachineId = MM.Machine_Id
- JOIN
-     Machine_Maintainer MMR ON MMR.Machine_Maintenance_Id = MM.Machine_Maintenance_Id
- JOIN 
-     Person P ON P.PersonID = MMR.Created_By
- LEFT JOIN
-     Spare_Part_Stock SPS ON SPS.Spare_Part_Id = MM.Spare_Part_Id
- ${
-   MachineMaintenanceId
-     ? `WHERE MM.Machine_Maintenance_Id = '${MachineMaintenanceId}'`
-     : FromDate && ToDate && MachineId
-     ? `WHERE MM.Machine_Id = '${MachineId}' 
-        AND MM.Created_On >= STR_TO_DATE('${FromDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
-        AND MM.Created_On <= STR_TO_DATE('${ToDate} 23:59:59', '%Y-%m-%d %H:%i:%s')`
-     : FromDate && ToDate
-     ? `WHERE MM.Created_On >= STR_TO_DATE('${FromDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
-        AND MM.Created_On <= STR_TO_DATE('${ToDate} 23:59:59', '%Y-%m-%d %H:%i:%s')`
-     : MachineId
-     ? `WHERE MM.Machine_Id = '${MachineId}'`
-     : ``
- }
-     `
+
 
      console.log(query)
    // console.log(isSuperAdmin[0]['Designation'])
