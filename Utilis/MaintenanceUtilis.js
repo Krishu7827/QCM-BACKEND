@@ -394,7 +394,7 @@ const PurchaseOrderPdf = async (Top_Data, ItemsTable, BillingTable, UUID) => {
             ${totalPage == page ?
             BillingTable.map((bill) => {
 
-                return bill.Amount ? `<!----------------- @@@@ Last Row to final QTY and amount @@@@@@@@@@@@@@@@------>
+                return bill.Amount || bill.Bill_Sundry == 'Discount' && Bill_Sundry.Narration || bill.Bill_Sundry == 'Freight' && Bill_Sundry.Narration  ? `<!----------------- @@@@ Last Row to final QTY and amount @@@@@@@@@@@@@@@@------>
                     <tr style="height:20px; font-size:12px; font-weight:bold;">
     <td style="border:0px solid black;" class="serialNo"></td>
     <td style="border:0px solid black; text-align:center;">
