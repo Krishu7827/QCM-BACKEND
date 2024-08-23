@@ -408,7 +408,7 @@ const PurchaseOrderPdf = async (Top_Data, ItemsTable, BillingTable, UUID) => {
         </p>
     </td>
     <td style="border:0px solid black; font-weight:bold;"></td>
-    <td style="border:0px solid black; font-weight:bold; text-align:center;">@ &nbsp; ${bill.Percentage?`${bill.Percentage}%`:''}</td>
+    <td style="border:0px solid black; font-weight:bold; text-align:center;">${bill.Percentage?`@ &nbsp; ${bill.Percentage}%`:''}</td>
     <td style="border:0px solid black; font-weight:bold; word-wrap:break-word; word-break:break-word; text-align:right; font-weight:bold;">
         <span style="margin-right:2px;">${bill.Amount?formatNumberWithCommas(+bill.Amount):''}</span>
     </td>
