@@ -30,7 +30,7 @@ const queryAsync = util.promisify(dbConn.query).bind(dbConn);
 setupSwagger(app);
 
 /** Nodemailer Configuration */
-var transport = nodemailer.createTransport({
+var transport1 = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'stockalert.gautamsolar@gmail.com',
@@ -89,7 +89,7 @@ cron.schedule('1 10 * * *', async () => {
     for (const d of data) {
       try {
         if (Number(d.Available_Stock) < Number(d.MinimumQuantityRequired)) {
-          await transport.sendMail({
+          await transport1.sendMail({
             from: 'stockalert.gautamsolar@gmail.com',
             cc: 'bhanu.galo@gmail.com',
             to: 'nidhi@gautamsolar.com,maintenance@gautamsolar.com',
@@ -210,7 +210,7 @@ let previousDay = `${year}-${month}-${day}`;
   
   const MachineBuffer = await QualityExcelGenerate(uniqueData, previousDay)
 
-  await transport.sendMail({
+  await transport1.sendMail({
     from: 'stockalert.gautamsolar@gmail.com',
     cc: 'bhanu.galo@gmail.com',
     to: 'nidhi@gautamsolar.com,maintenance@gautamsolar.com',
