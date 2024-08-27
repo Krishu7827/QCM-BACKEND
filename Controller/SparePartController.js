@@ -623,7 +623,9 @@ const SparePartOut = async(req, res) => {
     SolutionProcess,
     Remarks,
     Status,
-    Required
+    Required,
+    isSparePartChanged,
+    maintenanceType
   } = req.body;
 
 console.log(req.body)
@@ -645,7 +647,9 @@ console.log(req.body)
         '${CreatedBy}',
         '${Remarks}',
         '${Status}',
-        '${Required}'
+        '${Required}',
+        '${isSparePartChanged}',
+        '${maintenanceType}'
       );
     `);
 
@@ -655,6 +659,7 @@ console.log(req.body)
     res.status(400).send({ err });
   }
 };
+
 
 
 const SparePartStockList = async(req,res)=>{
@@ -679,9 +684,8 @@ res.send({data});
 
 
 const getMachineMaintenanceList = async (req, res) => {
-  const { MachineMaintenanceId, PersonId, reqData} = req.body;
-
-  const {FromDate, ToDate, MachineId} = reqData;
+  const { MachineMaintenanceId, PersonId, reqData } = req.body;
+  const { FromDate, ToDate, MachineId } = reqData;
 
   try {
     let isSuperAdmin = PersonId ? await queryAsync(`
@@ -690,68 +694,63 @@ const getMachineMaintenanceList = async (req, res) => {
       JOIN Designation D ON D.DesignationID = P.Desgination
       JOIN Department DP on DP.DepartmentID = P.Department
       WHERE P.PersonID = '${PersonId}' AND DP.Department = 'Machine Maintenance';
-    `) : [{'Designation':''}];
+    `) : [{'Designation': ''}];
     
-   isSuperAdmin = isSuperAdmin.length?isSuperAdmin:[{'Designation':''}]
+    isSuperAdmin = isSuperAdmin.length ? isSuperAdmin : [{'Designation': ''}];
 
-
-
-    // console.log(query)
-   // console.log(isSuperAdmin[0]['Designation'])
-    let data = isSuperAdmin[0]['Designation'] == 'Super Admin' ?
+    let data = isSuperAdmin[0]['Designation'] === 'Super Admin' ?
       await queryAsync(`
-  SELECT 
-    MM.Machine_Maintenance_Id,  
-    SPN.SparePartName AS 'Spare Part Name', 
-    SPN.SparPartId AS 'SparePartId',
-    SPN.SpareNumber AS 'Spare Part Model Number', 
-    M.MachineName AS 'Machine Name',
-    M.MachineId,
-    M.MachineModelNumber AS 'Machine Model Number', 
-    MM.Issue,
-    MM.BreakDown_Start_Time AS 'BreakDown Start Time',
-    MM.BreakDown_End_Time AS 'BreakDown End Time',
-    MM.BreakDown_Total_Time AS 'BreakDown Total Time',
-    MM.Quantity AS 'Quantity',
-    MM.Solution_Process AS 'Solution Process',
-    MM.Line,
-    MM.Remark,
-    SPS.Available_Stock,
-    MM.Chamber,
-    MM.Image_URL,
-    MM.Stock_After_Usage AS 'Stock After Usage',
-    P.Name AS 'Maintenanced by',
-    MM.Created_On AS 'Maintenance Date'
-FROM 
-    Machine_Maintenance MM
-LEFT JOIN 
-    SparePartName SPN ON SPN.SparPartId = MM.Spare_Part_Id
-JOIN 
-    Machine M ON M.MachineId = MM.Machine_Id
-JOIN
-    Machine_Maintainer MMR ON MMR.Machine_Maintenance_Id = MM.Machine_Maintenance_Id
-JOIN 
-    Person P ON P.PersonID = MMR.Created_By
-LEFT JOIN
-    Spare_Part_Stock SPS ON SPS.Spare_Part_Id = MM.Spare_Part_Id
-${
-  MachineMaintenanceId
-    ? `WHERE MM.Machine_Maintenance_Id = '${MachineMaintenanceId}'`
-    : FromDate && ToDate && MachineId
-    ? `WHERE MM.Machine_Id = '${MachineId}' 
-       AND MM.Created_On >= STR_TO_DATE('${FromDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
-       AND MM.Created_On <= STR_TO_DATE('${ToDate} 23:59:59', '%Y-%m-%d %H:%i:%s')`
-    : FromDate && ToDate
-    ? `WHERE MM.Created_On >= STR_TO_DATE('${FromDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
-       AND MM.Created_On <= STR_TO_DATE('${ToDate} 23:59:59', '%Y-%m-%d %H:%i:%s')`
-    : MachineId
-    ? `WHERE MM.Machine_Id = '${MachineId}'`
-    : ``
-}
-ORDER BY 
-    MM.Created_On DESC;
-
-    `) :
+        SELECT 
+          MM.Machine_Maintenance_Id,  
+          SPN.SparePartName AS 'Spare Part Name', 
+          SPN.SparPartId AS 'SparePartId',
+          SPN.SpareNumber AS 'Spare Part Model Number', 
+          M.MachineName AS 'Machine Name',
+          M.MachineId,
+          M.MachineModelNumber AS 'Machine Model Number', 
+          MM.Issue,
+          MM.BreakDown_Start_Time AS 'BreakDown Start Time',
+          MM.BreakDown_End_Time AS 'BreakDown End Time',
+          MM.BreakDown_Total_Time AS 'BreakDown Total Time',
+          MM.Quantity AS 'Quantity',
+          MM.Solution_Process AS 'Solution Process',
+          MM.Line,
+          MM.Remark,
+          SPS.Available_Stock,
+          MM.Chamber,
+          MM.Image_URL,
+          MM.Stock_After_Usage AS 'Stock After Usage',
+          MM.isSparePartChanged AS 'Is Spare Part Changed',  -- New column
+          MM.maintenanceType AS 'Maintenance Type',  -- New column
+          P.Name AS 'Maintenanced by',
+          MM.Created_On AS 'Maintenance Date'
+        FROM 
+          Machine_Maintenance MM
+        LEFT JOIN 
+          SparePartName SPN ON SPN.SparPartId = MM.Spare_Part_Id
+        JOIN 
+          Machine M ON M.MachineId = MM.Machine_Id
+        JOIN
+          Machine_Maintainer MMR ON MMR.Machine_Maintenance_Id = MM.Machine_Maintenance_Id
+        JOIN 
+          Person P ON P.PersonID = MMR.Created_By
+        LEFT JOIN
+          Spare_Part_Stock SPS ON SPS.Spare_Part_Id = MM.Spare_Part_Id
+        ${MachineMaintenanceId
+          ? `WHERE MM.Machine_Maintenance_Id = '${MachineMaintenanceId}'`
+          : FromDate && ToDate && MachineId
+            ? `WHERE MM.Machine_Id = '${MachineId}' 
+               AND MM.Created_On >= STR_TO_DATE('${FromDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
+               AND MM.Created_On <= STR_TO_DATE('${ToDate} 23:59:59', '%Y-%m-%d %H:%i:%s')`
+            : FromDate && ToDate
+            ? `WHERE MM.Created_On >= STR_TO_DATE('${FromDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
+               AND MM.Created_On <= STR_TO_DATE('${ToDate} 23:59:59', '%Y-%m-%d %H:%i:%s')`
+            : MachineId
+            ? `WHERE MM.Machine_Id = '${MachineId}'`
+            : ``}
+        ORDER BY 
+          MM.Created_On DESC;
+      `) :
       await queryAsync(`
         SELECT 
           MM.Machine_Maintenance_Id,  
@@ -760,7 +759,7 @@ ORDER BY
           SPN.SpareNumber AS 'Spare Part Model Number', 
           M.MachineName AS 'Machine Name',
           M.MachineModelNumber AS 'Machine Model Number',
-          M.MachineId ,
+          M.MachineId,
           M.MachineNumber AS 'Machine Number',
           MM.Issue,
           MM.BreakDown_Start_Time AS 'BreakDown Start Time',
@@ -774,6 +773,8 @@ ORDER BY
           MM.Chamber,
           MM.Image_URL,
           MM.Stock_After_Usage AS 'Stock After Usage',
+           MM.isSparePartChanged AS 'Is Spare Part Changed',  -- New column
+          MM.maintenanceType AS 'Maintenance Type',  -- New column
           P.Name AS 'Maintenanced by',
           MM.Created_On AS 'Maintenance Date'
         FROM 
@@ -796,14 +797,18 @@ ORDER BY
           MM.Created_On DESC;
       `);
 
-     console.log(data);
+    console.log(data);
 
     const groupedData = data.reduce((acc, item) => {
       const id = item.Machine_Maintenance_Id;
 
       if (!acc.has(id)) {
-        acc.set(id, { ...item, 'Maintenanced by': [item['Maintenanced by']], 'Chamber': JSON.parse(item['Chamber']), 
-          'Available_Stock':!item['Available_Stock']?'0': item['Available_Stock']});
+        acc.set(id, { 
+          ...item, 
+          'Maintenanced by': [item['Maintenanced by']], 
+          'Chamber': JSON.parse(item['Chamber']), 
+          'Available_Stock': !item['Available_Stock'] ? '0' : item['Available_Stock']
+        });
       } else {
         acc.get(id)['Maintenanced by'].push(item['Maintenanced by']);
       }
